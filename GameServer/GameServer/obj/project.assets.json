@@ -180,11 +180,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\GameServer\\GameServer\\GameServer.csproj",
+      "projectUniqueName": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\GameServer\\GameServer\\GameServer.csproj",
       "projectName": "GameServer",
-      "projectPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\GameServer\\GameServer\\GameServer.csproj",
+      "projectPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\GameServer\\GameServer\\GameServer.csproj",
       "packagesPath": "C:\\Users\\yoni2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\GameServer\\GameServer\\obj\\",
+      "outputPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\GameServer\\GameServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

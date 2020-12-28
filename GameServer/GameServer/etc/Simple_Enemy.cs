@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Game1
+namespace GameServer
 {
     public class Simple_Enemy
     {
@@ -14,9 +14,9 @@ namespace Game1
 
         private Vector2 _velocity;
 
-        private AnimationManager _animationManager;
+        //private AnimationManager _animationManager;
 
-        private Dictionary<string, Animation> _animations;
+        //private Dictionary<string, Animation> _animations;
 
         private Vector2 _position;
 
@@ -25,28 +25,25 @@ namespace Game1
         private HealthManager _health;
 
         public bool _destroy = false;
-        public Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle((int)_position.X + 15, (int)_position.Y + 15, _animationManager.Animation.Texture.Width / 4 - 30, _animationManager.Animation.Texture.Height - 15);
-            }
-        }
+        //public Rectangle Rectangle
+        //{
+        //    get
+        //    {
+        //        return new Rectangle((int)_position.X + 15, (int)_position.Y + 15, _animationManager.Animation.Texture.Width / 4 - 30, _animationManager.Animation.Texture.Height - 15);
+        //    }
+        //}
 
-        public Simple_Enemy(Dictionary<string, Animation> i_animations, Vector2 position, List<Player> players, int health)
+        public Simple_Enemy(Vector2 position, List<Player> players, int health)
         {
-            _animations = i_animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
             _position = position;
-            _animationManager.Position = _position;
             _players = players;
             _health = new HealthManager(health, position + new Vector2(8, 10));
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _animationManager.Draw(spriteBatch);
-            _health.Draw(spriteBatch);
-        }
+        //public void Draw(SpriteBatch spriteBatch)
+        //{
+        //    _animationManager.Draw(spriteBatch);
+        //    _health.Draw(spriteBatch);
+        //}
 
         public void Move()
         {
@@ -65,61 +62,33 @@ namespace Game1
             else
                 _velocity = new Vector2(0, 0);
         }
-        protected void SetAnimations()
-        {
-            if (_velocity.X > Math.Abs(_velocity.Y))
-            {
-                _animationManager.Play(_animations["WalkRight"]);
-            }
-            else if (-_velocity.X > Math.Abs(_velocity.Y))
-            {
-                _animationManager.Play(_animations["WalkLeft"]);
-            }
-            else if (_velocity.Y > 0)
-            {
-                _animationManager.Play(_animations["WalkDown"]);
-            }
-            else if (_velocity.Y < 0)
-            {
-                _animationManager.Play(_animations["WalkUp"]);
-            }
-            else _animationManager.Stop();
-        }
-
-
 
         public void Update(GameTime gameTime)
         {
             Move();
 
-            SetAnimations();
-
             _velocity = _velocity * _speed;
 
             _position += _velocity;
-
-            _animationManager.Position = _position;
-
-            _animationManager.Update(gameTime);
 
             _velocity = Vector2.Zero;
 
             _health._position = _position + new Vector2(8, 10);
         }
-        public bool isCollision(Bullet other)
-        {
-            if (other.Rectangle.X > Rectangle.X && other.Rectangle.X < Rectangle.X + Rectangle.Width)
-                if (other.Rectangle.Y > Rectangle.Y && other.Rectangle.Y < Rectangle.Y + Rectangle.Height)
-                {
-                    _health._health_left -= 1;
-                    if (_health._health_left <= 0)
-                        _destroy = true;
-                    return true;
-                }
+        //public bool isCollision(Bullet other)
+        //{
+        //    if (other.Rectangle.X > Rectangle.X && other.Rectangle.X < Rectangle.X + Rectangle.Width)
+        //        if (other.Rectangle.Y > Rectangle.Y && other.Rectangle.Y < Rectangle.Y + Rectangle.Height)
+        //        {
+        //            _health._health_left -= 1;
+        //            if (_health._health_left <= 0)
+        //                _destroy = true;
+        //            return true;
+        //        }
 
 
-            return false;
-        }
+        //    return false;
+        //}
 
     }
 }

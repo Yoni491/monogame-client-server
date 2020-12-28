@@ -5,39 +5,33 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 
-namespace Game1
+namespace GameServer
 {
     public class EnemyManager
     {
         private List<Player> _players;
-        private ContentManager _contentManager;
-        private GraphicsDevice _graphicsDevice;
+        //private ContentManager _contentManager;
+        //private GraphicsDevice _graphicsDevice;
         private List<Simple_Enemy> _enemies;
-        private Texture2D _bullet_texture;
+        //private Texture2D _bullet_texture;
         private float _random_enemies_circle_timer = 0;
-        public EnemyManager(List<Player> players, ContentManager contentManager, GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies)
+        public EnemyManager(List<Player> players, List<Simple_Enemy> enemies)
         {
             _players = players;
             _enemies = enemies;
-            _contentManager = contentManager;
-            _graphicsDevice = graphicsDevice;
+            //_contentManager = contentManager;
+            //_graphicsDevice = graphicsDevice;
             
         }
         public void AddEnemy(Vector2 position)
         {
 
-            Texture2D texture = _contentManager.Load<Texture2D>("Patreon sprites 1/1");
-            AddEnemySprite(texture, position);
+            //Texture2D texture = _contentManager.Load<Texture2D>("Patreon sprites 1/1");
+            AddEnemySprite(position);
         }
-        public void AddEnemySprite(Texture2D i_texture, Vector2 i_position)
+        public void AddEnemySprite(Vector2 i_position)
         {
-            _enemies.Add(new Simple_Enemy(new Dictionary<string, Animation>()
-            {
-            { "WalkDown", new Animation(SpriteManager.Resize4x4Sprite(i_texture,0,_graphicsDevice), 4) },
-            { "WalkLeft", new Animation(SpriteManager.Resize4x4Sprite(i_texture,1,_graphicsDevice), 4) },
-            { "WalkRight", new Animation(SpriteManager.Resize4x4Sprite(i_texture,2,_graphicsDevice), 4) },
-            { "WalkUp", new Animation(SpriteManager.Resize4x4Sprite(i_texture,3,_graphicsDevice), 4) },
-            },
+            _enemies.Add(new Simple_Enemy(
             i_position,
             _players,
             100
@@ -47,7 +41,7 @@ namespace Game1
         public void AddEnemiesRandomCircle()
         {
 
-            Vector2 center = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
+            Vector2 center = new Vector2(250, 250);
             Random x = new Random();
             Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;
             AddEnemy(center + random_direction);
@@ -61,10 +55,10 @@ namespace Game1
                 AddEnemiesRandomCircle();
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var sprite in _enemies)
-                sprite.Draw(spriteBatch);
-        }
+        //public void Draw(SpriteBatch spriteBatch)
+        //{
+        //    foreach (var sprite in _enemies)
+        //        sprite.Draw(spriteBatch);
+        //}
     }
 }

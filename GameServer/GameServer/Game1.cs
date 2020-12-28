@@ -5,15 +5,15 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 
-namespace Game1
+namespace GameServer
 {
     public class Game1 : Game
     {
-        public static GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        //public static GraphicsDeviceManager graphics;
+        //private SpriteBatch spriteBatch;
         private List<Player> _players;
         private List<Simple_Enemy> _enemies;
-        private Texture2D _line_texture;
+        //private Texture2D _line_texture;
         private EnemyManager enemyManager;
         private Tile[,] _tiles;
         private TileManager tileManager;
@@ -21,7 +21,6 @@ namespace Game1
         #region Important Functions
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             PlayerIndex.One.GetType();
@@ -31,7 +30,7 @@ namespace Game1
             // TODO: Add your initialization logic here
             //graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
             //graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
-            graphics.ApplyChanges();
+            //graphics.ApplyChanges();
             
             _players = new List<Player>();
             _enemies = new List<Simple_Enemy>();
@@ -40,9 +39,9 @@ namespace Game1
         }
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
             playerManager = new PlayerManager(_players,Content,GraphicsDevice,_enemies);
-            enemyManager = new EnemyManager(_players, Content, GraphicsDevice, _enemies);
+            enemyManager = new EnemyManager(_players, _enemies);
             tileManager = new TileManager(_tiles, GraphicsDevice,Content);
         }
 
@@ -59,40 +58,34 @@ namespace Game1
             _enemies.RemoveAll(enemy => enemy._destroy == true);
             enemyManager.Update(gameTime);
             base.Update(gameTime);
-
-
-
-            
-
-            // If there a controller attached, handle it
             
         }
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+        //protected override void Draw(GameTime gameTime)
+        //{
+        //    GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+        //    spriteBatch.Begin();
 
-            tileManager.Draw(spriteBatch);
-            playerManager.Draw(spriteBatch);
-            enemyManager.Draw(spriteBatch);
+        //    tileManager.Draw(spriteBatch);
+        //    playerManager.Draw(spriteBatch);
+        //    enemyManager.Draw(spriteBatch);
 
-            spriteBatch.End();
+        //    spriteBatch.End();
 
-            base.Draw(gameTime);
-        }
+        //    base.Draw(gameTime);
+        //}
         #endregion
         #region etcFunctions
-        public void DrawLine(Vector2 start, Vector2 end)
-        {
-            _line_texture = Content.Load<Texture2D>("etc/lineSprite");
-            spriteBatch.Draw(_line_texture, start, null, Color.White,
-                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
-                             new Vector2(0f, (float)_line_texture.Height / 2),
-                             new Vector2(Vector2.Distance(start, end), 0.005f),
-                             SpriteEffects.None, 0f);
+        //public void DrawLine(Vector2 start, Vector2 end)
+        //{
+        //    _line_texture = Content.Load<Texture2D>("etc/lineSprite");
+        //    spriteBatch.Draw(_line_texture, start, null, Color.White,
+        //                     (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
+        //                     new Vector2(0f, (float)_line_texture.Height / 2),
+        //                     new Vector2(Vector2.Distance(start, end), 0.005f),
+        //                     SpriteEffects.None, 0f);
 
-        }
+        //}
         #endregion
         #region tiles
         

@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1
+namespace GameServer
 {
     public class Tile
     {
-        private Texture2D _texture;
+        //private Texture2D _texture;
 
         private Vector2 _position;
 
@@ -19,16 +19,16 @@ namespace Game1
 
         private int _height;
 
-        public Tile(int width,int height,Vector2 position,Texture2D texture)
+        public Tile(int width,int height,Vector2 position)
         {
             _width = width;
             _height = height;
             _position = position;
-            _texture = texture;
+            //_texture = texture;
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
-        }
+        //public void Draw(SpriteBatch spriteBatch)
+        //{
+        //    spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+        //}
     }
 }

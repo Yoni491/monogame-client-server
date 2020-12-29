@@ -12,16 +12,12 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameServer
 {
-    public class Program : Game
+    public class Server : Game
     {
-        public static Game1 game;
-        
-        static List<Player> player_list = new List<Player>();
-        static Socket socket;
-        static byte[] buffer = new byte[255];
+        public static Game2 game;
         static void Main()
         {
-            using (game = new Game1())
+            using (game = new Game2())
                 game.Run();
             
 

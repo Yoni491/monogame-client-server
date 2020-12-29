@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace GameServer
 {
-    public class Game1 : Game
+    public class Game2 : Game
     {
         public static GraphicsDeviceManager graphics;
         //private SpriteBatch spriteBatch;
@@ -20,12 +20,13 @@ namespace GameServer
         private Tile[,] _tiles;
         private TileManager tileManager;
         private PlayerManager playerManager;
+        private int playerAmount = 0;
         PacketHandler packetHandler = new PacketHandler();
         Socket socket;
         byte[] buffer = new byte[2000];
         static List<Socket> socket_list = new List<Socket>();
         #region Important Functions
-        public Game1()
+        public Game2()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -70,13 +71,6 @@ namespace GameServer
             Accept();
 
         }
-        private void ConnectCallBack(IAsyncResult result)
-        {
-            if (socket.Connected)
-            {
-                Receive(socket);
-            }
-        }
         private void Accept()
         {
             socket.BeginAccept(AcceptCallBack, null);
@@ -85,19 +79,24 @@ namespace GameServer
         {
             Socket client_socket = socket.EndAccept(result);
             socket_list.Add(client_socket);
+            Player player = new Player(Vector2.Zero,100);
+            _players.Add(player);
+            playerAmount++;
             Accept();
-            Receive(client_socket);
+            Receive(client_socket,player);
         }
-        private void Receive(Socket client_socket)
+        private void Receive(Socket client_socket,Player player)
         {
-            client_socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceivedCallBack, client_socket);
+            client_socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None,ReceivedCallBack,Tuple.Create(client_socket,player));
         }
         private void ReceivedCallBack(IAsyncResult result)
         {
-            Socket client_socket = result.AsyncState as Socket;
+            Tuple<Socket, Player> state = (Tuple<Socket, Player>)result.AsyncState;
+            Socket client_socket = state.Item1;
+            Player player = state.Item2;
             int buffer_size = client_socket.EndReceive(result);
-            packetHandler.Handle(buffer, client_socket);
-            Receive(client_socket);
+            packetHandler.Handle(buffer, client_socket, player);
+            Receive(client_socket,player);
         }
         #endregion
         #region etcFunctions

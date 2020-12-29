@@ -4,12 +4,14 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
+using System.Net;
+using System.Net.Sockets;
 
 namespace GameServer
 {
     public class Game1 : Game
     {
-        //public static GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         //private SpriteBatch spriteBatch;
         private List<Player> _players;
         private List<Simple_Enemy> _enemies;
@@ -18,23 +20,23 @@ namespace GameServer
         private Tile[,] _tiles;
         private TileManager tileManager;
         private PlayerManager playerManager;
+        PacketHandler packetHandler = new PacketHandler();
+        Socket socket;
+        byte[] buffer = new byte[2000];
+        static List<Socket> socket_list = new List<Socket>();
         #region Important Functions
         public Game1()
         {
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             PlayerIndex.One.GetType();
         }
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            //graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
-            //graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
-            //graphics.ApplyChanges();
-            
             _players = new List<Player>();
             _enemies = new List<Simple_Enemy>();
-
+            Initialize_connection();
             base.Initialize();
         }
         protected override void LoadContent()
@@ -60,20 +62,43 @@ namespace GameServer
             base.Update(gameTime);
             
         }
-        //protected override void Draw(GameTime gameTime)
-        //{
-        //    GraphicsDevice.Clear(Color.CornflowerBlue);
+        private void Initialize_connection()
+        {
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.Bind(new IPEndPoint(0, 1994));
+            socket.Listen(0);
+            Accept();
 
-        //    spriteBatch.Begin();
-
-        //    tileManager.Draw(spriteBatch);
-        //    playerManager.Draw(spriteBatch);
-        //    enemyManager.Draw(spriteBatch);
-
-        //    spriteBatch.End();
-
-        //    base.Draw(gameTime);
-        //}
+        }
+        private void ConnectCallBack(IAsyncResult result)
+        {
+            if (socket.Connected)
+            {
+                Receive(socket);
+            }
+        }
+        private void Accept()
+        {
+            socket.BeginAccept(AcceptCallBack, null);
+        }
+        private void AcceptCallBack(IAsyncResult result)
+        {
+            Socket client_socket = socket.EndAccept(result);
+            socket_list.Add(client_socket);
+            Accept();
+            Receive(client_socket);
+        }
+        private void Receive(Socket client_socket)
+        {
+            client_socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceivedCallBack, client_socket);
+        }
+        private void ReceivedCallBack(IAsyncResult result)
+        {
+            Socket client_socket = result.AsyncState as Socket;
+            int buffer_size = client_socket.EndReceive(result);
+            packetHandler.Handle(buffer, client_socket);
+            Receive(client_socket);
+        }
         #endregion
         #region etcFunctions
         //public void DrawLine(Vector2 start, Vector2 end)
@@ -88,7 +113,7 @@ namespace GameServer
         //}
         #endregion
         #region tiles
-        
+
         #endregion
 
     }

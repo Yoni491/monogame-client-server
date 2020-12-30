@@ -10,10 +10,10 @@ namespace GameServer
         private byte[] _buffer;
         public ushort _offset = 0;
 
-        public PacketStructure(ushort length,ushort type)
+        public PacketStructure(ushort type)
         {
-            _buffer = new byte[length];
-            WriteUshort(length);
+            _buffer = new byte[1000];
+            WriteUshort(1000);
             WriteUshort(type);
         }
         public PacketStructure(byte []buffer)

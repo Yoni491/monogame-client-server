@@ -22,7 +22,6 @@ namespace GameServer
             //_contentManager = contentManager;
             //_graphicsDevice = graphicsDevice;
             //_bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            AddPlayers(4);
         }
         public void AddPlayers(int i_amount)
         {

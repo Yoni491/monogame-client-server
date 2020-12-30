@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
-    class HealthManager
+    public class HealthManager
     {
         public int _total_health;
 

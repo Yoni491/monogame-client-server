@@ -20,8 +20,11 @@ namespace GameServer
             switch(packetType)
             {
                 case 1:
-                    Console.WriteLine("hello");
-                    player.Position = new Vector2(packetStructure.ReadFloat(4), packetStructure.ReadFloat(8));
+                    Console.WriteLine("1");
+                    player.Position = new Vector2(packetStructure.ReadFloat(), packetStructure.ReadFloat());
+                    break;
+                case 2:
+                    Console.WriteLine("2");
                     break;
             }
         }

@@ -19,9 +19,9 @@ namespace GameServer
         private EnemyManager _enemyManager;
         private Tile[,] _tiles;
         private TileManager tileManager;
-        private PlayerManager playerManager;
+        private PlayerManager _playerManager;
         private int playerAmount = 0;
-        PacketHandler _packetHandler = new PacketHandler();
+        PacketHandler _packetHandler;
         Socket _socket;
         byte[] _buffer = new byte[2000];
         static List<Socket> _socket_list = new List<Socket>();
@@ -45,9 +45,10 @@ namespace GameServer
         protected override void LoadContent()
         {
             //spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerManager = new PlayerManager(_players,Content,GraphicsDevice,_enemies);
+            _playerManager = new PlayerManager(_players,Content,GraphicsDevice,_enemies);
             _enemyManager = new EnemyManager(_players, _enemies);
             tileManager = new TileManager(_tiles, GraphicsDevice,Content);
+            _packetHandler = new PacketHandler(_players,_playerManager);
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,7 +74,7 @@ namespace GameServer
                 {
                     if (socket.Connected)
                     {
-                        _socket.Send(packet1.Data);
+                        socket.Send(packet1.Data());
                     }
                 }
             }
@@ -87,7 +88,7 @@ namespace GameServer
             //    {
             //        if (socket.Connected)
             //        {
-            //            _socket.Send(packet1.Data);
+            //            _socket.Send(packet1.Data());
             //        }
             //    }
             //}
@@ -111,11 +112,12 @@ namespace GameServer
             Socket client_socket = _socket.EndAccept(result);
             _socket_list.Add(client_socket);
             Player player = new Player(Vector2.Zero,100);
+            _players.Add(player);
             playerAmount++;
             Accept();
             PacketStructure packet = new PacketStructure(10,3);
             packet.WriteInt(player._playerNum);
-            _socket.Send(packet.Data);
+            client_socket.Send(packet.Data());
             Receive(client_socket,player);
         }
         private void Receive(Socket client_socket,Player player)

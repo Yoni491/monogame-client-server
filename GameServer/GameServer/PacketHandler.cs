@@ -11,20 +11,29 @@ namespace GameServer
 {
     public class PacketHandler
     {
+        List<Player> _players;
+        Player _player;
+        PlayerManager _playerManager;
+        public PacketHandler(List<Player> players, PlayerManager playerManager)
+        {
+            _players = players;
+            _playerManager = playerManager;
+        }
         public void Handle(byte[] packet, Socket socket,Player player)
         {
-            ushort packetLength = BitConverter.ToUInt16(packet, 0);
-            ushort packetType = BitConverter.ToUInt16(packet, 2);
             PacketStructure packetStructure = new PacketStructure(packet);
+            ushort packetLength = packetStructure.ReadUShort();
+            ushort packetType = packetStructure.ReadUShort();
             Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-            switch(packetType)
+            switch (packetType)
             {
                 case 1:
                     Console.WriteLine("1");
                     player.Position = new Vector2(packetStructure.ReadFloat(), packetStructure.ReadFloat());
                     break;
-                case 2:
-                    Console.WriteLine("2");
+                case 3:
+                    //first message
+                    _player._playerNum = packetStructure.ReadInt();
                     break;
             }
         }

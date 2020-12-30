@@ -8,7 +8,7 @@ namespace GameServer
     public class PacketStructure
     {
         private byte[] _buffer;
-        private int _offset = 0;
+        public ushort _offset = 0;
 
         public PacketStructure(ushort length,ushort type)
         {
@@ -25,32 +25,33 @@ namespace GameServer
             byte[] tempBuf = new byte[2];
             tempBuf = BitConverter.GetBytes(value);
             Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 2);
+            _offset += 2;
         }
-        public ushort ReadUShort(int offset)
+        public ushort ReadUShort()
         {
             _offset += 2;
-            return BitConverter.ToUInt16(_buffer, offset);
+            return BitConverter.ToUInt16(_buffer, _offset - 2);
         }
         public void WriteUInt(uint value)
         {
-            _offset += 4;
             byte[] tempBuf = new byte[4];
             tempBuf = BitConverter.GetBytes(value);
             Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            _offset += 4;
         }
         public void WriteInt(int value)
         {
-            _offset += 4;
             byte[] tempBuf = new byte[4];
             tempBuf = BitConverter.GetBytes(value);
             Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            _offset += 4;
         }
         public void WriteFloat(float value)
         {
-            _offset += 4;
             byte[] tempBuf = new byte[4];
             tempBuf = BitConverter.GetBytes(value);
             Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            _offset += 4;
         }
         public void WriteVector2(Vector2 value)
         {
@@ -66,12 +67,12 @@ namespace GameServer
         public float ReadFloat()
         {
             _offset += 4;
-            return BitConverter.ToSingle(_buffer, _offset);
+            return BitConverter.ToSingle(_buffer, _offset - 4);
         }
         public int ReadInt()
         {
             _offset += 4;
-            return BitConverter.ToInt32(_buffer, _offset);
+            return BitConverter.ToInt32(_buffer, _offset - 4);
         }
         public string ReadString(int count)
         {
@@ -83,6 +84,17 @@ namespace GameServer
             WriteUshort(length);
             WriteUshort(type);
         }
-        public byte[] Data { get { return _buffer; } }
+        public void UpdatePacketLength()
+        {
+            byte[] tempBuf = new byte[2];
+            tempBuf = BitConverter.GetBytes(_offset);
+            Buffer.BlockCopy(tempBuf, 0, _buffer, 0, 2);
+        }
+        public byte[] Data()
+        {
+            UpdatePacketLength();
+
+            return _buffer;
+        }
     }
 }

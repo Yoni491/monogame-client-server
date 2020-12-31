@@ -40,7 +40,8 @@ namespace GameServer
         }
         public void ReadPacketShort(PacketStructure packet)
         {
-            for (int i = 0; i < packet.ReadInt(); i++)
+            int num = packet.ReadInt();
+            for (int i = 0; i < num; i++)
             {
                 int bullet_num = packet.ReadInt();
                 Bullet bullet = _bullets.Find(bullet => bullet._bulletNumber == bullet_num);
@@ -50,7 +51,7 @@ namespace GameServer
                 }
                 else
                 {
-                    Bullet new_bullet = new Bullet(bullet_num, this, packet.ReadVector2(), packet.ReadVector2());
+                    _bullets.Add(new Bullet(bullet_num, this, packet.ReadVector2(), packet.ReadVector2()));
                 }
             }
         }

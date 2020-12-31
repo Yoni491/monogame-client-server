@@ -12,8 +12,8 @@ namespace GameServer
 
         public PacketStructure(ushort type)
         {
-            _buffer = new byte[10000];
-            WriteUshort(10000);
+            _buffer = new byte[50000];
+            WriteUshort(50000);
             WriteUshort(type);
         }
         public PacketStructure(byte []buffer)

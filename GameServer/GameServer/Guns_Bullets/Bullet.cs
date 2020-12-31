@@ -10,6 +10,9 @@ namespace GameServer
 {
     public class Bullet
     {
+
+        public int _bulletNumber;
+
         private float _speed = 5f;
 
         //public Texture2D _texture;
@@ -34,33 +37,23 @@ namespace GameServer
         //    }
         //}
 
-        public Bullet(Gun gun , Vector2 position, Vector2 direction ,List<Simple_Enemy> enemies)
+        public Bullet(int bulletNumber, Gun gun , Vector2 position, Vector2 direction)
         {
             _gun = gun;
-            //_texture = texture;
             _position = position;
             _direction = Vector2.Normalize(direction);
-            _enemies = enemies;
+            _bulletNumber = bulletNumber;
         }
-        //public void Draw(SpriteBatch spriteBatch)
-        //{
-        //    spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 0.5f, SpriteEffects.FlipHorizontally, 1);             
-        //}
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void readPacketShort(PacketStructure packet)
         {
-            _enemies = enemies;
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer >= 2f)
-            {
-                _destroy = true;
-            }
-            _position += _direction * _speed;
-            //if(_enemies != null)
-                //foreach (var enemy in _enemies)
-                //{
-                //    if(enemy.isCollision(this))
-                //        _destroy = true;
-                //}
+            _position = packet.ReadVector2();
+            _direction = packet.ReadVector2();
+        }
+        public void UpdatePacketShort(PacketStructure packet)
+        {
+            packet.WriteInt(_bulletNumber);
+            packet.WriteVector2(_position);
+            packet.WriteVector2(_direction);
         }
     }
 

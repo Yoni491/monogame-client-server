@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Game1.etc
+namespace GameClient.etc
 {
     class Collections
     {

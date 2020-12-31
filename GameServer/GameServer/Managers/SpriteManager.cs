@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 
-namespace Game1
+namespace GameClient
 {
 
     public static class SpriteManager

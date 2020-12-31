@@ -24,12 +24,12 @@ namespace GameServer
             PacketStructure packetStructure = new PacketStructure(packet);
             ushort packetLength = packetStructure.ReadUShort();
             ushort packetType = packetStructure.ReadUShort();
-            //Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+            Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+            int playerNum;
             switch (packetType)
             {
                 case 1:
                     //short packet from client to server
-                    int playerNum;
                     while (true)
                     {
                         playerNum = packetStructure.ReadInt();
@@ -48,6 +48,11 @@ namespace GameServer
                     break;
                 case 3:
                     //first message containing player number from server
+                    break;
+                case 4:
+                    //long packet from client to server
+                    playerNum = packetStructure.ReadInt();
+                    player._gun._id = packetStructure.ReadInt();
                     break;
             }
         }

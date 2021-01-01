@@ -37,7 +37,7 @@ namespace GameServer
                         if (find_player == null)
                             break;
                         find_player.ReadPacketShort(packetStructure);
-                        if (packetLength == packetStructure._offset)
+                        if (packetLength >= packetStructure._offset)
                         {
                             break;
                         }

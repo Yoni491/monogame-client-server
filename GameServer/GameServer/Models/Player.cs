@@ -46,10 +46,10 @@ namespace GameServer
         {
             _position += _velocity;
 
-            //if (_gun != null)
-            //{
-            //    _gun.Update(gameTime, enemies,_looking_direction);
-            //}
+            if (_gun != null)
+            {
+                _gun.Update(gameTime, enemies, _looking_direction);
+            }
             //_health._position = _position + new Vector2(8, 10);
         }
         public void UpdatePacketShort(PacketStructure packet)

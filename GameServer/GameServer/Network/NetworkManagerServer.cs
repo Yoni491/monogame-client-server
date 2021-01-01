@@ -27,7 +27,7 @@ namespace GameServer
         public void Update(GameTime gameTime)
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer >= 0.5f)
+            if (_timer >= 0.05f)
             {
                 _timer = 0;
                 PacketShort_Server packet1 = new PacketShort_Server(_players);

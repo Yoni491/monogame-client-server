@@ -12,8 +12,8 @@ namespace GameServer
 
         public PacketStructure(ushort type)
         {
-            _buffer = new byte[50000];
-            WriteUshort(50000);
+            _buffer = new byte[10000];
+            WriteUshort(10000);
             WriteUshort(type);
         }
         public PacketStructure(byte []buffer)
@@ -66,11 +66,15 @@ namespace GameServer
         }
         public float ReadFloat()
         {
+            if (_offset >= _buffer.Length)
+                return 0;
             _offset += 4;
             return BitConverter.ToSingle(_buffer, _offset - 4);
         }
         public int ReadInt()
         {
+            if (_offset >= _buffer.Length)
+                return 0;
             _offset += 4;
             return BitConverter.ToInt32(_buffer, _offset - 4);
         }

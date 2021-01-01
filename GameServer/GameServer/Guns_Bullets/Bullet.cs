@@ -29,20 +29,28 @@ namespace GameServer
 
         private List<Simple_Enemy> _enemies;
 
-        //public Rectangle Rectangle
-        //{
-        //    get
-        //    {
-        //        return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
-        //    }
-        //}
-
         public Bullet(int bulletNumber, Gun gun , Vector2 position, Vector2 direction)
         {
             _gun = gun;
             _position = position;
             _direction = Vector2.Normalize(direction);
             _bulletNumber = bulletNumber;
+        }
+        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        {
+            _enemies = enemies;
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer >= 2f)
+            {
+                _destroy = true;
+            }
+            _position += _direction * _speed;
+            //if (_enemies != null)
+            //    foreach (var enemy in _enemies)
+            //    {
+            //        if (enemy.isCollision(this))
+            //            _destroy = true;
+            //    }
         }
         public void readPacketShort(PacketStructure packet)
         {

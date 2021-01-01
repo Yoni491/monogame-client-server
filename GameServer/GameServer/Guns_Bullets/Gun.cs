@@ -32,10 +32,10 @@ namespace GameServer
         {
             //_direction = direction;
             //_enemies = enemies;
-            //foreach (var bullet in _bullets)
-            //{
-            //    bullet.Update(gameTime,_enemies);
-            //}
+            foreach (var bullet in _bullets)
+            {
+                bullet.Update(gameTime, enemies);
+            }
             _bullets.RemoveAll(bullet => bullet._destroy==true);
         }
         public void ReadPacketShort(PacketStructure packet)

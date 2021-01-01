@@ -16,13 +16,16 @@ namespace GameServer
         private List<Player> _players;
         PacketHandlerServer _packetHandler;
         Socket _socket;
-        byte[] _buffer = new byte[2000];
+        byte[] _buffer = new byte[1000];
+        int packetType;
+        PacketShort_Server _packet;
 
         public NetworkManagerServer(List<Socket> socket_list,List<Player> players, PlayerManager playerManager)
         {
             _socket_list = socket_list;
             _players = players;
             _packetHandler = new PacketHandlerServer(_players, playerManager);
+            _packet = new PacketShort_Server(_players);
         }
         public void Update(GameTime gameTime)
         {
@@ -30,12 +33,15 @@ namespace GameServer
             if (_timer >= 0.1f)
             {
                 _timer = 0;
-                PacketShort_Server packet1 = new PacketShort_Server(_players);
                 foreach (var socket in _socket_list)
                 {
+                    _packet.updatePacket();
                     if (socket.Connected)
                     {
-                        socket.Send(packet1.Data());
+                        socket.Send(_packet.Data());
+                        packetType = _packet.ReadUShort();
+                        if(packetType!=0)
+                            Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, _packet.ReadUShort());
                     }
                 }
             }
@@ -74,7 +80,8 @@ namespace GameServer
             Player player = new Player(Vector2.Zero, 100);
             _players.Add(player);
             Accept();
-            PacketStructure packet = new PacketStructure(3);
+            PacketStructure packet = new PacketStructure();
+            packet.UpdateType(3);
             packet.WriteInt(player.PlayerNum);
             client_socket.Send(packet.Data());
             Receive(client_socket, player);

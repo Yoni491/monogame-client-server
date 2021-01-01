@@ -12,21 +12,24 @@ namespace GameServer
     public class PacketHandlerServer
     {
         List<Player> _players;
-        Player _player;
         PlayerManager _playerManager;
+        PacketStructure _packetStructure;
+        ushort packetLength;
+        ushort packetType;
+        int playerNum;
         public PacketHandlerServer(List<Player> players, PlayerManager playerManager)
         {
             _players = players;
             _playerManager = playerManager;
+            _packetStructure = new PacketStructure();
         }
-        public void Handle(byte[] packet, Socket socket,Player player)
+        public void Handle(byte[] buffer, Socket socket, Player player)
         {
-            PacketStructure packetStructure = new PacketStructure(packet);
-            ushort packetLength = packetStructure.ReadUShort();
-            ushort packetType = packetStructure.ReadUShort();
+            _packetStructure.updateBuffer(buffer);
+            packetLength = _packetStructure.ReadUShort();
+            packetType = _packetStructure.ReadUShort();
             if (packetType != 0)
                 Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-            int playerNum;
             switch (packetType)
             {
                 case 0:
@@ -35,12 +38,12 @@ namespace GameServer
                     //short packet from client to server
                     while (true)
                     {
-                        playerNum = packetStructure.ReadInt();
+                        playerNum = _packetStructure.ReadInt();
                         Player find_player = _players.Find(x => x.PlayerNum == playerNum);
                         if (find_player == null)
                             break;
-                        find_player.ReadPacketShort(packetStructure);
-                        if (packetLength == packetStructure._offset)
+                        find_player.ReadPacketShort(_packetStructure);
+                        if (packetLength == _packetStructure._offset)
                         {
                             break;
                         }
@@ -54,11 +57,12 @@ namespace GameServer
                     break;
                 case 4:
                     //long packet from client to server
-                    playerNum = packetStructure.ReadInt();
-                    player._gun._id = packetStructure.ReadInt();
+                    playerNum = _packetStructure.ReadInt();
+                    player._gun._id = _packetStructure.ReadInt();
                     break;
                     
             }
+            _packetStructure._offset = 0;
         }
     }
 }

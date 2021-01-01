@@ -7,24 +7,21 @@ namespace GameServer
 {
     public class PacketStructure
     {
-        private byte[] _buffer;
+        private byte[] _buffer = new byte[1000];
         public ushort _offset = 0;
 
-        public PacketStructure(ushort type)
+        public PacketStructure()
         {
-            _buffer = new byte[10000];
-            WriteUshort(10000);
-            WriteUshort(type);
+
         }
-        public PacketStructure(byte []buffer)
+
+        public void updateBuffer(byte[] buffer)
         {
             _buffer = buffer;
         }
         public void WriteUshort(ushort value)
         {
-            byte[] tempBuf = new byte[2];
-            tempBuf = BitConverter.GetBytes(value);
-            Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 2);
+            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 2);
             _offset += 2;
         }
         public ushort ReadUShort()
@@ -34,23 +31,17 @@ namespace GameServer
         }
         public void WriteUInt(uint value)
         {
-            byte[] tempBuf = new byte[4];
-            tempBuf = BitConverter.GetBytes(value);
-            Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
             _offset += 4;
         }
         public void WriteInt(int value)
         {
-            byte[] tempBuf = new byte[4];
-            tempBuf = BitConverter.GetBytes(value);
-            Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
             _offset += 4;
         }
         public void WriteFloat(float value)
         {
-            byte[] tempBuf = new byte[4];
-            tempBuf = BitConverter.GetBytes(value);
-            Buffer.BlockCopy(tempBuf, 0, _buffer, _offset, 4);
+            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
             _offset += 4;
         }
         public void WriteVector2(Vector2 value)
@@ -62,7 +53,7 @@ namespace GameServer
         {
             float x = ReadFloat();
             float y = ReadFloat();
-            return new Vector2(x,y);
+            return new Vector2(x, y);
         }
         public float ReadFloat()
         {
@@ -90,14 +81,17 @@ namespace GameServer
         }
         public void UpdatePacketLength()
         {
-            byte[] tempBuf = new byte[2];
-            tempBuf = BitConverter.GetBytes(_offset);
-            Buffer.BlockCopy(tempBuf, 0, _buffer, 0, 2);
+            Buffer.BlockCopy(BitConverter.GetBytes(_offset), 0, _buffer, 0, 2);
+        }
+        public void UpdateType(ushort type)
+        {
+            Buffer.BlockCopy(BitConverter.GetBytes(type), 0, _buffer, 2, 2);
+            _offset = 4;
         }
         public byte[] Data()
         {
             UpdatePacketLength();
-
+            _offset = 0;
             return _buffer;
         }
     }

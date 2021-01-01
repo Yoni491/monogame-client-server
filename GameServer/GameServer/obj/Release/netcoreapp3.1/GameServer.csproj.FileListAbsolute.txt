@@ -20,3 +20,4 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.genruntimeconfig.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.csprojAssemblyReference.cache

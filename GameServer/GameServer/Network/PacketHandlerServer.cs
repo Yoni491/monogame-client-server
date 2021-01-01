@@ -24,10 +24,13 @@ namespace GameServer
             PacketStructure packetStructure = new PacketStructure(packet);
             ushort packetLength = packetStructure.ReadUShort();
             ushort packetType = packetStructure.ReadUShort();
-            Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+            if (packetType != 0)
+                Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
             int playerNum;
             switch (packetType)
             {
+                case 0:
+                    break;
                 case 1:
                     //short packet from client to server
                     while (true)
@@ -37,7 +40,7 @@ namespace GameServer
                         if (find_player == null)
                             break;
                         find_player.ReadPacketShort(packetStructure);
-                        if (packetLength >= packetStructure._offset)
+                        if (packetLength == packetStructure._offset)
                         {
                             break;
                         }
@@ -54,6 +57,7 @@ namespace GameServer
                     playerNum = packetStructure.ReadInt();
                     player._gun._id = packetStructure.ReadInt();
                     break;
+                    
             }
         }
     }

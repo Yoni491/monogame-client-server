@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace GameServer
 {
     public class Bullet
@@ -29,7 +23,7 @@ namespace GameServer
 
         private List<Simple_Enemy> _enemies;
 
-        public Bullet(int bulletNumber, Gun gun , Vector2 position, Vector2 direction)
+        public Bullet(int bulletNumber, Gun gun, Vector2 position, Vector2 direction)
         {
             _gun = gun;
             _position = position;

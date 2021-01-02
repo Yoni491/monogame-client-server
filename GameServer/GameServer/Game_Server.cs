@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
-using System.Net;
 using System.Net.Sockets;
 
 namespace GameServer
@@ -21,7 +17,7 @@ namespace GameServer
         private TileManager tileManager;
         private PlayerManager _playerManager;
         private NetworkManagerServer _networkManager;
-        
+
         static List<Socket> _socket_list = new List<Socket>();
         #region Important Functions
         public Game_Server()
@@ -40,10 +36,10 @@ namespace GameServer
             _players = new List<Player>();
             _enemies = new List<Simple_Enemy>();
             //spriteBatch = new SpriteBatch(GraphicsDevice);
-            _playerManager = new PlayerManager(_players,Content,GraphicsDevice,_enemies);
+            _playerManager = new PlayerManager(_players, Content, GraphicsDevice, _enemies);
             _enemyManager = new EnemyManager(_players, _enemies);
-            tileManager = new TileManager(_tiles, GraphicsDevice,Content);
-            _networkManager = new NetworkManagerServer(_socket_list,_players,_playerManager);
+            tileManager = new TileManager(_tiles, GraphicsDevice, Content);
+            _networkManager = new NetworkManagerServer(_socket_list, _players, _playerManager);
             _networkManager.Initialize_connection();
         }
 
@@ -52,7 +48,7 @@ namespace GameServer
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             foreach (var player in _players)
-                player.Update(gameTime,_enemies);
+                player.Update(gameTime, _enemies);
             foreach (var enemy in _enemies)
             {
                 enemy.Update(gameTime);
@@ -63,7 +59,7 @@ namespace GameServer
             _networkManager.Update(gameTime);
 
         }
-        
+
         #endregion
         #region etcFunctions
         //public void DrawLine(Vector2 start, Vector2 end)

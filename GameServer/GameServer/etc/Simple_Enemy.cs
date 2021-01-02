@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace GameServer
 {
     public class Simple_Enemy
@@ -48,7 +42,7 @@ namespace GameServer
         public void Move()
         {
             float closest_object_distance = float.MaxValue;
-            if(_players!=null)
+            if (_players != null)
                 foreach (var player in _players)
                 {
                     if (Vector2.Distance(_position, player.Position) < closest_object_distance)

@@ -1,11 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameServer
 {
@@ -24,7 +17,7 @@ namespace GameServer
         //private int healthbar_width = 30;
 
 
-        public HealthManager(int total_health,Vector2 position)
+        public HealthManager(int total_health, Vector2 position)
         {
             _total_health = total_health;
             _health_left = total_health;

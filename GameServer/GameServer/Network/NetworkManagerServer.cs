@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
 using System.Net;
 using System.Net.Sockets;
 
@@ -14,18 +11,21 @@ namespace GameServer
         float _timer = 0;
         static List<Socket> _socket_list;
         private List<Player> _players;
-        PacketHandlerServer _packetHandler;
         Socket _socket;
-        byte[] _buffer = new byte[1000];
+        byte[] _buffer = new byte[10000];
         int packetType;
         PacketShort_Server _packet;
+        PlayerManager _playerManager;
+        List<PacketHandlerServer> _packetHandlers;
+        int numOfPlayer = 0;
 
-        public NetworkManagerServer(List<Socket> socket_list,List<Player> players, PlayerManager playerManager)
+        public NetworkManagerServer(List<Socket> socket_list, List<Player> players, PlayerManager playerManager)
         {
             _socket_list = socket_list;
             _players = players;
-            _packetHandler = new PacketHandlerServer(_players, playerManager);
             _packet = new PacketShort_Server(_players);
+            _playerManager = playerManager;
+            _packetHandlers = new List<PacketHandlerServer>();
         }
         public void Update(GameTime gameTime)
         {
@@ -40,10 +40,14 @@ namespace GameServer
                     {
                         socket.Send(_packet.Data());
                         packetType = _packet.ReadUShort();
-                        if(packetType!=0)
+                        if (packetType != 0)
                             Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, _packet.ReadUShort());
                     }
                 }
+            }
+            for (int i = 0; i < numOfPlayer; i++)
+            {
+                _packetHandlers[i].Update();
             }
             //_timer2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //if (_timer2 >= 1f)
@@ -79,25 +83,28 @@ namespace GameServer
             _socket_list.Add(client_socket);
             Player player = new Player(Vector2.Zero, 100);
             _players.Add(player);
+            PacketHandlerServer packetHandler = new PacketHandlerServer(_players, _playerManager, player);
             Accept();
+            _packetHandlers.Add(packetHandler);
+            numOfPlayer++;
             PacketStructure packet = new PacketStructure();
             packet.UpdateType(3);
             packet.WriteInt(player.PlayerNum);
             client_socket.Send(packet.Data());
-            Receive(client_socket, player);
+            Receive(client_socket, packetHandler);
         }
-        private void Receive(Socket client_socket, Player player)
+        private void Receive(Socket client_socket, PacketHandlerServer packetHandlerServer)
         {
-            client_socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceivedCallBack, Tuple.Create(client_socket, player));
+            client_socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceivedCallBack, Tuple.Create(client_socket, packetHandlerServer));
         }
         private void ReceivedCallBack(IAsyncResult result)
         {
-            Tuple<Socket, Player> state = (Tuple<Socket, Player>)result.AsyncState;
+            Tuple<Socket,  PacketHandlerServer> state = (Tuple<Socket, PacketHandlerServer>)result.AsyncState;
             Socket client_socket = state.Item1;
-            Player player = state.Item2;
+            PacketHandlerServer packetHandlerServer = state.Item2;
             int buffer_size = client_socket.EndReceive(result);
-            _packetHandler.Handle(_buffer, client_socket, player);
-            Receive(client_socket, player);
+            packetHandlerServer.Handle(_buffer);
+            Receive(client_socket, packetHandlerServer);
         }
     }
 }

@@ -1,11 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameServer
 {
@@ -19,7 +12,7 @@ namespace GameServer
 
         private int _height;
 
-        public Tile(int width,int height,Vector2 position)
+        public Tile(int width, int height, Vector2 position)
         {
             _width = width;
             _height = height;

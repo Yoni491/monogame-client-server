@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameServer
 {
@@ -23,12 +17,12 @@ namespace GameServer
 
         public Vector2 Position { get => _position; set => _position = value; }
 
-        public Gun(Vector2 position,int id)
+        public Gun(Vector2 position, int id)
         {
             _position = position;
             _id = id;
         }
-        public void Update(GameTime gameTime,List<Simple_Enemy> enemies,Vector2 direction)
+        public void Update(GameTime gameTime, List<Simple_Enemy> enemies, Vector2 direction)
         {
             //_direction = direction;
             //_enemies = enemies;
@@ -36,7 +30,7 @@ namespace GameServer
             {
                 bullet.Update(gameTime, enemies);
             }
-            _bullets.RemoveAll(bullet => bullet._destroy==true);
+            _bullets.RemoveAll(bullet => bullet._destroy == true);
         }
         public void ReadPacketShort(PacketStructure packet)
         {
@@ -61,6 +55,6 @@ namespace GameServer
             {
                 bullet.UpdatePacketShort(packet);
             }
-        }        
+        }
     }
 }

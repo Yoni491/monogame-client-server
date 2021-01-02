@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace GameServer
 {
     public class PacketStructure
     {
-        private byte[] _buffer = new byte[1000];
+        private byte[] _buffer = new byte[10000];
         public ushort _offset = 0;
 
         public PacketStructure()

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameServer
 {
@@ -30,10 +25,10 @@ namespace GameServer
         public Vector2 Position { get => _position; set => _position = value; }
         public int PlayerNum { get => playerNum1; set => playerNum1 = value; }
 
-        public Player(Vector2 position , int health)
+        public Player(Vector2 position, int health)
         {
             _position = position;
-            _health = new HealthManager(health,position +new Vector2(8,10));
+            _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
             PlayerNum = playerNum++;
             _gun = new Gun(position, 3);
@@ -42,7 +37,7 @@ namespace GameServer
         {
             _gun = gun;
         }
-        public void Update(GameTime gameTime,List<Simple_Enemy> enemies)
+        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
             _position += _velocity;
 

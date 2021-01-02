@@ -1,16 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
 
 namespace GameClient
 {
 
     public static class SpriteManager
     {
-        static public Texture2D Resize4x4Sprite(Texture2D texture, int x,GraphicsDevice graphicsDevice)
+        static public Texture2D Resize4x4Sprite(Texture2D texture, int x, GraphicsDevice graphicsDevice)
         {
             Rectangle newBounds = texture.Bounds;
             newBounds.Y = (texture.Height / 4) * x;
@@ -21,7 +17,7 @@ namespace GameClient
             croppedTexture.SetData(data);
             return croppedTexture;
         }
-        static public Texture2D GetTextureSqaure(Texture2D texture, GraphicsDevice graphicsDevice,int height, int width, int row,int column)
+        static public Texture2D GetTextureSqaure(Texture2D texture, GraphicsDevice graphicsDevice, int height, int width, int row, int column)
         {
             Rectangle newBounds = texture.Bounds;
             newBounds.Height = (texture.Height / height);

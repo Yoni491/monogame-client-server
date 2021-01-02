@@ -56,7 +56,7 @@ namespace GameServer
             }
             addPlayers -= tempPlayers;
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)
+            if (_timer_short >= 1f)
             {
                 _timer_short = 0;
                 foreach (var player in _players)
@@ -76,21 +76,21 @@ namespace GameServer
                 _packetHandlers[i].Update();
             }
             _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //if (_timer_long >= 1f)
-            //{
-            //    _timer_long = 0;
-            //    foreach (var player in _players)
-            //    {
-            //        if (player._socket.Connected)
-            //        {
-            //            player._longPacket.UpdatePacket();
-            //            player._socket.Send(player._longPacket.Data());
-            //            packetType = player._longPacket.ReadUShort();
-            //            if (packetType != 0)
-            //                Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, player._longPacket.ReadUShort());
-            //        }
-            //    }
-            //}
+            if (_timer_long >= 1.5f)
+            {
+                _timer_long = 0;
+                foreach (var player in _players)
+                {
+                    if (player._socket.Connected)
+                    {
+                        player._longPacket.UpdatePacket();
+                        player._socket.Send(player._longPacket.Data());
+                        packetType = player._longPacket.ReadUShort();
+                        if (packetType != 0)
+                            Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, player._longPacket.ReadUShort());
+                    }
+                }
+            }
 
         }
         public void Initialize_connection()

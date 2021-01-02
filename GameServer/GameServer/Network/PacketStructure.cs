@@ -16,7 +16,7 @@ namespace GameServer
 
         public void updateBuffer(byte[] buffer)
         {
-            _buffer = buffer;
+            buffer.CopyTo(_buffer, 0);
         }
         public void WriteUshort(ushort value)
         {
@@ -90,6 +90,11 @@ namespace GameServer
         public byte[] Data()
         {
             UpdatePacketLength();
+            Console.WriteLine("buffer array:");
+            for (int i = 0; i < _offset; i++)
+            {
+                Console.Write(_buffer[i]);
+            }
             _offset = 0;
             return _buffer;
         }

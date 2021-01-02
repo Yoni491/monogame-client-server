@@ -14,9 +14,7 @@ namespace GameServer
         private List<Player> _players;
         Socket _socketServer;
         private List<byte> _bufferList;
-        //byte[] _buffer = new byte[10000];
         int packetType;
-        //PacketShort_Server _packet;
         PlayerManager _playerManager;
         List<PacketHandlerServer> _packetHandlers;
         int numOfPlayer = 0;
@@ -27,8 +25,6 @@ namespace GameServer
         {
             _socket_list = socket_list;
             _players = players;
-            //_packet = new PacketShort_Server(_players);
-            //_packet_long = new PacketLong_Server();
             _playerManager = playerManager;
             _packetHandlers = new List<PacketHandlerServer>();
             _socketToAdd = new List<Socket>();
@@ -56,7 +52,7 @@ namespace GameServer
             }
             addPlayers -= tempPlayers;
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 1f)
+            if (_timer_short >= 0.1f)
             {
                 _timer_short = 0;
                 foreach (var player in _players)

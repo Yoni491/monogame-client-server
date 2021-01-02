@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 
 namespace GameServer
 {
@@ -22,16 +23,24 @@ namespace GameServer
 
         private Vector2 _looking_direction;
 
+        public Socket _socket;
+
+        public PacketLong_Server _longPacket;
+
+        public PacketShort_Server _shortPacket; 
         public Vector2 Position { get => _position; set => _position = value; }
         public int PlayerNum { get => playerNum1; set => playerNum1 = value; }
 
-        public Player(Vector2 position, int health)
+        public Player(Vector2 position, int health, Socket socket, List<Player> players)
         {
             _position = position;
             _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
             PlayerNum = playerNum++;
             _gun = new Gun(position, 3);
+            _socket = socket;
+            _shortPacket = new PacketShort_Server(players);
+            _longPacket = new PacketLong_Server(players, this);
         }
         public void EquipGun(Gun gun)
         {

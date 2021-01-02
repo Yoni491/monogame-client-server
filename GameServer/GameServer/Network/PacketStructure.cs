@@ -57,14 +57,14 @@ namespace GameServer
         public float ReadFloat()
         {
             if (_offset >= _buffer.Length)
-                return 0;
+                return -1;
             _offset += 4;
             return BitConverter.ToSingle(_buffer, _offset - 4);
         }
         public int ReadInt()
         {
             if (_offset >= _buffer.Length)
-                return 0;
+                return -1;
             _offset += 4;
             return BitConverter.ToInt32(_buffer, _offset - 4);
         }

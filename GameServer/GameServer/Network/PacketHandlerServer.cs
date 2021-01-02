@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace GameServer
 {
@@ -13,6 +14,7 @@ namespace GameServer
         ushort packetType;
         int playerNum;
         private bool handle = false;
+        private int usingResource = 0;
         private Player _player;
         public PacketHandlerServer(List<Player> players, PlayerManager playerManager, Player player)
         {
@@ -23,11 +25,13 @@ namespace GameServer
         }
         public void Handle(byte[] buffer)
         {
-            if (!handle)
+            if (0 == Interlocked.Exchange(ref usingResource, 1))
             {
                 _packetStructure.updateBuffer(buffer);
                 packetLength = _packetStructure.ReadUShort();
                 packetType = _packetStructure.ReadUShort();
+                if (packetType != 0)
+                    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 handle = true;
             }
 
@@ -36,8 +40,6 @@ namespace GameServer
         {
             if (handle)
             {
-                if (packetType != 0)
-                    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 switch (packetType)
                 {
                     case 0:
@@ -47,6 +49,8 @@ namespace GameServer
                         while (true)
                         {
                             playerNum = _packetStructure.ReadInt();
+                            if (playerNum == 1)
+                                Console.WriteLine("1");
                             Player find_player = _players.Find(x => x.PlayerNum == playerNum);
                             if (find_player == null)
                                 break;
@@ -61,7 +65,7 @@ namespace GameServer
                         //short packet from client to server
                         break;
                     case 3:
-                        //first message containing player number from server
+                        //long packet containing player number from server
                         break;
                     case 4:
                         //long packet from client to server
@@ -72,6 +76,7 @@ namespace GameServer
                 }
                 _packetStructure._offset = 0;
                 handle = false;
+                Interlocked.Exchange(ref usingResource, 0);
             }
         }
     }

@@ -5,17 +5,17 @@ namespace GameServer
     public class PacketLong_Server : PacketStructure
     {
         List<Player> _players;
-        public PacketLong_Server(List<Player> players) : base()
+        Player _player;
+        public PacketLong_Server(List<Player> players, Player player) : base()
         {
-            UpdateType(5);
+            UpdateType(3);
             _players = players;
+            _player = player;
         }
-        public void UpdatePacketPlayers()
+        public void UpdatePacket()
         {
-            foreach (var player in _players)
-            {
-                player.UpdatePacketShort(this);
-            }
+            WriteInt(_player.PlayerNum);
         }
+
     }
 }

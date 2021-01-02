@@ -10,7 +10,7 @@ namespace GameServer
             _players = players;
             base.UpdateType(2);
         }
-        public void updatePacket()
+        public void UpdatePacket()
         {
             foreach (var player in _players)
             {

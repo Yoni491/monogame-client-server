@@ -1,0 +1,60 @@
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\etc\bullet.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\etc\lineSprite.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\man.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\1.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\10.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\11.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\12.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\13.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\14.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\15.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\16.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\17.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\18.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\19.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\2.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\20.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\21.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\22.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\23.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\24.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\25.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\3.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\4.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\5.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\6.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\7.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\8.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\9.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\sprite.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\tiles\tf_A2_ashlands_1.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\walk.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\1.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\2.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\3.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\4.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\5.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.exe
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.deps.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.runtimeconfig.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.runtimeconfig.dev.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\GameClient.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\MonoGame.Framework.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\osx\native\libSDL2-2.0.0.dylib
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\osx\native\libopenal.1.dylib
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\win-x64\native\SDL2.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.AssemblyInfoInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.AssemblyInfo.cs
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.csproj.CopyComplete
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.genruntimeconfig.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\obj\Release\netcoreapp3.1\GameClient.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Towers\AttackTower.xnb

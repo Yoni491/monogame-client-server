@@ -32,7 +32,7 @@ namespace GameClient
                 for (int j = 0; j < tile_height_amount; j++)
                 {
                     _floorTiles[i, j] = new Tile(tilesDistribution, tilesDistribution, new Vector2(i * tilesDistribution, j * tilesDistribution),
-                        SpriteManager.GetTextureSqaure(_contentManager.Load<Texture2D>("tiles/tf_A2_ashlands_1"), _graphicDevice, 3, 10, 0, 0));
+                        SpriteManager.GetTextureSqaure(_contentManager.Load<Texture2D>("tiles/tf_A2_ashlands_1"), 3, 10, 0, 0));
                 }
 
             }

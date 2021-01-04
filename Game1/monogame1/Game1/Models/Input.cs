@@ -5,13 +5,11 @@ namespace GameClient
 {
     public class Input
     {
-        public Keys Down { get; set; }
-
-        public Keys Left { get; set; }
-
-        public Keys Right { get; set; }
-
-        public Keys Up { get; set; }
+        public Keys _down;
+        public Keys _left;
+        public Keys _right;
+        public Keys _up;
+        public Keys _pick;
 
         public Vector2 _left_joystick_direction;
 
@@ -22,6 +20,14 @@ namespace GameClient
 
         GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
+        public Input(Keys up, Keys down,Keys left, Keys right, Keys pick)
+        {
+            _down = down;
+            _left = left;
+            _right = right;
+            _up = up;
+            _pick = pick;
+        }
         public void Update()
         {
 

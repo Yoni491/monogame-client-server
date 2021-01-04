@@ -25,7 +25,7 @@ namespace GameClient
 
         private List<Simple_Enemy> _enemies;
 
-        private Bullet _bullet;
+        public Bullet _bullet;
         public Vector2 Position { get => _position; set => _position = value; }
 
         public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet)
@@ -92,13 +92,13 @@ namespace GameClient
                 }
                 else
                 {
-                    _bullets.Add(new Bullet(_bullet._collection_id, this, _bullet._texture, packet.ReadVector2(), packet.ReadVector2(), _enemies, _bullet._speed, bullet_num));
+                    _bullets.Add(new Bullet(_bullet._collection_id, this, _bullet._texture, packet.ReadVector2(), packet.ReadVector2(), _enemies, _bullet._speed, bullet_num,_bullet._shootingTimer));
                 }
             }
         }
         public void Shot()
         {
-            Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1);
+            Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1, _bullet._shootingTimer);
             _bullets.Add(bullet);
         }
     }

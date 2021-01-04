@@ -22,6 +22,7 @@ namespace GameClient
         public CollectionManager _collectionManager;
         private NetworkManagerClient _networkManager;
         private InventoryManager _inventoryManager;
+        private ItemManager _itemManager;
         float _timer = 0;
         #region Important Functions
         public Game_Client()
@@ -45,14 +46,16 @@ namespace GameClient
             _other_players = new List<OtherPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collectionManager = new CollectionManager(_enemies, Content);
-            _playerManager = new PlayerManager(_other_players, Content, GraphicsDevice, _enemies, _collectionManager);
-            _enemyManager = new EnemyManager(_other_players, Content, GraphicsDevice, _enemies);
+            _itemManager = new ItemManager(_collectionManager);
+            _playerManager = new PlayerManager(_other_players, Content, GraphicsDevice, _collectionManager);
+            _enemyManager = new EnemyManager(GraphicsDevice, _enemies,_collectionManager);
             _tileManager = new TileManager(_tiles, GraphicsDevice, Content);
-            _player = _playerManager.AddPlayer();
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
             _tileManager.AddTowerTile(new Vector2(200,200));
-            _inventoryManager = new InventoryManager(GraphicsDevice);
+            _inventoryManager = new InventoryManager(GraphicsDevice,_itemManager);
+            _collectionManager.Initialize(_playerManager, _itemManager);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager);
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,12 +63,6 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            foreach (var player in _other_players)
-                player.Update(gameTime, _enemies);
-            foreach (var enemy in _enemies)
-            {
-                enemy.Update(gameTime);
-            }
             _enemies.RemoveAll(enemy => enemy._destroy == true);
             _enemyManager.Update(gameTime);
             _playerManager.Update(gameTime, _enemies);
@@ -83,6 +80,7 @@ namespace GameClient
             _playerManager.Draw(_spriteBatch);
             _enemyManager.Draw(_spriteBatch);
             _inventoryManager.Draw(_spriteBatch);
+            _itemManager.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

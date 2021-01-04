@@ -11,6 +11,7 @@ namespace GameClient
         public Vector2 Position { get; set; }
         public Animation Animation { get => _animation; set => _animation = value; }
 
+        
         public AnimationManager(Animation animation)
         {
             _animation = animation;
@@ -45,6 +46,10 @@ namespace GameClient
                 if (_animation.CurrentFrame >= _animation.FrameCount)
                     _animation.CurrentFrame = 0;
             }
+        }
+        public Vector2 getAnimationPickPosition()
+        {
+            return new Vector2(_animation.FrameWidth / 2, _animation.FrameHeight);
         }
     }
 }

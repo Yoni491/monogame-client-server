@@ -7,6 +7,7 @@ namespace GameClient
 {
     public class Simple_Enemy
     {
+        int _id;
         private float _speed = 1f;
 
         private Vector2 _velocity;
@@ -15,13 +16,17 @@ namespace GameClient
 
         private Dictionary<string, Animation> _animations;
 
-        private Vector2 _position;
+        public Vector2 _position;
 
-        private List<Player> _players;
+        private PlayerManager _playerManager;
 
         private HealthManager _health;
 
+        private int []_items_drop_list;
+
         public bool _destroy = false;
+
+        private ItemManager _itemManager;
         public Rectangle Rectangle
         {
             get
@@ -30,35 +35,29 @@ namespace GameClient
             }
         }
 
-        public Simple_Enemy(Dictionary<string, Animation> i_animations, Vector2 position, List<Player> players, int health)
+        public Simple_Enemy(Dictionary<string, Animation> i_animations, int id,Vector2 position, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list)
         {
+            _id = 0;
             _animations = i_animations;
             _animationManager = new AnimationManager(_animations.First().Value);
             _position = position;
             _animationManager.Position = _position;
-            _players = players;
+            _playerManager = playerManager;
             _health = new HealthManager(health, position + new Vector2(8, 10));
+            _items_drop_list = items_drop_list;
+            _itemManager = itemManager;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-            _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
+            _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
         }
 
         public void Move()
         {
-            float closest_object_distance = float.MaxValue;
-            if (_players != null)
-                foreach (var player in _players)
-                {
-                    if (Vector2.Distance(_position, player.Position) < closest_object_distance)
-                    {
-                        closest_object_distance = Vector2.Distance(_position, player.Position);
-                        _velocity = player.Position - _position;
-                    }
-                }
-            if (closest_object_distance > 35)
-                _velocity = Vector2.Normalize(_velocity);
+            Vector2 closest_player = _playerManager.getClosestPlayerToPosition(_position);
+            if (Vector2.Distance(closest_player,_position) > 35)
+                _velocity = Vector2.Normalize(closest_player - _position);
             else
                 _velocity = new Vector2(0, 0);
         }
@@ -82,8 +81,6 @@ namespace GameClient
             }
             else _animationManager.Stop();
         }
-
-
 
         public void Update(GameTime gameTime)
         {
@@ -110,13 +107,19 @@ namespace GameClient
                 {
                     _health._health_left -= 1;
                     if (_health._health_left <= 0)
+                    {
                         _destroy = true;
+                        _itemManager.DropItem(_items_drop_list, _position);
+                    }
                     return true;
                 }
 
 
             return false;
         }
-
+        public Simple_Enemy Copy()
+        {
+            return new Simple_Enemy(_animations, _id, _position, _playerManager, _itemManager, _health._total_health, _items_drop_list);
+        }
     }
 }

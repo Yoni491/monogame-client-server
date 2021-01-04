@@ -33,9 +33,15 @@ namespace GameClient
 
         float _timer = 0;
 
+        PlayerManager _playerManager;
+
+        ItemManager _itemManager;
+
+        InventoryManager _inventoryManager;
+
         public Vector2 Position { get => _position; set => _position = value; }
 
-        public Player(Dictionary<string, Animation> i_animations, Vector2 position, Input input, int health)
+        public Player(Dictionary<string, Animation> i_animations, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
             _animations = i_animations;
             _animationManager = new AnimationManager(_animations.First().Value);
@@ -43,6 +49,9 @@ namespace GameClient
             _input = input;
             _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
+            _playerManager = playerManager;
+            _itemManager = itemManager;
+            _inventoryManager = inventoryManager;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -57,13 +66,13 @@ namespace GameClient
         public void InputReader()
         {
             _velocity = Vector2.Zero;
-            if (Keyboard.GetState().IsKeyDown(_input.Up))
+            if (Keyboard.GetState().IsKeyDown(_input._up))
                 _velocity.Y = -1;
-            else if (Keyboard.GetState().IsKeyDown(_input.Down))
+            else if (Keyboard.GetState().IsKeyDown(_input._down))
                 _velocity.Y = 1;
-            if (Keyboard.GetState().IsKeyDown(_input.Left))
+            if (Keyboard.GetState().IsKeyDown(_input._left))
                 _velocity.X = -1;
-            else if (Keyboard.GetState().IsKeyDown(_input.Right))
+            else if (Keyboard.GetState().IsKeyDown(_input._right))
                 _velocity.X = 1;
             if (_input._left_joystick_direction != Vector2.Zero)
                 _velocity = _input._left_joystick_direction;
@@ -78,7 +87,7 @@ namespace GameClient
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                if (_timer >= 0.1f)
+                if (_timer >= _gun._bullet._shootingTimer)
                 {
                     _gun.Shot();
                     _timer = 0;
@@ -87,10 +96,18 @@ namespace GameClient
 
             if (_input._right_trigger > 0)
             {
-                if (_timer >= 1)
+                if (_timer >= _gun._bullet._shootingTimer)
                 {
                     _gun.Shot();
                     _timer = 0;
+                }
+            }
+            if(Keyboard.GetState().IsKeyDown(_input._pick))
+            {
+                Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPosition()));
+                if(item!=null)
+                {
+                    _inventoryManager.addItemToInventory(item);
                 }
             }
 

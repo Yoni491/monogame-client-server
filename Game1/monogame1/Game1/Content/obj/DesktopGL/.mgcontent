@@ -31,6 +31,8 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/7.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/8.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/9.png</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/resources/resources_basic.png</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/resources/resources_outlined.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/tiles/tf_A2_ashlands_1.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Towers/AttackTower.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/1.png</File>
@@ -40,6 +42,8 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/5.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

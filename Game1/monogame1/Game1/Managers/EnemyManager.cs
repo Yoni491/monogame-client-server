@@ -8,40 +8,23 @@ namespace GameClient
 {
     public class EnemyManager
     {
-        private List<OtherPlayer> _players;
-        private ContentManager _contentManager;
         private GraphicsDevice _graphicsDevice;
+        private CollectionManager _collectionManager;
         private List<Simple_Enemy> _enemies;
-        private Texture2D _bullet_texture;
         private float _random_enemies_circle_timer = 0;
-        public EnemyManager(List<OtherPlayer> players, ContentManager contentManager, GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies)
+        public EnemyManager( GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies, CollectionManager collectionManager)
         {
-            _players = players;
             _enemies = enemies;
-            _contentManager = contentManager;
             _graphicsDevice = graphicsDevice;
+            _collectionManager = collectionManager;
 
         }
         public void AddEnemy(Vector2 position)
         {
-
-            Texture2D texture = _contentManager.Load<Texture2D>("Patreon sprites 1/1");
-            //AddEnemySprite(texture, position);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0);
+            enemy._position = position;
+            _enemies.Add(enemy);
         }
-        //public void AddEnemySprite(Texture2D i_texture, Vector2 i_position)
-        //{
-        //    _enemies.Add(new Simple_Enemy(new Dictionary<string, Animation>()
-        //    {
-        //    { "WalkDown", new Animation(SpriteManager.Resize4x4Sprite(i_texture,0,_graphicsDevice), 4) },
-        //    { "WalkLeft", new Animation(SpriteManager.Resize4x4Sprite(i_texture,1,_graphicsDevice), 4) },
-        //    { "WalkRight", new Animation(SpriteManager.Resize4x4Sprite(i_texture,2,_graphicsDevice), 4) },
-        //    { "WalkUp", new Animation(SpriteManager.Resize4x4Sprite(i_texture,3,_graphicsDevice), 4) },
-        //    },
-        //    i_position,
-        //    _players,
-        //    100
-        //    ));
-        //}
 
         public void AddEnemiesRandomCircle()
         {
@@ -59,11 +42,15 @@ namespace GameClient
                 _random_enemies_circle_timer = 0;
                 AddEnemiesRandomCircle();
             }
+            foreach (var enemy in _enemies)
+            {
+                enemy.Update(gameTime);
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var sprite in _enemies)
-                sprite.Draw(spriteBatch);
+            foreach (var enemy in _enemies)
+                enemy.Draw(spriteBatch);
         }
     }
 }

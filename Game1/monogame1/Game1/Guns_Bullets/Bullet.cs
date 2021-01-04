@@ -25,6 +25,8 @@ namespace GameClient
 
         private Gun _gun;
 
+        public float _shootingTimer;
+
         private List<Simple_Enemy> _enemies;
 
         public Rectangle Rectangle
@@ -35,7 +37,7 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Gun gun, Texture2D texture, Vector2 position, Vector2 direction, List<Simple_Enemy> enemies, float speed, int bulletNumber)
+        public Bullet(int id, Gun gun, Texture2D texture, Vector2 position, Vector2 direction, List<Simple_Enemy> enemies, float speed, int bulletNumber, float shootingTimer)
         {
             _collection_id = id;
             _gun = gun;
@@ -44,6 +46,7 @@ namespace GameClient
             _direction = Vector2.Normalize(direction);
             _enemies = enemies;
             _speed = speed;
+            _shootingTimer = shootingTimer;
             if (bulletNumber < 0)
             {
                 _bulletNumber = s_bulletNumber++;
@@ -55,12 +58,13 @@ namespace GameClient
                 _bulletNumber = bulletNumber;
             }
         }
-        public Bullet(int id, Texture2D texture, List<Simple_Enemy> enemies, float speed)
+        public Bullet(int id, Texture2D texture, List<Simple_Enemy> enemies, float speed, float shootingTimer)
         {
             _collection_id = id;
             _texture = texture;
             _speed = speed;
             _enemies = enemies;
+            _shootingTimer = shootingTimer;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -79,7 +83,10 @@ namespace GameClient
                 foreach (var enemy in _enemies)
                 {
                     if (enemy.isCollision(this))
+                    {
                         _destroy = true;
+                        break;
+                    }
                 }
         }
         public void readPacketShort(PacketStructure packet)

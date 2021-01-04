@@ -10,13 +10,9 @@ namespace GameClient
         public Keys _right;
         public Keys _up;
         public Keys _pick;
-
         public Vector2 _left_joystick_direction;
-
         public Vector2 _right_joystick_direction;
-
         public float _right_trigger;
-
 
         GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
@@ -37,12 +33,10 @@ namespace GameClient
                 if (capabilities.HasLeftXThumbStick)
                 {
                     _left_joystick_direction = new Vector2(state.ThumbSticks.Left.X, -state.ThumbSticks.Left.Y);
-
                 }
                 if (capabilities.HasRightXThumbStick)
                 {
                     _right_joystick_direction = new Vector2(state.ThumbSticks.Right.X, -state.ThumbSticks.Right.Y);
-
                 }
                 if (capabilities.HasRightTrigger)
                 {
@@ -52,7 +46,6 @@ namespace GameClient
                 if (capabilities.HasAButton)
                 {
                     state.IsButtonDown(Buttons.A);
-
                 }
             }
         }

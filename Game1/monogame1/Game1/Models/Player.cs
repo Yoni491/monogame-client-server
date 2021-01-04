@@ -39,6 +39,7 @@ namespace GameClient
 
         InventoryManager _inventoryManager;
 
+        public bool _isGamePad;
         public Vector2 Position { get => _position; set => _position = value; }
 
         public Player(Dictionary<string, Animation> i_animations, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
@@ -75,14 +76,22 @@ namespace GameClient
             else if (Keyboard.GetState().IsKeyDown(_input._right))
                 _velocity.X = 1;
             if (_input._left_joystick_direction != Vector2.Zero)
+            {
+                _isGamePad = true;
                 _velocity = _input._left_joystick_direction;
+            }
 
             if (_velocity != Vector2.Zero)
+            {
+                _isGamePad = true;
                 _velocity = Vector2.Normalize(_velocity) * _speed;
-
+            }
             if (_input._right_joystick_direction != Vector2.Zero)
+            {
+                _isGamePad = true;
                 _looking_direction = _input._right_joystick_direction;
-            else
+            }
+            if(!_isGamePad)
                 _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position;
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
@@ -163,7 +172,7 @@ namespace GameClient
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, enemies, _looking_direction);
+                _gun.Update(gameTime, enemies, _looking_direction, _isGamePad);
             }
 
             _health._position = _position + new Vector2(8, 10);

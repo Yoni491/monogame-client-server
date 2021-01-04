@@ -42,10 +42,14 @@ namespace GameClient
             {
                 spriteBatch.Draw(_inventoryBlock, _inventory_positions[i].Item1, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.98f);
             }
-            foreach (var item in _item_list)
+            foreach (var tuple in _inventory_positions)
             {
-                Console.WriteLine("Xxxxxxxxxxxxxxx" + item._amount);
-                item._item.Draw(spriteBatch);
+                if (tuple.Item2 != null)
+                {
+                    tuple.Item2._item.Draw(spriteBatch);
+                    Vector2 text_pos = tuple.Item1 + new Vector2(width-12, height-17);
+                    spriteBatch.DrawString(GraphicManager._font, tuple.Item2._amount.ToString(), text_pos, Color.White,0, new Vector2(0, 0),1,SpriteEffects.None,0.991f);
+                }
             }
         }
         public void addItemToInventory(Item itemToAdd)

@@ -23,6 +23,7 @@ namespace GameClient
         private NetworkManagerClient _networkManager;
         private InventoryManager _inventoryManager;
         private ItemManager _itemManager;
+        private GraphicManager _graphicManager;
         float _timer = 0;
         #region Important Functions
         public Game_Client()
@@ -43,6 +44,7 @@ namespace GameClient
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _graphicManager = new GraphicManager(GraphicsDevice,Content);
             _other_players = new List<OtherPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collectionManager = new CollectionManager(_enemies, Content);
@@ -95,7 +97,7 @@ namespace GameClient
                              (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
                              new Vector2(0f, (float)_line_texture.Height / 2),
                              new Vector2(Vector2.Distance(start, end), 0.005f),
-                             SpriteEffects.None, 0f);
+                             SpriteEffects.None, 0.5f);
 
         }
         #endregion

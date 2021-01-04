@@ -8,7 +8,7 @@ namespace GameClient
     public class Simple_Enemy
     {
         int _id;
-        private float _speed = 1f;
+        private float _speed;
 
         private Vector2 _velocity;
 
@@ -35,7 +35,7 @@ namespace GameClient
             }
         }
 
-        public Simple_Enemy(Dictionary<string, Animation> i_animations, int id,Vector2 position, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list)
+        public Simple_Enemy(Dictionary<string, Animation> i_animations, int id,Vector2 position,float speed, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list)
         {
             _id = 0;
             _animations = i_animations;
@@ -46,6 +46,7 @@ namespace GameClient
             _health = new HealthManager(health, position + new Vector2(8, 10));
             _items_drop_list = items_drop_list;
             _itemManager = itemManager;
+            _speed = speed;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -56,7 +57,7 @@ namespace GameClient
         public void Move()
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(_position);
-            if (Vector2.Distance(closest_player,_position) > 35)
+            if (Vector2.Distance(closest_player,_position) > 40)
                 _velocity = Vector2.Normalize(closest_player - _position);
             else
                 _velocity = new Vector2(0, 0);
@@ -105,7 +106,7 @@ namespace GameClient
             if (other.Rectangle.X > Rectangle.X && other.Rectangle.X < Rectangle.X + Rectangle.Width)
                 if (other.Rectangle.Y > Rectangle.Y && other.Rectangle.Y < Rectangle.Y + Rectangle.Height)
                 {
-                    _health._health_left -= 1;
+                    _health._health_left -= other._dmg;
                     if (_health._health_left <= 0)
                     {
                         _destroy = true;
@@ -119,7 +120,7 @@ namespace GameClient
         }
         public Simple_Enemy Copy()
         {
-            return new Simple_Enemy(_animations, _id, _position, _playerManager, _itemManager, _health._total_health, _items_drop_list);
+            return new Simple_Enemy(_animations, _id, _position,_speed, _playerManager, _itemManager, _health._total_health, _items_drop_list);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace GameClient
     public class Item
     {
         Texture2D _texture;
+        Texture2D _framedTexture;
         public int _item_id;
         private string _name;
         private float _dropRate;
@@ -19,12 +20,13 @@ namespace GameClient
         private Recipe _recipe;
         private Gun _gun;
         public Vector2 _position;
-        private bool _inInventory;
+        private bool _inInventory = false;
         public int _invenotryAmountAllowed;
 
-        public Item(Texture2D texture,int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Recipe recipe, Gun gun,int invenotryAmountAllowed)
+        public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Recipe recipe, Gun gun,int invenotryAmountAllowed)
         {
             _texture = texture;
+            _framedTexture = framedTexture;
             _item_id = item_id;
             _name = name;
             _dropRate = dropRate;
@@ -41,7 +43,7 @@ namespace GameClient
             Random x = new Random();
             if((float)x.NextDouble()<_dropRate)
             {
-                return new Item(_texture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, _recipe, _gun, _invenotryAmountAllowed);
+                return new Item(_texture,_framedTexture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, _recipe, _gun, _invenotryAmountAllowed);
             }
             return null;
             
@@ -53,10 +55,12 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(_inInventory)
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, TileManager.GetLayerDepth(0.99f));
+            if (_inInventory)
+            {
+                spriteBatch.Draw(_framedTexture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.99f);
+            }
             else
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, TileManager.GetLayerDepth(0.1f));
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
 
         }
     }

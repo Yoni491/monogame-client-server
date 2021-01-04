@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:etc/lineSprite.png
 
+#begin Fonts/basic.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/basic.spritefont
+
 #begin Patreon sprites 1/1.png
 /importer:TextureImporter
 /processor:TextureProcessor

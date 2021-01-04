@@ -1,13 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace GameClient
 {
 
-    public class SpriteManager
+    public class GraphicManager
     {
-        static GraphicsDevice _graphicsDevice = Client.game.GraphicsDevice;
+        static GraphicsDevice _graphicsDevice;
+        static ContentManager _contentManager;
+        public static SpriteFont _font;
+        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager)
+        {
+            _graphicsDevice = graphicsDevice;
+            _contentManager = contentManager;
+            _font = contentManager.Load<SpriteFont>("Fonts/basic");
+        }
         static public Texture2D Resize4x4Sprite(Texture2D texture, int x)
         {
             Rectangle newBounds = texture.Bounds;
@@ -42,6 +51,5 @@ namespace GameClient
             { "WalkUp", new Animation(Resize4x4Sprite(i_texture,3), 4) },
             };
         }
-
     }
 }

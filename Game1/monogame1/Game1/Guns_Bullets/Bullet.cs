@@ -29,6 +29,8 @@ namespace GameClient
 
         private List<Simple_Enemy> _enemies;
 
+        public int _dmg;
+
         public Rectangle Rectangle
         {
             get
@@ -37,7 +39,7 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Gun gun, Texture2D texture, Vector2 position, Vector2 direction, List<Simple_Enemy> enemies, float speed, int bulletNumber, float shootingTimer)
+        public Bullet(int id, Gun gun, Texture2D texture, Vector2 position, Vector2 direction, List<Simple_Enemy> enemies, float speed, int bulletNumber, float shootingTimer, int dmg)
         {
             _collection_id = id;
             _gun = gun;
@@ -57,14 +59,16 @@ namespace GameClient
             {
                 _bulletNumber = bulletNumber;
             }
+            _dmg = dmg;
         }
-        public Bullet(int id, Texture2D texture, List<Simple_Enemy> enemies, float speed, float shootingTimer)
+        public Bullet(int id, Texture2D texture, List<Simple_Enemy> enemies, float speed, float shootingTimer,int dmg)
         {
             _collection_id = id;
             _texture = texture;
             _speed = speed;
             _enemies = enemies;
             _shootingTimer = shootingTimer;
+            _dmg = dmg;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

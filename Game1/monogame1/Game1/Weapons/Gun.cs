@@ -76,7 +76,7 @@ namespace GameClient
                 else
                 {
                     sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-                    if (Vector2.Distance(sniperEnd, sniperStart) > 120)
+                    if (Vector2.Distance(sniperEnd, sniperStart) > 30)
                         Client.game.DrawLine(sniperStart, sniperEnd);
                 }
                

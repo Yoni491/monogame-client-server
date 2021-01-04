@@ -68,13 +68,25 @@ namespace GameClient
         {
             _velocity = Vector2.Zero;
             if (Keyboard.GetState().IsKeyDown(_input._up))
+            {
+                _isGamePad = false;
                 _velocity.Y = -1;
+            }
             else if (Keyboard.GetState().IsKeyDown(_input._down))
+            {
+                _isGamePad = false;
                 _velocity.Y = 1;
+            }
             if (Keyboard.GetState().IsKeyDown(_input._left))
+            {
+                _isGamePad = false;
                 _velocity.X = -1;
+            }
             else if (Keyboard.GetState().IsKeyDown(_input._right))
+            {
+                _isGamePad = false;
                 _velocity.X = 1;
+            }
             if (_input._left_joystick_direction != Vector2.Zero)
             {
                 _isGamePad = true;
@@ -83,7 +95,6 @@ namespace GameClient
 
             if (_velocity != Vector2.Zero)
             {
-                _isGamePad = true;
                 _velocity = Vector2.Normalize(_velocity) * _speed;
             }
             if (_input._right_joystick_direction != Vector2.Zero)
@@ -96,6 +107,7 @@ namespace GameClient
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
+                _isGamePad = false;
                 if (_timer >= _gun._bullet._shootingTimer)
                 {
                     _gun.Shot();

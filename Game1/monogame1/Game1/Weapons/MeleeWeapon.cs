@@ -39,18 +39,20 @@ namespace GameClient
             _position = position;
             _swing_range = swing_range;
         }
-        public MeleeWeapon Copy()
+        public void Update(int direction,GameTime gameTime)
         {
-            return new MeleeWeapon(_id, _texture, _animationManager, _position, _enemies,_swing_range);
+            if (direction != -1)
+                _direction = direction;
+            _animationManager.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
             _position = position + new Vector2(23, 44);
-            if(_direction == (int)Direction.Up)
+            if (_direction == (int)Direction.Up)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _scale, SpriteEffects.None, layer);
             }
-            else if(_direction == (int)Direction.Down)
+            else if (_direction == (int)Direction.Down)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(-12, 12), _scale, SpriteEffects.FlipHorizontally, layer);
             }
@@ -62,11 +64,17 @@ namespace GameClient
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _scale, SpriteEffects.None, layer);
             }
+            _animationManager.DrawAnimationByOrder(spriteBatch, layer);
         }
-        public void Update(int direction)
+        public MeleeWeapon Copy()
         {
-            _direction = direction;
+            return new MeleeWeapon(_id, _texture, _animationManager, _position, _enemies, _swing_range);
         }
+        public void SwingWeapon()
+        {
+            _animationManager.Play(0);
+        }
+
         //public void UpdatePacketShort(PacketStructure packet)
         //{
         //    foreach (var bullet in _bullets)

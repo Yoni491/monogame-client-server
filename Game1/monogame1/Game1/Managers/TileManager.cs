@@ -13,9 +13,8 @@ namespace GameClient
         int tile_width_amount;
         static int tile_height_amount;
         static int tilesDistribution = 16;
-        public TileManager(Tile[,] tiles, GraphicsDevice graphicDevice, ContentManager contentManager)
+        public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager)
         {
-            _floorTiles = tiles;
             _graphicDevice = graphicDevice;
             _contentManager = contentManager;
             tile_width_amount = _graphicDevice.Viewport.Bounds.Width / tilesDistribution;
@@ -23,6 +22,24 @@ namespace GameClient
             InitFloor();
             _buildingTiles = new Tile[tile_width_amount, tile_height_amount];
            
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < tile_width_amount; i++)
+            {
+                for (int j = 0; j < tile_height_amount; j++)
+                {
+                    _floorTiles[i, j].Draw(spriteBatch, 0);
+                }
+            }
+            for (int i = 0; i < tile_width_amount; i++)
+            {
+                for (int j = 0; j < tile_height_amount; j++)
+                {
+                    if (_buildingTiles[i, j] != null)
+                        _buildingTiles[i, j].Draw(spriteBatch, GetLayerDepth(tile_height_amount * i));
+                }
+            }
         }
         public void InitFloor()
         {
@@ -43,24 +60,7 @@ namespace GameClient
             int y = (int)_position.Y / tile_height_amount;
             _buildingTiles[x, y] = new Tile(tilesDistribution, tilesDistribution, new Vector2(x * tilesDistribution, y * tilesDistribution),_contentManager.Load<Texture2D>("Towers/AttackTower"));
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            for (int i = 0; i < tile_width_amount; i++)
-            {
-                for (int j = 0; j < tile_height_amount; j++)
-                {
-                    _floorTiles[i, j].Draw(spriteBatch,0);
-                }
-            }
-            for (int i = 0; i < tile_width_amount; i++)
-            {
-                for (int j = 0; j < tile_height_amount; j++)
-                {
-                    if(_buildingTiles[i, j] != null)
-                        _buildingTiles[i, j].Draw(spriteBatch, GetLayerDepth(tile_height_amount * i));
-                }
-            }
-        }
+
         static public float GetLayerDepth(float y)
         {
             return (y / tile_height_amount) / tilesDistribution / 2 + 0.1f;

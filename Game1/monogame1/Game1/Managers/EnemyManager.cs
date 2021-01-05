@@ -20,6 +20,24 @@ namespace GameClient
             _collectionManager = collectionManager;
 
         }
+        public void Update(GameTime gameTime)
+        {
+            if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
+            {
+                _random_enemies_circle_timer = -2220;
+                AddEnemiesRandomCircle();
+            }
+            foreach (var enemy in _enemies)
+            {
+                enemy.Update(gameTime);
+            }
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var enemy in _enemies)
+                enemy.Draw(spriteBatch);
+
+        }
         public void AddEnemy(Vector2 position)
         {
             Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0);
@@ -36,23 +54,6 @@ namespace GameClient
             AddEnemy(center + random_direction);
         }
 
-        public void Update(GameTime gameTime)
-        {
-            if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
-            {
-                _random_enemies_circle_timer = 0;
-                AddEnemiesRandomCircle();
-            }
-            foreach (var enemy in _enemies)
-            {
-                enemy.Update(gameTime);
-            }
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var enemy in _enemies)
-                enemy.Draw(spriteBatch);
 
-        }
     }
 }

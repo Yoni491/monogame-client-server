@@ -38,10 +38,17 @@ namespace GameClient
             _position = position;
             _isSniper = isSniper;
         }
-        public Gun Copy()
+        public void Update(GameTime gameTime, Vector2 direction, bool isGamePad)
         {
-            return new Gun(_id, _texture, _position, _enemies, _bullet,_isSniper);
+            _direction = direction;
+            foreach (var bullet in _bullets)
+            {
+                bullet.Update(gameTime);
+            }
+            _bullets.RemoveAll(bullet => bullet._destroy == true);
+            _isGamePad = isGamePad;
         }
+
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
             _position = position + new Vector2(23, 40);
@@ -66,25 +73,24 @@ namespace GameClient
                 if (_isGamePad)
                 {
                     sniperEnd = Vector2.Normalize(_direction) * 30f + sniperStart;
-                    Client.game.DrawLine(sniperStart, sniperEnd);
+                    GraphicManager.DrawLine(sniperStart, sniperEnd,spriteBatch);
                 }
                 else
                 {
                     sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
                     if (Vector2.Distance(sniperEnd, sniperStart) > 30)
-                        Client.game.DrawLine(sniperStart, sniperEnd);
+                        GraphicManager.DrawLine(sniperStart, sniperEnd, spriteBatch);
                 }
             }
         }
-        public void Update(GameTime gameTime, Vector2 direction,bool isGamePad)
+        public Gun Copy()
         {
-            _direction = direction;
-            foreach (var bullet in _bullets)
-            {
-                bullet.Update(gameTime);
-            }
-            _bullets.RemoveAll(bullet => bullet._destroy == true);
-            _isGamePad = isGamePad;
+            return new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper);
+        }
+        public void Shot()
+        {
+            Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1, _bullet._shootingTimer, _bullet._dmg);
+            _bullets.Add(bullet);
         }
         public void UpdatePacketShort(PacketStructure packet)
         {
@@ -111,10 +117,6 @@ namespace GameClient
                 }
             }
         }
-        public void Shot()
-        {
-            Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1, _bullet._shootingTimer, _bullet._dmg);
-            _bullets.Add(bullet);
-        }
+
     }
 }

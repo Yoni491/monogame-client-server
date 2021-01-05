@@ -50,6 +50,26 @@ namespace GameClient
             _speed = speed;
             _meleeWeapon = meleeWeapon;
         }
+        public void Update(GameTime gameTime)
+        {
+            Move();
+
+            SetAnimations();
+
+            _velocity = _velocity * _speed;
+
+            _position += _velocity;
+
+            _animationManager.Position = _position;
+
+            _animationManager.Update(gameTime);
+
+            _meleeWeapon.Update(_moving_direction,gameTime);
+
+            _velocity = Vector2.Zero;
+
+            _health._position = _position + new Vector2(8, 10);
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
@@ -58,6 +78,11 @@ namespace GameClient
                 _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             else
                 _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+        }
+        public Simple_Enemy Copy()
+        {
+
+            return new Simple_Enemy(_animationManager.Copy(), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon.Copy());
         }
 
         public void Move()
@@ -95,27 +120,7 @@ namespace GameClient
             if(_moving_direction != -1)
                 _animationManager.Play(_moving_direction);
         }
-
-        public void Update(GameTime gameTime)
-        {
-            Move();
-
-            SetAnimations();
-
-            _velocity = _velocity * _speed;
-
-            _position += _velocity;
-
-            _animationManager.Position = _position;
-
-            _animationManager.Update(gameTime);
-
-            _meleeWeapon.Update(_moving_direction);
-
-            _velocity = Vector2.Zero;
-
-            _health._position = _position + new Vector2(8, 10);
-        }
+        
         public bool isCollision(Bullet other)
         {
             if (other.Rectangle.X > Rectangle.X && other.Rectangle.X < Rectangle.X + Rectangle.Width)
@@ -133,10 +138,6 @@ namespace GameClient
 
             return false;
         }
-        public Simple_Enemy Copy()
-        {
 
-            return new Simple_Enemy(_animationManager.Copy(), _id, _position,_speed, _playerManager, _itemManager, _health._total_health, _items_drop_list,_meleeWeapon.Copy());
-        }
     }
 }

@@ -7,7 +7,8 @@ namespace GameClient
         public int CurrentFrame { get; set; }
         public int FrameHeight { get { return Texture.Height; } }
         public float FrameSpeed { get; set; }
-        public int FrameWidth { get { return Texture.Width / _frameCount; } }
+
+        public int _frameWidth;
         public bool isLooping { get; set; }
 
         public int _frameCount;
@@ -22,6 +23,7 @@ namespace GameClient
             isLooping = true;
             FrameSpeed = 0.2f;
             _frameCount = frameCount;
+            _frameWidth = Texture.Width / _frameCount;
         }
         public Animation(Texture2D []textures, int frameCount)
         {
@@ -29,6 +31,7 @@ namespace GameClient
             isLooping = true;
             FrameSpeed = 0.2f;
             _frameCount = frameCount;
+            _frameWidth = textures[0].Width / _frameCount;
         }
     }
 }

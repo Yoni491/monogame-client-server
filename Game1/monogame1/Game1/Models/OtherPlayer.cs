@@ -18,7 +18,7 @@ namespace GameClient
 
         //private Input _input;
 
-        private float _speed = 2f;
+        //private float _speed = 2f;
 
         private Vector2 _velocity;
 
@@ -40,10 +40,29 @@ namespace GameClient
             _playerNum = playerNum;
             _gun = gun;
         }
-        public void UpdateTexture(AnimationManager animationManager)
+        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
-            updateTexture = false;
-            _animationManager = animationManager;
+            if (!updateTexture)
+            {
+                SetAnimations();
+
+                _position += _velocity;
+
+                _animationManager.Position = _position;
+
+                _animationManager.Update(gameTime);
+
+
+
+                if (_gun != null)
+                {
+                    _gun.Update(gameTime, _looking_direction, false);
+                }
+                //_velocity = Vector2.Zero;
+
+                _health._position = _position + new Vector2(8, 10);
+            }
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -54,9 +73,13 @@ namespace GameClient
             if (_gun != null && !_hide_gun)
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             if (_hide_gun && _gun != null)
-            _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
         }
-
+        public void UpdateTexture(AnimationManager animationManager)
+        {
+            updateTexture = false;
+            _animationManager = animationManager;
+        }
         protected void SetAnimations()
         {
 
@@ -87,34 +110,11 @@ namespace GameClient
             }
         }
 
-
         //public void EquipGun(Gun gun)
         //{
         //    _gun = gun;
         //}
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
-        {
-            if (!updateTexture)
-            {
-                SetAnimations();
 
-                _position += _velocity;
-
-                _animationManager.Position = _position;
-
-                _animationManager.Update(gameTime);
-
-
-
-                if (_gun != null)
-                {
-                    _gun.Update(gameTime, _looking_direction,false);
-                }
-                //_velocity = Vector2.Zero;
-
-                _health._position = _position + new Vector2(8, 10);
-            }
-        }
         public void ReadPacketShort(PacketStructure packet)
         {
             Position = packet.ReadVector2();

@@ -38,6 +38,16 @@ namespace GameClient
             _gun = gun;
             _invenotryAmountAllowed = invenotryAmountAllowed;
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (_inInventory)
+            {
+                spriteBatch.Draw(_framedTexture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.99f);
+            }
+            else
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
+
+        }
         public Item Drop()
         {
             Random x = new Random();
@@ -52,16 +62,6 @@ namespace GameClient
         {
             _position = position;
             _inInventory = true;
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (_inInventory)
-            {
-                spriteBatch.Draw(_framedTexture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.99f);
-            }
-            else
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
-
         }
     }
 

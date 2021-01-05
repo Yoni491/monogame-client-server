@@ -32,6 +32,10 @@ namespace GameClient
             for (int i = 0; i < data2.Length; ++i) data2[i] = Color.Black;
             _healthbar_background.SetData(data2);
         }
+        public void Update(Vector2 position)
+        {
+            _position = position;
+        }
         public void Draw(SpriteBatch spriteBatch, float layer)
         {
             float life_precentage = ((float)_health_left / _total_health) * healthbar_width;
@@ -41,9 +45,6 @@ namespace GameClient
             spriteBatch.Draw(_healthbar_background, _position + new Vector2(-1, -1), null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, layer - 0.01f);
             spriteBatch.Draw(_healthbar, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, layer);
         }
-        public void Update(Vector2 position)
-        {
-            _position = position;
-        }
+
     }
 }

@@ -70,10 +70,7 @@ namespace GameClient
             _shootingTimer = shootingTimer;
             _dmg = dmg;
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 0.5f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
-        }
+
         public void Update(GameTime gameTime)
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -91,6 +88,10 @@ namespace GameClient
                         break;
                     }
                 }
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 0.5f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void readPacketShort(PacketStructure packet)
         {

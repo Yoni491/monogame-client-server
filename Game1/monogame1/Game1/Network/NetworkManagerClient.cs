@@ -18,6 +18,7 @@ namespace GameClient
         Player _player;
         ushort packetType;
         PacketShort_Client _packet_short;
+        public static bool _updateOtherPlayerTexture = false;
         public NetworkManagerClient(List<OtherPlayer> _other_players, Player player, PlayerManager playerManager)
         {
             _playerManager = playerManager;
@@ -53,7 +54,7 @@ namespace GameClient
                 _connect_again = false;
                 Initialize_connection();
             }
-            if (Game_Client._updateOtherPlayerTexture)
+            if (NetworkManagerClient._updateOtherPlayerTexture)
             {
                 _playerManager.updateOtherPlayerTexture();
             }

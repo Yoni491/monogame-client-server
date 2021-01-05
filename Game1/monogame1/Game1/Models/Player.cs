@@ -54,6 +54,33 @@ namespace GameClient
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
         }
+        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        {
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            InputReader();
+
+            SetAnimations();
+
+            _position += _velocity;
+
+            _animationManager.Position = _position;
+
+            _animationManager.Update(gameTime);
+
+            if (_gun != null)
+            {
+                _gun.Update(gameTime, _looking_direction, _isGamePad);
+            }
+            if (_meleeWeapon != null)
+            {
+                _meleeWeapon.Update(_moving_direction,gameTime);
+            }
+
+            _health._position = _position + new Vector2(8, 10);
+
+            _input.Update();
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_hide_weapon && _gun != null)
@@ -68,7 +95,6 @@ namespace GameClient
                 //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(Position.Y));
-            
         }
 
         public void InputReader()
@@ -122,7 +148,11 @@ namespace GameClient
                     _timer = 0;
                 }
             }
-
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                _isGamePad = false;
+                _meleeWeapon.SwingWeapon();
+            }
             if (_input._right_trigger > 0)
             {
                 if (_timer >= _gun._bullet._shootingTimer)
@@ -174,7 +204,6 @@ namespace GameClient
             }
         }
 
-
         public void EquipGun(Gun gun)
         {
             _gun = gun;
@@ -183,33 +212,7 @@ namespace GameClient
         {
             _meleeWeapon = meleeWeapon;
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
-        {
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            InputReader();
-
-            SetAnimations();
-
-            _position += _velocity;
-
-            _animationManager.Position = _position;
-
-            _animationManager.Update(gameTime);
-
-            if (_gun != null)
-            {
-                _gun.Update(gameTime, _looking_direction, _isGamePad);
-            }
-            if (_meleeWeapon != null)
-            {
-                _meleeWeapon.Update(_moving_direction);
-            }
-
-            _health._position = _position + new Vector2(8, 10);
-
-            _input.Update();
-        }
+        
         public void UpdatePacketShort(PacketShort_Client packet)
         {
             packet.WriteInt(_playerNum);

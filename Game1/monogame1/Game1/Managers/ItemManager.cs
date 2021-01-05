@@ -15,6 +15,13 @@ namespace GameClient
             _collectionManager = collectionManager;
             _itemsOnTheGround = new List<Item>();
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var item in _itemsOnTheGround)
+            {
+                item.Draw(spriteBatch);
+            }
+        }
         public void DropItem(int []items, Vector2 position)
         {
             foreach (var item_id in items)
@@ -26,13 +33,6 @@ namespace GameClient
                     _itemsOnTheGround.Add(item);
                     break;
                 }
-            }
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var item in _itemsOnTheGround)
-            {
-                item.Draw(spriteBatch);
             }
         }
         public Item findClosestItem(Vector2 position)

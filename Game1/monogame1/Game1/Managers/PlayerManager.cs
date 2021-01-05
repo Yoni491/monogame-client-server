@@ -26,7 +26,7 @@ namespace GameClient
         }
         public void updateOtherPlayerTexture()
         {
-            Game_Client._updateOtherPlayerTexture = false;
+            NetworkManagerClient._updateOtherPlayerTexture = false;
             foreach (var player in _players)
             {
                 if (player.updateTexture)
@@ -39,7 +39,7 @@ namespace GameClient
         {
             OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3));
             _players.Add(otherPlayer);
-            Game_Client._updateOtherPlayerTexture = true;
+            NetworkManagerClient._updateOtherPlayerTexture = true;
             return otherPlayer;
         }
         public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager)

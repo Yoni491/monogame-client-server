@@ -20,19 +20,40 @@ namespace GameClient
             _animation = _animations.First().Value;
             _frameCount = frameCount;
         }
+        public void Update(GameTime gameTime)
+        {
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer > _animation.FrameSpeed)
+            {
+                _timer = 0f;
+                _animation.CurrentFrame++;
+                if (_animation.CurrentFrame >= _frameCount)
+                {
+                    _animation.CurrentFrame = 0;
+                    if(_animation._textures!=null)
+                    {
+                        Stop();
+                    }
+                }
+            }
+        }
         public void DrawEachAnimationLine(SpriteBatch spriteBatch,float layer)
         {
             spriteBatch.Draw(_animation.Texture,Position,
-                new Rectangle(_animation.CurrentFrame * _animation.FrameWidth, 0,_animation.FrameWidth,_animation.FrameHeight),
+                new Rectangle(_animation.CurrentFrame * _animation._frameWidth, 0,_animation._frameWidth,_animation.FrameHeight),
                 Color.White,0,Vector2.Zero,1,SpriteEffects.None,
                 layer);
         }
         public void DrawAnimationByOrder(SpriteBatch spriteBatch, float layer)
         {
-            spriteBatch.Draw(_animation.Texture, Position,
+            spriteBatch.Draw(_animation._textures[_animation.CurrentFrame], Position,
                 null,
                 Color.White, 0, Vector2.Zero, 1, SpriteEffects.None,
                 layer);
+        }
+        public AnimationManager Copy()
+        {
+            return new AnimationManager(_animations, _frameCount);
         }
         public void Play(int animation_number)
         {
@@ -47,25 +68,15 @@ namespace GameClient
             _timer = 0;
             _animation.CurrentFrame = 0;
         }
-        public void Update(GameTime gameTime)
+        public void Hide()
         {
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer > _animation.FrameSpeed)
-            {
-                _timer = 0f;
-                _animation.CurrentFrame++;
-                if (_animation.CurrentFrame >= _frameCount)
-                    _animation.CurrentFrame = 0;
-            }
+
         }
         public Vector2 getAnimationPickPosition()
         {
-            return new Vector2(_animation.FrameWidth / 2, _animation.FrameHeight);
+            return new Vector2(_animation._frameWidth / 2, _animation.FrameHeight);
             //return new Vector2(_animation.Texture.Width / 2, _animation.Texture.Height);
         }
-        public AnimationManager Copy()
-        {
-            return new AnimationManager(_animations, _frameCount);
-        }
+
     }
 }

@@ -1,22 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 
 namespace GameClient
 {
     public class Game_Client : Game
     {
-        public static bool _updateOtherPlayerTexture = false;
         public static GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private List<OtherPlayer> _other_players;
         private Player _player;
         private List<Simple_Enemy> _enemies;
-        private Texture2D _line_texture;
         private EnemyManager _enemyManager;
-        private Tile[,] _tiles;
         private TileManager _tileManager;
         private PlayerManager _playerManager;
         public CollectionManager _collectionManager;
@@ -24,7 +20,6 @@ namespace GameClient
         private InventoryManager _inventoryManager;
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
-        float _timer = 0;
         #region Important Functions
         public Game_Client()
         {
@@ -51,7 +46,7 @@ namespace GameClient
             _itemManager = new ItemManager(_collectionManager);
             _playerManager = new PlayerManager(_other_players, Content, GraphicsDevice, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies,_collectionManager);
-            _tileManager = new TileManager(_tiles, GraphicsDevice, Content);
+            _tileManager = new TileManager(GraphicsDevice, Content);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
             _tileManager.AddTowerTile(new Vector2(200,200));
@@ -89,21 +84,5 @@ namespace GameClient
         }
 
         #endregion
-        #region etcFunctions
-        public void DrawLine(Vector2 start, Vector2 end)
-        {
-            _line_texture = Content.Load<Texture2D>("etc/lineSprite");
-            _spriteBatch.Draw(_line_texture, start, null, Color.White,
-                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
-                             new Vector2(0f, (float)_line_texture.Height / 2),
-                             new Vector2(Vector2.Distance(start, end), 0.005f),
-                             SpriteEffects.None, 0.5f);
-
-        }
-        #endregion
-        #region tiles
-
-        #endregion
-
     }
 }

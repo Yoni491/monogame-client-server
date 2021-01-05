@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace GameClient
@@ -68,6 +69,16 @@ namespace GameClient
                  GetTextureSqaure(i_texture,4,4,1,1),GetTextureSqaure(i_texture,4,4,1,3),
                  GetTextureSqaure(i_texture,4,4,2,1),GetTextureSqaure(i_texture,4,4,2,3)},6) }
             };
+        }
+        static public void DrawLine(Vector2 start, Vector2 end, SpriteBatch spriteBatch)
+        {
+            Texture2D _line_texture = _contentManager.Load<Texture2D>("etc/lineSprite");
+            spriteBatch.Draw(_line_texture, start, null, Color.White,
+                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
+                             new Vector2(0f, (float)_line_texture.Height / 2),
+                             new Vector2(Vector2.Distance(start, end), 0.005f),
+                             SpriteEffects.None, 0.5f);
+
         }
     }
 }

@@ -31,8 +31,7 @@ namespace GameClient
             {
                 if (player.updateTexture)
                 {
-                    Texture2D texture = _contentManager.Load<Texture2D>("Patreon sprites 1/3");
-                    player.UpdateTexture(GraphicManager.GetAnimation4x4Dictionary(texture));
+                    player.UpdateTexture(GraphicManager.GetAnimationManager_spriteMovement(10));
                 }
             }
         }
@@ -47,11 +46,11 @@ namespace GameClient
         {
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
-            Texture2D texture = _contentManager.Load<Texture2D>("Patreon sprites 1/3");
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(200, 200);
-            _player = new Player(GraphicManager.GetAnimation4x4Dictionary(texture), position, input, 100,this,_itemManager,_inventoryManager);
+            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3), position, input, 100,this,_itemManager,_inventoryManager);
             _player.EquipGun(_collectionManager.GetGunCopy(1));
+            _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0));
             return _player;
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)

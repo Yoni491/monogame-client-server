@@ -41,9 +41,11 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/3.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/4.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/5.png</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/sword swing.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Weapons/swords-sheet.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

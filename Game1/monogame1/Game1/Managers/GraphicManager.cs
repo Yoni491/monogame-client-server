@@ -41,14 +41,32 @@ namespace GameClient
             croppedTexture.SetData(data);
             return croppedTexture;
         }
-        static public Dictionary<string, Animation> GetAnimation4x4Dictionary(Texture2D i_texture)
+        static private Dictionary<int, Animation> GetAnimation4x4Dictionary_spritesMovement(Texture2D i_texture)
         {
-            return new Dictionary<string, Animation>()
+            return new Dictionary<int, Animation>()
             {
-            { "WalkDown", new Animation(Resize4x4Sprite(i_texture,0), 4) },
-            { "WalkLeft", new Animation(Resize4x4Sprite(i_texture,1), 4) },
-            { "WalkRight", new Animation(Resize4x4Sprite(i_texture,2), 4) },
-            { "WalkUp", new Animation(Resize4x4Sprite(i_texture,3), 4) },
+            { (int)Direction.Down, new Animation(Resize4x4Sprite(i_texture,0),4) },
+            { (int)Direction.Left, new Animation(Resize4x4Sprite(i_texture,1),4) },
+            { (int)Direction.Right, new Animation(Resize4x4Sprite(i_texture,2),4) },
+            { (int)Direction.Up, new Animation(Resize4x4Sprite(i_texture,3),4) },
+            };
+        }
+        static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum)
+        {
+            return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4);
+        }
+        static public AnimationManager GetAnimationManager_swordSwing()
+        {
+            return new AnimationManager(GetAnimation4x4Dictionary_swordSwing(_contentManager.Load<Texture2D>("Weapons/sword swing")),6);
+        }
+        static private Dictionary<int, Animation> GetAnimation4x4Dictionary_swordSwing(Texture2D i_texture)
+        {
+            return new Dictionary<int, Animation>()
+            {
+                { 0, new Animation(new Texture2D[]
+                 {GetTextureSqaure(i_texture,4,4,0,1),GetTextureSqaure(i_texture,4,4,0,3),
+                 GetTextureSqaure(i_texture,4,4,1,1),GetTextureSqaure(i_texture,4,4,1,3),
+                 GetTextureSqaure(i_texture,4,4,2,1),GetTextureSqaure(i_texture,4,4,2,3)},6) }
             };
         }
     }

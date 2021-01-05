@@ -74,9 +74,8 @@ namespace GameClient
         {
             spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 0.5f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void Update(GameTime gameTime)
         {
-            _enemies = enemies;
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer >= 2f)
             {

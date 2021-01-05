@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace GameClient
 {
+    public enum Direction { Up = 0, Down, Left, Right };
     public class Simple_Enemy
     {
         int _id;
@@ -13,8 +14,6 @@ namespace GameClient
         private Vector2 _velocity;
 
         private AnimationManager _animationManager;
-
-        private Dictionary<string, Animation> _animations;
 
         public Vector2 _position;
 
@@ -27,6 +26,9 @@ namespace GameClient
         public bool _destroy = false;
 
         private ItemManager _itemManager;
+        private MeleeWeapon _meleeWeapon;
+        private bool _hide_weapon;
+        private int _moving_direction;
         public Rectangle Rectangle
         {
             get
@@ -35,11 +37,10 @@ namespace GameClient
             }
         }
 
-        public Simple_Enemy(Dictionary<string, Animation> i_animations, int id,Vector2 position,float speed, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list)
+        public Simple_Enemy(AnimationManager animationManager,int id,Vector2 position,float speed, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list, MeleeWeapon meleeWeapon)
         {
-            _id = 0;
-            _animations = i_animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
+            _id = id;
+            _animationManager = animationManager;
             _position = position;
             _animationManager.Position = _position;
             _playerManager = playerManager;
@@ -47,11 +48,16 @@ namespace GameClient
             _items_drop_list = items_drop_list;
             _itemManager = itemManager;
             _speed = speed;
+            _meleeWeapon = meleeWeapon;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            if(_hide_weapon)
+                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+            else
+                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
         }
 
         public void Move()
@@ -64,23 +70,30 @@ namespace GameClient
         }
         protected void SetAnimations()
         {
+            _moving_direction = -1;
             if (_velocity.X > Math.Abs(_velocity.Y))
             {
-                _animationManager.Play(_animations["WalkRight"]);
+                _hide_weapon = false;
+                _moving_direction = (int)Direction.Right;
             }
             else if (-_velocity.X > Math.Abs(_velocity.Y))
             {
-                _animationManager.Play(_animations["WalkLeft"]);
+                _hide_weapon = false;
+                _moving_direction = (int)Direction.Left;
             }
             else if (_velocity.Y > 0)
             {
-                _animationManager.Play(_animations["WalkDown"]);
+                _hide_weapon = false;
+                _moving_direction = (int)Direction.Down;
             }
             else if (_velocity.Y < 0)
             {
-                _animationManager.Play(_animations["WalkUp"]);
+                _hide_weapon = true;
+                _moving_direction = (int)Direction.Up;
             }
             else _animationManager.Stop();
+            if(_moving_direction != -1)
+                _animationManager.Play(_moving_direction);
         }
 
         public void Update(GameTime gameTime)
@@ -96,6 +109,8 @@ namespace GameClient
             _animationManager.Position = _position;
 
             _animationManager.Update(gameTime);
+
+            _meleeWeapon.Update(_moving_direction);
 
             _velocity = Vector2.Zero;
 
@@ -120,7 +135,8 @@ namespace GameClient
         }
         public Simple_Enemy Copy()
         {
-            return new Simple_Enemy(_animations, _id, _position,_speed, _playerManager, _itemManager, _health._total_health, _items_drop_list);
+
+            return new Simple_Enemy(_animationManager.Copy(), _id, _position,_speed, _playerManager, _itemManager, _health._total_health, _items_drop_list,_meleeWeapon.Copy());
         }
     }
 }

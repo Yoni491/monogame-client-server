@@ -24,8 +24,6 @@ namespace GameClient
 
         private AnimationManager _animationManager;
 
-        private Dictionary<string, Animation> _animations;
-
         private Vector2 _position;
 
         private HealthManager _health;
@@ -42,18 +40,17 @@ namespace GameClient
             _playerNum = playerNum;
             _gun = gun;
         }
-        public void UpdateTexture(Dictionary<string, Animation> i_animations)
+        public void UpdateTexture(AnimationManager animationManager)
         {
             updateTexture = false;
-            _animations = i_animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
+            _animationManager = animationManager;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_hide_gun && _gun != null)
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             if (_animationManager != null)
-                _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_gun)
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             if (_hide_gun && _gun != null)
@@ -70,20 +67,20 @@ namespace GameClient
                 _hide_gun = false;
                 if (_velocity.X >= Math.Abs(_velocity.Y))
                 {
-                    _animationManager.Play(_animations["WalkRight"]);
+                    _animationManager.Play((int)Direction.Right);
 
                 }
                 else if (-_velocity.X >= Math.Abs(_velocity.Y))
                 {
-                    _animationManager.Play(_animations["WalkLeft"]);
+                    _animationManager.Play((int)Direction.Left);
                 }
                 else if (_velocity.Y > 0)
                 {
-                    _animationManager.Play(_animations["WalkDown"]);
+                    _animationManager.Play((int)Direction.Down);
                 }
                 else if (_velocity.Y < 0)
                 {
-                    _animationManager.Play(_animations["WalkUp"]);
+                    _animationManager.Play((int)Direction.Up);
                     _hide_gun = true;
                 }
                 else _animationManager.Stop();
@@ -111,7 +108,7 @@ namespace GameClient
 
                 if (_gun != null)
                 {
-                    _gun.Update(gameTime, enemies, _looking_direction,false);
+                    _gun.Update(gameTime, _looking_direction,false);
                 }
                 //_velocity = Vector2.Zero;
 

@@ -12,6 +12,7 @@ namespace GameClient
         private CollectionManager _collectionManager;
         private List<Simple_Enemy> _enemies;
         private float _random_enemies_circle_timer = 0;
+        
         public EnemyManager( GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies, CollectionManager collectionManager)
         {
             _enemies = enemies;
@@ -51,6 +52,7 @@ namespace GameClient
         {
             foreach (var enemy in _enemies)
                 enemy.Draw(spriteBatch);
+
         }
     }
 }

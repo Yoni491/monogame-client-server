@@ -13,7 +13,7 @@ namespace GameClient
 
         private Gun _gun;
 
-        private Boolean _hide_gun = false;
+        private bool _hide_weapon = false;
 
         private Input _input;
 
@@ -22,8 +22,6 @@ namespace GameClient
         private Vector2 _velocity;
 
         private AnimationManager _animationManager;
-
-        private Dictionary<string, Animation> _animations;
 
         private Vector2 _position;
 
@@ -39,13 +37,15 @@ namespace GameClient
 
         InventoryManager _inventoryManager;
 
+        MeleeWeapon _meleeWeapon;
+        private int _moving_direction;
+
         public bool _isGamePad;
         public Vector2 Position { get => _position; set => _position = value; }
 
-        public Player(Dictionary<string, Animation> i_animations, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
+        public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
-            _animations = i_animations;
-            _animationManager = new AnimationManager(_animations.First().Value);
+            _animationManager = animationManager;
             _position = position;
             _input = input;
             _health = new HealthManager(health, position + new Vector2(8, 10));
@@ -56,12 +56,19 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_hide_gun && _gun != null)
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-            if (_gun != null && !_hide_gun)
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+            if (_hide_weapon && _gun != null)
+            {
+                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+            }
+            _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            if (_gun != null && !_hide_weapon)
+            {
+                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+            }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(Position.Y));
+            
         }
 
         public void InputReader()
@@ -71,6 +78,7 @@ namespace GameClient
             {
                 _isGamePad = false;
                 _velocity.Y = -1;
+
             }
             else if (Keyboard.GetState().IsKeyDown(_input._down))
             {
@@ -140,26 +148,29 @@ namespace GameClient
                 _animationManager.Stop();
             else
             {
-                _hide_gun = false;
+                _hide_weapon = false;
+                _moving_direction = -1;
                 if (_velocity.X >= Math.Abs(_velocity.Y))
                 {
-                    _animationManager.Play(_animations["WalkRight"]);
+                    _moving_direction = (int)Direction.Right;
 
                 }
                 else if (-_velocity.X >= Math.Abs(_velocity.Y))
                 {
-                    _animationManager.Play(_animations["WalkLeft"]);
+                    _moving_direction = (int)Direction.Left;
                 }
                 else if (_velocity.Y > 0)
                 {
-                    _animationManager.Play(_animations["WalkDown"]);
+                    _moving_direction = (int)Direction.Down;
                 }
                 else if (_velocity.Y < 0)
                 {
-                    _animationManager.Play(_animations["WalkUp"]);
-                    _hide_gun = true;
+                    _moving_direction = (int)Direction.Up;
+                    _hide_weapon = true;
                 }
                 else _animationManager.Stop();
+                if (_moving_direction != -1)
+                    _animationManager.Play(_moving_direction);
             }
         }
 
@@ -167,6 +178,10 @@ namespace GameClient
         public void EquipGun(Gun gun)
         {
             _gun = gun;
+        }
+        public void EquipMeleeWeapon(MeleeWeapon meleeWeapon)
+        {
+            _meleeWeapon = meleeWeapon;
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -184,7 +199,11 @@ namespace GameClient
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, enemies, _looking_direction, _isGamePad);
+                _gun.Update(gameTime, _looking_direction, _isGamePad);
+            }
+            if (_meleeWeapon != null)
+            {
+                _meleeWeapon.Update(_moving_direction);
             }
 
             _health._position = _position + new Vector2(8, 10);

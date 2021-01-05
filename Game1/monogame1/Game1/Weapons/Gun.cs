@@ -12,13 +12,9 @@ namespace GameClient
 
         private Vector2 _position;
 
-        protected Texture2D _texture;
+        private Texture2D _texture;
 
-        protected Vector2 _velocity;
-
-        protected float _scale = 0.5f;
-
-        protected Texture2D _bullet_texture;
+        private float _scale = 0.5f;
 
         public List<Bullet> _bullets = new List<Bullet>();
 
@@ -49,7 +45,6 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
             _position = position + new Vector2(23, 40);
-            Client.game.DrawLine(_position + new Vector2(0.1f, 0.1f), _position);
 
             float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
             if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
@@ -79,19 +74,14 @@ namespace GameClient
                     if (Vector2.Distance(sniperEnd, sniperStart) > 30)
                         Client.game.DrawLine(sniperStart, sniperEnd);
                 }
-               
-                
             }
-            //TODO:for sniper:
-            //
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies, Vector2 direction,bool isGamePad)
+        public void Update(GameTime gameTime, Vector2 direction,bool isGamePad)
         {
             _direction = direction;
-            _enemies = enemies;
             foreach (var bullet in _bullets)
             {
-                bullet.Update(gameTime, _enemies);
+                bullet.Update(gameTime);
             }
             _bullets.RemoveAll(bullet => bullet._destroy == true);
             _isGamePad = isGamePad;

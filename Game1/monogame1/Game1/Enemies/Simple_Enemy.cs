@@ -33,7 +33,7 @@ namespace GameClient
         {
             get
             {
-                return new Rectangle((int)_position.X + 15, (int)_position.Y + 15, _animationManager.Animation.Texture.Width / 4 - 30, _animationManager.Animation.Texture.Height - 15);
+                return new Rectangle((int)_position.X + 15, (int)_position.Y + 15, _animationManager.Animation._frameWidth / 4 - 30, _animationManager.Animation._frameHeight - 15);
             }
         }
 
@@ -42,7 +42,7 @@ namespace GameClient
             _id = id;
             _animationManager = animationManager;
             _position = position;
-            _animationManager.Position = _position;
+            _animationManager._position = _position;
             _playerManager = playerManager;
             _health = new HealthManager(health, position + new Vector2(8, 10));
             _items_drop_list = items_drop_list;
@@ -60,9 +60,7 @@ namespace GameClient
 
             _position += _velocity;
 
-            _animationManager.Position = _position;
-
-            _animationManager.Update(gameTime);
+            _animationManager.Update(gameTime,_position);
 
             _meleeWeapon.Update(_moving_direction,gameTime);
 
@@ -72,7 +70,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if(_hide_weapon)
                 _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);

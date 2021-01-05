@@ -38,9 +38,9 @@ namespace GameClient
             int id = 0;
             _meleeWeapons = new List<MeleeWeapon>();
             _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 6),
-                GraphicManager.GetAnimationManager_swordSwing(), Vector2.Zero, _enemies,0.5f));
+                Vector2.Zero, _enemies,0.5f));
             _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 4),
-                GraphicManager.GetAnimationManager_swordSwing(), Vector2.Zero, _enemies, 0.5f));
+                Vector2.Zero, _enemies, 0.5f));
         }
         private void InitializeSimpleEnemies()
         {

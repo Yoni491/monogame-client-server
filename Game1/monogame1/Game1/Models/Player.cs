@@ -64,9 +64,7 @@ namespace GameClient
 
             _position += _velocity;
 
-            _animationManager.Position = _position;
-
-            _animationManager.Update(gameTime);
+            _animationManager.Update(gameTime, _position);
 
             if (_gun != null)
             {
@@ -88,7 +86,7 @@ namespace GameClient
                 _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
                 //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             }
-            _animationManager.DrawEachAnimationLine(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_weapon)
             {
                 _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);

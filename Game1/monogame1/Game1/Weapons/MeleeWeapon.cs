@@ -12,8 +12,7 @@ namespace GameClient
         public int _id;
 
         private Vector2 _position;
-
-        protected AnimationManager _animationManager;
+        private Vector2 _attack_position;
 
         protected Vector2 _velocity;
 
@@ -25,29 +24,28 @@ namespace GameClient
 
         private float _swing_range;
         private Texture2D _texture;
+        private bool _swing_weapon;
 
 
         public Vector2 Position { get => _position; set => _position = value; }
 
 
-        public MeleeWeapon(int id, Texture2D texture, AnimationManager animationManager, Vector2 position, List<Simple_Enemy> enemies, float swing_range)
+        public MeleeWeapon(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, float swing_range)
         {
             _id = id;
             _texture = texture;
-            _animationManager = animationManager;
             _enemies = enemies;
             _position = position;
             _swing_range = swing_range;
         }
-        public void Update(int direction,GameTime gameTime)
+        public void Update(int direction,GameTime gameTime,Vector2 position)
         {
+            _position = position + new Vector2(23, 44);
             if (direction != -1)
                 _direction = direction;
-            _animationManager.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
-            _position = position + new Vector2(23, 44);
             if (_direction == (int)Direction.Up)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _scale, SpriteEffects.None, layer);
@@ -64,15 +62,14 @@ namespace GameClient
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _scale, SpriteEffects.None, layer);
             }
-            _animationManager.DrawAnimationByOrder(spriteBatch, layer);
         }
         public MeleeWeapon Copy()
         {
-            return new MeleeWeapon(_id, _texture, _animationManager, _position, _enemies, _swing_range);
+            return new MeleeWeapon(_id, _texture, _position, _enemies, _swing_range);
         }
         public void SwingWeapon()
         {
-            _animationManager.Play(0);
+            _swing_weapon = true;
         }
 
         //public void UpdatePacketShort(PacketStructure packet)

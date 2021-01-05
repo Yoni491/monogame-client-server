@@ -4,34 +4,22 @@ namespace GameClient
 {
     public class Animation
     {
-        public int CurrentFrame { get; set; }
-        public int FrameHeight { get { return Texture.Height; } }
-        public float FrameSpeed { get; set; }
-
+        public int _currentFrame;
+        public int _frameHeight;
+        public float _frameSpeed;
         public int _frameWidth;
-        public bool isLooping { get; set; }
-
+        public bool _isLooping;
         public int _frameCount;
 
         public Texture2D[] _textures;
 
-
-        public Texture2D Texture { get; private set; }
-        public Animation(Texture2D texture, int frameCount)
-        {
-            Texture = texture;
-            isLooping = true;
-            FrameSpeed = 0.2f;
-            _frameCount = frameCount;
-            _frameWidth = Texture.Width / _frameCount;
-        }
-        public Animation(Texture2D []textures, int frameCount)
+        public Animation(Texture2D []textures)
         {
             _textures = textures;
-            isLooping = true;
-            FrameSpeed = 0.2f;
-            _frameCount = frameCount;
-            _frameWidth = textures[0].Width / _frameCount;
+            _isLooping = true;
+            _frameSpeed = 0.2f;
+            _frameWidth = textures[0].Width;
+            _frameHeight = textures[0].Height;
         }
     }
 }

@@ -10,7 +10,8 @@ namespace GameClient
         private Animation _animation;
         private float _timer;
         private int _frameCount;
-        public Vector2 Position { get; set; }
+        public Vector2 _position;
+        private float _scale = 1;
         public Animation Animation { get => _animation; set => _animation = value; }
 
         
@@ -20,16 +21,24 @@ namespace GameClient
             _animation = _animations.First().Value;
             _frameCount = frameCount;
         }
-        public void Update(GameTime gameTime)
+        public AnimationManager(Dictionary<int, Animation> animations, int frameCount,float scale)
         {
+            _animations = animations;
+            _animation = _animations.First().Value;
+            _frameCount = frameCount;
+            _scale = scale;
+        }
+        public void Update(GameTime gameTime,Vector2 position)
+        {
+            _position = position;
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer > _animation.FrameSpeed)
+            if (_timer > _animation._frameSpeed)
             {
                 _timer = 0f;
-                _animation.CurrentFrame++;
-                if (_animation.CurrentFrame >= _frameCount)
+                _animation._currentFrame++;
+                if (_animation._currentFrame >= _frameCount)
                 {
-                    _animation.CurrentFrame = 0;
+                    _animation._currentFrame = 0;
                     if(_animation._textures!=null)
                     {
                         Stop();
@@ -37,18 +46,18 @@ namespace GameClient
                 }
             }
         }
-        public void DrawEachAnimationLine(SpriteBatch spriteBatch,float layer)
+        //public void Draw(SpriteBatch spriteBatch,float layer)
+        //{
+        //    spriteBatch.Draw(_animation.Texture,Position,
+        //        new Rectangle(_animation._currentFrame * _animation._frameWidth, 0,_animation._frameWidth,_animation._frameHeight),
+        //        Color.White,0,Vector2.Zero,1,SpriteEffects.None,
+        //        layer);
+        //}
+        public void Draw(SpriteBatch spriteBatch, float layer)
         {
-            spriteBatch.Draw(_animation.Texture,Position,
-                new Rectangle(_animation.CurrentFrame * _animation._frameWidth, 0,_animation._frameWidth,_animation.FrameHeight),
-                Color.White,0,Vector2.Zero,1,SpriteEffects.None,
-                layer);
-        }
-        public void DrawAnimationByOrder(SpriteBatch spriteBatch, float layer)
-        {
-            spriteBatch.Draw(_animation._textures[_animation.CurrentFrame], Position,
+            spriteBatch.Draw(_animation._textures[_animation._currentFrame], _position,
                 null,
-                Color.White, 0, Vector2.Zero, 1, SpriteEffects.None,
+                Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None,
                 layer);
         }
         public AnimationManager Copy()
@@ -60,13 +69,13 @@ namespace GameClient
             if (_animation == _animations[animation_number])
                 return;
             _animation = _animations[animation_number];
-            _animation.CurrentFrame = 0;
-            _animation.FrameSpeed = 0.25f;
+            _animation._currentFrame = 0;
+            _animation._frameSpeed = 0.25f;
         }
         public void Stop()
         {
             _timer = 0;
-            _animation.CurrentFrame = 0;
+            _animation._currentFrame = 0;
         }
         public void Hide()
         {
@@ -74,7 +83,7 @@ namespace GameClient
         }
         public Vector2 getAnimationPickPosition()
         {
-            return new Vector2(_animation._frameWidth / 2, _animation.FrameHeight);
+            return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);
             //return new Vector2(_animation.Texture.Width / 2, _animation.Texture.Height);
         }
 

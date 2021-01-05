@@ -42,33 +42,29 @@ namespace GameClient
             croppedTexture.SetData(data);
             return croppedTexture;
         }
+        static public Animation MakeAnimationFromRow(Texture2D row,int width)
+        {
+            Texture2D[] _textures;
+            _textures = new Texture2D[width];
+            for (int i = 0; i < width; i++)
+            {
+                _textures[i] = (GetTextureSqaure(row, 1, width, 0, i));
+            }
+            return new Animation(_textures);
+        }
         static private Dictionary<int, Animation> GetAnimation4x4Dictionary_spritesMovement(Texture2D i_texture)
         {
             return new Dictionary<int, Animation>()
             {
-            { (int)Direction.Down, new Animation(Resize4x4Sprite(i_texture,0),4) },
-            { (int)Direction.Left, new Animation(Resize4x4Sprite(i_texture,1),4) },
-            { (int)Direction.Right, new Animation(Resize4x4Sprite(i_texture,2),4) },
-            { (int)Direction.Up, new Animation(Resize4x4Sprite(i_texture,3),4) },
+            { (int)Direction.Down, MakeAnimationFromRow(Resize4x4Sprite(i_texture,0),4) },
+            { (int)Direction.Left, MakeAnimationFromRow(Resize4x4Sprite(i_texture,1),4) },
+            { (int)Direction.Right, MakeAnimationFromRow(Resize4x4Sprite(i_texture,2),4) },
+            { (int)Direction.Up, MakeAnimationFromRow(Resize4x4Sprite(i_texture,3),4) },
             };
         }
         static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum)
         {
             return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4);
-        }
-        static public AnimationManager GetAnimationManager_swordSwing()
-        {
-            return new AnimationManager(GetAnimation4x4Dictionary_swordSwing(_contentManager.Load<Texture2D>("Weapons/sword swing")),6);
-        }
-        static private Dictionary<int, Animation> GetAnimation4x4Dictionary_swordSwing(Texture2D i_texture)
-        {
-            return new Dictionary<int, Animation>()
-            {
-                { 0, new Animation(new Texture2D[]
-                 {GetTextureSqaure(i_texture,4,4,0,1),GetTextureSqaure(i_texture,4,4,0,3),
-                 GetTextureSqaure(i_texture,4,4,1,1),GetTextureSqaure(i_texture,4,4,1,3),
-                 GetTextureSqaure(i_texture,4,4,2,1),GetTextureSqaure(i_texture,4,4,2,3)},6) }
-            };
         }
         static public void DrawLine(Vector2 start, Vector2 end, SpriteBatch spriteBatch)
         {

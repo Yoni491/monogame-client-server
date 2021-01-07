@@ -62,7 +62,7 @@ namespace GameClient
 
             _animationManager.Update(gameTime,_position);
 
-            _meleeWeapon.Update(_moving_direction,gameTime);
+            _meleeWeapon.Update(_moving_direction,gameTime,_position);
 
             _velocity = Vector2.Zero;
 

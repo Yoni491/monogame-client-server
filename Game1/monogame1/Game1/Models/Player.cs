@@ -72,7 +72,7 @@ namespace GameClient
             }
             if (_meleeWeapon != null)
             {
-                _meleeWeapon.Update(_moving_direction,gameTime);
+                _meleeWeapon.Update(_moving_direction,gameTime,_position);
             }
 
             _health._position = _position + new Vector2(8, 10);

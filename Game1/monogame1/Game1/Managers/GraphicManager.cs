@@ -18,6 +18,11 @@ namespace GameClient
             _contentManager = contentManager;
             _font = contentManager.Load<SpriteFont>("Fonts/basic");
         }
+        static public SpriteFont GetBasicFont()
+        {
+            SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/basic");
+            return font;
+        }
         static public Texture2D Resize4x4Sprite(Texture2D texture, int x)
         {
             Rectangle newBounds = texture.Bounds;
@@ -75,6 +80,18 @@ namespace GameClient
                              new Vector2(Vector2.Distance(start, end), 0.005f),
                              SpriteEffects.None, 0.5f);
 
+        }
+        static public Texture2D getRectangleTexture(int width,int height, Color color)
+        {
+            Texture2D _healthbar = new Texture2D(Client.game.GraphicsDevice, width, height);
+            Color[] data = new Color[width* height];
+            for (int i = 0; i < data.Length; ++i) data[i] = color;
+            _healthbar.SetData(data);
+            return _healthbar;
+        }
+        static public Texture2D getImage(string image)
+        {
+            return _contentManager.Load<Texture2D>("Images/"+ image);
         }
     }
 }

@@ -42,12 +42,12 @@ namespace GameClient
             NetworkManagerClient._updateOtherPlayerTexture = true;
             return otherPlayer;
         }
-        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager)
+        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice)
         {
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
-            Vector2 position = new Vector2(200, 200);
+            Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2, graphicsDevice.Viewport.Height / 2);
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3), position, input, 100,this,_itemManager,_inventoryManager);
             _player.EquipGun(_collectionManager.GetGunCopy(1));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0));

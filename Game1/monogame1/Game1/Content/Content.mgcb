@@ -44,6 +44,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic.spritefont
 
+#begin Images/template.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/template.png;Images/MenuBackground.png
+
 #begin Patreon sprites 1/1.png
 /importer:TextureImporter
 /processor:TextureProcessor

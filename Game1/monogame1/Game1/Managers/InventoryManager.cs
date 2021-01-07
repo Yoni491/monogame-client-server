@@ -14,7 +14,8 @@ namespace GameClient
         Vector2 _position;
         List<ItemStock> _item_list;
         List<(Vector2, ItemStock)> _inventory_positions;
-        public InventoryManager(GraphicsDevice graphicDevice,ItemManager itemManager)
+        int _itemBlockAmount = 8;
+        public InventoryManager(GraphicsDevice graphicsDevice,ItemManager itemManager)
         {
             _itemManager = itemManager;
             _inventoryBlock = new Texture2D(Client.game.GraphicsDevice, width, height);
@@ -28,12 +29,13 @@ namespace GameClient
             }
             _inventoryBlock.SetData(data2);
             _item_list = new List<ItemStock>();
-            _position = new Vector2(3 * (graphicDevice.Viewport.Bounds.Width / 10),
-            graphicDevice.Viewport.Bounds.Height - (graphicDevice.Viewport.Bounds.Height / 10));
+            _position = new Vector2((graphicsDevice.Viewport.Bounds.Width / 2),
+            graphicsDevice.Viewport.Bounds.Height - (graphicsDevice.Viewport.Bounds.Height / 10));
+            Vector2 _fixedPosition =new Vector2( _position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
             _inventory_positions = new List<(Vector2, ItemStock)>();
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < _itemBlockAmount; i++)
             {
-                _inventory_positions.Add((_position + new Vector2(width * i + i, 0),null));
+                _inventory_positions.Add((_fixedPosition + new Vector2(width * i + i, 0),null));
             }
         }
         public void Draw(SpriteBatch spriteBatch)

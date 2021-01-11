@@ -80,6 +80,9 @@ namespace GameClient
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            //var scaleX = (float)ActualWidth / VirtualWidth;
+            //var scaleY = (float)ActualHeight / VirtualHeight;
+            //var matrix = Matrix.CreateScale(1.5f, 1.5f, 1.0f);
 
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             if (_inMenu)

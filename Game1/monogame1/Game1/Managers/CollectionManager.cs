@@ -46,8 +46,8 @@ namespace GameClient
         {
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1), id++,Vector2.Zero,1,_playerManager,_itemManager,10,new int[] { 0, 1, 2, 3, 4 },GetMeleeWeaponCopy(0)));
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, new int[] { 0, 1, 2, 3, 4 }, GetMeleeWeaponCopy(1)));
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1,1.5f), id++,Vector2.Zero,1,_playerManager,_itemManager,10,new int[] { 0, 1, 2, 3, 4 },GetMeleeWeaponCopy(0,0.7f)));
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24,1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, new int[] { 0, 1, 2, 3, 4 }, GetMeleeWeaponCopy(1,0.7f)));
         }
         private void InitializeItems()
         {
@@ -93,17 +93,17 @@ namespace GameClient
             _guns.Add(MachineGun);
             _guns.Add(Uzi);
         }
-        public Gun GetGunCopy(int id)
+        public Gun GetGunCopy(int id , float scale)
         {
-            return _guns[id].Copy();
+            return _guns[id].Copy(scale);
         }
-        public MeleeWeapon GetMeleeWeaponCopy(int id)
+        public MeleeWeapon GetMeleeWeaponCopy(int id,float scale)
         {
-            return _meleeWeapons[id].Copy();
+            return _meleeWeapons[id].Copy(scale);
         }
-        public Simple_Enemy GetSimpleEnemyCopy(int id)
+        public Simple_Enemy GetSimpleEnemyCopy(int id, float scale)
         {
-            return _simple_enemies[id].Copy();
+            return _simple_enemies[id].Copy(scale);
         }
         public Item GetItem(int id)
         {

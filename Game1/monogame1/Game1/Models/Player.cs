@@ -17,7 +17,7 @@ namespace GameClient
 
         private Input _input;
 
-        private float _speed = 2f;
+        private float _speed = 3f;
 
         private Vector2 _velocity;
 
@@ -41,6 +41,8 @@ namespace GameClient
         private int _moving_direction;
 
         public bool _isGamePad;
+        private float _scale;
+
         public Vector2 Position { get => _position; set => _position = value; }
 
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
@@ -48,11 +50,12 @@ namespace GameClient
             _animationManager = animationManager;
             _position = position;
             _input = input;
-            _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
             _playerManager = playerManager;
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
+            _scale = _animationManager._scale;
+            _health = new HealthManager(health, position,_scale);
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -75,7 +78,7 @@ namespace GameClient
                 _meleeWeapon.Update(_moving_direction,gameTime,_position);
             }
 
-            _health._position = _position + new Vector2(8, 10);
+            _health.Update(_position);
 
             _input.Update();
         }
@@ -83,14 +86,14 @@ namespace GameClient
         {
             if (_hide_weapon && _gun != null)
             {
-                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-                //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             }
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_weapon)
             {
-                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-                //_gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(Position.Y));
         }
@@ -205,6 +208,7 @@ namespace GameClient
         public void EquipGun(Gun gun)
         {
             _gun = gun;
+            _gun._holderScale = _scale;
         }
         public void EquipMeleeWeapon(MeleeWeapon meleeWeapon)
         {

@@ -14,8 +14,6 @@ namespace GameClient
 
         private Texture2D _texture;
 
-        private float _scale = 0.5f;
-
         public List<Bullet> _bullets = new List<Bullet>();
 
         private Vector2 _direction;
@@ -29,7 +27,8 @@ namespace GameClient
 
         private bool _isGamePad;
 
-        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet,bool isSniper)
+        public float _holderScale = 0;
+        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper)
         {
             _id = id;
             _texture = texture;
@@ -51,16 +50,16 @@ namespace GameClient
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
-            _position = position + new Vector2(23, 40);
+            _position = position + new Vector2(23, 40) * _holderScale;
 
             float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
             if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 12), _scale, SpriteEffects.FlipHorizontally, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
             }
             else
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 20), _scale, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
             }
             foreach (var bullet in _bullets)
             {
@@ -83,7 +82,7 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy()
+        public Gun Copy(float scale)
         {
             return new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper);
         }

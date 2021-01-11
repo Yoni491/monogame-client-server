@@ -40,7 +40,7 @@ namespace GameClient
         }
         public void AddEnemy(Vector2 position)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0,0.5f);
             enemy._position = position;
             _enemies.Add(enemy);
         }

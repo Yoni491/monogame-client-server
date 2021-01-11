@@ -30,15 +30,17 @@ namespace GameClient
 
         private Vector2 _looking_direction;
 
+        private float _scale = 1.5f;
+
         public Vector2 Position { get => _position; set => _position = value; }
 
         public OtherPlayer(Vector2 position, int health, int playerNum, Gun gun)
         {
             _position = position;
-            _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
             _playerNum = playerNum;
             _gun = gun;
+            _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -58,7 +60,7 @@ namespace GameClient
                 }
                 //_velocity = Vector2.Zero;
 
-                _health._position = _position + new Vector2(8, 10);
+                _health.Update(_position);
             }
 
         }
@@ -77,6 +79,8 @@ namespace GameClient
         {
             updateTexture = false;
             _animationManager = animationManager;
+            _scale = _animationManager._scale;
+            //maybe there will be a problem with the server when there is no gun scale
         }
         protected void SetAnimations()
         {
@@ -108,10 +112,11 @@ namespace GameClient
             }
         }
 
-        //public void EquipGun(Gun gun)
-        //{
-        //    _gun = gun;
-        //}
+        public void EquipGun(Gun gun)
+        {
+            _gun = gun;
+            _gun._holderScale = _scale;
+        }
 
         public void ReadPacketShort(PacketStructure packet)
         {

@@ -11,15 +11,21 @@ namespace GameClient
         private float _timer;
         private int _frameCount;
         public Vector2 _position;
-        private float _scale = 1;
+        public float _scale;
         public Animation Animation { get => _animation; set => _animation = value; }
 
-        
-        public AnimationManager(Dictionary<int, Animation> animations,int frameCount)
+        public AnimationManager(Dictionary<int, Animation> animations, int frameCount)
         {
             _animations = animations;
             _animation = _animations.First().Value;
             _frameCount = frameCount;
+        }
+        public AnimationManager(Dictionary<int, Animation> animations,int frameCount, float scale)
+        {
+            _animations = animations;
+            _animation = _animations.First().Value;
+            _frameCount = frameCount;
+            _scale = scale;
         }
         public void Update(GameTime gameTime,Vector2 position)
         {
@@ -43,12 +49,12 @@ namespace GameClient
         {
             spriteBatch.Draw(_animation._textures[_animation._currentFrame], _position,
                 null,
-                Color.White, 0, Vector2.Zero, 1, SpriteEffects.None,
+                Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None,
                 layer);
         }
-        public AnimationManager Copy()
+        public AnimationManager Copy(float scale)
         {
-            return new AnimationManager(_animations, _frameCount);
+            return new AnimationManager(_animations, _frameCount , scale);
         }
         public void Play(int animation_number)
         {

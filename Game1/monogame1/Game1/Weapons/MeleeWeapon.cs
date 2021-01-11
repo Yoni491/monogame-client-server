@@ -16,8 +16,6 @@ namespace GameClient
 
         protected Vector2 _velocity;
 
-        protected float _scale = 0.5f;
-
         private int _direction;
 
         private List<Simple_Enemy> _enemies;
@@ -25,11 +23,9 @@ namespace GameClient
         private float _swing_range;
         private Texture2D _texture;
         private bool _swing_weapon;
-
+        public float _holderScale;
 
         public Vector2 Position { get => _position; set => _position = value; }
-
-
         public MeleeWeapon(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, float swing_range)
         {
             _id = id;
@@ -40,30 +36,30 @@ namespace GameClient
         }
         public void Update(int direction,GameTime gameTime,Vector2 position)
         {
-            _position = position + new Vector2(23, 44);
+            _position = position + new Vector2(23, 44) * _holderScale;
             if (direction != -1)
                 _direction = direction;
         }
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
+        public void Draw(SpriteBatch spriteBatch, float layer)
         {
             if (_direction == (int)Direction.Up)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _scale, SpriteEffects.None, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
             else if (_direction == (int)Direction.Down)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(-12, 12), _scale, SpriteEffects.FlipHorizontally, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(-12, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
             }
             else if (_direction == (int)Direction.Right)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _scale, SpriteEffects.FlipHorizontally, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
             }
             else if (_direction == (int)Direction.Left)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _scale, SpriteEffects.None, layer);
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
         }
-        public MeleeWeapon Copy()
+        public MeleeWeapon Copy(float scale)
         {
             return new MeleeWeapon(_id, _texture, _position, _enemies, _swing_range);
         }

@@ -29,6 +29,7 @@ namespace GameClient
         private MeleeWeapon _meleeWeapon;
         private bool _hide_weapon;
         private int _moving_direction;
+        private float _scale;
         public Rectangle Rectangle
         {
             get
@@ -44,11 +45,13 @@ namespace GameClient
             _position = position;
             _animationManager._position = _position;
             _playerManager = playerManager;
-            _health = new HealthManager(health, position + new Vector2(8, 10));
             _items_drop_list = items_drop_list;
             _itemManager = itemManager;
             _speed = speed;
             _meleeWeapon = meleeWeapon;
+            _scale = animationManager._scale;
+            _meleeWeapon._holderScale = _scale;
+            _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
         }
         public void Update(GameTime gameTime)
         {
@@ -66,21 +69,21 @@ namespace GameClient
 
             _velocity = Vector2.Zero;
 
-            _health._position = _position + new Vector2(8, 10);
+            _health.Update(_position);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if(_hide_weapon)
-                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             else
-                _meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
         }
-        public Simple_Enemy Copy()
+        public Simple_Enemy Copy(float scale)
         {
 
-            return new Simple_Enemy(_animationManager.Copy(), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon.Copy());
+            return new Simple_Enemy(_animationManager.Copy(scale), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon.Copy(0.7f));
         }
 
         public void Move()

@@ -67,9 +67,9 @@ namespace GameClient
             { (int)Direction.Up, MakeAnimationFromRow(Resize4x4Sprite(i_texture,3),4) },
             };
         }
-        static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum)
+        static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum,float scale)
         {
-            return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4);
+            return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4 , scale);
         }
         static public void DrawLine(Vector2 start, Vector2 end, SpriteBatch spriteBatch)
         {

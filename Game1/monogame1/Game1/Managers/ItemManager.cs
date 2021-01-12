@@ -19,7 +19,7 @@ namespace GameClient
         {
             foreach (var item in _itemsOnTheGround)
             {
-                item.Draw(spriteBatch);
+                item.DrawOnGround(spriteBatch);
             }
         }
         public void DropItem(int []items, Vector2 position)
@@ -31,7 +31,7 @@ namespace GameClient
                 {
                     item._position = position;
                     _itemsOnTheGround.Add(item);
-                    break;
+                    return;
                 }
             }
         }

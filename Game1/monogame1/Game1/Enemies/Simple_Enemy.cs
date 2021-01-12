@@ -9,38 +9,24 @@ namespace GameClient
     public class Simple_Enemy
     {
         int _id;
-        private float _speed;
-
-        private Vector2 _velocity;
-
-        private AnimationManager _animationManager;
-
-        public Vector2 _position;
-
-        private PlayerManager _playerManager;
-
-        private HealthManager _health;
-
-        private int []_items_drop_list;
-
-        public bool _destroy = false;
-
-        private ItemManager _itemManager;
         private MeleeWeapon _meleeWeapon;
+        private AnimationManager _animationManager;
+        private PlayerManager _playerManager;
+        private HealthManager _health;
+        private ItemManager _itemManager;
+        private Vector2 _velocity;
+        public Vector2 _position;
+        public bool _destroy = false;
         private bool _hide_weapon;
+        private bool stopMoving;
+        private int []_items_drop_list;
         private int _moving_direction;
-        private float _scale;
         private int _width;
         private int _height;
-        private bool stopMoving;
+        private float _speed;
+        private float _scale;
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
-        public Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
-            }
-        }
+        public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
         public Simple_Enemy(AnimationManager animationManager,int id,Vector2 position,float speed, PlayerManager playerManager,ItemManager itemManager, int health, int []items_drop_list, MeleeWeapon meleeWeapon)
         {

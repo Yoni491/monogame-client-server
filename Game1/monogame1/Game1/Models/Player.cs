@@ -9,49 +9,30 @@ namespace GameClient
 {
     public class Player
     {
-        public int _playerNum;
-
         private Gun _gun;
-
-        private bool _hide_weapon = false;
-
+        private MeleeWeapon _meleeWeapon;
         private Input _input;
-
-        private float _speed = 3f;
-
         private Vector2 _velocity;
-
         private AnimationManager _animationManager;
-
-        private Vector2 _position;
-
         public HealthManager _health;
-
+        private Vector2 _position;
         private Vector2 _looking_direction;
-
-        float _timer = 0;
-
+        private bool _hide_weapon = false;
+        public bool _isGamePad;
+        private float _timer_shooting = 0;
+        private float _speed = 3f;
+        private float _scale;
+        public int _playerNum;
         private int _width;
         private int _height;
-        PlayerManager _playerManager;
-
-        ItemManager _itemManager;
-
-        InventoryManager _inventoryManager;
-        MeleeWeapon _meleeWeapon;
         private int _moving_direction;
 
-        public bool _isGamePad;
-        private float _scale;
+        private PlayerManager _playerManager;
+        private ItemManager _itemManager;
+        private InventoryManager _inventoryManager;
 
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height);}
-        public Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
-            }
-        }
+        public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));}
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
             _animationManager = animationManager;
@@ -68,7 +49,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _timer_shooting += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             InputReader();
 
@@ -152,11 +133,15 @@ namespace GameClient
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
-                if (_timer >= _gun._bullet._shootingTimer)
-                {
-                    _gun.Shot();
-                    _timer = 0;
+                if(!_inventoryManager.MouseClick())
+                { 
+                    if (_timer_shooting >= _gun._bullet._shootingTimer)
+                    {
+                        _gun.Shot();
+                        _timer_shooting = 0;
+                    }
                 }
+
             }
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
@@ -165,10 +150,10 @@ namespace GameClient
             }
             if (_input._right_trigger > 0)
             {
-                if (_timer >= _gun._bullet._shootingTimer)
+                if (_timer_shooting >= _gun._bullet._shootingTimer)
                 {
                     _gun.Shot();
-                    _timer = 0;
+                    _timer_shooting = 0;
                 }
             }
             if(Keyboard.GetState().IsKeyDown(_input._pick))

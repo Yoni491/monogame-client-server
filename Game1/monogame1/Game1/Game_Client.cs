@@ -60,6 +60,7 @@ namespace GameClient
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager,GraphicsDevice);
             _collisionManager.Initialize(_other_players, _player, _enemies);
+            _inventoryManager.Initialize(_player);
         }
 
         protected override void Update(GameTime gameTime)

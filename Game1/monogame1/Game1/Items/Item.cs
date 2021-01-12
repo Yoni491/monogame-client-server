@@ -9,7 +9,7 @@ namespace GameClient
     public class Item
     {
         Texture2D _texture;
-        Texture2D _framedTexture;
+        Texture2D _inventoryTexture;
         public int _item_id;
         private string _name;
         private float _dropRate;
@@ -18,15 +18,15 @@ namespace GameClient
         private bool _isUseable;
         private bool _isCraftable;
         private Recipe _recipe;
-        private Gun _gun;
+        public Gun _gun;
         public Vector2 _position;
         private bool _inInventory = false;
         public int _invenotryAmountAllowed;
 
-        public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Recipe recipe, Gun gun,int invenotryAmountAllowed)
+        public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Recipe recipe, Gun gun, int invenotryAmountAllowed)
         {
             _texture = texture;
-            _framedTexture = framedTexture;
+            _inventoryTexture = framedTexture;
             _item_id = item_id;
             _name = name;
             _dropRate = dropRate;
@@ -38,25 +38,31 @@ namespace GameClient
             _gun = gun;
             _invenotryAmountAllowed = invenotryAmountAllowed;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawInventory(SpriteBatch spriteBatch)
         {
-            if (_inInventory)
-            {
-                spriteBatch.Draw(_framedTexture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.99f);
-            }
-            else
-                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
-
+            float scale = _gun == null ? 1 : 0.7f;
+            spriteBatch.Draw(_inventoryTexture, _position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0.99f);
+        }
+        public void DrawOnGround(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
+        }
+        public Item Copy()
+        {
+            Gun gun = null;
+            if (_gun != null)
+                gun = _gun.Copy(1);
+            return new Item(_texture, _inventoryTexture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, _recipe, gun, _invenotryAmountAllowed);
         }
         public Item Drop()
         {
             Random x = new Random();
-            if((float)x.NextDouble()<_dropRate)
+            if ((float)x.NextDouble() < _dropRate)
             {
-                return new Item(_texture,_framedTexture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, _recipe, _gun, _invenotryAmountAllowed);
+                return Copy();
             }
             return null;
-            
+
         }
         public void MakeInventoryItem(Vector2 position)
         {

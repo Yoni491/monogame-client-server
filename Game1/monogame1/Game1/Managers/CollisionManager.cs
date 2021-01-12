@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,6 +39,14 @@ namespace GameClient
                 }
 
 
+            return false;
+        }
+        static public bool isMouseCollidingRectangle(Rectangle rectangle)
+        {
+            Vector2 mouse = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            if (mouse.X > rectangle.X && mouse.X < rectangle.X + rectangle.Width)
+                if (mouse.Y > rectangle.Y && mouse.Y < rectangle.Y + rectangle.Height)
+                    return true;
             return false;
         }
     }   

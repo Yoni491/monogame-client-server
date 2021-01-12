@@ -10,38 +10,67 @@ namespace GameClient
     public class MeleeWeapon
     {
         public int _id;
-
         private Vector2 _position;
-        private Vector2 _attack_position;
-
-        protected Vector2 _velocity;
-
         private int _direction;
-
-        private List<Simple_Enemy> _enemies;
-
         private float _swing_range;
         private Texture2D _texture;
-        private bool _swing_weapon;
+        public bool _swing_weapon;
         public float _holderScale;
-
+        private float _swing_timer;
+        private float _swing_frame_window = 0.02f;
+        private float _swing_frame_timer = 0;
+        private float _between_attacks_timer;
+        private float _between_attacks_timer_window = 0.2f;
+        private float swingSpeed = 7;
+        private int _dmg;
+        private bool _isColided = false;
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_texture.Width * _holderScale), (int)(_texture.Height * _holderScale));
+            }
+        }
         public Vector2 Position { get => _position; set => _position = value; }
-        public MeleeWeapon(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, float swing_range)
+        public MeleeWeapon(int id, Texture2D texture, Vector2 position, float swing_range,int dmg)
         {
             _id = id;
             _texture = texture;
-            _enemies = enemies;
             _position = position;
             _swing_range = swing_range;
+            _dmg = dmg;
         }
         public void Update(int direction,GameTime gameTime,Vector2 position)
         {
-            _position = position + new Vector2(23, 44) * _holderScale;
+            if (_swing_weapon)
+            {
+                SwingUpdate(gameTime);
+                _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (!_isColided && CollisionManager.isColidedWithPlayer(_position, Rectangle, _dmg))
+                {
+                    _isColided = true;
+                }
+            }
+            else
+            {
+                _position = position + new Vector2(23, 44) * _holderScale;
+                _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
             if (direction != -1)
                 _direction = direction;
+            if(_swing_timer >= 0.3f )
+            {
+                _swing_timer = 0;
+                _swing_weapon = false;
+                _position = position + new Vector2(23, 44) * _holderScale;
+                _isColided = false;
+                _between_attacks_timer = 0;
+            }
+
         }
         public void Draw(SpriteBatch spriteBatch, float layer)
         {
+
             if (_direction == (int)Direction.Up)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
@@ -61,12 +90,40 @@ namespace GameClient
         }
         public MeleeWeapon Copy(float scale)
         {
-            return new MeleeWeapon(_id, _texture, _position, _enemies, _swing_range);
+            return new MeleeWeapon(_id, _texture, _position, _swing_range, _dmg);
         }
         public void SwingWeapon()
         {
-            _swing_weapon = true;
+            if (_between_attacks_timer > _between_attacks_timer_window)
+            {
+                _swing_weapon = true;
+            }
         }
+        private void SwingUpdate(GameTime gameTime)
+        {
+            _swing_frame_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_swing_frame_timer > _swing_frame_window)
+            {
+                _swing_frame_timer = 0;
+                if (_direction == (int)Direction.Up)
+                {
+                    _position += new Vector2(0, -swingSpeed);
+                }
+                else if (_direction == (int)Direction.Down)
+                {
+                    _position += new Vector2(0, swingSpeed);
+                }
+                else if (_direction == (int)Direction.Right)
+                {
+                    _position += new Vector2(swingSpeed, 0);
+                }
+                else if (_direction == (int)Direction.Left)
+                {
+                    _position +=  new Vector2(-swingSpeed, 0);
+                }
+            }
+        }
+
 
         //public void UpdatePacketShort(PacketStructure packet)
         //{

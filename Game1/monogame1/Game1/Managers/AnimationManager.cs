@@ -6,7 +6,7 @@ namespace GameClient
 {
     public class AnimationManager
     {
-        private Dictionary<int, Animation> _animations;
+        public Dictionary<int, Animation> _animations;
         private Animation _animation;
         private float _timer;
         private int _frameCount;
@@ -69,10 +69,7 @@ namespace GameClient
             _timer = 0;
             _animation._currentFrame = 0;
         }
-        public void Hide()
-        {
 
-        }
         public Vector2 getAnimationPickPosition()
         {
             return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);

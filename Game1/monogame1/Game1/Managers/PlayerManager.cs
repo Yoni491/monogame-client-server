@@ -73,16 +73,16 @@ namespace GameClient
             if (_players != null)
                 foreach (var player in _players)
                 {
-                    if (Vector2.Distance(position, player.Position) < closest_object_distance)
+                    if (Vector2.Distance(position, player.Position_Feet) < closest_object_distance)
                     {
-                        closest_object_distance = Vector2.Distance(position, player.Position);
-                        player_position = player.Position;
+                        closest_object_distance = Vector2.Distance(position, player.Position_Feet);
+                        player_position = player.Position_Feet;
                     }
                 }
-            if (Vector2.Distance(position, _player.Position) < closest_object_distance)
+            if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
             {
-                closest_object_distance = Vector2.Distance(position, _player.Position);
-                player_position = _player.Position;
+                closest_object_distance = Vector2.Distance(position, _player.Position_Feet);
+                player_position = _player.Position_Feet;
             }
             return player_position;
         }

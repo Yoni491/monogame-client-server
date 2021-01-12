@@ -25,26 +25,33 @@ namespace GameClient
 
         private Vector2 _position;
 
-        private HealthManager _health;
+        public HealthManager _health;
 
         private Vector2 _looking_direction;
 
         float _timer = 0;
 
+        private int _width;
+        private int _height;
         PlayerManager _playerManager;
 
         ItemManager _itemManager;
 
         InventoryManager _inventoryManager;
-
         MeleeWeapon _meleeWeapon;
         private int _moving_direction;
 
         public bool _isGamePad;
         private float _scale;
 
-        public Vector2 Position { get => _position; set => _position = value; }
-
+        public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height);}
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
+            }
+        }
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
             _animationManager = animationManager;
@@ -56,6 +63,8 @@ namespace GameClient
             _inventoryManager = inventoryManager;
             _scale = _animationManager._scale;
             _health = new HealthManager(health, position,_scale);
+            _width = _animationManager.Animation._frameWidth;
+            _height = _animationManager.Animation._frameHeight;
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -95,7 +104,7 @@ namespace GameClient
                 //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-            _health.Draw(spriteBatch,TileManager.GetLayerDepth(Position.Y));
+            _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
         }
 
         public void InputReader()
@@ -218,7 +227,7 @@ namespace GameClient
         public void UpdatePacketShort(PacketShort_Client packet)
         {
             packet.WriteInt(_playerNum);
-            packet.WriteVector2(Position);
+            packet.WriteVector2(_position);
             packet.WriteInt(_health._health_left);
             packet.WriteInt(_health._total_health);
             packet.WriteVector2(_velocity);

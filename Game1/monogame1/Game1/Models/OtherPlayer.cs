@@ -16,10 +16,6 @@ namespace GameClient
 
         private Boolean _hide_gun = false;
 
-        //private Input _input;
-
-        //private float _speed = 2f;
-
         private Vector2 _velocity;
 
         private AnimationManager _animationManager;
@@ -31,8 +27,16 @@ namespace GameClient
         private Vector2 _looking_direction;
 
         private float _scale = 1.5f;
-
-        public Vector2 Position { get => _position; set => _position = value; }
+        private int _width;
+        private int _height;
+        public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
+            }
+        }
 
         public OtherPlayer(Vector2 position, int health, int playerNum, Gun gun)
         {
@@ -41,6 +45,9 @@ namespace GameClient
             _playerNum = playerNum;
             _gun = gun;
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
+            _width = _animationManager.Animation._frameWidth;
+            _height = _animationManager.Animation._frameHeight;
+
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -120,7 +127,7 @@ namespace GameClient
 
         public void ReadPacketShort(PacketStructure packet)
         {
-            Position = packet.ReadVector2();
+            _position = packet.ReadVector2();
             _health._health_left = packet.ReadInt();
             _health._total_health = packet.ReadInt();
             _velocity = packet.ReadVector2();

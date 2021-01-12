@@ -30,11 +30,15 @@ namespace GameClient
         private bool _hide_weapon;
         private int _moving_direction;
         private float _scale;
+        private int _width;
+        private int _height;
+        private bool stopMoving;
+        public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)_position.X + 15, (int)_position.Y + 15, _animationManager.Animation._frameWidth / 4 - 30, _animationManager.Animation._frameHeight - 15);
+                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
             }
         }
 
@@ -52,6 +56,8 @@ namespace GameClient
             _scale = animationManager._scale;
             _meleeWeapon._holderScale = _scale;
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
+            _width = _animationManager.Animation._frameWidth;
+            _height = _animationManager.Animation._frameHeight;
         }
         public void Update(GameTime gameTime)
         {
@@ -61,7 +67,8 @@ namespace GameClient
 
             _velocity = _velocity * _speed;
 
-            _position += _velocity;
+            if (!_meleeWeapon._swing_weapon)
+                _position += _velocity;
 
             _animationManager.Update(gameTime,_position);
 
@@ -88,15 +95,17 @@ namespace GameClient
 
         public void Move()
         {
-            Vector2 closest_player = _playerManager.getClosestPlayerToPosition(_position);
-            if (Vector2.Distance(closest_player,_position) > 40)
-                _velocity = Vector2.Normalize(closest_player - _position);
+            Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
+            if (Vector2.Distance(closest_player, Position_Feet) > 40)
+            {
+                stopMoving = false;
+            }
             else
-                _velocity = new Vector2(0, 0);
-        }
-        protected void SetAnimations()
-        {
-            _moving_direction = -1;
+            {
+                stopMoving = true;
+                _meleeWeapon.SwingWeapon();
+            }
+            _velocity = Vector2.Normalize(closest_player - Position_Feet);
             if (_velocity.X > Math.Abs(_velocity.Y))
             {
                 _hide_weapon = false;
@@ -117,9 +126,21 @@ namespace GameClient
                 _hide_weapon = true;
                 _moving_direction = (int)Direction.Up;
             }
-            else _animationManager.Stop();
-            if(_moving_direction != -1)
+        }
+        protected void SetAnimations()
+        {
+            if(stopMoving)
+            {
+                if(!_meleeWeapon._swing_weapon)
+                    _animationManager.Animation = _animationManager._animations[_moving_direction];
+                _velocity = new Vector2(0, 0);
+                _animationManager.Stop();
+            }
+            if (!stopMoving)
+            {
                 _animationManager.Play(_moving_direction);
+            }
+            
         }
         
         public bool isCollision(Bullet other)

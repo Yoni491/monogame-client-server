@@ -46,7 +46,7 @@ namespace GameClient
             Color[] data = new Color[healthbar_width];
             for (int i = 0; i < data.Length; ++i) data[i] = (i < life_precentage ? Color.Green : Color.Red);
             _healthbar.SetData(data);
-            spriteBatch.Draw(_healthbar_background, _position + new Vector2(-1, -1), null, Color.White, 0, new Vector2(0, 0), _playerScale, SpriteEffects.None, layer - 0.01f);
+            spriteBatch.Draw(_healthbar_background, _position + new Vector2(-1, -1), null, Color.White, 0, new Vector2(0, 0), _playerScale, SpriteEffects.None, layer - 0.1f);
             spriteBatch.Draw(_healthbar, _position, null, Color.White, 0, new Vector2(0, 0), _playerScale, SpriteEffects.None, layer);
         }
 

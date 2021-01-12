@@ -21,8 +21,9 @@ namespace GameClient
         private InventoryManager _inventoryManager;
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
+        private CollisionManager _collisionManager;
 
-        public bool _inMenu = true;
+        public bool _inMenu = false;
         #region Important Functions
         public Game_Client()
         {
@@ -46,6 +47,7 @@ namespace GameClient
             _menuManager = new MenuManager(this, GraphicsDevice);
             _other_players = new List<OtherPlayer>();
             _enemies = new List<Simple_Enemy>();
+            _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _playerManager = new PlayerManager(_other_players, Content, GraphicsDevice, _collectionManager);
@@ -57,6 +59,7 @@ namespace GameClient
             _inventoryManager = new InventoryManager(GraphicsDevice,_itemManager);
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager,GraphicsDevice);
+            _collisionManager.Initialize(_other_players, _player, _enemies);
         }
 
         protected override void Update(GameTime gameTime)

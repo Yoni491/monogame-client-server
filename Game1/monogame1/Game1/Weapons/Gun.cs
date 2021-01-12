@@ -71,7 +71,7 @@ namespace GameClient
                 Vector2 sniperEnd;
                 if (_isGamePad)
                 {
-                    sniperEnd = Vector2.Normalize(_direction) * 30f + sniperStart;
+                    sniperEnd = Vector2.Normalize(_direction) * 300f + sniperStart;
                     GraphicManager.DrawLine(sniperStart, sniperEnd,spriteBatch);
                 }
                 else

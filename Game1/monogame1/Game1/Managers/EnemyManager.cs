@@ -24,7 +24,7 @@ namespace GameClient
         {
             if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
             {
-                _random_enemies_circle_timer = -2220;
+                _random_enemies_circle_timer = -1000;
                 AddEnemiesRandomCircle();
             }
             foreach (var enemy in _enemies)
@@ -40,7 +40,7 @@ namespace GameClient
         }
         public void AddEnemy(Vector2 position)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0,0.5f);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0,1f);
             enemy._position = position;
             _enemies.Add(enemy);
         }

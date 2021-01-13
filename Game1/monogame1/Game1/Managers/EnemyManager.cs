@@ -22,7 +22,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 0.5f)
+            if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
             {
                 _random_enemies_circle_timer = 0;
                 AddEnemiesRandomCircle();

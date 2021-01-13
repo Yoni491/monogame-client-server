@@ -24,21 +24,35 @@ namespace GameClient
         //{
             
         //}
-        static public bool isColidedWithPlayer(Vector2 Position, Rectangle rectangle, int dmg)
+        static public bool isColidedWithPlayer(Rectangle rectangle, int dmg)
         {
 
             if (rectangle.X > _player.Rectangle.X && rectangle.X < _player.Rectangle.X + _player.Rectangle.Width)
                 if (rectangle.Y > _player.Rectangle.Y && rectangle.Y < _player.Rectangle.Y + _player.Rectangle.Height)
                 {
-                    _player._health._health_left -= 1;
-                    //if (_player._health._health_left <= 0)
-                    //{
-                    //    _player._destroy = true;
-                    //}
+                    _player._health._health_left -= dmg;
+                    //_player.DealDamage(dmg);
                     return true;
                 }
 
 
+            return false;
+        }
+        static public bool isColidedWithEnemies(Rectangle rectangle, int dmg)
+        {
+            foreach (var enemy in _enemies)
+            {
+                if (rectangle.X > enemy.Rectangle.X && rectangle.X < enemy.Rectangle.X + enemy.Rectangle.Width)
+                    if (rectangle.Y > enemy.Rectangle.Y && rectangle.Y < enemy.Rectangle.Y + enemy.Rectangle.Height)
+                    {
+                        enemy.dealDamage(dmg);
+                        //if (_player._health._health_left <= 0)
+                        //{
+                        //    _player._destroy = true;
+                        //}
+                        return true;
+                    }
+            }
             return false;
         }
         static public bool isMouseCollidingRectangle(Rectangle rectangle)

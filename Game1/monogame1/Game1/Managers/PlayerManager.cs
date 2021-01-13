@@ -10,17 +10,13 @@ namespace GameClient
     public class PlayerManager
     {
         private List<OtherPlayer> _players;
-        private ContentManager _contentManager;
-        private GraphicsDevice _graphicsDevice;
         private Player _player;
         ItemManager _itemManager;
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
-        public PlayerManager(List<OtherPlayer> players, ContentManager contentManager, GraphicsDevice graphicsDevice, CollectionManager collectionManager)
+        public PlayerManager(List<OtherPlayer> players, CollectionManager collectionManager)
         {
             _players = players;
-            _contentManager = contentManager;
-            _graphicsDevice = graphicsDevice;
             _collectionManager = collectionManager;
 
         }
@@ -37,7 +33,7 @@ namespace GameClient
         }
         public OtherPlayer AddOtherPlayer(int playerNum)
         {
-            OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f));
+            OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,true));
             _players.Add(otherPlayer);
             NetworkManagerClient._updateOtherPlayerTexture = true;
             return otherPlayer;
@@ -49,7 +45,7 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2, graphicsDevice.Viewport.Height / 2);
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager);
-            _player.EquipGun(_collectionManager.GetGunCopy(1,0.7f));
+            _player.EquipGun(_collectionManager.GetGunCopy(1,0.7f,true));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0,0.7f));
             return _player;
         }

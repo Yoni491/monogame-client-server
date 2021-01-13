@@ -63,7 +63,7 @@ namespace GameClient
 
                 if (_gun != null)
                 {
-                    _gun.Update(gameTime, _looking_direction, false);
+                    _gun.Update(gameTime, _looking_direction, false,false);
                 }
                 //_velocity = Vector2.Zero;
 

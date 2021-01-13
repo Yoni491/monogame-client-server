@@ -9,26 +9,21 @@ namespace GameClient
     public class Gun
     {
         public int _id;
-
         private Vector2 _position;
-
         private Texture2D _texture;
-
         public List<Bullet> _bullets = new List<Bullet>();
-
         private Vector2 _direction;
-
         private List<Simple_Enemy> _enemies;
-
         public Bullet _bullet;
         public Vector2 Position { get => _position; set => _position = value; }
-
-        private bool _isSniper;
-
+        public bool _isSniper;
         private bool _isGamePad;
-
+        private bool _showLine;
+        private float _spread;
         public float _holderScale = 0;
-        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper)
+        private float _shooting_timer = 0;
+        private bool _hitPlayers;
+        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread,bool hitPlayers)
         {
             _id = id;
             _texture = texture;
@@ -36,8 +31,10 @@ namespace GameClient
             _bullet = bullet;
             _position = position;
             _isSniper = isSniper;
+            _spread = spread;
+            _hitPlayers = hitPlayers;
         }
-        public void Update(GameTime gameTime, Vector2 direction, bool isGamePad)
+        public void Update(GameTime gameTime, Vector2 direction, bool isGamePad,bool showLine)
         {
             _direction = direction;
             foreach (var bullet in _bullets)
@@ -46,6 +43,8 @@ namespace GameClient
             }
             _bullets.RemoveAll(bullet => bullet._destroy == true);
             _isGamePad = isGamePad;
+            _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _showLine = showLine;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
@@ -65,7 +64,7 @@ namespace GameClient
             {
                 bullet.Draw(spriteBatch);
             }
-            if(_isSniper)
+            if(_isSniper && _showLine)
             {
                 Vector2 sniperStart = _position + Vector2.Normalize(_direction) * 38f;
                 Vector2 sniperEnd;
@@ -76,20 +75,36 @@ namespace GameClient
                 }
                 else
                 {
-                    sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    sniperEnd = Vector2.Normalize(_direction) * 300f + sniperStart;
+                    //sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
                     if (Vector2.Distance(sniperEnd, sniperStart) > 30)
                         GraphicManager.DrawLine(sniperStart, sniperEnd, spriteBatch);
                 }
             }
         }
-        public Gun Copy(float scale)
+        public Gun Copy(float scale,bool hitPlayers)
         {
-            return new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper);
+            return new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper,_spread,hitPlayers);
         }
         public void Shot()
         {
-            Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1, _bullet._shootingTimer, _bullet._dmg);
-            _bullets.Add(bullet);
+            if (_shooting_timer >= _bullet._shootingTimer)
+            {
+                _shooting_timer = 0;
+                Vector2 _directionSpread;
+                if (_spread != 0)
+                {
+                    Random x = new Random();
+                    _directionSpread = Vector2.Normalize(_direction) + new Vector2(((float)x.NextDouble() - 0.5f) * _spread, ((float)x.NextDouble() - 0.5f) * _spread);
+                }
+                else
+                {
+                    _directionSpread = _direction;
+                }
+
+                Bullet bullet = _bullet.Copy(_directionSpread,_position,_direction,_hitPlayers);
+                _bullets.Add(bullet);
+            }
         }
         public void UpdatePacketShort(PacketStructure packet)
         {
@@ -112,7 +127,7 @@ namespace GameClient
                 }
                 else
                 {
-                    _bullets.Add(new Bullet(_bullet._collection_id, this, _bullet._texture, packet.ReadVector2(), packet.ReadVector2(), _enemies, _bullet._speed, bullet_num,_bullet._shootingTimer,_bullet._dmg));
+                    //_bullets.Add(new Bullet(_bullet._collection_id, this, _bullet._texture, packet.ReadVector2(), packet.ReadVector2(), _enemies, _bullet._speed, bullet_num,_bullet._shootingTimer,_bullet._dmg));
                 }
             }
         }

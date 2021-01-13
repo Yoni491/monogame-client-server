@@ -50,7 +50,7 @@ namespace GameClient
             _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
-            _playerManager = new PlayerManager(_other_players, Content, GraphicsDevice, _collectionManager);
+            _playerManager = new PlayerManager(_other_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies,_collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);

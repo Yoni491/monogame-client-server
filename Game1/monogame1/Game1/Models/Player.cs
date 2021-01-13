@@ -19,7 +19,6 @@ namespace GameClient
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
         public bool _isGamePad;
-        private float _timer_shooting = 0;
         private float _speed = 3f;
         private float _scale;
         public int _playerNum;
@@ -31,7 +30,7 @@ namespace GameClient
         private ItemManager _itemManager;
         private InventoryManager _inventoryManager;
 
-        public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height);}
+        public Vector2 Position_Feet { get => _position + new Vector2(_width / 4, _height* 2 / 5);}
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));}
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
@@ -49,9 +48,8 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
-            _timer_shooting += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            InputReader();
+            InputReader(gameTime);
 
             SetAnimations();
 
@@ -61,7 +59,7 @@ namespace GameClient
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, _looking_direction, _isGamePad);
+                _gun.Update(gameTime, _looking_direction, _isGamePad,_gun._isSniper);
             }
             if (_meleeWeapon != null)
             {
@@ -88,7 +86,7 @@ namespace GameClient
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
         }
 
-        public void InputReader()
+        public void InputReader(GameTime gameTime)
         {
             _velocity = Vector2.Zero;
             if (Keyboard.GetState().IsKeyDown(_input._up))
@@ -135,11 +133,7 @@ namespace GameClient
                 _isGamePad = false;
                 if(!_inventoryManager.MouseClick())
                 { 
-                    if (_timer_shooting >= _gun._bullet._shootingTimer)
-                    {
-                        _gun.Shot();
-                        _timer_shooting = 0;
-                    }
+                    _gun.Shot();
                 }
 
             }
@@ -150,11 +144,7 @@ namespace GameClient
             }
             if (_input._right_trigger > 0)
             {
-                if (_timer_shooting >= _gun._bullet._shootingTimer)
-                {
-                    _gun.Shot();
-                    _timer_shooting = 0;
-                }
+                _gun.Shot();
             }
             if(Keyboard.GetState().IsKeyDown(_input._pick))
             {

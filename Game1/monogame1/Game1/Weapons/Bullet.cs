@@ -5,31 +5,20 @@ namespace GameClient
 {
     public class Bullet
     {
-        static int s_bulletNumber = 0;
-
-        public int _bulletNumber;
-
-        public int _collection_id;
-
-        public float _speed;
-
         public Texture2D _texture;
-
-        Vector2 _position;
-
-        private float _timer = 0;
-
-        private Vector2 _direction;
-
         public bool _destroy = false;
-
-        private Gun _gun;
-
-        public float _shootingTimer;
-
-        private List<Simple_Enemy> _enemies;
-
+        private bool _hitEnemies;//enemies = true, players = false
+        static int s_bulletNumber = 0;
+        public int _bulletNumber;
+        public int _collection_id;
+        public int _maxTravelDistance;
         public int _dmg;
+        public float _speed;
+        private float _timer = 0;
+        public float _shootingTimer;
+        private Vector2 _position;
+        private Vector2 _direction;
+        private Vector2 _startPosition;
 
         public Rectangle Rectangle
         {
@@ -39,16 +28,17 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Gun gun, Texture2D texture, Vector2 position, Vector2 direction, List<Simple_Enemy> enemies, float speed, int bulletNumber, float shootingTimer, int dmg)
+        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, int bulletNumber, float shootingTimer, int dmg, int travelDistance,bool hitEnemies)
         {
             _collection_id = id;
-            _gun = gun;
             _texture = texture;
+            _startPosition = position;
             _position = position;
             _direction = Vector2.Normalize(direction);
-            _enemies = enemies;
             _speed = speed;
             _shootingTimer = shootingTimer;
+            _maxTravelDistance = travelDistance;
+            _hitEnemies = hitEnemies;
             if (bulletNumber < 0)
             {
                 _bulletNumber = s_bulletNumber++;
@@ -61,33 +51,44 @@ namespace GameClient
             }
             _dmg = dmg;
         }
-        public Bullet(int id, Texture2D texture, List<Simple_Enemy> enemies, float speed, float shootingTimer,int dmg)
+        public Bullet(int id, Texture2D texture, float speed, float shootingTimer,int dmg, int travelDistance)
         {
             _collection_id = id;
             _texture = texture;
             _speed = speed;
-            _enemies = enemies;
             _shootingTimer = shootingTimer;
             _dmg = dmg;
+            _maxTravelDistance = travelDistance;
         }
 
         public void Update(GameTime gameTime)
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)
+            {
+                _destroy = true;
+            }
             if (_timer >= 2f)
             {
                 _destroy = true;
             }
             _position += _direction * _speed;
-            if (_enemies != null)
-                foreach (var enemy in _enemies)
+            if (_hitEnemies)
+            {
+                if(CollisionManager.isColidedWithEnemies(Rectangle, _dmg))
                 {
-                    if (enemy.isCollision(this))
-                    {
-                        _destroy = true;
-                        break;
-                    }
+                    _destroy = true;
                 }
+            }
+            else
+            {
+                if (CollisionManager.isColidedWithPlayer(Rectangle, _dmg))
+                    _destroy = true;
+            }
+        }
+        public Bullet Copy(Vector2 directionSpread,Vector2 position, Vector2 direction,bool hitEnemies)
+        {
+            return new Bullet(_collection_id,  _texture, position + Vector2.Normalize(direction) * 20f, directionSpread, _speed, -1, _shootingTimer, _dmg, _maxTravelDistance, hitEnemies);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

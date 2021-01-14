@@ -72,3 +72,4 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\TiledSharp.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\TiledSharp.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.tsx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.xnb

@@ -61,6 +61,18 @@
 #begin maps/map1.tmx
 /copy:maps/map1.tmx
 
+#begin maps/tf_A5_ashlands_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:maps/tf_A5_ashlands_1.png
+
 #begin maps/tf_A5_ashlands_1.tsx
 /copy:maps/tf_A5_ashlands_1.tsx
 

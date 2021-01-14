@@ -23,10 +23,9 @@ namespace GameClient
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
-        TmxMap map;
-
 
         public bool _inMenu = false;
+
         #region Important Functions
         public Game_Client()
         {
@@ -66,7 +65,7 @@ namespace GameClient
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice);
             _collisionManager.Initialize(_other_players, _player, _enemies);
             _inventoryManager.Initialize(_player);
-            map = new TmxMap(Directory.GetCurrentDirectory() + "/Content/maps/map1.tmx");
+            
             
         }
 
@@ -91,32 +90,6 @@ namespace GameClient
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //for (var i = 0; i < map.Layers[0].Tiles.Count; i++)
-            //{
-            //    int gid = map.Layers[0].Tiles[i].Gid;
-
-            //    // Empty tile, do nothing
-            //    if (gid == 0)
-            //    {
-
-            //    }
-            //    else
-            //    {
-            //        int tileFrame = gid - 1;
-            //        int column = tileFrame % tilesetTilesWide;
-            //        int row = (int)Math.Floor((double)tileFrame / (double)tilesetTilesWide);
-
-            //        float x = (i % map.Width) * map.TileWidth;
-            //        float y = (float)Math.Floor(i / (double)map.Width) * map.TileHeight;
-
-            //        Rectangle tilesetRec = new Rectangle(tileWidth * column, tileHeight * row, tileWidth, tileHeight);
-
-            //        spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White);
-            //    }
-            //}
-
-
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             if (_inMenu)
             {

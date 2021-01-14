@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
+using System.IO;
+using TiledSharp;
 namespace GameClient
 {
     public class Game_Client : Game
@@ -22,19 +23,24 @@ namespace GameClient
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
+        TmxMap map;
+
 
         public bool _inMenu = false;
         #region Important Functions
         public Game_Client()
         {
             _graphics = new GraphicsDeviceManager(this);
+            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Window.AllowUserResizing = true;
+            //Scene.SetDefaultDesignResolution(1280, 720, Scene.SceneResolutionPolicy.ShowAllPixelPerfect);
             PlayerIndex.One.GetType();
         }
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
@@ -42,7 +48,7 @@ namespace GameClient
         }
         protected override void LoadContent()
         {
-            _graphicManager = new GraphicManager(GraphicsDevice,Content);
+            _graphicManager = new GraphicManager(GraphicsDevice, Content);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _menuManager = new MenuManager(this, GraphicsDevice);
             _other_players = new List<OtherPlayer>();
@@ -51,16 +57,17 @@ namespace GameClient
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _playerManager = new PlayerManager(_other_players, _collectionManager);
-            _enemyManager = new EnemyManager(GraphicsDevice, _enemies,_collectionManager);
+            _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
-            //_tileManager.AddTowerTile(new Vector2(200,200));
-            _inventoryManager = new InventoryManager(GraphicsDevice,_itemManager);
+            _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
             _collectionManager.Initialize(_playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager,GraphicsDevice);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice);
             _collisionManager.Initialize(_other_players, _player, _enemies);
             _inventoryManager.Initialize(_player);
+            map = new TmxMap(Directory.GetCurrentDirectory() + "/Content/maps/map1.tmx");
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -84,9 +91,31 @@ namespace GameClient
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //var scaleX = (float)ActualWidth / VirtualWidth;
-            //var scaleY = (float)ActualHeight / VirtualHeight;
-            //var matrix = Matrix.CreateScale(1.5f, 1.5f, 1.0f);
+
+            //for (var i = 0; i < map.Layers[0].Tiles.Count; i++)
+            //{
+            //    int gid = map.Layers[0].Tiles[i].Gid;
+
+            //    // Empty tile, do nothing
+            //    if (gid == 0)
+            //    {
+
+            //    }
+            //    else
+            //    {
+            //        int tileFrame = gid - 1;
+            //        int column = tileFrame % tilesetTilesWide;
+            //        int row = (int)Math.Floor((double)tileFrame / (double)tilesetTilesWide);
+
+            //        float x = (i % map.Width) * map.TileWidth;
+            //        float y = (float)Math.Floor(i / (double)map.Width) * map.TileHeight;
+
+            //        Rectangle tilesetRec = new Rectangle(tileWidth * column, tileHeight * row, tileWidth, tileHeight);
+
+            //        spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White);
+            //    }
+            //}
+
 
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             if (_inMenu)

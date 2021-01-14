@@ -64,3 +64,11 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\swords-sheet.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Weapons\sword swing.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Images\MenuBackground.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map1.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\MonoGame.Extended.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\MonoGame.Extended.Graphics.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\MonoGame.Extended.Tiled.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\TiledSharp.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\TiledSharp.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.tsx

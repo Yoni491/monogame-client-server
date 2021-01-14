@@ -20,7 +20,7 @@ namespace GameClient
         public InventoryManager(GraphicsDevice graphicsDevice,ItemManager itemManager)
         {
             _itemManager = itemManager;
-            _inventoryBlock = new Texture2D(Client.game.GraphicsDevice, width, height);
+            _inventoryBlock = new Texture2D(graphicsDevice, width, height);
             Color[] data2 = new Color[width * height];
             for (int i = 0; i < data2.Length; ++i)
             {

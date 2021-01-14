@@ -1,0 +1,7 @@
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.deps.json
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.dll
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.pdb
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\obj\Debug\netstandard2.0\TiledSharp.csprojAssemblyReference.cache
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\obj\Debug\netstandard2.0\TiledSharp.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\obj\Debug\netstandard2.0\TiledSharp.dll
+C:\Users\yoni2\Desktop\TiledSharp-master\TiledSharp\obj\Debug\netstandard2.0\TiledSharp.pdb

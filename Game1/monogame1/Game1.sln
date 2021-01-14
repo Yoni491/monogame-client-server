@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameClient", "Game1\GameCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "..\..\GameServer\GameServer\GameServer.csproj", "{4484C93A-3A54-43AF-B7CF-A9CE894793D9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiledSharp", "TiledSharp\TiledSharp.csproj", "{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4484C93A-3A54-43AF-B7CF-A9CE894793D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4484C93A-3A54-43AF-B7CF-A9CE894793D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4484C93A-3A54-43AF-B7CF-A9CE894793D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

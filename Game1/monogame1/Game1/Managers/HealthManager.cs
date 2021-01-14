@@ -26,11 +26,11 @@ namespace GameClient
             _total_health = total_health;
             _health_left = total_health;
             _position = position + new Vector2(20, 10) * scale;
-            _healthbar = new Texture2D(Client.game.GraphicsDevice, healthbar_width, 1);
+            _healthbar = new Texture2D(GraphicManager._graphicsDevice, healthbar_width, 1);
             Color[] data = new Color[healthbar_width];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Green;
             _healthbar.SetData(data);
-            _healthbar_background = new Texture2D(Client.game.GraphicsDevice, healthbar_width + 2, 3);
+            _healthbar_background = new Texture2D(GraphicManager._graphicsDevice, healthbar_width + 2, 3);
             Color[] data2 = new Color[(healthbar_width + 2) * 3];
             for (int i = 0; i < data2.Length; ++i) data2[i] = Color.Black;
             _healthbar_background.SetData(data2);

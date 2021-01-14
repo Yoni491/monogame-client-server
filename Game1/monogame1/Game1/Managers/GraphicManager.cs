@@ -9,7 +9,7 @@ namespace GameClient
 
     public class GraphicManager
     {
-        static GraphicsDevice _graphicsDevice;
+        public static GraphicsDevice _graphicsDevice;
         static ContentManager _contentManager;
         public static SpriteFont _font;
         public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager)
@@ -83,7 +83,7 @@ namespace GameClient
         }
         static public Texture2D getRectangleTexture(int width,int height, Color color)
         {
-            Texture2D _healthbar = new Texture2D(Client.game.GraphicsDevice, width, height);
+            Texture2D _healthbar = new Texture2D(_graphicsDevice, width, height);
             Color[] data = new Color[width* height];
             for (int i = 0; i < data.Length; ++i) data[i] = color;
             _healthbar.SetData(data);

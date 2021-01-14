@@ -5,11 +5,13 @@
 /intermediateDir:obj/$(Platform)
 /platform:DesktopGL
 /config:
-/profile:Reach
+/profile:HiDef
 /compress:False
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\..\..\..\..\..\..\Desktop\TiledSharp-master\TiledSharp\bin\Debug\net35\TiledSharp.dll
+/reference:..\..\..\..\..\..\..\..\Desktop\TiledSharp-master\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -55,6 +57,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/template.png;Images/MenuBackground.png
+
+#begin maps/map1.tmx
+/copy:maps/map1.tmx
+
+#begin maps/tf_A5_ashlands_1.tsx
+/copy:maps/tf_A5_ashlands_1.tsx
 
 #begin Patreon sprites 1/1.png
 /importer:TextureImporter

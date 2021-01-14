@@ -40,8 +40,8 @@ namespace GameClient
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
-            _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
+            _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
             base.Initialize();
         }

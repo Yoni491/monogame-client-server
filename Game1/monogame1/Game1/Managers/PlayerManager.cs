@@ -33,7 +33,7 @@ namespace GameClient
         }
         public OtherPlayer AddOtherPlayer(int playerNum)
         {
-            OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,true));
+            OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,false));
             _players.Add(otherPlayer);
             NetworkManagerClient._updateOtherPlayerTexture = true;
             return otherPlayer;
@@ -45,7 +45,7 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2, graphicsDevice.Viewport.Height / 2);
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager);
-            _player.EquipGun(_collectionManager.GetGunCopy(1,0.7f,true));
+            _player.EquipGun(_collectionManager.GetGunCopy(3,0.7f,false));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0,0.7f));
             return _player;
         }

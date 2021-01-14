@@ -24,7 +24,11 @@ namespace GameClient
         {
             if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
             {
-                _random_enemies_circle_timer = 0;
+                _random_enemies_circle_timer = -200;
+                AddEnemiesRandomCircle();
+                AddEnemiesRandomCircle();
+                AddEnemiesRandomCircle();
+                AddEnemiesRandomCircle();
                 AddEnemiesRandomCircle();
             }
             foreach (var enemy in _enemies)

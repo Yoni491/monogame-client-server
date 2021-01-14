@@ -103,25 +103,25 @@ namespace GameClient
         {
             int id = 0;
             _guns = new List<Gun>();
-            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false,0.1f,false);
-            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true,0,false);
-            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false,0,false);
-            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false,0.5f,false);
-            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false,0.2f,false);
+            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false,0.1f,true);
+            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true,0, true);
+            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false,0, true);
+            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false,0.5f, true);
+            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false,0.2f, true);
             _guns.Add(M16);
             _guns.Add(Sniper);
             _guns.Add(Rifle);
             _guns.Add(MachineGun);
             _guns.Add(Uzi);
         }
-        public Gun GetGunCopy(int id, float scale,bool hitEnemies)
+        public Gun GetGunCopy(int id, float scale,bool hitPlayers)
         {
             if(id == -1)
             {
                 Random x = new Random();
                 id = x.Next(0, 5);
             }
-            return _guns[id].Copy(scale, hitEnemies);
+            return _guns[id].Copy(scale, hitPlayers);
         }
         public MeleeWeapon GetMeleeWeaponCopy(int id, float scale)
         {
@@ -129,7 +129,7 @@ namespace GameClient
         }
         public Simple_Enemy GetSimpleEnemyCopy(int id, float scale)
         {
-            return _simple_enemies[id].Copy(scale,GetGunCopy(-1,0.7f,false),null);
+            return _simple_enemies[id].Copy(scale,GetGunCopy(-1,0.7f,true),null);
         }
         public Item GetItem(int id)
         {

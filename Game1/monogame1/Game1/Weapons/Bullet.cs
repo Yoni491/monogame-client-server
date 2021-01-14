@@ -7,7 +7,7 @@ namespace GameClient
     {
         public Texture2D _texture;
         public bool _destroy = false;
-        private bool _hitEnemies;//enemies = true, players = false
+        private bool _hitPlayers;
         static int s_bulletNumber = 0;
         public int _bulletNumber;
         public int _collection_id;
@@ -28,7 +28,7 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, int bulletNumber, float shootingTimer, int dmg, int travelDistance,bool hitEnemies)
+        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, int bulletNumber, float shootingTimer, int dmg, int travelDistance,bool hitPlayers)
         {
             _collection_id = id;
             _texture = texture;
@@ -38,7 +38,7 @@ namespace GameClient
             _speed = speed;
             _shootingTimer = shootingTimer;
             _maxTravelDistance = travelDistance;
-            _hitEnemies = hitEnemies;
+            _hitPlayers = hitPlayers;
             if (bulletNumber < 0)
             {
                 _bulletNumber = s_bulletNumber++;
@@ -73,17 +73,18 @@ namespace GameClient
                 _destroy = true;
             }
             _position += _direction * _speed;
-            if (_hitEnemies)
-            {
-                if(CollisionManager.isColidedWithEnemies(Rectangle, _dmg))
-                {
-                    _destroy = true;
-                }
-            }
-            else
+            
+            if(_hitPlayers)
             {
                 if (CollisionManager.isColidedWithPlayer(Rectangle, _dmg))
                     _destroy = true;
+            }
+            else
+            {
+                if (CollisionManager.isColidedWithEnemies(Rectangle, _dmg))
+                {
+                    _destroy = true;
+                }
             }
         }
         public Bullet Copy(Vector2 directionSpread,Vector2 position, Vector2 direction,bool hitEnemies)

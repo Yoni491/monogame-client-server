@@ -9,12 +9,13 @@ namespace GameClient
 {
     public class TileManager
     {
-        private GraphicsDevice _graphicDevice;
+        static private GraphicsDevice _graphicDevice;
         private ContentManager _contentManager;
-        int tileWidth;
-        int tileHeight;
-        int tilesetTilesWide;
-        int tilesetTilesHigh;
+        static int tileWidth;
+        static int tileHeight;
+        static int tilesetTilesWide;
+        static int tilesetTilesHigh;
+        static int tilesDistribution = 16;
         TmxMap map;
         Texture2D tileset;
 
@@ -23,7 +24,7 @@ namespace GameClient
             _graphicDevice = graphicDevice;
             _contentManager = contentManager;
 
-            map = new TmxMap(Directory.GetCurrentDirectory() + "/Content/maps/map1.tmx");
+            map = new TmxMap(Directory.GetCurrentDirectory() + "/Content/maps/" + "map1.tmx");
             tileset = _contentManager.Load<Texture2D>("maps/" + map.Tilesets[0].Name.ToString());
 
             tileWidth = map.Tilesets[0].TileWidth;
@@ -53,7 +54,7 @@ namespace GameClient
 
                     Rectangle tilesetRec = new Rectangle(tileWidth * column, tileHeight * row, tileWidth, tileHeight);
 
-                    spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White,0,Vector2.Zero,SpriteEffects.None,1);
+                    spriteBatch.Draw(tileset, new Rectangle((int)x, (int)y, tileWidth, tileHeight), tilesetRec, Color.White,0,Vector2.Zero,SpriteEffects.None,0);
                 }
             }
         }
@@ -61,8 +62,7 @@ namespace GameClient
 
         static public float GetLayerDepth(float y)
         {
-            return 0;
-            //return (y / tile_height_amount) / tilesDistribution / 2 + 0.1f;
+            return (y / _graphicDevice.Viewport.Height) + 0.1f;
         }
     }
 }

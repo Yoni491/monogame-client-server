@@ -93,5 +93,14 @@ namespace GameClient
         {
             return _contentManager.Load<Texture2D>("Images/"+ image);
         }
+        static public void DrawRectangle(SpriteBatch spriteBatch,Rectangle rectangle,float layer)
+        {
+            Texture2D texture = new Texture2D(GraphicManager._graphicsDevice, rectangle.Width, rectangle.Height);
+            Color[] data = new Color[rectangle.Width*rectangle.Height];
+            for (int i = 0; i < data.Length; ++i) data[i] = Color.Green;
+            texture.SetData(data);
+            spriteBatch.Draw(texture, rectangle, null ,Color.Black,0,Vector2.Zero,SpriteEffects.None,layer);
+
+        }
     }
 }

@@ -40,8 +40,8 @@ namespace GameClient
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-            _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+            _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
             base.Initialize();
         }
@@ -65,8 +65,9 @@ namespace GameClient
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice);
             _collisionManager.Initialize(_other_players, _player, _enemies);
             _inventoryManager.Initialize(_player);
-            
-            
+            _tileManager.LoadMap(1);
+
+
         }
 
         protected override void Update(GameTime gameTime)

@@ -31,7 +31,8 @@ namespace GameClient
         private InventoryManager _inventoryManager;
 
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 4, _height* 2 / 5);}
-        public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));}
+        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.2)); }
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
         {
             _animationManager = animationManager;
@@ -53,7 +54,16 @@ namespace GameClient
 
             SetAnimations();
 
+            if (CollisionManager.IsCollidingLeft(RectangleMovement, _velocity) && _velocity.X < 0)
+                _velocity -= new Vector2(_velocity.X,0);
+            if (CollisionManager.IsCollidingRight(RectangleMovement, _velocity) && _velocity.X > 0)
+                _velocity -= new Vector2(_velocity.X, 0);
+            if (CollisionManager.IsCollidingTop(RectangleMovement, _velocity) && _velocity.Y < 0)
+                _velocity -= new Vector2(0,_velocity.Y);
+            if (CollisionManager.IsCollidingBottom(RectangleMovement, _velocity) && _velocity.Y > 0)
+                _velocity -= new Vector2(0, _velocity.Y);
             _position += _velocity;
+
 
             _animationManager.Update(gameTime, _position);
 
@@ -83,6 +93,7 @@ namespace GameClient
                 //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
+            GraphicManager.DrawRectangle(spriteBatch, Rectangle, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
         }
 

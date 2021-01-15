@@ -22,7 +22,7 @@ namespace GameClient
         }
         //public Simple_Enemy isColidedWithEnemy()
         //{
-            
+
         //}
         static public bool isColidedWithPlayer(Rectangle rectangle, int dmg)
         {
@@ -63,5 +63,69 @@ namespace GameClient
                     return true;
             return false;
         }
-    }   
+        static public bool isCollidingWalls(Rectangle rectangle)
+        {
+            foreach (var wall in TileManager._walls)
+            {
+                if (wall.X > rectangle.X && wall.X < rectangle.X + rectangle.Width)
+                    if (wall.Y > rectangle.Y && wall.Y < rectangle.Y + rectangle.Height)
+                        return true;
+            }
+            return false;
+        }
+
+
+        static public bool IsCollidingLeft(Rectangle rectangle, Vector2 velocity)
+        {
+            foreach (var wall in TileManager._walls)
+            {
+                if (wall.Right > rectangle.Left + velocity.X &&
+                    wall.Left < rectangle.Left &&
+                    wall.Bottom > rectangle.Top &&
+                    wall.Top < rectangle.Bottom)
+                    return true;
+            }
+            return false;
+        }
+
+        static public bool IsCollidingRight(Rectangle rectangle, Vector2 velocity)
+        {
+            foreach (var wall in TileManager._walls)
+            {
+                if (wall.Left < rectangle.Right + velocity.X &&
+                    wall.Right > rectangle.Right &&
+                    wall.Bottom > rectangle.Top &&
+                    wall.Top < rectangle.Bottom)
+                    return true;
+            }
+            return false;
+        }
+
+        static public bool IsCollidingTop(Rectangle rectangle, Vector2 velocity)
+        {
+            foreach (var wall in TileManager._walls)
+            {
+                if (wall.Bottom > rectangle.Top + velocity.Y &&
+                    wall.Top < rectangle.Top &&
+                    wall.Right > rectangle.Left &&
+                    wall.Left < rectangle.Right)
+                    return true;
+            }
+            return false;
+        }
+
+        static public bool IsCollidingBottom(Rectangle rectangle, Vector2 velocity)
+        {
+            foreach (var wall in TileManager._walls)
+            {
+                if (wall.Top < rectangle.Bottom + velocity.Y &&
+                    wall.Bottom > rectangle.Bottom &&
+                    wall.Right > rectangle.Left &&
+                    wall.Left < rectangle.Right)
+                    return true;
+            }
+            return false;
+        }
+
+    }
 }

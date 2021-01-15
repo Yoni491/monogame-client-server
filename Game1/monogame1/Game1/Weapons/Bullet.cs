@@ -86,6 +86,8 @@ namespace GameClient
                     _destroy = true;
                 }
             }
+            if (CollisionManager.isCollidingWalls(Rectangle))
+                _destroy = true;
         }
         public Bullet Copy(Vector2 directionSpread,Vector2 position, Vector2 direction,bool hitEnemies)
         {

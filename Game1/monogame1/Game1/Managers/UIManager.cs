@@ -13,9 +13,11 @@ namespace GameClient
         Rectangle settingsRectangle;
         Texture2D _menuBackgroundImage;
         Button _fullScreenButton;
+        GraphicsDeviceManager _graphics;
         bool ShowSettings;
-        public UIManager(ContentManager content, InventoryManager InventoryManager)
+        public UIManager(ContentManager content, InventoryManager InventoryManager,GraphicsDeviceManager graphics)
         {
+            _graphics = graphics;
             _SettingsButton = content.Load<Texture2D>("etc/settings");
             _InventoryManager = InventoryManager;
             settingsRectangle = new Rectangle(0, 0, _SettingsButton.Width, _SettingsButton.Height);
@@ -24,7 +26,11 @@ namespace GameClient
         public void Update(GameTime gameTime)
         {
             if (ShowSettings)
-                _fullScreenButton.Update(gameTime);
+                if (_fullScreenButton.Update(gameTime))
+                {
+                    _graphics.IsFullScreen = true;
+                    _graphics.ApplyChanges();
+                }
 
         }
         public void Draw(SpriteBatch spriteBatch)

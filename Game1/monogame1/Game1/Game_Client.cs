@@ -58,7 +58,7 @@ namespace GameClient
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
-            _UIManager = new UIManager(Content, _inventoryManager);
+            _UIManager = new UIManager(Content, _inventoryManager,_graphics);
             _playerManager = new PlayerManager(_other_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content);
@@ -112,7 +112,7 @@ namespace GameClient
                 _inventoryManager.Draw(_UIbatch);
                 _UIManager.Draw(_UIbatch);
             }
-
+            
             _spriteBatch.End();
             _UIbatch.End();
             base.Draw(gameTime);

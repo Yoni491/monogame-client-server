@@ -47,14 +47,14 @@ namespace GameClient
                 _game_client._inMenu = false;
             }
         }
-        public void Draw(SpriteBatch spriteBatch,GameTime gameTime, GraphicsDevice graphicsDevice)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             spriteBatch.Draw(_menuBackgroundImage, new Rectangle(0,0,graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height), Color.White);
-            _singlePlayer.Draw(gameTime, spriteBatch);
-            _multiPlayer.Draw(gameTime, spriteBatch);
-            _howToPlay.Draw(gameTime, spriteBatch);
-            _highScores.Draw(gameTime, spriteBatch);
-            _exit.Draw(gameTime, spriteBatch);
+            _singlePlayer.Draw(spriteBatch);
+            _multiPlayer.Draw(spriteBatch);
+            _howToPlay.Draw(spriteBatch);
+            _highScores.Draw(spriteBatch);
+            _exit.Draw(spriteBatch);
         }
     }
 }

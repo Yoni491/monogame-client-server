@@ -1,0 +1,49 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+
+namespace GameClient
+{
+    public class UIManager
+    {
+        Texture2D _SettingsButton;
+        InventoryManager _InventoryManager;
+        Rectangle settingsRectangle;
+        Texture2D _menuBackgroundImage;
+        Button _fullScreenButton;
+        bool ShowSettings;
+        public UIManager(ContentManager content, InventoryManager InventoryManager)
+        {
+            _SettingsButton = content.Load<Texture2D>("etc/settings");
+            _InventoryManager = InventoryManager;
+            settingsRectangle = new Rectangle(0, 0, _SettingsButton.Width, _SettingsButton.Height);
+            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(100, 200, Color.White), GraphicManager.GetBasicFont(), GraphicManager._ScreenMiddle, Color.Green, Color.Gray, "Full Screen");
+        }
+        public void Update(GameTime gameTime)
+        {
+            if (ShowSettings)
+                _fullScreenButton.Update(gameTime);
+
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_SettingsButton, settingsRectangle, Color.White);
+            if(ShowSettings)
+                _fullScreenButton.Draw(spriteBatch);
+        }
+        public bool MouseClick()
+        {
+            if (CollisionManager.isMouseCollidingRectangle(settingsRectangle))
+            {
+                ShowSettings = true;
+                return true;
+            }
+
+            if (_InventoryManager.MouseClick())
+                return true;
+            return false;
+        }
+    }
+}

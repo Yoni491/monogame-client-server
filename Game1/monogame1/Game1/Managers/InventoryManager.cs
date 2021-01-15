@@ -11,6 +11,7 @@ namespace GameClient
         ItemManager _itemManager;
         Player _player;
         Texture2D _inventoryBlock;
+        GraphicsDevice _graphicsDevice;
         Vector2 _position;
         List<ItemStock> _item_list;
         List<(Rectangle, ItemStock)> _inventory_rectangles;
@@ -20,6 +21,7 @@ namespace GameClient
         public InventoryManager(GraphicsDevice graphicsDevice,ItemManager itemManager)
         {
             _itemManager = itemManager;
+            _graphicsDevice = graphicsDevice;
             _inventoryBlock = new Texture2D(graphicsDevice, width, height);
             Color[] data2 = new Color[width * height];
             for (int i = 0; i < data2.Length; ++i)
@@ -31,8 +33,8 @@ namespace GameClient
             }
             _inventoryBlock.SetData(data2);
             _item_list = new List<ItemStock>();
-            _position = new Vector2((graphicsDevice.Viewport.Bounds.Width / 2),
-            graphicsDevice.Viewport.Bounds.Height - (graphicsDevice.Viewport.Bounds.Height / 10));
+            _position = new Vector2((graphicsDevice.Viewport.Bounds.Width / 2 ),
+            graphicsDevice.Viewport.Bounds.Height - (graphicsDevice.Viewport.Bounds.Height/ 10));
             Vector2 _fixedPosition =new Vector2( _position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
             Rectangle Dest_rectangle;
             _inventory_rectangles = new List<(Rectangle, ItemStock)>();
@@ -69,6 +71,18 @@ namespace GameClient
                     }
                 }
             }
+        }
+        public void ResetGraphics()
+        {
+            //_position = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2),
+            //_graphicsDevice.Viewport.Bounds.Height - (_graphicsDevice.Viewport.Bounds.Height / 10));
+            //Vector2 _fixedPosition = new Vector2(_position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
+            //Rectangle Dest_rectangle;
+            //for (int i = 0; i < _itemBlockAmount; i++)
+            //{
+            //    Dest_rectangle = new Rectangle((int)_fixedPosition.X + width * i + i, (int)_fixedPosition.Y, width, height);
+            //    _inventory_rectangles.Add((Dest_rectangle, null));
+            //}
         }
         public void addItemToInventory(Item itemToAdd)
         {

@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.IO;
-using TiledSharp;
+
 namespace GameClient
 {
     public class Game_Client : Game
@@ -11,6 +10,7 @@ namespace GameClient
         public static GraphicsDeviceManager _graphics;
         private MenuManager _menuManager;
         private SpriteBatch _spriteBatch;
+        private SpriteBatch _UIbatch;
         private List<OtherPlayer> _other_players;
         private Player _player;
         private List<Simple_Enemy> _enemies;
@@ -23,6 +23,7 @@ namespace GameClient
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
+        private UIManager _UIManager;
 
         public bool _inMenu = false;
 
@@ -47,22 +48,24 @@ namespace GameClient
         }
         protected override void LoadContent()
         {
-            _graphicManager = new GraphicManager(GraphicsDevice, Content);
+            _graphicManager = new GraphicManager(GraphicsDevice, Content,this);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _UIbatch = new SpriteBatch(GraphicsDevice);
             _menuManager = new MenuManager(this, GraphicsDevice);
             _other_players = new List<OtherPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
+            _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
+            _UIManager = new UIManager(Content, _inventoryManager);
             _playerManager = new PlayerManager(_other_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
-            _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
             _collectionManager.Initialize(_playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _collisionManager.Initialize(_other_players, _player, _enemies);
             _inventoryManager.Initialize(_player);
             _tileManager.LoadMap(1);
@@ -84,32 +87,42 @@ namespace GameClient
                 _enemyManager.Update(gameTime);
                 _playerManager.Update(gameTime, _enemies);
                 _networkManager.Update(gameTime);
+                _UIManager.Update(gameTime);
             }
             base.Update(gameTime);
 
         }
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            var scaleX = (float)1280 / 1920;
+            var scaleY = (float)720 / 1080;
+            var matrix = Matrix.CreateScale(scaleX, scaleY, 1.0f);
+            _UIbatch.Begin(SpriteSortMode.FrontToBack);
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack,transformMatrix: matrix);
             if (_inMenu)
             {
-                _menuManager.Draw(_spriteBatch,gameTime, GraphicsDevice);
+                _menuManager.Draw(_spriteBatch, GraphicsDevice);
             }
             else
             {
                 _tileManager.Draw(_spriteBatch);
                 _playerManager.Draw(_spriteBatch);
                 _enemyManager.Draw(_spriteBatch);
-                _inventoryManager.Draw(_spriteBatch);
                 _itemManager.Draw(_spriteBatch);
+                _inventoryManager.Draw(_UIbatch);
+                _UIManager.Draw(_UIbatch);
             }
 
             _spriteBatch.End();
-
+            _UIbatch.End();
             base.Draw(gameTime);
+
         }
 
+        public void ResetGraphics()
+        {
+            _inventoryManager.ResetGraphics();
+        }
         #endregion
     }
 }

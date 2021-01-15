@@ -12,11 +12,31 @@ namespace GameClient
         public static GraphicsDevice _graphicsDevice;
         static ContentManager _contentManager;
         public static SpriteFont _font;
-        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager)
+        private float _timer_update_grpahics;
+        private Game_Client _gameClient;
+        public static Vector2 ScreenScale;
+        public static float screenHeight;
+        public static float screenWidth;
+        public static Vector2 _ScreenMiddle;
+        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager,Game_Client gameClient)
         {
             _graphicsDevice = graphicsDevice;
             _contentManager = contentManager;
             _font = contentManager.Load<SpriteFont>("Fonts/basic");
+            _gameClient = gameClient;
+            ScreenScale = new Vector2((float)1280 / 1920, (float)720 / 1080);
+            screenHeight = ScreenScale.Y * graphicsDevice.Viewport.Height;
+            screenWidth = ScreenScale.X * graphicsDevice.Viewport.Width;
+            _ScreenMiddle = new Vector2(screenWidth, screenHeight);
+        }
+        public void Update(GameTime gameTime)
+        {
+            _timer_update_grpahics += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(_timer_update_grpahics >=1)
+            {
+                _timer_update_grpahics = 0;
+                _gameClient.ResetGraphics();
+            }
         }
         static public SpriteFont GetBasicFont()
         {

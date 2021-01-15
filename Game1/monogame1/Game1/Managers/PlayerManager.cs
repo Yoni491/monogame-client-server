@@ -14,11 +14,12 @@ namespace GameClient
         ItemManager _itemManager;
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
+        UIManager _UImanager;
         public PlayerManager(List<OtherPlayer> players, CollectionManager collectionManager)
         {
             _players = players;
             _collectionManager = collectionManager;
-
+            
         }
         public void updateOtherPlayerTexture()
         {
@@ -38,13 +39,14 @@ namespace GameClient
             NetworkManagerClient._updateOtherPlayerTexture = true;
             return otherPlayer;
         }
-        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice)
+        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice, UIManager uIManager)
         {
+            _UImanager = uIManager;
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + 100, graphicsDevice.Viewport.Height / 2 + 100);
-            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager);
+            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
             _player.EquipGun(_collectionManager.GetGunCopy(3,0.7f,false));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0,0.7f));
             return _player;

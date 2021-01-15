@@ -48,7 +48,7 @@ namespace GameClient
             }
             return false;
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Color _color = _normal;
 

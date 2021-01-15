@@ -28,12 +28,13 @@ namespace GameClient
 
         private PlayerManager _playerManager;
         private ItemManager _itemManager;
+        private UIManager _uIManager;
         private InventoryManager _inventoryManager;
 
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 4, _height* 2 / 5);}
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.2)); }
-        public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager)
+        public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,UIManager uIManager)
         {
             _animationManager = animationManager;
             _position = position;
@@ -41,6 +42,7 @@ namespace GameClient
             _velocity = Vector2.Zero;
             _playerManager = playerManager;
             _itemManager = itemManager;
+            _uIManager = uIManager;
             _inventoryManager = inventoryManager;
             _scale = _animationManager._scale;
             _health = new HealthManager(health, position,_scale);
@@ -93,7 +95,6 @@ namespace GameClient
                 //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-            GraphicManager.DrawRectangle(spriteBatch, Rectangle, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
         }
 
@@ -137,12 +138,11 @@ namespace GameClient
                 _looking_direction = _input._right_joystick_direction;
             }
             if(!_isGamePad)
-                _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position;
-
+                _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
-                if(!_inventoryManager.MouseClick())
+                if(!_uIManager.MouseClick())
                 { 
                     _gun.Shot();
                 }

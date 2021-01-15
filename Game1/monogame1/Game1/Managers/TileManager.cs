@@ -15,7 +15,6 @@ namespace GameClient
         static int _tileHeight;
         static int _tilesetTilesWide;
         static int _tilesetTilesHigh;
-        static int _tilesDistribution = 16;
         TmxMap _map;
         Texture2D _tileset;
         //Rectangle[] _floor;
@@ -101,7 +100,7 @@ namespace GameClient
 
         static public float GetLayerDepth(float y)
         {
-            return (y / _graphicDevice.Viewport.Height) + 0.1f;
+            return (y / _graphicDevice.Viewport.Height * GraphicManager.ScreenScale.Y) + 0.1f;
         }
     }
 }

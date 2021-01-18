@@ -19,6 +19,9 @@ namespace GameClient
         MouseState _previousMouse, _currentMouse;
         Color _normal, _hover;
         string _text;
+
+        public void Text(string text) { _text = text; }
+
         public Button(Texture2D texture, SpriteFont font,Vector2 position,Color normal,Color hover,string text)
         {
             _texture = texture;

@@ -19,7 +19,8 @@ namespace GameClient
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
         public bool _isGamePad;
-        private float _speed = 3f;
+        public bool _clickedOnUi;
+        private float _speed = 6f;
         private float _scale;
         public int _playerNum;
         private int _width;
@@ -142,7 +143,7 @@ namespace GameClient
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
-                if(!_uIManager.MouseClick())
+                if(!_clickedOnUi)
                 { 
                     _gun.Shot();
                 }
@@ -165,6 +166,7 @@ namespace GameClient
                     _inventoryManager.addItemToInventory(item);
                 }
             }
+            _clickedOnUi = false;
 
         }
         protected void SetAnimations()

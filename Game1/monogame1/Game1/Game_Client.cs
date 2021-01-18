@@ -24,6 +24,7 @@ namespace GameClient
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
         private UIManager _UIManager;
+        private MapManager _mapManager;
 
         public bool _inMenu = false;
 
@@ -34,7 +35,7 @@ namespace GameClient
             
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Window.AllowUserResizing = true;
+            //Window.AllowUserResizing = true;
             //Scene.SetDefaultDesignResolution(1280, 720, Scene.SceneResolutionPolicy.ShowAllPixelPerfect);
             PlayerIndex.One.GetType();
         }
@@ -51,6 +52,7 @@ namespace GameClient
             _graphicManager = new GraphicManager(GraphicsDevice, Content,this);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
+            _mapManager = new MapManager();
             _menuManager = new MenuManager(this, GraphicsDevice);
             _other_players = new List<OtherPlayer>();
             _enemies = new List<Simple_Enemy>();
@@ -58,17 +60,19 @@ namespace GameClient
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
-            _UIManager = new UIManager(Content, _inventoryManager,_graphics);
+            _UIManager = new UIManager();
             _playerManager = new PlayerManager(_other_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
-            _tileManager = new TileManager(GraphicsDevice, Content);
+            _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _collisionManager.Initialize(_other_players, _player, _enemies);
             _inventoryManager.Initialize(_player);
-            _tileManager.LoadMap(1);
+            _mapManager.Initialize(_player);
+            _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
+            _tileManager.LoadMap(2);
 
 
         }
@@ -85,9 +89,10 @@ namespace GameClient
             {
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
                 _enemyManager.Update(gameTime);
-                _playerManager.Update(gameTime, _enemies);
                 _networkManager.Update(gameTime);
                 _UIManager.Update(gameTime);
+                _playerManager.Update(gameTime, _enemies);
+                _mapManager.Update();
             }
             base.Update(gameTime);
 

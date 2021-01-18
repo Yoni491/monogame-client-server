@@ -9,8 +9,8 @@ namespace GameClient
     public class EnemyManager
     {
         private GraphicsDevice _graphicsDevice;
-        private CollectionManager _collectionManager;
-        private List<Simple_Enemy> _enemies;
+        static private CollectionManager _collectionManager;
+        static private List<Simple_Enemy> _enemies;
         private float _random_enemies_circle_timer = 0;
         
         public EnemyManager( GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies, CollectionManager collectionManager)
@@ -22,15 +22,11 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
-            {
-                _random_enemies_circle_timer = -200;
-                AddEnemiesRandomCircle();
-                AddEnemiesRandomCircle();
-                AddEnemiesRandomCircle();
-                AddEnemiesRandomCircle();
-                AddEnemiesRandomCircle();
-            }
+            //if ((_random_enemies_circle_timer += (float)gameTime.ElapsedGameTime.TotalSeconds) >= 2f)
+            //{
+            //    _random_enemies_circle_timer = -200;
+            //    //AddEnemiesRandomCircle();
+            //}
             foreach (var enemy in _enemies)
             {
                 enemy.Update(gameTime);
@@ -42,9 +38,9 @@ namespace GameClient
                 enemy.Draw(spriteBatch);
 
         }
-        public void AddEnemy(Vector2 position)
+        public static void AddEnemyAtPosition(Vector2 position)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0,1f);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(0, 1f);
             enemy._position = position;
             _enemies.Add(enemy);
         }
@@ -55,9 +51,10 @@ namespace GameClient
             Vector2 center = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
             Random x = new Random();
             Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;
-            AddEnemy(center + random_direction);
+            AddEnemyAtPosition(center + random_direction);
         }
 
+        
 
     }
 }

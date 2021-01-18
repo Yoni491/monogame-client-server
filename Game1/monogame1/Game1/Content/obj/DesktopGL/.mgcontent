@@ -10,6 +10,7 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Fonts/basic.spritefont</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Images/template.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/maps/tf_A5_ashlands_1.png</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/maps/tf_B_ashlands_1.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/1.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/10.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Patreon sprites 1/11.png</File>
@@ -52,6 +53,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>Images/MenuBackground.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

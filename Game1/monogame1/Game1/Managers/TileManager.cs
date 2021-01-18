@@ -11,89 +11,102 @@ namespace GameClient
     {
         static private GraphicsDevice _graphicDevice;
         private ContentManager _contentManager;
-        static int _tileWidth;
-        static int _tileHeight;
-        static int _tilesetTilesWide;
-        static int _tilesetTilesHigh;
+        private MapManager _mapManager;
+        List<TileSet> _tileSets;
         TmxMap _map;
-        Texture2D _tileset;
         //Rectangle[] _floor;
         public static List<Rectangle> _walls;
 
-        public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager)
+        public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
             _graphicDevice = graphicDevice;
             _contentManager = contentManager;
+            this._mapManager = mapManager;
+            _tileSets = new List<TileSet>();
         }
         public void LoadMap(int mapNum)
         {
+            _walls = new List<Rectangle>();
+
             string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
             _map = new TmxMap(mapName);
-            _tileset = _contentManager.Load<Texture2D>("maps/" + _map.Tilesets[0].Name.ToString());
+            int tilesetIndex = 0;
 
-            _tileWidth = _map.Tilesets[0].TileWidth;
-            _tileHeight = _map.Tilesets[0].TileHeight;
-
-            _tilesetTilesWide = _tileset.Width / _tileWidth;
-            _tilesetTilesHigh = _tileset.Height / _tileHeight;
-
-            //for (var i = 0; i < _map.TileLayers[0].Tiles.Count; i++)
-            //{
-            //    int gid = _map.TileLayers[0].Tiles[i].Gid;
-            //    if (gid != 0)
-            //    {
-            //        float x = (i % _map.Width) * _map.TileWidth;
-            //        float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-            //        _floor. new Rectangle((int)x, (int)y, _tileWidth, _tileHeight);
-            //    }
-            //}
-            _walls = new List<Rectangle>();
-            for (var i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
+            for (int i = 0; i < _map.Tilesets.Count; i++)
             {
-                int gid = _map.TileLayers[1].Tiles[i].Gid;
-                if (gid != 0)
-                {
-                    float x = (i % _map.Width) * _map.TileWidth;
-                    float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-                    _walls.Add(new Rectangle((int)x, (int)y, _tileWidth, _tileHeight));
-                }
+                _tileSets.Add(new TileSet(_contentManager.Load<Texture2D>("maps/" + _map.Tilesets[i].Name.ToString()),
+                _map.Tilesets[i].TileWidth, _map.Tilesets[i].TileHeight));
             }
+            
+            foreach (var tilset in _tileSets)
+            {
+                for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
+                {
+                    int gid = _map.TileLayers[1].Tiles[i].Gid;
+                    if (gid != 0)
+                    {
+                        float x = (i % _map.Width) * _map.TileWidth;
+                        float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
+                        Rectangle rectangle = new Rectangle((int)x, (int)y, _tileSets[0]._tileWidth, _tileSets[0]._tileHeight);
+                        _walls.Add(rectangle);
+                        if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                        {
+                            gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
+                        }
+                        if (gid == 197)
+                        {
+                            _mapManager._graves.Add(new Grave(rectangle));
+                        }
+                    }
+                }
+                tilesetIndex++;
+            }
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (var i = 0; i < _map.TileLayers[0].Tiles.Count; i++)
+            int tilesetIndex = 0;
+            foreach (var tileset in _tileSets)
             {
-                int gid = _map.TileLayers[0].Tiles[i].Gid;
-                if (gid != 0)
+                for (int i = 0; i < _map.TileLayers[0].Tiles.Count; i++)
                 {
-                    int tileFrame = gid - 1;
-                    int column = tileFrame % _tilesetTilesWide;
-                    int row = (int)Math.Floor((double)tileFrame / (double)_tilesetTilesWide);
+                    int gid = _map.TileLayers[0].Tiles[i].Gid;
+                    if (gid != 0)
+                    {
+                        int tileFrame = gid - 1;
+                        int column = tileFrame % tileset._tilesetTilesWide;
+                        int row = (int)Math.Floor((double)tileFrame / (double)tileset._tilesetTilesWide);
 
-                    float x = (i % _map.Width) * _map.TileWidth;
-                    float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
+                        float x = (i % _map.Width) * _map.TileWidth;
+                        float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
 
-                    Rectangle tilesetRec = new Rectangle(_tileWidth * column, _tileHeight * row, _tileWidth, _tileHeight);
-
-                    spriteBatch.Draw(_tileset, new Rectangle((int)x, (int)y, _tileWidth, _tileHeight), tilesetRec, Color.White,0,Vector2.Zero,SpriteEffects.None,0);
+                        Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, tileset._tileWidth, tileset._tileHeight);
+                        spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, tileset._tileWidth, tileset._tileHeight), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                    }
                 }
-            }
-            for (var i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
-            {
-                int gid = _map.TileLayers[1].Tiles[i].Gid;
-                if (gid != 0)
+                for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
                 {
-                    int tileFrame = gid - 1;
-                    int column = tileFrame % _tilesetTilesWide;
-                    int row = (int)Math.Floor((double)tileFrame / (double)_tilesetTilesWide);
+                    int gid = _map.TileLayers[1].Tiles[i].Gid;
+                    if (gid != 0 && gid >= _map.Tilesets[tilesetIndex].FirstGid)
+                    {
+                        if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                        {
+                            gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
+                        }
+                        int tileFrame = gid - 1;
+                        int column = tileFrame % tileset._tilesetTilesWide;
+                        int row = (int)Math.Floor((double)tileFrame / (double)tileset._tilesetTilesWide);
 
-                    float x = (i % _map.Width) * _map.TileWidth;
-                    float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
+                        float x = (i % _map.Width) * _map.TileWidth;
+                        float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
 
-                    Rectangle tilesetRec = new Rectangle(_tileWidth * column, _tileHeight * row, _tileWidth, _tileHeight);
-
-                    spriteBatch.Draw(_tileset, new Rectangle((int)x, (int)y, _tileWidth, _tileHeight), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, GetLayerDepth(y)- 0.07f);
+                        Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, tileset._tileWidth, tileset._tileHeight);
+                        
+                        spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, tileset._tileWidth, tileset._tileHeight), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
+                    }
                 }
+                tilesetIndex++;
+
             }
         }
 

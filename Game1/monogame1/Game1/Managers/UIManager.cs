@@ -8,48 +8,84 @@ namespace GameClient
 {
     public class UIManager
     {
-        Texture2D _SettingsButton;
         InventoryManager _InventoryManager;
-        Rectangle settingsRectangle;
+        //Rectangle settingsRectangle;
         Texture2D _menuBackgroundImage;
-        Button _fullScreenButton;
+        Button _settingButton, _fullScreenButton, _exitFullScreenButton;
         GraphicsDeviceManager _graphics;
+        private Player _player;
+        bool fullScreen;
         bool ShowSettings;
-        public UIManager(ContentManager content, InventoryManager InventoryManager,GraphicsDeviceManager graphics)
+
+        public UIManager()
+        {
+            
+        }
+        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics, Player player)
         {
             _graphics = graphics;
-            _SettingsButton = content.Load<Texture2D>("etc/settings");
+            _player = player;
             _InventoryManager = InventoryManager;
-            settingsRectangle = new Rectangle(0, 0, _SettingsButton.Width, _SettingsButton.Height);
-            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(100, 200, Color.White), GraphicManager.GetBasicFont(), GraphicManager._ScreenMiddle, Color.Green, Color.Gray, "Full Screen");
+            _settingButton = new Button(content.Load<Texture2D>("etc/settings"), null, new Vector2(0, 0), Color.White, Color.Gray, null);
+            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(100, 100, Color.White), GraphicManager.GetBasicFont(), GraphicManager._ScreenMiddle, Color.Green, Color.Gray, "Full Screen");
+            _exitFullScreenButton = new Button(GraphicManager.getRectangleTexture(100, 100, Color.White), GraphicManager.GetBasicFont(), GraphicManager._ScreenMiddle, Color.Green, Color.Gray, "Exit full Screen");
         }
         public void Update(GameTime gameTime)
         {
             if (ShowSettings)
-                if (_fullScreenButton.Update(gameTime))
+            {
+                if (!fullScreen)
                 {
-                    _graphics.IsFullScreen = true;
-                    _graphics.ApplyChanges();
-                }
+                    if (_fullScreenButton.Update(gameTime))
+                    {
 
+                        _player._clickedOnUi = true;
+                        _graphics.IsFullScreen = true;
+                        fullScreen = true;
+                        _graphics.ApplyChanges();
+                    }
+                }
+                else
+                {
+                    if (_exitFullScreenButton.Update(gameTime))
+                    {
+
+                        _player._clickedOnUi = true;
+                        _graphics.IsFullScreen = false;
+                        fullScreen = false;
+                        _graphics.ApplyChanges();
+                    }
+                }
+                
+                if (_settingButton.Update(gameTime))
+                {
+                    ShowSettings = false;
+                    _player._clickedOnUi = true;
+                }
+            }
+            else
+            {
+                if (_settingButton.Update(gameTime))
+                {
+                    ShowSettings = true;
+                    _player._clickedOnUi = true;
+                }
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_SettingsButton, settingsRectangle, Color.White);
-            if(ShowSettings)
-                _fullScreenButton.Draw(spriteBatch);
-        }
-        public bool MouseClick()
-        {
-            if (CollisionManager.isMouseCollidingRectangle(settingsRectangle))
+            _settingButton.Draw(spriteBatch);
+            if (ShowSettings)
             {
-                ShowSettings = true;
-                return true;
+                if(fullScreen)
+                {
+                    _exitFullScreenButton.Draw(spriteBatch);
+                }
+                else
+                {
+                    _fullScreenButton.Draw(spriteBatch);
+                }
             }
-
-            if (_InventoryManager.MouseClick())
-                return true;
-            return false;
         }
     }
 }

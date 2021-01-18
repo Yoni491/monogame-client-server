@@ -126,6 +126,7 @@ namespace GameClient
             {
                 if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
                 {
+                    _player._clickedOnUi = true;
                     if (_inventory_rectangles[i].Item2 != null)
                     {
                         Gun gun = _inventory_rectangles[i].Item2._item._gun;

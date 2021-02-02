@@ -73,6 +73,9 @@
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 
+#begin maps/map3.tmx
+/copy:maps/map3.tmx
+
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

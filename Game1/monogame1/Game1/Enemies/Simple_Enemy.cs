@@ -18,6 +18,7 @@ namespace GameClient
         private Vector2 _velocity;
         public Vector2 _position;
         private Vector2 _shootingDirection;
+        private PathFinder _pathFinder;
         public bool _destroy = false;
         private bool _hide_weapon;
         private bool stopMoving;
@@ -58,9 +59,12 @@ namespace GameClient
                 _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 500);
                 _gun._holderScale = _scale;
             }
+            _pathFinder = new PathFinder();
         }
         public void Update(GameTime gameTime)
         {
+            _pathFinder.Update(gameTime, _position, _shootingDirection);
+
             Move();
 
             SetAnimations();
@@ -155,7 +159,8 @@ namespace GameClient
                 if(_meleeWeapon!=null)
                     _meleeWeapon.SwingWeapon();
             }
-            _velocity = Vector2.Normalize(closest_player - Position_Feet);
+            _velocity = Vector2.Normalize(_pathFinder.GetNextCoordPosition());
+            //_velocity = Vector2.Normalize(closest_player - Position_Feet);
             if (_velocity.X > Math.Abs(_velocity.Y))
             {
                 _hide_weapon = false;

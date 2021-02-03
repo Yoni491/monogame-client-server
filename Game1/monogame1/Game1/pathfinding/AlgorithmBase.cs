@@ -6,25 +6,20 @@
 
     public abstract class AlgorithmBase
     {
-        protected readonly Grid Grid;
-        protected readonly List<Node> Closed;
-        protected List<Coord> Path;
-        protected readonly Coord Origin;
-        protected readonly Coord Destination;
-        protected int Id;
-        protected Node CurrentNode;
-        protected int Operations;
-        public string AlgorithmName;
+        protected Grid _Grid;
+        protected List<Node> _Closed;
+        protected List<Coord> _Path;
+        protected Coord _Origin;
+        protected Coord _Destination;
+        protected int _Id;
+        protected Node _CurrentNode;
+        protected int _Operations;
+        public string _AlgorithmName;
 
 
-        protected AlgorithmBase(Grid grid)
+        protected AlgorithmBase()
         {
-            Grid = grid;
-            Closed = new List<Node>();
-            Origin = Grid.GetStart().Coord;
-            Destination = Grid.GetEnd().Coord;
-            Operations = 0;
-            Id = 1;
+            
         }
 
         public abstract SearchDetails GetPathTick();
@@ -38,10 +33,10 @@
         {
             var neighbours = new List<Cell>
             {
-                Grid.GetCell(current.Coord.X - 1, current.Coord.Y),
-                Grid.GetCell(current.Coord.X + 1, current.Coord.Y),
-                Grid.GetCell(current.Coord.X, current.Coord.Y - 1),
-                Grid.GetCell(current.Coord.X, current.Coord.Y + 1)
+                _Grid.GetCell(current.Coord.X - 1, current.Coord.Y),
+                _Grid.GetCell(current.Coord.X + 1, current.Coord.Y),
+                _Grid.GetCell(current.Coord.X, current.Coord.Y - 1),
+                _Grid.GetCell(current.Coord.X, current.Coord.Y + 1)
             };
 
             return neighbours.Where(x => x.Type != Enums.CellType.Invalid && x.Type != Enums.CellType.Solid).Select(x => x.Coord).ToArray();
@@ -68,11 +63,11 @@
         /// <returns>Cost of the path or 0 if no path has been found</returns>
         protected int GetPathCost()
         {
-            if (Path == null) return 0;
+            if (_Path == null) return 0;
 
             var cost = 0;
-            foreach (var step in Path)
-                cost += Grid.GetCell(step.X, step.Y).Weight;
+            foreach (var step in _Path)
+                cost += _Grid.GetCell(step.X, step.Y).Weight;
 
             return cost;
         }

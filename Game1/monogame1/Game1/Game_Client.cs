@@ -49,7 +49,7 @@ namespace GameClient
         }
         protected override void LoadContent()
         {
-            _graphicManager = new GraphicManager(GraphicsDevice, Content,this);
+            _graphicManager = new GraphicManager(GraphicsDevice, Content,this,_graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _mapManager = new MapManager();
@@ -72,7 +72,7 @@ namespace GameClient
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _tileManager.LoadMap(3);
+            _tileManager.LoadMap(2);
 
 
         }
@@ -99,11 +99,9 @@ namespace GameClient
         }
         protected override void Draw(GameTime gameTime)
         {
-            var scaleX = (float)1280 / 1920;
-            var scaleY = (float)720 / 1080;
-            var matrix = Matrix.CreateScale(scaleX, scaleY, 1.0f);
+            
             _UIbatch.Begin(SpriteSortMode.FrontToBack);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack,transformMatrix: matrix);
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack,transformMatrix: GraphicManager.GetSpriteBatchMatrix());
             if (_inMenu)
             {
                 _menuManager.Draw(_spriteBatch, GraphicsDevice);

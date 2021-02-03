@@ -63,9 +63,8 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            _pathFinder.Update(gameTime, _position, _shootingDirection);
-
-            Move();
+            
+            Move(gameTime);
 
             SetAnimations();
 
@@ -144,9 +143,10 @@ namespace GameClient
             return new Simple_Enemy(_animationManager.Copy(scale), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun);
         }
 
-        public void Move()
+        public void Move(GameTime gameTime)
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
+            _pathFinder.Update(gameTime, Position_Feet, closest_player);
             if(!_isStopingToShot)
                 _shootingDirection = closest_player - _position;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
@@ -155,11 +155,14 @@ namespace GameClient
             }
             else
             {
-                stopMoving = true;
+                //stopMoving = true;
                 if(_meleeWeapon!=null)
                     _meleeWeapon.SwingWeapon();
             }
-            _velocity = Vector2.Normalize(_pathFinder.GetNextCoordPosition());
+            Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
+            _velocity = Vector2.Normalize(coordPosition - Position_Feet);
+            if (coordPosition == Vector2.Zero)
+                _velocity = Vector2.Zero;
             //_velocity = Vector2.Normalize(closest_player - Position_Feet);
             if (_velocity.X > Math.Abs(_velocity.Y))
             {

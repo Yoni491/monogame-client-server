@@ -40,9 +40,8 @@ namespace GameClient
                     {
 
                         _player._clickedOnUi = true;
-                        _graphics.IsFullScreen = true;
                         fullScreen = true;
-                        _graphics.ApplyChanges();
+                        GraphicManager.ChangeToFullScreen(true);
                     }
                 }
                 else
@@ -51,9 +50,8 @@ namespace GameClient
                     {
 
                         _player._clickedOnUi = true;
-                        _graphics.IsFullScreen = false;
                         fullScreen = false;
-                        _graphics.ApplyChanges();
+                        GraphicManager.ChangeToFullScreen(false);
                     }
                 }
                 

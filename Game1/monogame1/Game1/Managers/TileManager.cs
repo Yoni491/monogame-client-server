@@ -49,7 +49,7 @@ namespace GameClient
                         float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
                         Rectangle rectangle = new Rectangle((int)x, (int)y, _tileSets[0]._tileWidth, _tileSets[0]._tileHeight);
                         _walls.Add(rectangle);
-                        _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Closed);
+                        _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
                         if (_map.Tilesets[tilesetIndex].FirstGid > 0)
                         {
                             gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
@@ -119,11 +119,11 @@ namespace GameClient
         }
         static public Coord GetCoordTile(Vector2 _position)
         {
-            return new Coord(((int)_position.X) % _map.Width / _tileSets[0]._tileWidth, ((int)_position.Y) % _map.Height / _tileSets[0]._tileHeight);
+            return new Coord((int)(_position.X / 1920 * _map.Width), (int)(_position.Y / 1080 * _map.Height));
         }
-        static public Vector2 GetPositionFromCoord(Coord _position)
+        static public Vector2 GetPositionFromCoord(Coord coord)
         {
-            return new Vector2(_position.X * _tileSets[0]._tileWidth, _position.Y * _tileSets[0]._tileHeight);
+            return new Vector2(coord.X * _tileSets[0]._tileWidth, coord.Y * _tileSets[0]._tileHeight);
         }
     }
 }

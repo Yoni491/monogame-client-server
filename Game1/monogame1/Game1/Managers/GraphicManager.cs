@@ -14,20 +14,26 @@ namespace GameClient
         public static SpriteFont _font;
         private float _timer_update_grpahics;
         private Game_Client _gameClient;
+        public static GraphicsDeviceManager _graphics;
         public static Vector2 ScreenScale;
-        public static float screenHeight;
-        public static float screenWidth;
+        public static float screenHeightScaled;
+        public static float screenWidthScaled;
+        public static int screenHeight;
+        public static int screenWidth;
         public static Vector2 _ScreenMiddle;
-        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager,Game_Client gameClient)
+        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, Game_Client gameClient, GraphicsDeviceManager graphics)
         {
             _graphicsDevice = graphicsDevice;
             _contentManager = contentManager;
             _font = contentManager.Load<SpriteFont>("Fonts/basic");
             _gameClient = gameClient;
+            _graphics = graphics;
             ScreenScale = new Vector2((float)1280 / 1920, (float)720 / 1080);
-            screenHeight = ScreenScale.Y * graphicsDevice.Viewport.Height;
-            screenWidth = ScreenScale.X * graphicsDevice.Viewport.Width;
-            _ScreenMiddle = new Vector2(screenWidth, screenHeight);
+            screenHeight = 720;
+            screenWidth = 1280;
+            screenHeightScaled = ScreenScale.Y * graphicsDevice.Viewport.Height;
+            screenWidthScaled = ScreenScale.X * graphicsDevice.Viewport.Width;
+            _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
         }
         public void Update(GameTime gameTime)
         {
@@ -42,6 +48,37 @@ namespace GameClient
         {
             SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/basic");
             return font;
+        }
+        static public void ChangeToFullScreen(bool fullScreen)
+        {
+            if (fullScreen)
+            {
+                ChangeScreenSize(1920, 1080);
+                _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
+                _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+                _graphics.ApplyChanges();
+                _graphics.IsFullScreen = true;
+                _graphics.ApplyChanges();
+            }
+            else
+            {
+                _graphics.IsFullScreen = false;
+                _graphics.ApplyChanges();
+                ChangeScreenSize(1280, 720);
+                _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
+                _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
+                _graphics.ApplyChanges();
+                
+            }
+        }
+        static public void ChangeScreenSize(int width,int height)
+        {
+            screenHeight = height;
+            screenWidth = width;
+            ScreenScale = new Vector2((float)width / 1920, (float)height / 1080);
+            screenHeightScaled = ScreenScale.Y * height;
+            screenWidthScaled = ScreenScale.X * width;
+            _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
         }
         static public Texture2D Resize4x4Sprite(Texture2D texture, int x)
         {
@@ -121,6 +158,12 @@ namespace GameClient
             texture.SetData(data);
             spriteBatch.Draw(texture, rectangle, null ,Color.Black,0,Vector2.Zero,SpriteEffects.None,layer);
 
+        }
+        static public Matrix GetSpriteBatchMatrix()
+        {
+            var scaleX = (float)screenWidth / 1920;
+            var scaleY = (float)screenHeight / 1080;
+            return Matrix.CreateScale(scaleX, scaleY, 1.0f);
         }
     }
 }

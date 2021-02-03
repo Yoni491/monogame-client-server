@@ -159,6 +159,10 @@ namespace GameClient
             spriteBatch.Draw(texture, rectangle, null ,Color.Black,0,Vector2.Zero,SpriteEffects.None,layer);
 
         }
+        static public void DrawSmallSquareAtPosition(SpriteBatch spriteBatch,Vector2 position, float layer)
+        {
+            DrawRectangle(spriteBatch, new Rectangle((int)position.X, (int)position.Y, 5, 5), layer);
+        }
         static public Matrix GetSpriteBatchMatrix()
         {
             var scaleX = (float)screenWidth / 1920;

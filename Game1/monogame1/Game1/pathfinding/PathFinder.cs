@@ -13,7 +13,7 @@ namespace GameClient
         public static AStar _AStar;
         SearchDetails _searchDetails;
         Vector2 _position;
-        float _timer=3;
+        float _timer=1;
 
         public PathFinder()
         {
@@ -27,10 +27,10 @@ namespace GameClient
         {
             _position = _Start;
             _timer +=(float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer >= 3)
+            if (_timer >= 1)
             {
                 _AStar = new AStar();
-                _AStar.Initialize(TileManager.GetCoordTile(_Start), TileManager.GetCoordTile(_End), s_grid.GetGridCopy());
+                _AStar.Initialize(TileManager.GetCoordTile(_Start), TileManager.GetCoordTile(_End), s_grid);
                 _timer = 0;
                 while(true)
                 {

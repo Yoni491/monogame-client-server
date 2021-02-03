@@ -32,7 +32,7 @@ namespace GameClient
         private float _sniperTimer = 0;
         private float _sniperStopTime = 1.5f;
         private float _movingBetweenShotsTime = 3f;
-        private float _movingToPlayerMaxDistance = 40;
+        private float _movingToPlayerMaxDistance = 1;
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
@@ -136,6 +136,7 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
+            GraphicManager.DrawSmallSquareAtPosition(spriteBatch,Position_Feet, TileManager.GetLayerDepth(_position.Y));
         }
         public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
         {
@@ -155,7 +156,7 @@ namespace GameClient
             }
             else
             {
-                //stopMoving = true;
+                stopMoving = true;
                 if(_meleeWeapon!=null)
                     _meleeWeapon.SwingWeapon();
             }

@@ -32,7 +32,7 @@ namespace GameClient
         private UIManager _uIManager;
         private InventoryManager _inventoryManager;
 
-        public Vector2 Position_Feet { get => _position + new Vector2(_width / 4, _height* 2 / 5);}
+        public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.2)); }
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,UIManager uIManager)
@@ -50,7 +50,7 @@ namespace GameClient
             _width = _animationManager.Animation._frameWidth;
             _height = _animationManager.Animation._frameHeight;
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void Update(GameTime gameTime)
         {
 
             InputReader(gameTime);
@@ -97,6 +97,7 @@ namespace GameClient
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
+            GraphicManager.DrawSmallSquareAtPosition(spriteBatch, Position_Feet, TileManager.GetLayerDepth(_position.Y));
         }
 
         public void InputReader(GameTime gameTime)
@@ -151,6 +152,9 @@ namespace GameClient
             }
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
+                Console.WriteLine(Position_Feet);
+                Console.WriteLine(_position);
+
                 _isGamePad = false;
                 _meleeWeapon.SwingWeapon();
             }

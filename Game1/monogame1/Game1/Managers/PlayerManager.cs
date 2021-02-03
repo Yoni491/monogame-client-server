@@ -53,7 +53,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
-            _player.Update(gameTime, enemies);
+            _player.Update(gameTime);
             foreach (var player in _players)
                 player.Update(gameTime, enemies);
         }

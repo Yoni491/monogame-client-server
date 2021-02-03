@@ -19,10 +19,9 @@ namespace GameClient
         }
         public void Update()
         {
-            Console.WriteLine();
             foreach (var grave in _graves)
             {
-                grave.Update(_player.Position_Feet);
+                grave.Update(_player.RectangleMovement);
             }
             _graves.RemoveAll(grave => grave._destroy == true);
         }

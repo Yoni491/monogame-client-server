@@ -79,3 +79,5 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map2.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map3.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map5.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map6.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map7.tmx

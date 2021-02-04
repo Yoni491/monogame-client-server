@@ -17,6 +17,7 @@ namespace GameClient
         //Rectangle[] _floor;
         public static List<Rectangle> _walls;
         public Grid _grid = PathFinder.s_grid;
+
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
             _graphicDevice = graphicDevice;
@@ -53,10 +54,14 @@ namespace GameClient
                         if (_map.Tilesets[tilesetIndex].FirstGid > 0)
                         {
                             gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
-                        }
-                        if (gid == 197)
-                        {
-                            _mapManager._graves.Add(new Grave(rectangle));
+                            if (gid == 325)
+                            {
+                                _mapManager._graves.Add(new Grave(rectangle, false));
+                            }
+                            else if (gid == 326)
+                            {
+                                    _mapManager._graves.Add(new Grave(rectangle, true));
+                            }
                         }
                     }
                 }
@@ -119,7 +124,12 @@ namespace GameClient
         }
         static public Coord GetCoordTile(Vector2 _position)
         {
-            return new Coord((int)(_position.X / 1920 * _map.Width), (int)(_position.Y / 1080 * _map.Height));
+            Coord coord = new Coord((int)(_position.X / 1920 * _map.Width), (int)(_position.Y / 1080 * _map.Height));
+            if (coord.X >= _map.Width)
+                coord.X = _map.Width - 1;
+            if (coord.Y >= _map.Height)
+                coord.Y = _map.Height - 1;
+            return coord;
         }
         static public Vector2 GetPositionFromCoord(Coord coord)
         {

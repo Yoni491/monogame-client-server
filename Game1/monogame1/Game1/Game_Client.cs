@@ -25,7 +25,7 @@ namespace GameClient
         private CollisionManager _collisionManager;
         private UIManager _UIManager;
         private MapManager _mapManager;
-
+        private PathFindingManager _pathFindingManager;
         public bool _inMenu = false;
 
         #region Important Functions
@@ -63,6 +63,7 @@ namespace GameClient
             _UIManager = new UIManager();
             _playerManager = new PlayerManager(_other_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
+            _pathFindingManager = new PathFindingManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
             _networkManager.Initialize_connection();
@@ -72,7 +73,7 @@ namespace GameClient
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _tileManager.LoadMap(3);
+            _tileManager.LoadMap(7);
 
 
         }

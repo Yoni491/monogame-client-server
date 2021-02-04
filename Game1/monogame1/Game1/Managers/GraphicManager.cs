@@ -134,7 +134,7 @@ namespace GameClient
             spriteBatch.Draw(_line_texture, start, null, Color.White,
                              (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
                              new Vector2(0f, (float)_line_texture.Height / 2),
-                             new Vector2(Vector2.Distance(start, end), 0.005f),
+                             new Vector2(Vector2.Distance(start, end), 0.01f),
                              SpriteEffects.None, 0.5f);
 
         }

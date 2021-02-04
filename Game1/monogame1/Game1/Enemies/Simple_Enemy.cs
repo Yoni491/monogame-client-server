@@ -68,7 +68,7 @@ namespace GameClient
 
             SetAnimations();
 
-            _velocity = _velocity * _speed;
+            _velocity = _velocity * _speed * 2;
 
             _animationManager.Update(gameTime, _position);
 
@@ -149,7 +149,7 @@ namespace GameClient
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
             _pathFinder.Update(gameTime, Position_Feet, closest_player);
             if(!_isStopingToShot)
-                _shootingDirection = closest_player - _position;
+                _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
             {
                 stopMoving = false;

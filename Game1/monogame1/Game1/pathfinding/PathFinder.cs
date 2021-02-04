@@ -3,46 +3,82 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Threading;
 
 namespace GameClient
 {
     public class PathFinder
     {
-        public static Grid s_grid;
-        private Grid _grid;
-        public static AStar _AStar;
-        SearchDetails _searchDetails;
-        Vector2 _position;
+        static public Grid s_grid;
+        public AStar _AStar;
+        public  BreadthFirst _BreadthFirst;
+        public SearchDetails _searchDetails;
+        public  Vector2 _position;
         float _timer=1;
+        float _timerTillNextSearch = 0;
+        public bool IsThreadBusy = false;
+        public Coord _start, _end;
 
         public PathFinder()
         {
-            
         }
         public static void UpdateGrid(Grid grid)
         {
             s_grid = grid;
         }
-        public void Update(GameTime gameTime,Vector2 _Start,Vector2 _End)
+        public void FindPaths()
         {
-            _position = _Start;
-            _timer +=(float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer >= 1)
+            int tickAmount = 0;
+            while (true)
             {
-                _AStar = new AStar();
-                _AStar.Initialize(TileManager.GetCoordTile(_Start), TileManager.GetCoordTile(_End), s_grid);
-                _timer = 0;
-                while(true)
+                if (tickAmount < 100)
                 {
                     var searchStatus = _AStar.GetPathTick();
+                    tickAmount++;
                     // If the path is found, draw the path, otherwise draw the updated search
                     if (searchStatus.PathFound)
                     {
                         _searchDetails = searchStatus;
+                        _timerTillNextSearch = Math.Min(searchStatus.Path.Length, _timerTillNextSearch);
+                        return;
+                    }
+                }
+                else
+                {
+                    var searchStatus = _BreadthFirst.GetPathTick();
+
+                    // If the path is found, draw the path, otherwise draw the updated search
+                    if (searchStatus.PathFound)
+                    {
+                        _searchDetails = searchStatus;
+                        _timerTillNextSearch = Math.Min(searchStatus.Path.Length, _timerTillNextSearch);
                         return;
                     }
                 }
             }
+        }
+        public void Update(GameTime gameTime,Vector2 Start,Vector2 End)
+        {
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer >= _timerTillNextSearch)
+            {
+                if (!PathFindingManager._isThreadBusy)
+                {
+                    _timer = -10000;
+                    _timerTillNextSearch = 20;
+                    _searchDetails = null;
+                    _AStar = new AStar();
+                    _AStar.Initialize(TileManager.GetCoordTile(Start), TileManager.GetCoordTile(End), s_grid);
+                    _BreadthFirst = new BreadthFirst();
+                    _BreadthFirst.Initialize(TileManager.GetCoordTile(Start), TileManager.GetCoordTile(End), s_grid);
+                    _position = Start;
+                    PathFindingManager._currentPathFinder = this;
+                    PathFindingManager._isThreadBusy = true;
+                }
+            }
+
+            
         }
         public Vector2 GetNextCoordPosition()
         {

@@ -1,31 +1,34 @@
-﻿namespace GameClient
-{
-    using System.Collections.Generic;
-    using System.Linq;
+﻿
+using System.Collections.Generic;
+using System.Linq;
 
-    public class AStar : AlgorithmBase
+namespace GameClient
+{
+
+    public class Dijkstra : AlgorithmBase
     {
         private readonly List<Node> _openList = new List<Node>();
         private readonly List<Coord> _neighbours;
 
-        public AStar() : base()
+        public Dijkstra() : base()
         {
-            _AlgorithmName = "A*";
+            _AlgorithmName = "Dijkstra's";
             _neighbours = new List<Coord>();
 
-            // Put the origin on the open list
+            // Put the _Origin on the open list
             
         }
-        public void Initialize(Coord start, Coord end,Grid grid)
+
+        public void Initialize(Coord start, Coord end, Grid Grid)
         {
-            _Grid = grid;
+            _Grid = Grid;
             _Closed = new List<Node>();
             _Operations = 0;
             _Id = 1;
             _openList.Clear();
             _Origin = start;
             _Destination = end;
-            _openList.Add(new Node(_Id++, null, _Origin, 0, GetH(_Origin, _Destination)));
+            _openList.Add(new Node(_Id++, null, _Origin, 0, 0));
         }
 
         public override SearchDetails GetPathTick()
@@ -35,7 +38,7 @@
                 if (!_openList.Any()) return GetSearchDetails();
 
                 // Take the current node off the open list to be examined
-                _CurrentNode = _openList.OrderBy(x => x.F).ThenBy(x => x.H).First();
+                _CurrentNode = _openList.OrderBy(x => x.F).First();
 
                 // Move it to the closed list so it doesn't get examined again
                 _openList.Remove(_CurrentNode);
@@ -65,16 +68,15 @@
                         parentId = nextNode.ParentId;
                     }
 
-                    // Reorder the path to be from origin to destination and return
+                    // Reorder the path to be from _Origin to destination and return
                     _Path.Reverse();
 
                     return GetSearchDetails();
                 }
 
-                // Get the cost of the current node plus the extra step weight and heuristic
-                var hFromHere = GetH(thisNeighbour, _Destination);
+                // Get the cost of the current node plus the extra step
                 var cellWeight = _Grid.GetCell(thisNeighbour.X, thisNeighbour.Y).Weight;
-                var neighbourCost = _CurrentNode.G + cellWeight + hFromHere;
+                var neighbourCost = _CurrentNode.G + cellWeight;
 
                 // Check if the node is on the open list already and if it has a higher cost path
                 var openListItem = _openList.FirstOrDefault(x => x.Id == GetExistingNode(true, thisNeighbour));
@@ -96,7 +98,7 @@
 
                 // If the neighbour node isn't on the open or closed list, add it
                 if (openListItem != null || closedListItem != null) return GetSearchDetails();
-                _openList.Add(new Node(_Id++, _CurrentNode.Id, thisNeighbour, _CurrentNode.G + cellWeight, hFromHere));
+                _openList.Add(new Node(_Id++, _CurrentNode.Id, thisNeighbour, _CurrentNode.G + cellWeight, 0));
                 _Grid.SetCell(thisNeighbour.X, thisNeighbour.Y, Enums.CellType.Open);
             }
             else
@@ -105,13 +107,8 @@
                 _CurrentNode = null;
                 return GetPathTick();
             }
-            
-            return GetSearchDetails();
-        }
 
-        private static int GetH(Coord origin, Coord destination)
-        {
-            return GetManhattenDistance(origin, destination);
+            return GetSearchDetails();
         }
 
         private int? GetExistingNode(bool checkOpenList, Coord coordToCheck)
@@ -126,7 +123,7 @@
                 Path = _Path?.ToArray(),
                 PathCost = GetPathCost(),
                 LastNode = _CurrentNode,
-                DistanceOfCurrentNode = _CurrentNode == null ? 0 : GetH(_CurrentNode.Coord, _Destination),
+                DistanceOfCurrentNode = _CurrentNode == null ? 0 : GetManhattenDistance(_CurrentNode.Coord, _Destination),
                 OpenListSize = _openList.Count,
                 ClosedListSize = _Closed.Count,
                 UnexploredListSize = _Grid.GetCountOfType(Enums.CellType.Empty),

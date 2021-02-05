@@ -60,7 +60,7 @@ namespace GameClient
                             }
                             else if (gid == 326)
                             {
-                                    _mapManager._graves.Add(new Grave(rectangle, true));
+                                _mapManager._graves.Add(new Grave(rectangle, true));
                             }
                         }
                     }
@@ -108,7 +108,6 @@ namespace GameClient
                         float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
 
                         Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, tileset._tileWidth, tileset._tileHeight);
-                        
                         spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, tileset._tileWidth, tileset._tileHeight), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
                     }
                 }

@@ -136,7 +136,6 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-            GraphicManager.DrawSmallSquareAtPosition(spriteBatch,Position_Feet, TileManager.GetLayerDepth(_position.Y));
         }
         public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
         {

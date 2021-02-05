@@ -47,7 +47,7 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
-            _player.EquipGun(_collectionManager.GetGunCopy(3,0.7f,false));
+            _player.EquipGun(_collectionManager.GetGunCopy(0,0.7f,false));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(0,0.7f));
             return _player;
         }

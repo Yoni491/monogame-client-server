@@ -97,7 +97,6 @@ namespace GameClient
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
-            GraphicManager.DrawSmallSquareAtPosition(spriteBatch, Position_Feet, TileManager.GetLayerDepth(_position.Y));
         }
 
         public void InputReader(GameTime gameTime)

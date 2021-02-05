@@ -27,12 +27,18 @@ namespace GameClient
         {
             s_grid = grid;
         }
+        private void Reset()
+        {
+            _timer = 0;
+            _timerTillNextSearch = 5;
+        }
         public void FindPaths()
         {
+            Reset();
             int tickAmount = 0;
             while (true)
             {
-                if (tickAmount < 100)
+                if (tickAmount < 2000)
                 {
                     var searchStatus = _AStar.GetPathTick();
                     tickAmount++;
@@ -60,19 +66,17 @@ namespace GameClient
         }
         public void Update(GameTime gameTime,Vector2 Start,Vector2 End)
         {
+            _position = Start;
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer >= _timerTillNextSearch)
             {
                 if (!PathFindingManager._isThreadBusy)
                 {
-                    _timer = -10000;
-                    _timerTillNextSearch = 20;
-                    _searchDetails = null;
+                    _timer = -1000;
                     _AStar = new AStar();
                     _AStar.Initialize(TileManager.GetCoordTile(Start), TileManager.GetCoordTile(End), s_grid);
                     _BreadthFirst = new BreadthFirst();
                     _BreadthFirst.Initialize(TileManager.GetCoordTile(Start), TileManager.GetCoordTile(End), s_grid);
-                    _position = Start;
                     PathFindingManager._currentPathFinder = this;
                     PathFindingManager._isThreadBusy = true;
                 }

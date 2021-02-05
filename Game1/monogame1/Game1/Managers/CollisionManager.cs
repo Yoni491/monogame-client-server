@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,10 +21,7 @@ namespace GameClient
             _player = player;
             _enemies = enemies;
         }
-        //public Simple_Enemy isColidedWithEnemy()
-        //{
 
-        //}
         static public bool isColidedWithPlayer(Rectangle rectangle, int dmg)
         {
 
@@ -67,8 +65,8 @@ namespace GameClient
         {
             foreach (var wall in TileManager._walls)
             {
-                if (wall.X > rectangle.X && wall.X < rectangle.X + rectangle.Width)
-                    if (wall.Y > rectangle.Y && wall.Y < rectangle.Y + rectangle.Height)
+                if ((wall.X > rectangle.X && wall.X < rectangle.X + rectangle.Width) ||(wall.X + wall.Width < rectangle.X + rectangle.Width && wall.X + wall.Width > rectangle.X) || (rectangle.X>wall.X && rectangle.X < wall.X + wall.Width))
+                    if ((wall.Y > rectangle.Y && wall.Y < rectangle.Y + rectangle.Height) || (wall.Y + wall.Height < rectangle.Y + rectangle.Height && wall.Y + wall.Height > rectangle.Y)|| (rectangle.Y > wall.Y && rectangle.Y < wall.Y + wall.Height))
                         return true;
             }
             return false;

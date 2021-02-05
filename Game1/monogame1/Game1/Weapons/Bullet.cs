@@ -24,7 +24,7 @@ namespace GameClient
         {
             get
             {
-                return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width / 2, _texture.Height / 2);
             }
         }
 
@@ -95,7 +95,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 0.5f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
+            spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 1f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void readPacketShort(PacketStructure packet)
         {

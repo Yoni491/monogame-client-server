@@ -14,7 +14,7 @@ namespace GameClient
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
         List<ItemStock> _item_list;
-        List<(Rectangle, ItemStock)> _inventory_rectangles;
+        (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
         int _itemBlockAmount = 8;
@@ -33,16 +33,20 @@ namespace GameClient
             }
             _inventoryBlock.SetData(data2);
             _item_list = new List<ItemStock>();
-            _position = new Vector2((graphicsDevice.Viewport.Bounds.Width / 2 ),
-            graphicsDevice.Viewport.Bounds.Height - (graphicsDevice.Viewport.Bounds.Height/ 10));
-            Vector2 _fixedPosition =new Vector2( _position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
+            Vector2 fixedPosition = GetInventoryPosition();
             Rectangle Dest_rectangle;
-            _inventory_rectangles = new List<(Rectangle, ItemStock)>();
+            _inventory_rectangles = new (Rectangle, ItemStock)[_itemBlockAmount];
             for (int i = 0; i < _itemBlockAmount; i++)
             {
-                Dest_rectangle = new Rectangle((int)_fixedPosition.X + width * i + i, (int)_fixedPosition.Y, width, height);
-                _inventory_rectangles.Add((Dest_rectangle,null));
+                Dest_rectangle = new Rectangle((int)fixedPosition.X + width * i + i, (int)fixedPosition.Y, width, height);
+                _inventory_rectangles[i] = ((Dest_rectangle,null));
             }
+        }
+        public Vector2 GetInventoryPosition()
+        {
+            _position = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2),
+            _graphicsDevice.Viewport.Bounds.Height - (_graphicsDevice.Viewport.Bounds.Height / 20));
+            return new Vector2(_position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
         }
         public void Initialize(Player player)
         {
@@ -74,15 +78,11 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-            //_position = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2),
-            //_graphicsDevice.Viewport.Bounds.Height - (_graphicsDevice.Viewport.Bounds.Height / 10));
-            //Vector2 _fixedPosition = new Vector2(_position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
-            //Rectangle Dest_rectangle;
-            //for (int i = 0; i < _itemBlockAmount; i++)
-            //{
-            //    Dest_rectangle = new Rectangle((int)_fixedPosition.X + width * i + i, (int)_fixedPosition.Y, width, height);
-            //    _inventory_rectangles.Add((Dest_rectangle, null));
-            //}
+            Vector2 fixedPosition = GetInventoryPosition();
+            for (int i = 0; i < _inventory_rectangles.Length; i++)
+            {
+                _inventory_rectangles[i].Item1 = new Rectangle((int)fixedPosition.X + width * i + i, (int)fixedPosition.Y, width, height);
+            }
         }
         public void addItemToInventory(Item itemToAdd)
         {

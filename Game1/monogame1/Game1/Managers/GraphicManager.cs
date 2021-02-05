@@ -130,12 +130,10 @@ namespace GameClient
         }
         static public void DrawLine(Vector2 start, Vector2 end, SpriteBatch spriteBatch)
         {
+            float angle = (float)Math.Atan2(start.Y - end.Y, start.X - end.X);
+            float distance = Vector2.Distance(start, end);
             Texture2D _line_texture = _contentManager.Load<Texture2D>("etc/lineSprite");
-            spriteBatch.Draw(_line_texture, start, null, Color.White,
-                             (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
-                             new Vector2(0f, (float)_line_texture.Height / 2),
-                             new Vector2(Vector2.Distance(start, end), 0.01f),
-                             SpriteEffects.None, 0.5f);
+            spriteBatch.Draw(_line_texture, new Rectangle((int)end.X, (int)end.Y, (int)distance, 2), null, Color.White, angle, Vector2.Zero, SpriteEffects.None, 0.5f);
 
         }
         static public Texture2D getRectangleTexture(int width,int height, Color color)

@@ -32,6 +32,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
+            _InventoryManager.MouseClick();
             if (ShowSettings)
             {
                 if (!fullScreen)
@@ -42,6 +43,7 @@ namespace GameClient
                         _player._clickedOnUi = true;
                         fullScreen = true;
                         GraphicManager.ChangeToFullScreen(true);
+                        _InventoryManager.ResetGraphics();
                     }
                 }
                 else
@@ -52,6 +54,7 @@ namespace GameClient
                         _player._clickedOnUi = true;
                         fullScreen = false;
                         GraphicManager.ChangeToFullScreen(false);
+                        _InventoryManager.ResetGraphics();
                     }
                 }
                 

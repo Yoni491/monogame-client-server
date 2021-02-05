@@ -23,6 +23,7 @@ namespace GameClient
         public float _holderScale = 0;
         private float _shooting_timer = 0;
         private bool _hitPlayers;
+        private Vector2 _MaxPointBulletReach;
         public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread,bool hitPlayers)
         {
             _id = id;
@@ -36,7 +37,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, Vector2 direction, bool isGamePad,bool showLine)
         {
-            _direction = direction;
+            _direction = Vector2.Normalize(direction);
             foreach (var bullet in _bullets)
             {
                 bullet.Update(gameTime);
@@ -50,7 +51,6 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
             _position = position + new Vector2(23, 40) * _holderScale;
-
             float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
             if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
             {
@@ -66,19 +66,20 @@ namespace GameClient
             }
             if(_isSniper && _showLine)
             {
-                Vector2 sniperStart = _position + Vector2.Normalize(_direction) * 38f;
+                Vector2 sniperStart = _position + _direction * 38f;
                 Vector2 sniperEnd;
+                BulletReach();
                 if (_isGamePad)
                 {
-                    sniperEnd = Vector2.Normalize(_direction) * 300f + sniperStart;
-                    GraphicManager.DrawLine(sniperStart, sniperEnd,spriteBatch);
+                    sniperEnd = _direction * 300f + sniperStart;
+                    GraphicManager.DrawLine(sniperStart, _MaxPointBulletReach,spriteBatch);
                 }
                 else
                 {
-                    sniperEnd = Vector2.Normalize(_direction) * 300f + sniperStart;
+                    sniperEnd = _direction * 300f + sniperStart;
                     //sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
                     if (Vector2.Distance(sniperEnd, sniperStart) > 30)
-                        GraphicManager.DrawLine(sniperStart, sniperEnd, spriteBatch);
+                        GraphicManager.DrawLine(sniperStart, _MaxPointBulletReach, spriteBatch);
                 }
             }
         }
@@ -95,7 +96,7 @@ namespace GameClient
                 if (_spread != 0)
                 {
                     Random x = new Random();
-                    _directionSpread = Vector2.Normalize(_direction) + new Vector2(((float)x.NextDouble() - 0.5f) * _spread, ((float)x.NextDouble() - 0.5f) * _spread);
+                    _directionSpread = _direction + new Vector2(((float)x.NextDouble() - 0.5f) * _spread, ((float)x.NextDouble() - 0.5f) * _spread);
                 }
                 else
                 {
@@ -104,6 +105,43 @@ namespace GameClient
 
                 Bullet bullet = _bullet.Copy(_directionSpread,_position,_direction,_hitPlayers);
                 _bullets.Add(bullet);
+            }
+        }
+        public bool BulletReach()
+        {
+            //_MaxPointBulletReach = CollisionManager.GetClosestCollision(_position + _direction * 38f, _direction, _hitPlayers);
+            Vector2 tempPos;
+            tempPos = _position + _direction * 38f;
+            Rectangle tempRec;
+            while (true)
+            {
+                if (tempPos.X < 2000 && tempPos.X > 0 && tempPos.Y < 2000 && tempPos.Y > 0)
+                {
+                    tempPos += _direction * 5f;
+                    tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
+                    if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, 0))
+                    {
+                        _MaxPointBulletReach = tempPos;
+                        return true;
+                    }
+                    else if (!_hitPlayers && CollisionManager.isColidedWithEnemies(tempRec, 0))
+                    {
+                        _MaxPointBulletReach = tempPos;
+                        return true;
+                    }
+                    if (CollisionManager.isCollidingWalls(tempRec))
+                    {
+
+                        _MaxPointBulletReach = tempPos;
+                        return true;
+                    }
+                }
+                else
+                {
+                    _MaxPointBulletReach = tempPos;
+                    return false;
+                }
+
             }
         }
         public void UpdatePacketShort(PacketStructure packet)

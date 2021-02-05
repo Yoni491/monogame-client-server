@@ -73,7 +73,7 @@ namespace GameClient
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _tileManager.LoadMap(7);
+            _tileManager.LoadMap(10);
 
 
         }

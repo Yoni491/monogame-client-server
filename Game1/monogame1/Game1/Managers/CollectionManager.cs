@@ -48,14 +48,16 @@ namespace GameClient
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
             int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allItems, null,null));
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allItems, null, null));
+            int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
+            int[] allConsumables = new int[] { 2, 4 };
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allConsumables, null,null));
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null));
         }
         private void InitializeItems()
         {
             int id = 0;
             _items = new List<Item>();
-            _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 4),
+            _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 4),//0 - 4 consumables
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 4),
                 id++, "Ore", 0.02f, 1, false, false, false, null, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 0),
@@ -69,8 +71,8 @@ namespace GameClient
                 id++, "Bone", 0.08f, 1, false, false, false, null, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
-                id++, "Bone", 0.04f, 1, false, false, false, null, null, 10));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),
+                id++, "Potion", 0.04f, 1, false, false, false, null, null, 10));
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),//5 - 9 weapons
                 _contentManager.Load<Texture2D>("Weapons/1"),
                 id++, "M16", 0.1f, 1, false, false, false, null, _guns[0], 1));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"),
@@ -93,7 +95,7 @@ namespace GameClient
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 2,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 1, 10,2000));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.5f, 10,2000));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5,350));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 5,350));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.05f, 1,200));

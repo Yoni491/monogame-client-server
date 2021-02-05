@@ -70,6 +70,9 @@
 /processorParam:TextureFormat=Color
 /build:Images/template.png;Images/MenuBackground.png
 
+#begin maps/map10.tmx
+/copy:maps/map10.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 
@@ -84,6 +87,12 @@
 
 #begin maps/map7.tmx
 /copy:maps/map7.tmx
+
+#begin maps/map8.tmx
+/copy:maps/map8.tmx
+
+#begin maps/map9.tmx
+/copy:maps/map9.tmx
 
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter

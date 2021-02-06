@@ -16,6 +16,7 @@ namespace GameClient
         public float _speed;
         private float _timer = 0;
         public float _shootingTimer;
+        private Vector2 _velocity;
         private Vector2 _position;
         private Vector2 _direction;
         private Vector2 _startPosition;
@@ -63,18 +64,8 @@ namespace GameClient
 
         public void Update(GameTime gameTime)
         {
-            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)
-            {
-                _destroy = true;
-            }
-            if (_timer >= 2f)
-            {
-                _destroy = true;
-            }
-            _position += _direction * _speed;
-            
-            if(_hitPlayers)
+            _velocity = _direction * _speed;
+            if (_hitPlayers)
             {
                 if (CollisionManager.isColidedWithPlayer(Rectangle, _dmg))
                     _destroy = true;
@@ -86,12 +77,23 @@ namespace GameClient
                     _destroy = true;
                 }
             }
-            if (CollisionManager.isCollidingWalls(Rectangle))
+            if (CollisionManager.isCollidingWalls(Rectangle, _velocity))
                 _destroy = true;
+
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)
+            {
+                _destroy = true;
+            }
+            if (_timer >= 2f)
+            {
+                _destroy = true;
+            }
+            _position += _velocity;
         }
         public Bullet Copy(Vector2 directionSpread,Vector2 position, Vector2 direction,bool hitEnemies)
         {
-            return new Bullet(_collection_id,  _texture, position + Vector2.Normalize(direction) * 20f, directionSpread, _speed, -1, _shootingTimer, _dmg, _maxTravelDistance, hitEnemies);
+            return new Bullet(_collection_id,  _texture, position, directionSpread, _speed, -1, _shootingTimer, _dmg, _maxTravelDistance, hitEnemies);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -38,10 +38,10 @@ namespace GameClient
             _gun = gun;
             _invenotryAmountAllowed = invenotryAmountAllowed;
         }
-        public void DrawInventory(SpriteBatch spriteBatch)
+        public void DrawInventory(SpriteBatch spriteBatch,Vector2 position)
         {
             float scale = _gun == null ? 1 : 0.7f;
-            spriteBatch.Draw(_inventoryTexture, _position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0.99f);
+            spriteBatch.Draw(_inventoryTexture, position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0.99f);
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
         {

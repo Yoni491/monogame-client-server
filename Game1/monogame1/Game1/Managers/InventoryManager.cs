@@ -64,7 +64,7 @@ namespace GameClient
             {
                 if (tuple.Item2 != null)
                 {
-                    tuple.Item2._item.DrawInventory(spriteBatch);
+                    tuple.Item2._item.DrawInventory(spriteBatch,new Vector2(tuple.Item1.X,tuple.Item1.Y));
                     if (tuple.Item2._amount > 1)
                     {
                         if (tuple.Item2._amount > 9)

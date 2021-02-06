@@ -49,6 +49,11 @@ namespace GameClient
                         _timerTillNextSearch = Math.Min(searchStatus.Path.Length, _timerTillNextSearch);
                         return;
                     }
+                    if(!searchStatus.PathPossible)
+                    {
+                        return;
+                    }
+
                 }
                 else
                 {
@@ -59,6 +64,10 @@ namespace GameClient
                     {
                         _searchDetails = searchStatus;
                         _timerTillNextSearch = Math.Min(searchStatus.Path.Length, _timerTillNextSearch);
+                        return;
+                    }
+                    if (!searchStatus.PathPossible)
+                    {
                         return;
                     }
                 }

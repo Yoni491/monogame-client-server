@@ -23,6 +23,7 @@ namespace GameClient
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
+        private LevelManager _levelManager;
         private UIManager _UIManager;
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
@@ -66,14 +67,16 @@ namespace GameClient
             _pathFindingManager = new PathFindingManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
+            _levelManager = new LevelManager(_tileManager);
             _networkManager.Initialize_connection();
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _collisionManager.Initialize(_other_players, _player, _enemies);
+            _levelManager.Initialize(_player);
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _tileManager.LoadMap(10);
+            
 
 
         }
@@ -88,12 +91,13 @@ namespace GameClient
             }
             else
             {
-                _enemies.RemoveAll(enemy => enemy._destroy == true);
                 _enemyManager.Update(gameTime);
+                _enemies.RemoveAll(enemy => enemy._destroy == true);
                 _networkManager.Update(gameTime);
                 _UIManager.Update(gameTime);
                 _playerManager.Update(gameTime, _enemies);
                 _mapManager.Update();
+                _levelManager.Update();
             }
             base.Update(gameTime);
 

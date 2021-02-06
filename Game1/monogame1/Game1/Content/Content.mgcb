@@ -73,6 +73,9 @@
 #begin maps/map10.tmx
 /copy:maps/map10.tmx
 
+#begin maps/map11.tmx
+/copy:maps/map11.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 

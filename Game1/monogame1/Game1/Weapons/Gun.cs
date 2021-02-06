@@ -24,6 +24,7 @@ namespace GameClient
         private float _shooting_timer = 0;
         private bool _hitPlayers;
         private Vector2 _MaxPointBulletReach;
+        private Vector2 _tipOfTheGun;
         public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread,bool hitPlayers)
         {
             _id = id;
@@ -46,6 +47,7 @@ namespace GameClient
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _showLine = showLine;
+            _tipOfTheGun =_position + Vector2.Normalize(_direction) * _texture.Width / 2 +new Vector2(0, 5);
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
@@ -66,7 +68,7 @@ namespace GameClient
             }
             if(_isSniper && _showLine)
             {
-                Vector2 sniperStart = _position + _direction * 38f;
+                Vector2 sniperStart = _tipOfTheGun;
                 Vector2 sniperEnd;
                 BulletReach();
                 if (_isGamePad)
@@ -103,7 +105,7 @@ namespace GameClient
                     _directionSpread = _direction;
                 }
 
-                Bullet bullet = _bullet.Copy(_directionSpread,_position,_direction,_hitPlayers);
+                Bullet bullet = _bullet.Copy(_directionSpread,_tipOfTheGun, _direction,_hitPlayers);
                 _bullets.Add(bullet);
             }
         }
@@ -111,13 +113,12 @@ namespace GameClient
         {
             //_MaxPointBulletReach = CollisionManager.GetClosestCollision(_position + _direction * 38f, _direction, _hitPlayers);
             Vector2 tempPos;
-            tempPos = _position + _direction * 38f;
+            tempPos = _tipOfTheGun;
             Rectangle tempRec;
             while (true)
             {
                 if (tempPos.X < 2000 && tempPos.X > 0 && tempPos.Y < 2000 && tempPos.Y > 0)
                 {
-                    tempPos += _direction * 5f;
                     tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
                     if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, 0))
                     {
@@ -129,12 +130,13 @@ namespace GameClient
                         _MaxPointBulletReach = tempPos;
                         return true;
                     }
-                    if (CollisionManager.isCollidingWalls(tempRec))
+                    if (CollisionManager.isCollidingWalls(tempRec, _direction * _bullet._speed))
                     {
 
                         _MaxPointBulletReach = tempPos;
-                        return true;
+                        return false;
                     }
+                    tempPos += _direction * _bullet._speed;
                 }
                 else
                 {

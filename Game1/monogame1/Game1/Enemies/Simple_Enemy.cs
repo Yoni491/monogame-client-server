@@ -99,7 +99,7 @@ namespace GameClient
                     {
                         _gun.Update(gameTime, _shootingDirection, false, false);
                         _position += _velocity;
-                        if (_sniperTimer >= _movingBetweenShotsTime)
+                        if (_sniperTimer >= _movingBetweenShotsTime && _gun.BulletReach())
                         {
                             _sniperTimer = 0;
                             _isStopingToShot = true;

@@ -15,7 +15,7 @@ namespace GameClient
         private Vector2 _velocity;
         private AnimationManager _animationManager;
         public HealthManager _health;
-        private Vector2 _position;
+        public Vector2 _position;
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
         public bool _isGamePad;

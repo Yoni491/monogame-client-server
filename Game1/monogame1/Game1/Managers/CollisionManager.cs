@@ -61,17 +61,11 @@ namespace GameClient
                     return true;
             return false;
         }
-        static public bool isCollidingWalls(Rectangle rectangle)
+        static public bool isCollidingWalls(Rectangle rectangle,Vector2 velocity)
         {
-            foreach (var wall in TileManager._walls)
-            {
-                if ((wall.X > rectangle.X && wall.X < rectangle.X + rectangle.Width) ||(wall.X + wall.Width < rectangle.X + rectangle.Width && wall.X + wall.Width > rectangle.X) || (rectangle.X>wall.X && rectangle.X < wall.X + wall.Width))
-                    if ((wall.Y > rectangle.Y && wall.Y < rectangle.Y + rectangle.Height) || (wall.Y + wall.Height < rectangle.Y + rectangle.Height && wall.Y + wall.Height > rectangle.Y)|| (rectangle.Y > wall.Y && rectangle.Y < wall.Y + wall.Height))
-                        return true;
-            }
-            return false;
+            return IsCollidingLeft(rectangle, velocity) || IsCollidingRight(rectangle, velocity) || IsCollidingTop(rectangle, velocity) || IsCollidingBottom(rectangle, velocity);
         }
-
+        
 
         static public bool IsCollidingLeft(Rectangle rectangle, Vector2 velocity)
         {

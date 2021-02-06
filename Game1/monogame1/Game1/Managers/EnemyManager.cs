@@ -53,8 +53,12 @@ namespace GameClient
             Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;
             AddEnemyAtPosition(center + random_direction);
         }
-
-        
-
+        public static void Reset()
+        {
+            foreach (var enemy in _enemies)
+            {
+                enemy._destroy = true;
+            }
+        }
     }
 }

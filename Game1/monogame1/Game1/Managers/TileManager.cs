@@ -25,7 +25,7 @@ namespace GameClient
             _mapManager = mapManager;
             _tileSets = new List<TileSet>();
         }
-        public void LoadMap(int mapNum)
+        public Vector2 LoadMap(int mapNum)
         {
             _walls = new List<Rectangle>();
 
@@ -33,45 +33,63 @@ namespace GameClient
             _map = new TmxMap(mapName);
             int tilesetIndex = 0;
 
+            Vector2 spawnPoint = Vector2.Zero;
+
             for (int i = 0; i < _map.Tilesets.Count; i++)
             {
                 _tileSets.Add(new TileSet(_contentManager.Load<Texture2D>("maps/" + _map.Tilesets[i].Name.ToString()),
                 _map.Tilesets[i].TileWidth, _map.Tilesets[i].TileHeight));
             }
             _grid = new Grid(_map.Width,_map.Height);
-            foreach (var tilset in _tileSets)
+
+            for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
             {
-                for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
+                int gid = _map.TileLayers[1].Tiles[i].Gid;
+                if (gid != 0)
                 {
-                    int gid = _map.TileLayers[1].Tiles[i].Gid;
-                    if (gid != 0)
+                        
+                    if (_map.Tilesets[tilesetIndex].FirstGid > 0)
                     {
-                        float x = (i % _map.Width) * _map.TileWidth;
-                        float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-                        Rectangle rectangle = new Rectangle((int)x, (int)y, _tileSets[0]._tileWidth, _tileSets[0]._tileHeight);
-                        _walls.Add(rectangle);
-                        _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
-                        if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                        //gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
+                        if (gid == 325)//grave normal
                         {
-                            gid = gid - (_map.Tilesets[tilesetIndex].FirstGid - 1);
-                            if (gid == 325)
-                            {
-                                _mapManager._graves.Add(new Grave(rectangle, false));
-                            }
-                            else if (gid == 326)
-                            {
-                                _mapManager._graves.Add(new Grave(rectangle, true));
-                            }
+                            _mapManager._graves.Add(new Grave(AddWall(i), false));
+                        }
+                        else if (gid == 326)//grave broken
+                        {
+                            AddWall(i);
+                            _mapManager._graves.Add(new Grave(AddWall(i), true));
+                        }
+                        else if(gid == 134)//spawn point
+                        {
+                            spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
+                            Console.WriteLine(i % _map.Width );
+                            Console.WriteLine("y: "+i / _map.Width);
+                        }
+                        else//normal walls
+                        {
+                            AddWall(i);
                         }
                     }
                 }
-                tilesetIndex++;
             }
-            PathFinder.UpdateGrid(_grid);
 
+            PathFinder.UpdateGrid(_grid);
+            return spawnPoint;
+
+        }
+        public Rectangle AddWall(int i)
+        {
+            float x = (i % _map.Width) * _map.TileWidth;
+            float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
+            Rectangle rectangle = new Rectangle((int)x, (int)y, _tileSets[0]._tileWidth, _tileSets[0]._tileHeight);
+            _walls.Add(rectangle);
+            _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
+            return rectangle;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+           
             int tilesetIndex = 0;
             foreach (var tileset in _tileSets)
             {
@@ -112,7 +130,8 @@ namespace GameClient
                     }
                 }
                 tilesetIndex++;
-
+                if (tilesetIndex == 2)
+                    break;
             }
         }
 
@@ -133,6 +152,10 @@ namespace GameClient
         static public Vector2 GetPositionFromCoord(Coord coord)
         {
             return new Vector2(coord.X * _tileSets[0]._tileWidth, coord.Y * _tileSets[0]._tileHeight);
+        }
+        static public Vector2 GetPositionFromCoord(int x, int y)
+        {
+            return new Vector2(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace GameClient
         static int pathFinderId;
         static public bool _isThreadBusy;
         static public PathFinder _currentPathFinder;
+        static public bool UseAStar = true;
         public PathFindingManager()
         {
             t = new Thread(new ThreadStart(FindPaths));

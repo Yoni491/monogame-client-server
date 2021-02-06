@@ -33,9 +33,12 @@ namespace GameClient
         private float _sniperStopTime = 1.5f;
         private float _movingBetweenShotsTime = 3f;
         private float _movingToPlayerMaxDistance = 1;
-        public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
+        //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
+        public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
+
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
         public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun)
         {
             _id = id;
@@ -136,6 +139,7 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
+            GraphicManager.DrawRectangle(spriteBatch, RectangleMovement, 0.7f);
         }
         public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
         {
@@ -207,7 +211,12 @@ namespace GameClient
             }
 
         }
-
+        public void PositionFeetAt(Vector2 position)
+        {
+            _position = position;
+            Vector2 temp = _position - Position_Feet;
+            _position += temp;
+        }
         public void dealDamage(int dmg)
         {
             _health._health_left -= dmg;

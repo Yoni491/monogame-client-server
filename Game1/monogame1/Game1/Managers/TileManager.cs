@@ -89,7 +89,11 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-           
+            //for (int i = 0; i < _walls.Count; i++)
+            //{
+            //    GraphicManager.DrawRectangle(spriteBatch,_walls[i],0.8f);
+            //}
+            
             int tilesetIndex = 0;
             foreach (var tileset in _tileSets)
             {

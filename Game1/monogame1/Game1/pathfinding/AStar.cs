@@ -14,9 +14,9 @@
             _neighbours = new List<Coord>();
 
             // Put the origin on the open list
-            
+
         }
-        public void Initialize(Coord start, Coord end,Grid grid)
+        public void Initialize(Coord start, Coord end, Grid grid)
         {
             _Grid = grid;
             _Closed = new List<Node>();
@@ -105,7 +105,7 @@
                 _CurrentNode = null;
                 return GetPathTick();
             }
-            
+
             return GetSearchDetails();
         }
 

@@ -34,7 +34,7 @@ namespace GameClient
 
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
-        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.2)); }
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
         public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,UIManager uIManager)
         {
             _animationManager = animationManager;
@@ -97,6 +97,7 @@ namespace GameClient
                 _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
+            
         }
 
         public void InputReader(GameTime gameTime)
@@ -214,7 +215,12 @@ namespace GameClient
         {
             _meleeWeapon = meleeWeapon;
         }
-        
+        public void PositionPlayerFeetAt(Vector2 position)
+        {
+            _position = position;
+            Vector2 temp = _position - Position_Feet;
+            _position += temp;
+        }
         public void UpdatePacketShort(PacketShort_Client packet)
         {
             packet.WriteInt(_playerNum);

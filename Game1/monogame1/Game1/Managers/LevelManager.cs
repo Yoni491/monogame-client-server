@@ -21,14 +21,15 @@ namespace GameClient
         public void Initialize(Player player)
         {
             _player = player;
-            _player._position = _spawnPoint;
+            _player.PositionPlayerFeetAt(_spawnPoint);
         }
         public void Update()
         {
             _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
             if (_coord_Player.X + 2 >=TileManager._map.Width)
             {
-                _player._position = _tileManager.LoadMap(10);
+                _player.PositionPlayerFeetAt(_tileManager.LoadMap(1));
+                PathFindingManager.UseAStar = true;
                 EnemyManager.Reset();
             }
         }

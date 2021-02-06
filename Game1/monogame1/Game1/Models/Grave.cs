@@ -14,7 +14,7 @@ namespace GameClient
 
         public Grave(Rectangle rectangle, bool spawnAtTheStart)
         {
-            _position = new Vector2(rectangle.X, rectangle.Y);
+            _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
             _spawnAtTheStart = spawnAtTheStart;
         }
         public void Update(Rectangle player_position_rectangle)

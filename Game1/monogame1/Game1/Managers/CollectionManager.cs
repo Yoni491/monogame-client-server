@@ -51,7 +51,7 @@ namespace GameClient
             int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
             int[] allConsumables = new int[] { 2, 4 };
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null,null));
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));
         }
         private void InitializeItems()
         {

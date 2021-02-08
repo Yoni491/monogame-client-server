@@ -29,6 +29,25 @@ namespace GameClient
         }
         public void FindPaths()
         {
+            if (_startNewSearch)
+            {
+                if (_path.Count > 5)
+                {
+                    lastCoord = _path[5];
+                    _start = TileManager.GetPositionFromCoord(_path[5]);
+                }
+                else if (_path.Count > 0)
+                {
+                    lastCoord = _path[_path.Count - 1];
+                    _start = TileManager.GetPositionFromCoord(_path[_path.Count - 1]);
+                }
+                else
+                {
+                    _start = _position;
+                }
+                _startNewSearch = false;
+                _newSearchReady = false;
+            }
             if (_newSearchReady || _start == Vector2.Zero || _end == Vector2.Zero)
                 return;
             int tickAmount = 0;
@@ -91,17 +110,13 @@ namespace GameClient
                 }
                 else
                 {
-                    for (int i = 0; i < _path.Count; i++)
-                    {
-                        if(Vector2.Distance(TileManager.GetPositionFromCoord(_path[i]), TileManager.GetPositionFromCoord(_searchDetails.Path[0]))<16)
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
                     _path.Clear();
                 }
                 
+            }
+            else
+            {
+                _path.Clear();
             }
             for (int i = 0; i < _searchDetails.Path.Length; i++)
             {
@@ -112,25 +127,7 @@ namespace GameClient
         {
             _position = start;
             _end = end;
-            if (_startNewSearch)
-            {
-                if (_path.Count > 10)
-                {
-                    lastCoord = _path[10];
-                    _start = TileManager.GetPositionFromCoord(_path[10]);
-                }
-                else if (_path.Count > 0)
-                {
-                    lastCoord = _path[_path.Count - 1];
-                    _start = TileManager.GetPositionFromCoord(_path[_path.Count - 1]);
-                }
-                else
-                {
-                    _start = start;
-                }
-                _startNewSearch = false;
-                _newSearchReady = false;
-            }
+            
         }
         public Vector2 GetNextCoordPosition()
         {

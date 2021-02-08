@@ -22,7 +22,7 @@ namespace GameClient
         public bool _destroy = false;
         private bool _hide_weapon;
         private bool stopMoving;
-        private bool _isStopingToShot = false;
+        private bool _isStopingToShot=false;
         private int[] _items_drop_list;
         private int _moving_direction;
         private int _width;
@@ -39,7 +39,7 @@ namespace GameClient
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder)
+        public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun,PathFinder pathFinder)
         {
             _id = id;
             _animationManager = animationManager;
@@ -66,7 +66,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-
+            
             Move(gameTime);
 
             SetAnimations();
@@ -150,7 +150,7 @@ namespace GameClient
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
             _pathFinder.Update(gameTime, Position_Feet, closest_player);
-            if (!_isStopingToShot)
+            if(!_isStopingToShot)
                 _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
             {
@@ -159,7 +159,7 @@ namespace GameClient
             else
             {
                 stopMoving = true;
-                if (_meleeWeapon != null)
+                if(_meleeWeapon!=null)
                     _meleeWeapon.SwingWeapon();
             }
             Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
@@ -222,6 +222,7 @@ namespace GameClient
             if (_health._health_left <= 0 && _destroy == false)
             {
                 _destroy = true;
+                PathFindingManager.RemovePathFinder(_pathFinder);
                 _itemManager.DropItem(_items_drop_list, _position);
             }
         }

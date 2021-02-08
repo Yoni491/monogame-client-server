@@ -98,6 +98,7 @@ namespace GameClient
                 _playerManager.Update(gameTime, _enemies);
                 _mapManager.Update();
                 _levelManager.Update();
+                _pathFindingManager.Update();
             }
             base.Update(gameTime);
 

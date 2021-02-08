@@ -22,7 +22,7 @@ namespace GameClient
         public bool _destroy = false;
         private bool _hide_weapon;
         private bool stopMoving;
-        private bool _isStopingToShot=false;
+        private bool _isStopingToShot = false;
         private int[] _items_drop_list;
         private int _moving_direction;
         private int _width;
@@ -39,7 +39,7 @@ namespace GameClient
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun)
+        public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder)
         {
             _id = id;
             _animationManager = animationManager;
@@ -62,11 +62,11 @@ namespace GameClient
                 _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 500);
                 _gun._holderScale = _scale;
             }
-            _pathFinder = new PathFinder();
+            _pathFinder = pathFinder;
         }
         public void Update(GameTime gameTime)
         {
-            
+
             Move(gameTime);
 
             SetAnimations();
@@ -139,19 +139,18 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-            GraphicManager.DrawRectangle(spriteBatch, RectangleMovement, 0.7f);
         }
         public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
         {
 
-            return new Simple_Enemy(_animationManager.Copy(scale), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun);
+            return new Simple_Enemy(_animationManager.Copy(scale), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder());
         }
 
         public void Move(GameTime gameTime)
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
             _pathFinder.Update(gameTime, Position_Feet, closest_player);
-            if(!_isStopingToShot)
+            if (!_isStopingToShot)
                 _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
             {
@@ -160,7 +159,7 @@ namespace GameClient
             else
             {
                 stopMoving = true;
-                if(_meleeWeapon!=null)
+                if (_meleeWeapon != null)
                     _meleeWeapon.SwingWeapon();
             }
             Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
@@ -220,7 +219,7 @@ namespace GameClient
         public void dealDamage(int dmg)
         {
             _health._health_left -= dmg;
-            if (_health._health_left <= 0)
+            if (_health._health_left <= 0 && _destroy == false)
             {
                 _destroy = true;
                 _itemManager.DropItem(_items_drop_list, _position);

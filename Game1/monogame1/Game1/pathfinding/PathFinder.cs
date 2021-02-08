@@ -88,7 +88,7 @@ namespace GameClient
                 int index = _path.FindIndex(x => x == lastCoord);
                 if (index > -1)
                 {
-                    _path.RemoveRange(index, _path.Count - index);
+                    _path.RemoveRange(index+1, _path.Count - index -1);
                 }
                 else
                 {
@@ -140,7 +140,7 @@ namespace GameClient
             if (_path.Count>0)
             {
                 
-                while (_path.Count > 0 && Vector2.Distance(_position, TileManager.GetPositionFromCoord(_path[0])) <1f)
+                while (_path.Count > 0 && Vector2.Distance(_position, TileManager.GetPositionFromCoord(_path[0])) <16f)
                 {
                     _path.RemoveAt(0);
                 }

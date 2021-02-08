@@ -97,7 +97,8 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 1, new Vector2(4, 12), 1f, SpriteEffects.FlipHorizontally, TileManager.GetLayerDepth(_position.Y - 60));
+            spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));//new Vector2(4, 12)
+            GraphicManager.DrawRectangle(spriteBatch, Rectangle, 0.8f);
         }
         public void readPacketShort(PacketStructure packet)
         {

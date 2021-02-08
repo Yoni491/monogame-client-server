@@ -36,7 +36,6 @@ namespace GameClient
                     _currentPathFinder = null;
                     _isThreadBusy = false;
                 }
-                Thread.Sleep(1);
             }
         }
     }

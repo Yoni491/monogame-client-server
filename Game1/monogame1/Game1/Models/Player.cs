@@ -72,7 +72,7 @@ namespace GameClient
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, _looking_direction, _isGamePad,_gun._isSniper);
+                _gun.Update(gameTime, _looking_direction, _moving_direction, _isGamePad,_gun._isSniper,_position);
             }
             if (_meleeWeapon != null)
             {
@@ -88,13 +88,13 @@ namespace GameClient
             if (_hide_weapon && _gun != null)
             {
                 //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             }
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_weapon)
             {
                 //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
             
@@ -152,11 +152,11 @@ namespace GameClient
             }
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
-                Console.WriteLine(Position_Feet);
-                Console.WriteLine(_position);
-
                 _isGamePad = false;
-                _meleeWeapon.SwingWeapon();
+                if (_gun != null)
+                    _gun.SwingWeapon();
+                else
+                    _meleeWeapon.SwingWeapon();
             }
             if (_input._right_trigger > 0)
             {

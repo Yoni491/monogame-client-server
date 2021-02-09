@@ -20,13 +20,16 @@ namespace GameClient
         private Recipe _recipe;
         public Gun _gun;
         public Vector2 _position;
-        private bool _inInventory = false;
+        private bool _inInventory;
         public int _invenotryAmountAllowed;
 
         public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Recipe recipe, Gun gun, int invenotryAmountAllowed)
         {
             _texture = texture;
-            _inventoryTexture = framedTexture;
+            if(framedTexture == null)
+                _inventoryTexture = texture;
+            else
+                _inventoryTexture = framedTexture;
             _item_id = item_id;
             _name = name;
             _dropRate = dropRate;

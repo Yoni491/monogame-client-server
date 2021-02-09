@@ -8,9 +8,14 @@ namespace GameClient
     {
         public List<Grave> _graves;
         Player _player;
+        static public List<Chest> _chests;
+        static public List<Box> _boxes;
+
         public MapManager()
         {
             _graves = new List<Grave>();
+            _chests = new List<Chest>();
+            _boxes = new List<Box>();
         }
         public void Initialize(Player player)
         {
@@ -23,7 +28,9 @@ namespace GameClient
             {
                 grave.Update(_player.RectangleMovement);
             }
-            _graves.RemoveAll(grave => grave._destroy == true);
+            _graves.RemoveAll(item => item._destroy == true);
+            _boxes.RemoveAll(item => item._destroy == true);
+            _chests.RemoveAll(item => item._destroy == true);
         }
     }
 }

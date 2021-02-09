@@ -11,7 +11,7 @@ namespace GameClient
     {
         public int _id;
         private Vector2 _position;
-        private int _direction;
+        private int _moving_direction_int;
         private float _swing_range;
         private Texture2D _texture;
         public bool _swing_weapon;
@@ -23,6 +23,7 @@ namespace GameClient
         private float _between_attacks_timer_window = 0.2f;
         private float swingSpeed = 7;
         private int _dmg;
+        public int _maxAttackingDistance = 30;
         private bool _isColided = false;
         public Rectangle Rectangle
         {
@@ -42,6 +43,7 @@ namespace GameClient
         }
         public void Update(int direction,GameTime gameTime,Vector2 position)
         {
+
             if (_swing_weapon)
             {
                 SwingUpdate(gameTime);
@@ -57,7 +59,7 @@ namespace GameClient
                 _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             if (direction != -1)
-                _direction = direction;
+                _moving_direction_int = direction;
             if(_swing_timer >= 0.3f )
             {
                 _swing_timer = 0;
@@ -71,19 +73,19 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch, float layer)
         {
 
-            if (_direction == (int)Direction.Up)
+            if (_moving_direction_int == (int)Direction.Up)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
-            else if (_direction == (int)Direction.Down)
+            else if (_moving_direction_int == (int)Direction.Down)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(-12, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
             }
-            else if (_direction == (int)Direction.Right)
+            else if (_moving_direction_int == (int)Direction.Right)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
             }
-            else if (_direction == (int)Direction.Left)
+            else if (_moving_direction_int == (int)Direction.Left)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
@@ -105,19 +107,19 @@ namespace GameClient
             if (_swing_frame_timer > _swing_frame_window)
             {
                 _swing_frame_timer = 0;
-                if (_direction == (int)Direction.Up)
+                if (_moving_direction_int == (int)Direction.Up)
                 {
                     _position += new Vector2(0, -swingSpeed);
                 }
-                else if (_direction == (int)Direction.Down)
+                else if (_moving_direction_int == (int)Direction.Down)
                 {
                     _position += new Vector2(0, swingSpeed);
                 }
-                else if (_direction == (int)Direction.Right)
+                else if (_moving_direction_int == (int)Direction.Right)
                 {
                     _position += new Vector2(swingSpeed, 0);
                 }
-                else if (_direction == (int)Direction.Left)
+                else if (_moving_direction_int == (int)Direction.Left)
                 {
                     _position +=  new Vector2(-swingSpeed, 0);
                 }

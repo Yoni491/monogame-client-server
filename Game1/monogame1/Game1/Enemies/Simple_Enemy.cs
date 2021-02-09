@@ -22,7 +22,7 @@ namespace GameClient
         public bool _destroy = false;
         private bool _hide_weapon;
         private bool stopMoving;
-        private bool _isStopingToShot=false;
+        private bool _isStopingToAttack=false;
         private int[] _items_drop_list;
         private int _moving_direction;
         private int _width;
@@ -62,6 +62,10 @@ namespace GameClient
                 _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 500);
                 _gun._holderScale = _scale;
             }
+            if(_meleeWeapon!=null)
+            {
+                _movingToPlayerMaxDistance = _meleeWeapon._maxAttackingDistance;
+            }
             _pathFinder = pathFinder;
         }
         public void Update(GameTime gameTime)
@@ -80,6 +84,8 @@ namespace GameClient
                 _meleeWeapon.Update(_moving_direction, gameTime, _position);
                 if (!_meleeWeapon._swing_weapon)
                     _position += _velocity;
+                if (stopMoving)
+                    _meleeWeapon.SwingWeapon();
             }
 
             _health.Update(_position);
@@ -88,31 +94,31 @@ namespace GameClient
                 _sniperTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_gun._isSniper)
                 {
-                    if (_isStopingToShot)
+                    if (_isStopingToAttack)
                     {
-                        _gun.Update(gameTime, _shootingDirection, false, true);
+                        _gun.Update(gameTime, _shootingDirection,0, false, true,_position);
                         if (_sniperTimer >= _sniperStopTime)
                         {
                             _sniperTimer = 0;
                             _gun.Shot();
-                            _isStopingToShot = false;
+                            _isStopingToAttack = false;
                         }
                     }
                     else
                     {
-                        _gun.Update(gameTime, _shootingDirection, false, false);
+                        _gun.Update(gameTime, _shootingDirection,0, false, false, _position);
                         _position += _velocity;
                         if (_sniperTimer >= _movingBetweenShotsTime && _gun.BulletReach())
                         {
                             _sniperTimer = 0;
-                            _isStopingToShot = true;
+                            _isStopingToAttack = true;
                         }
                     }
                 }
                 else
                 {
                     _position += _velocity;
-                    _gun.Update(gameTime, _shootingDirection, false, false);
+                    _gun.Update(gameTime, _shootingDirection,0, false, false, _position);
                     if (stopMoving)
                         _gun.Shot();
                 }
@@ -130,14 +136,14 @@ namespace GameClient
                 if (_meleeWeapon != null)
                     _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
                 if (_gun != null)
-                    _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             }
             else
             {
                 if (_meleeWeapon != null)
                     _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
                 if (_gun != null)
-                    _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
         }
         public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
@@ -150,7 +156,7 @@ namespace GameClient
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
             _pathFinder.Update(gameTime, Position_Feet, closest_player);
-            if(!_isStopingToShot)
+            if(!_isStopingToAttack)
                 _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
             {
@@ -216,14 +222,14 @@ namespace GameClient
             Vector2 temp = _position - Position_Feet;
             _position += temp;
         }
-        public void dealDamage(int dmg)
+        public void DealDamage(int dmg)
         {
             _health._health_left -= dmg;
             if (_health._health_left <= 0 && _destroy == false)
             {
                 _destroy = true;
                 PathFindingManager.RemovePathFinder(_pathFinder);
-                _itemManager.DropItem(_items_drop_list, _position);
+                ItemManager.DropItem(_items_drop_list, _position);
             }
         }
 

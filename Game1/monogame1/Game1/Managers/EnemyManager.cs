@@ -11,7 +11,6 @@ namespace GameClient
         private GraphicsDevice _graphicsDevice;
         static private CollectionManager _collectionManager;
         static private List<Simple_Enemy> _enemies;
-        private float _random_enemies_circle_timer = 0;
         
         public EnemyManager( GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies, CollectionManager collectionManager)
         {

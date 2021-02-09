@@ -20,7 +20,7 @@ namespace GameClient
         public void Update(Rectangle player_position_rectangle)
         {
             Vector2 player_position = new Vector2(player_position_rectangle.X, player_position_rectangle.Y);
-            if (Vector2.Distance(player_position, _position) <= 150 || _spawnAtTheStart)
+            if (Vector2.Distance(player_position, _position) <= spawnDistance || _spawnAtTheStart)
             {
                 EnemyManager.AddEnemyAtPosition(_position);
                 _destroy = true;

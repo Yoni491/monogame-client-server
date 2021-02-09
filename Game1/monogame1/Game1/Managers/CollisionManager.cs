@@ -12,6 +12,7 @@ namespace GameClient
         static private List<OtherPlayer> _other_players;
         static private Player _player;
         static private List<Simple_Enemy> _enemies;
+
         public CollisionManager()
         {
         }
@@ -43,7 +44,7 @@ namespace GameClient
                 if (rectangle.X > enemy.Rectangle.X && rectangle.X < enemy.Rectangle.X + enemy.Rectangle.Width)
                     if (rectangle.Y > enemy.Rectangle.Y && rectangle.Y < enemy.Rectangle.Y + enemy.Rectangle.Height)
                     {
-                        enemy.dealDamage(dmg);
+                        enemy.DealDamage(dmg);
                         //if (_player._health._health_left <= 0)
                         //{
                         //    _player._destroy = true;
@@ -65,7 +66,32 @@ namespace GameClient
         {
             return IsCollidingLeft(rectangle, velocity) || IsCollidingRight(rectangle, velocity) || IsCollidingTop(rectangle, velocity) || IsCollidingBottom(rectangle, velocity);
         }
-        
+        static public bool isCollidingChests(Rectangle rectangle)
+        {
+            foreach (var chest in MapManager._chests)
+            {
+                if (rectangle.X > chest.Rectangle.X && rectangle.X < chest.Rectangle.X + chest.Rectangle.Width)
+                    if (rectangle.Y > chest.Rectangle.Y && rectangle.Y < chest.Rectangle.Y + chest.Rectangle.Height)
+                    {
+                        chest.Open();
+                        return true;
+                    }
+            }
+            return false;
+        }
+        static public bool isCollidingBoxes(Rectangle rectangle)
+        {
+            foreach (var box in MapManager._boxes)
+            {
+                if (rectangle.X > box.Rectangle.X && rectangle.X < box.Rectangle.X + box.Rectangle.Width)
+                    if (rectangle.Y > box.Rectangle.Y && rectangle.Y < box.Rectangle.Y + box.Rectangle.Height)
+                    {
+                        box.Destroy();
+                        return true;
+                    }
+            }
+            return false;
+        }
 
         static public bool IsCollidingLeft(Rectangle rectangle, Vector2 velocity)
         {

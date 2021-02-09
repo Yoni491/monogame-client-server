@@ -70,6 +70,21 @@
 /processorParam:TextureFormat=Color
 /build:Images/template.png;Images/MenuBackground.png
 
+#begin maps/Dungeon_Tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:maps/Dungeon_Tileset.png
+
+#begin maps/Dungeon_Tileset.tsx
+/copy:maps/Dungeon_Tileset.tsx
+
 #begin maps/map1.tmx
 /copy:maps/map1.tmx
 
@@ -429,6 +444,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/9.png
+
+#begin resources/Dungeon_Tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:resources/Dungeon_Tileset.png
 
 #begin resources/resources_basic.png
 /importer:TextureImporter

@@ -25,6 +25,29 @@ namespace GameClient
         private bool _hitPlayers;
         private Vector2 _MaxPointBulletReach;
         private Vector2 _tipOfTheGun;
+
+        #region meleeAttackVariables
+        private int _moving_direction_int;
+        private float _between_attacks_timer;
+        private float _between_attacks_timer_window = 0.2f;
+        private float _swing_timer;
+        private float _swing_frame_window = 0.01f;
+        private float _swing_frame_timer = 0;
+        private float swingSpeed = 14;
+        private bool _isColided = false;
+        private float _swing_range = 32;
+        public bool _swing_weapon;
+        #endregion
+
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_texture.Width * _holderScale), (int)(_texture.Height * _holderScale ));
+            }
+        }
+
         public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread,bool hitPlayers)
         {
             _id = id;
@@ -36,8 +59,10 @@ namespace GameClient
             _spread = spread;
             _hitPlayers = hitPlayers;
         }
-        public void Update(GameTime gameTime, Vector2 direction, bool isGamePad,bool showLine)
+        public void Update(GameTime gameTime, Vector2 direction,int moving_direction, bool isGamePad,bool showLine, Vector2 position)
         {
+            MelleAttackUpdate(gameTime, position);
+            _moving_direction_int = moving_direction;
             _direction = Vector2.Normalize(direction);
             foreach (var bullet in _bullets)
             {
@@ -49,39 +74,100 @@ namespace GameClient
             _showLine = showLine;
             _tipOfTheGun =_position + Vector2.Normalize(_direction) * _texture.Width / 2 +new Vector2(0, 5);
         }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float layer)
+        public void MelleAttackUpdate(GameTime gameTime, Vector2 position)
         {
-            _position = position + new Vector2(23, 40) * _holderScale;
-            float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
-            if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
+            if (_swing_weapon)
             {
-                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
-            }
-            else
-            {
-                spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
-            }
-            foreach (var bullet in _bullets)
-            {
-                bullet.Draw(spriteBatch);
-            }
-            if(_isSniper && _showLine)
-            {
-                Vector2 sniperStart = _tipOfTheGun;
-                Vector2 sniperEnd;
-                BulletReach();
-                if (_isGamePad)
+                SwingUpdate(gameTime);
+                _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_hitPlayers)
                 {
-                    sniperEnd = _direction * 300f + sniperStart;
-                    GraphicManager.DrawLine(sniperStart, _MaxPointBulletReach,spriteBatch);
+                    if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle, 5))
+                    {
+                        _isColided = true;
+                    }
                 }
                 else
                 {
-                    sniperEnd = _direction * 300f + sniperStart;
-                    //sniperEnd = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-                    if (Vector2.Distance(sniperEnd, sniperStart) > 30)
-                        GraphicManager.DrawLine(sniperStart, _MaxPointBulletReach, spriteBatch);
+                    if (!_isColided && CollisionManager.isColidedWithEnemies(Rectangle, 5))
+                    {
+                        _isColided = true;
+                    }
+                    else if(!_isColided && CollisionManager.isCollidingChests(Rectangle))
+                    {
+                        _isColided = true;
+                    }
+                    else if (!_isColided && CollisionManager.isCollidingBoxes(Rectangle))
+                    {
+
+                    }
+                }
+            }
+            else
+            {
+                _position = position + new Vector2(23, 40) * _holderScale;
+                _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            if (_swing_timer >= 0.3f)
+            {
+                _swing_timer = 0;
+                _swing_weapon = false;
+                _position = position + new Vector2(23, 44) * _holderScale;
+                _isColided = false;
+                _between_attacks_timer = 0;
+            }
+        }
+        public void DrawSwing(SpriteBatch spriteBatch, float layer)
+        {
+            if (_moving_direction_int == (int)Direction.Up)
+            {
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
+            }
+            else if (_moving_direction_int == (int)Direction.Down)
+            {
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(-12, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
+            }
+            else if (_moving_direction_int == (int)Direction.Right)
+            {
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
+            }
+            else if (_moving_direction_int == (int)Direction.Left)
+            {
+                spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
+            }
+        }
+        public void Draw(SpriteBatch spriteBatch,  float layer)
+        {
+            GraphicManager.DrawRectangle(spriteBatch, Rectangle, layer);
+            if (_swing_weapon)
+                DrawSwing(spriteBatch, layer);
+            else
+            {
+                float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
+                if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
+                {
+                    spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
+                }
+                else
+                {
+                    spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
+                }
+                foreach (var bullet in _bullets)
+                {
+                    bullet.Draw(spriteBatch);
+                }
+                if (_isSniper && _showLine)
+                {
+                    BulletReach();
+                    if (_isGamePad)
+                    {
+                        GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);
+                    }
+                    else
+                    {
+                        if (Vector2.Distance(_tipOfTheGun, _MaxPointBulletReach) > 30)
+                            GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);
+                    }
                 }
             }
         }
@@ -91,27 +177,61 @@ namespace GameClient
         }
         public void Shot()
         {
-            if (_shooting_timer >= _bullet._shootingTimer)
+            if (!_swing_weapon)
             {
-                _shooting_timer = 0;
-                Vector2 _directionSpread;
-                if (_spread != 0)
+                if (_shooting_timer >= _bullet._shootingTimer)
                 {
-                    Random x = new Random();
-                    _directionSpread = _direction + new Vector2(((float)x.NextDouble() - 0.5f) * _spread, ((float)x.NextDouble() - 0.5f) * _spread);
-                }
-                else
-                {
-                    _directionSpread = _direction;
-                }
+                    _shooting_timer = 0;
+                    Vector2 _directionSpread;
+                    if (_spread != 0)
+                    {
+                        Random x = new Random();
+                        _directionSpread = _direction + new Vector2(((float)x.NextDouble() - 0.5f) * _spread, ((float)x.NextDouble() - 0.5f) * _spread);
+                    }
+                    else
+                    {
+                        _directionSpread = _direction;
+                    }
 
-                Bullet bullet = _bullet.Copy(_directionSpread,_tipOfTheGun, _direction,_hitPlayers);
-                _bullets.Add(bullet);
+                    Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _direction, _hitPlayers);
+                    _bullets.Add(bullet);
+                }
+            }
+        }
+
+        private void SwingUpdate(GameTime gameTime)
+        {
+            _swing_frame_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_swing_frame_timer > _swing_frame_window)
+            {
+                _swing_frame_timer = 0;
+                if (_moving_direction_int == (int)Direction.Up)
+                {
+                    _position += new Vector2(0, -swingSpeed);
+                }
+                else if (_moving_direction_int == (int)Direction.Down)
+                {
+                    _position += new Vector2(0, swingSpeed);
+                }
+                else if (_moving_direction_int == (int)Direction.Right)
+                {
+                    _position += new Vector2(swingSpeed, 0);
+                }
+                else if (_moving_direction_int == (int)Direction.Left)
+                {
+                    _position += new Vector2(-swingSpeed, 0);
+                }
+            }
+        }
+        public void SwingWeapon()
+        {
+            if (_between_attacks_timer > _between_attacks_timer_window)
+            {
+                _swing_weapon = true;
             }
         }
         public bool BulletReach()
         {
-            //_MaxPointBulletReach = CollisionManager.GetClosestCollision(_position + _direction * 38f, _direction, _hitPlayers);
             Vector2 tempPos;
             tempPos = _tipOfTheGun;
             Rectangle tempRec;

@@ -18,6 +18,10 @@ namespace GameClient
         List<Simple_Enemy> _simple_enemies;
         PlayerManager _playerManager;
         ItemManager _itemManager;
+
+        public static int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public static int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
+        public static int[] allConsumables = new int[] { 2, 4 };
         public CollectionManager(List<Simple_Enemy> enemies, ContentManager contentManager)
         {
             _contentManager = contentManager;
@@ -47,11 +51,14 @@ namespace GameClient
         {
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
-            int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
-            int[] allConsumables = new int[] { 2, 4 };
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(24, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));
+            
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));//skeleton
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));//runner
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null, null));//mage
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//sniper
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//machine-gun
+
+
         }
         private void InitializeItems()
         {
@@ -72,21 +79,18 @@ namespace GameClient
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
                 id++, "Potion", 0.04f, 1, false, false, false, null, null, 10));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),//5 - 9 weapons
-                _contentManager.Load<Texture2D>("Weapons/1"),
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),null,//5 - 9 weapons
                 id++, "M16", 0.1f, 1, false, false, false, null, _guns[0], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"),
-                _contentManager.Load<Texture2D>("Weapons/2"),
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"),null,
                 id++, "Sniper", 0.1f, 1, false, false, false, null, _guns[1], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"),
-                _contentManager.Load<Texture2D>("Weapons/3"),
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"),null,
                 id++, "Rifle", 0.1f, 1, false, false, false, null, _guns[2], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"),
-                _contentManager.Load<Texture2D>("Weapons/4"),
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"),null,
                 id++, "MachineGun", 0.1f, 1, false, false, false, null, _guns[3], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"),
-                _contentManager.Load<Texture2D>("Weapons/5"),
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"),null,
                 id++, "Uzi", 0.1f, 1, false, false, false, null, _guns[4], 1));
+            _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8,6), null,
+                id++, "Gold", 0.3f, 1, false, false, false, null, _guns[4], 1000));
 
         }
         private void InitializeBullets()

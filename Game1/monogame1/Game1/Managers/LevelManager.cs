@@ -16,7 +16,7 @@ namespace GameClient
         public LevelManager( TileManager tileManager)
         {
             this._tileManager = tileManager;
-            _spawnPoint = _tileManager.LoadMap(10);
+            _spawnPoint = _tileManager.LoadMap(11);
         }
         public void Initialize(Player player)
         {

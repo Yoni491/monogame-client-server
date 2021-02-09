@@ -13,11 +13,11 @@ namespace GameClient
         static public Grid s_grid;
         private AStar _AStar;
         private BreadthFirst _BreadthFirst;
-        private SearchDetails _searchDetails, _searchDetailsNew;
+        private SearchDetails _searchDetails;
         private Vector2 _position;
         private List<Coord> _path;
         private Coord lastCoord;
-        private Vector2 _start, _end;
+        private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
         public PathFinder()
         {
@@ -29,12 +29,12 @@ namespace GameClient
         }
         public void FindPaths()
         {
-            if (_startNewSearch)
+            if (_startNewSearch && _first_position!=Vector2.Zero)
             {
-                if (_path.Count > 5)
+                if (_path.Count > 20)
                 {
-                    lastCoord = _path[5];
-                    _start = TileManager.GetPositionFromCoord(_path[5]);
+                    lastCoord = _path[20];
+                    _start = TileManager.GetPositionFromCoord(_path[20]);
                 }
                 else if (_path.Count > 0)
                 {
@@ -78,6 +78,7 @@ namespace GameClient
                     }
                     if(pathNotPossible>1)
                     {
+                        _newSearchReady = true;
                         return;
                     }
                 }
@@ -93,6 +94,7 @@ namespace GameClient
                     }
                     if (!searchStatus.PathPossible)
                     {
+                        _newSearchReady = true;
                         return;
                     }
                 }
@@ -105,7 +107,6 @@ namespace GameClient
                 int index = _path.FindIndex(x => x == lastCoord);
                 if (index > -1)
                 {
-                    Console.WriteLine(index);
                     _path.RemoveRange(index+1, _path.Count - index-1);
                 }
                 else
@@ -125,6 +126,8 @@ namespace GameClient
         }
         public void Update(GameTime gameTime,Vector2 start,Vector2 end)
         {
+            if (_first_position == Vector2.Zero)
+                _first_position = start;
             _position = start;
             _end = end;
             

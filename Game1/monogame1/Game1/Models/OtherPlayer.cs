@@ -63,7 +63,7 @@ namespace GameClient
 
                 if (_gun != null)
                 {
-                    _gun.Update(gameTime, _looking_direction, false,false);
+                    _gun.Update(gameTime, _looking_direction,0, false,false, _position);
                 }
                 //_velocity = Vector2.Zero;
 
@@ -74,11 +74,11 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_hide_gun && _gun != null)
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             if (_animationManager != null)
                 _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_gun)
-                _gun.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             if (_hide_gun && _gun != null)
                 _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
         }

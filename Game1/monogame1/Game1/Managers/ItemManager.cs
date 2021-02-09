@@ -8,8 +8,8 @@ namespace GameClient
 {
     public class ItemManager
     {
-        CollectionManager _collectionManager;
-        List<Item> _itemsOnTheGround;
+        static CollectionManager _collectionManager;
+        static List<Item> _itemsOnTheGround;
         public ItemManager(CollectionManager collectionManager)
         {
             _collectionManager = collectionManager;
@@ -22,7 +22,7 @@ namespace GameClient
                 item.DrawOnGround(spriteBatch);
             }
         }
-        public void DropItem(int []items, Vector2 position)
+        static public void DropItem(int []items, Vector2 position)
         {
             foreach (var item_id in items)
             {
@@ -34,6 +34,20 @@ namespace GameClient
                     return;
                 }
             }
+        }
+        static public void DropGold(int amount, Vector2 position)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Item item = _collectionManager.GetItem(10).Drop();
+                if (item != null)
+                {
+                    item._position = position;
+                    _itemsOnTheGround.Add(item);
+                    return;
+                }
+            }
+            
         }
         public Item findClosestItem(Vector2 position)
         {

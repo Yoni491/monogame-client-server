@@ -10,7 +10,6 @@ namespace GameClient
     {
         InventoryManager _InventoryManager;
         //Rectangle settingsRectangle;
-        Texture2D _menuBackgroundImage;
         Button _settingButton, _fullScreenButton, _exitFullScreenButton;
         GraphicsDeviceManager _graphics;
         private Player _player;

@@ -9,7 +9,6 @@ namespace GameClient
     {
         static Thread t;
         static private List<PathFinder> _pathFinderList,_pathsToAdd;
-        static int pathFinderId;
         static public bool _isThreadBusy;
         static public PathFinder _currentPathFinder;
         static public bool UseAStar = true;
@@ -66,10 +65,11 @@ namespace GameClient
             {
                 if (_continueSearch)
                 {
-                    if (_pathFinderList.Count > 0)
-                        _pathFinderList[index++].FindPaths();
                     if (index > _pathFinderList.Count - 1)
                         index = 0;
+                    if (_pathFinderList.Count > 0)
+                        _pathFinderList[index].FindPaths();
+                    index++;
                     _continueSearch = false;
                 }
             }

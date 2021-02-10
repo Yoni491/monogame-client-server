@@ -20,7 +20,7 @@ namespace GameClient
         private Vector2 _position;
         private Vector2 _direction;
         private Vector2 _startPosition;
-
+        public int _destroyIn3 = -1;
         public Rectangle Rectangle
         {
             get
@@ -64,25 +64,39 @@ namespace GameClient
 
         public void Update(GameTime gameTime)
         {
-            _velocity = _direction * _speed;
-            if (_hitPlayers)
+            if (_destroyIn3 < 0)
             {
-                if (CollisionManager.isColidedWithPlayer(Rectangle, _dmg))
-                    _destroy = true;
+                _velocity = _direction * _speed;
+                if (_hitPlayers)
+                {
+                    if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
+                        _destroy = true;
+                }
+                else
+                {
+                    if (CollisionManager.isColidedWithEnemies(Rectangle, _velocity, _dmg))
+                    {
+                        _destroy = true;
+                    }
+                    else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity))
+                    {
+                        _destroy = true;
+                    }
+                }
+                if (CollisionManager.isCollidingWalls(Rectangle, _velocity))
+                {
+                    _destroyIn3 = 3;
+                }
             }
             else
             {
-                if (CollisionManager.isColidedWithEnemies(Rectangle, _dmg))
+                if (CollisionManager.isCollidingBoxes(Rectangle, _velocity))
                 {
                     _destroy = true;
                 }
-                else if(CollisionManager.isCollidingBoxes(Rectangle))
-                {
+                if (_destroyIn3-- == -1)
                     _destroy = true;
-                }
             }
-            if (CollisionManager.isCollidingWalls(Rectangle, _velocity))
-                _destroy = true;
 
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)

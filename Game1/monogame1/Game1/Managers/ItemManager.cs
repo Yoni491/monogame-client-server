@@ -44,7 +44,6 @@ namespace GameClient
                 {
                     item._position = position;
                     _itemsOnTheGround.Add(item);
-                    return;
                 }
             }
             

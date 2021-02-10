@@ -57,13 +57,13 @@ namespace GameClient
 
             SetAnimations();
 
-            if (CollisionManager.IsCollidingLeft(RectangleMovement, _velocity) && _velocity.X < 0)
+            if (CollisionManager.IsCollidingLeftWalls(RectangleMovement, _velocity) && _velocity.X < 0)
                 _velocity -= new Vector2(_velocity.X,0);
-            if (CollisionManager.IsCollidingRight(RectangleMovement, _velocity) && _velocity.X > 0)
+            if (CollisionManager.IsCollidingRightWalls(RectangleMovement, _velocity) && _velocity.X > 0)
                 _velocity -= new Vector2(_velocity.X, 0);
-            if (CollisionManager.IsCollidingTop(RectangleMovement, _velocity) && _velocity.Y < 0)
+            if (CollisionManager.IsCollidingTopWalls(RectangleMovement, _velocity) && _velocity.Y < 0)
                 _velocity -= new Vector2(0,_velocity.Y);
-            if (CollisionManager.IsCollidingBottom(RectangleMovement, _velocity) && _velocity.Y > 0)
+            if (CollisionManager.IsCollidingBottomWalls(RectangleMovement, _velocity) && _velocity.Y > 0)
                 _velocity -= new Vector2(0, _velocity.Y);
             _position += _velocity;
 

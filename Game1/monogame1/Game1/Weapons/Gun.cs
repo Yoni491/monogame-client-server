@@ -44,7 +44,7 @@ namespace GameClient
         {
             get
             {
-                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_texture.Width * _holderScale), (int)(_texture.Height * _holderScale ));
+                return new Rectangle((int)_position.X, (int)_position.Y-4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
 
@@ -82,22 +82,22 @@ namespace GameClient
                 _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_hitPlayers)
                 {
-                    if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle, 5))
+                    if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle,Vector2.Zero, 5))
                     {
                         _isColided = true;
                     }
                 }
                 else
                 {
-                    if (!_isColided && CollisionManager.isColidedWithEnemies(Rectangle, 5))
+                    if (!_isColided && CollisionManager.isColidedWithEnemies(Rectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
                     }
-                    else if(!_isColided && CollisionManager.isCollidingChests(Rectangle))
+                    else if(!_isColided && CollisionManager.isCollidingChests(Rectangle, Vector2.Zero))
                     {
                         _isColided = true;
                     }
-                    else if (!_isColided && CollisionManager.isCollidingBoxes(Rectangle))
+                    else if (!_isColided && CollisionManager.isCollidingBoxes(Rectangle, Vector2.Zero))
                     {
 
                     }
@@ -138,7 +138,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch,  float layer)
         {
-            GraphicManager.DrawRectangle(spriteBatch, Rectangle, layer);
+            //GraphicManager.DrawRectangle(spriteBatch, Rectangle, layer);
             if (_swing_weapon)
                 DrawSwing(spriteBatch, layer);
             else
@@ -240,12 +240,12 @@ namespace GameClient
                 if (tempPos.X < 2000 && tempPos.X > 0 && tempPos.Y < 2000 && tempPos.Y > 0)
                 {
                     tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
-                    if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, 0))
+                    if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, Vector2.Zero, 0))
                     {
                         _MaxPointBulletReach = tempPos;
                         return true;
                     }
-                    else if (!_hitPlayers && CollisionManager.isColidedWithEnemies(tempRec, 0))
+                    else if (!_hitPlayers && CollisionManager.isColidedWithEnemies(tempRec, Vector2.Zero, 0))
                     {
                         _MaxPointBulletReach = tempPos;
                         return true;

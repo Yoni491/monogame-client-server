@@ -90,7 +90,7 @@ namespace GameClient
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"),null,
                 id++, "Uzi", 0.1f, 1, false, false, false, null, _guns[4], 1));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8,6), null,
-                id++, "Gold", 0.3f, 1, false, false, false, null, _guns[4], 1000));
+                id++, "Gold", 0.01f, 1, false, false, false, null, _guns[4], 1000));
 
         }
         private void InitializeBullets()
@@ -99,10 +99,10 @@ namespace GameClient
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 2,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.5f, 10,2000));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.3f, 10,2000));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 5,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.05f, 1,200));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.04f, 5,350));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.01f, 1,200));
 
         }
         private void InitializeGuns()

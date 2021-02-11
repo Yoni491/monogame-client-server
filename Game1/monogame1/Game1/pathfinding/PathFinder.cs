@@ -19,9 +19,11 @@ namespace GameClient
         private Coord lastCoord;
         private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
-        public PathFinder()
+        public int _id;
+        public PathFinder(int id)
         {
             _path = new List<Coord>();
+            _id = id;
         }
         public static void UpdateGrid(Grid grid)
         {
@@ -134,9 +136,10 @@ namespace GameClient
         }
         public Vector2 GetNextCoordPosition()
         {
-            if(_searchDetails!= null && _newSearchReady)
+            if( _newSearchReady)
             {
-                CopyPathArrToList();
+                if(_searchDetails != null)
+                    CopyPathArrToList();
                 _searchDetails = null;
                 _startNewSearch = true;
             }    

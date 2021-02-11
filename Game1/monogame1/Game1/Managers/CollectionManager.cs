@@ -102,7 +102,7 @@ namespace GameClient
             _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.3f, 10,2000));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5,350));
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.04f, 5,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.01f, 1,200));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.001f, 1,200));
 
         }
         private void InitializeGuns()

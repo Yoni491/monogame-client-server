@@ -43,58 +43,55 @@ namespace GameClient
 
             for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
             {
-                int gid = _map.TileLayers[1].Tiles[i].Gid;
-                if (gid != 0)
-                {
-                        
-                    if (_map.Tilesets[tilesetIndex].FirstGid > 0)
-                    {
-                        if (gid == 325)//grave normal
-                        {
-                            _mapManager._graves.Add(new Grave(AddWall(i), false));
-                        }
-                        else if (gid == 326)//grave broken
-                        {
-                            AddWall(i);
-                            _mapManager._graves.Add(new Grave(AddWall(i), true));
-                        }
-                        else if(gid == 134)//spawn point
-                        {
-                            spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
-                        }
-                        else//normal walls
-                        {
-                            AddWall(i);
-                        }
-                    }
-                }
+                ManageGid(i,1,ref spawnPoint);
 
             }
             for (int i = 0; i < _map.TileLayers[2].Tiles.Count; i++)
             {
-                int gid = _map.TileLayers[2].Tiles[i].Gid;
-                if (gid != 0)
-                {
-
-                    if (_map.Tilesets[tilesetIndex].FirstGid > 0)
-                    {
-                        if (gid == 469 || gid == 467)//normal chest
-                        {
-                            MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width),i));
-                        }
-                        if(gid == 468)
-                        {
-                            MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width), i));
-                            AddWall(i);
-                        }
-                    }
-                }
+                ManageGid(i, 2, ref spawnPoint);
 
             }
 
             PathFinder.UpdateGrid(_grid);
             return spawnPoint;
 
+        }
+        public void ManageGid(int i, int tilesetIndex,ref Vector2 spawnPoint)
+        {
+            int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
+            if (gid != 0)
+            {
+
+                if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                {
+                    if (gid == 325)//grave normal
+                    {
+                        _mapManager._graves.Add(new Grave(AddWall(i), false));
+                    }
+                    else if (gid == 326)//grave broken
+                    {
+                        AddWall(i);
+                        _mapManager._graves.Add(new Grave(AddWall(i), true));
+                    }
+                    else if (gid == 134)//spawn point
+                    {
+                        spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
+                    }
+                    else if (gid == 469 || gid == 467)//normal chest
+                    {
+                        MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width), i, tilesetIndex));
+                    }
+                    else if (gid == 468 ||gid == 465)
+                    {
+                        MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width), i, tilesetIndex));
+                        AddWall(i);
+                    }
+                    else//normal walls
+                    {
+                        AddWall(i);
+                    }
+                }
+            }
         }
         public Rectangle AddWall(int i)
         {

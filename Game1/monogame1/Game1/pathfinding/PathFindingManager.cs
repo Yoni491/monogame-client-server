@@ -14,7 +14,7 @@ namespace GameClient
         static public bool UseAStar = true;
         static List<int> _indecesToRemove;
         static private bool _continueSearch=false;
-
+        static int id = 0;
         public PathFindingManager()
         {
             t = new Thread(new ThreadStart(FindPaths));
@@ -27,28 +27,29 @@ namespace GameClient
         {
             if (!_continueSearch)
             {
-                RemovePaths();
                 AddPaths();
+                RemovePaths();
                 _continueSearch = true;
             }
         }
         static public PathFinder GetPathFinder()
         {
-            PathFinder pathFinder = new PathFinder();
+            PathFinder pathFinder = new PathFinder(id++);
             _pathsToAdd.Add(pathFinder);
             return pathFinder;
         }
         static public void RemovePathFinder(PathFinder pathFinder)
         {
-            _indecesToRemove.Add(_pathFinderList.FindIndex(0,x=> x == pathFinder));
+            _indecesToRemove.Add(pathFinder._id);
         }
         static private void RemovePaths()
         {
             for (int i = 0; i < _indecesToRemove.Count; i++)
             {
-                _pathFinderList.RemoveAt(_indecesToRemove[0]);
-                _indecesToRemove.RemoveAt(0);
+
+                _pathFinderList.RemoveAll(x=>x._id == _indecesToRemove[i]);
             }
+            _indecesToRemove.Clear();
         }
         static private void AddPaths()
         {
@@ -72,6 +73,7 @@ namespace GameClient
                     index++;
                     _continueSearch = false;
                 }
+                Thread.Sleep(1);
             }
         }
     }

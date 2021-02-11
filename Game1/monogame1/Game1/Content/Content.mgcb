@@ -94,6 +94,9 @@
 #begin maps/map11.tmx
 /copy:maps/map11.tmx
 
+#begin maps/map12.tmx
+/copy:maps/map12.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 

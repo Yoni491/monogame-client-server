@@ -26,6 +26,7 @@ namespace GameClient
         private int _width;
         private int _height;
         private int _moving_direction;
+        private int _animationNum;
 
         private PlayerManager _playerManager;
         private ItemManager _itemManager;
@@ -35,9 +36,10 @@ namespace GameClient
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Player(AnimationManager animationManager, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,UIManager uIManager)
+        public Player(AnimationManager animationManager,int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,UIManager uIManager)
         {
             _animationManager = animationManager;
+            _animationNum = animationNum;
             _position = position;
             _input = input;
             _velocity = Vector2.Zero;
@@ -229,6 +231,7 @@ namespace GameClient
             packet.WriteInt(_health._total_health);
             packet.WriteVector2(_velocity);
             packet.WriteVector2(_looking_direction);
+            packet.WriteInt(_animationNum);
             packet.WriteInt(_gun._bullets.Count());
             _gun.UpdatePacketShort(packet);
         }

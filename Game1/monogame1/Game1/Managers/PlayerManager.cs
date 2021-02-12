@@ -9,21 +9,21 @@ namespace GameClient
 {
     public class PlayerManager
     {
-        private List<OtherPlayer> _players;
+        private List<NetworkPlayer> _players;
         private Player _player;
         ItemManager _itemManager;
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
         UIManager _UImanager;
-        public PlayerManager(List<OtherPlayer> players, CollectionManager collectionManager)
+        public PlayerManager(List<NetworkPlayer> players, CollectionManager collectionManager)
         {
             _players = players;
             _collectionManager = collectionManager;
             
         }
-        public void updateOtherPlayerTexture()
+        public void updatenetworkPlayerTexture()
         {
-            NetworkManagerClient._updateOtherPlayerTexture = false;
+            NetworkManagerClient._updatenetworkPlayerTexture = false;
             foreach (var player in _players)
             {
                 if (player.updateTexture)
@@ -32,12 +32,12 @@ namespace GameClient
                 }
             }
         }
-        public OtherPlayer AddOtherPlayer(int playerNum)
+        public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            OtherPlayer otherPlayer = new OtherPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,false));
-            _players.Add(otherPlayer);
-            NetworkManagerClient._updateOtherPlayerTexture = true;
-            return otherPlayer;
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,false));
+            _players.Add(networkPlayer);
+            NetworkManagerClient._updatenetworkPlayerTexture = true;
+            return networkPlayer;
         }
         public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice, UIManager uIManager)
         {
@@ -46,7 +46,8 @@ namespace GameClient
             _inventoryManager = inventoryManager;
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
-            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(3,1.5f), position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
+            int animationNum = 3;
+            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
             _player.EquipGun(_collectionManager.GetGunCopy(4,0.7f,false));
             _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(1,0.7f));
             return _player;

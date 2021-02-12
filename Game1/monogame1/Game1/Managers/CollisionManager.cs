@@ -9,14 +9,14 @@ namespace GameClient
 {
     public class CollisionManager
     {
-        static private List<OtherPlayer> _other_players;
+        static private List<NetworkPlayer> _other_players;
         static private Player _player;
         static private List<Simple_Enemy> _enemies;
 
         public CollisionManager()
         {
         }
-        public void Initialize(List<OtherPlayer> other_players, Player player, List<Simple_Enemy> enemies)
+        public void Initialize(List<NetworkPlayer> other_players, Player player, List<Simple_Enemy> enemies)
         {
             _other_players = other_players;
             _player = player;

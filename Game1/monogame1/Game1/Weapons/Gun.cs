@@ -108,7 +108,7 @@ namespace GameClient
                 _position = position + new Vector2(23, 40) * _holderScale;
                 _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (_swing_timer >= 0.3f)
+            if (_swing_timer >= 0.1f)
             {
                 _swing_timer = 0;
                 _swing_weapon = false;

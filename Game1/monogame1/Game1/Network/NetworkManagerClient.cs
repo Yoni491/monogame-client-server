@@ -18,13 +18,18 @@ namespace GameClient
         Player _player;
         ushort packetType;
         PacketShort_Client _packet_short;
-        public static bool _updateOtherPlayerTexture = false;
-        public NetworkManagerClient(List<OtherPlayer> _other_players, Player player, PlayerManager playerManager)
+        public static bool _updatenetworkPlayerTexture = false;
+        public NetworkManagerClient()
+        {
+            
+        }
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager)
         {
             _playerManager = playerManager;
             _player = player;
-            _packetHandler = new PacketHandlerClient(_other_players, player, playerManager);
-            _packet_short = new PacketShort_Client(_player);
+            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager);
+            _packet_short = new PacketShort_Client();
+            _packet_short.Initialize(player);
         }
         public void Update(GameTime gameTime)
         {
@@ -54,15 +59,15 @@ namespace GameClient
                 _connect_again = false;
                 Initialize_connection();
             }
-            if (NetworkManagerClient._updateOtherPlayerTexture)
+            if (NetworkManagerClient._updatenetworkPlayerTexture)
             {
-                _playerManager.updateOtherPlayerTexture();
+                _playerManager.updatenetworkPlayerTexture();
             }
         }
         public void Initialize_connection()
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.2.108"), 1994);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.124.38.9"), 1994);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
         }

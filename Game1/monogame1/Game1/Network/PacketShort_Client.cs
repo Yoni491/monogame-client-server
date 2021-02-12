@@ -3,7 +3,11 @@
     public class PacketShort_Client : PacketStructure
     {
         Player _player;
-        public PacketShort_Client(Player player) : base()
+        public PacketShort_Client() : base()
+        {
+            
+        }
+        public void Initialize(Player player)
         {
             _player = player;
         }

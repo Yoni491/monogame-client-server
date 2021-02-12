@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameClient
 {
-    public class OtherPlayer
+    public class NetworkPlayer
     {
         public int _playerNum;
 
@@ -25,7 +25,7 @@ namespace GameClient
         private HealthManager _health;
 
         private Vector2 _looking_direction;
-
+        private int _animationNum = -1;
         private float _scale = 1.5f;
         private int _width;
         private int _height;
@@ -38,16 +38,13 @@ namespace GameClient
             }
         }
 
-        public OtherPlayer(Vector2 position, int health, int playerNum, Gun gun)
+        public NetworkPlayer(Vector2 position, int health, int playerNum, Gun gun)
         {
             _position = position;
             _velocity = Vector2.Zero;
             _playerNum = playerNum;
             _gun = gun;
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
-            _width = _animationManager.Animation._frameWidth;
-            _height = _animationManager.Animation._frameHeight;
-
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -132,8 +129,16 @@ namespace GameClient
             _health._total_health = packet.ReadInt();
             _velocity = packet.ReadVector2();
             _looking_direction = packet.ReadVector2();
+            int animationNum = packet.ReadInt();
+            if (animationNum != _animationNum)
+            {
+                _animationManager = GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f);
+                _width = _animationManager.Animation._frameWidth;
+                _height = _animationManager.Animation._frameHeight;
+            }
             _gun.ReadPacketShort(packet);
         }
+
     }
 }
 

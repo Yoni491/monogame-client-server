@@ -67,10 +67,6 @@ namespace GameServer
                     }
                 }
             }
-            for (int i = 0; i < numOfPlayer; i++)
-            {
-                _packetHandlers[i].Update();
-            }
             _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_long >= 1.5f)
             {
@@ -86,6 +82,10 @@ namespace GameServer
                             Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, player._longPacket.ReadUShort());
                     }
                 }
+            }
+            for (int i = 0; i < numOfPlayer; i++)
+            {
+                _packetHandlers[i].Update();
             }
 
         }

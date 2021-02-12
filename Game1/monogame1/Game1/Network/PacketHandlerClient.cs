@@ -8,7 +8,7 @@ namespace GameClient
     public class PacketHandlerClient
     {
         public bool handle = false;
-        List<OtherPlayer> _players;
+        List<NetworkPlayer> _players;
         Player _player;
         PlayerManager _playerManager;
         PacketStructure _packetStructure;
@@ -16,7 +16,7 @@ namespace GameClient
         ushort packetType;
         int playerNum;
         int usingResource = 0;
-        public PacketHandlerClient(List<OtherPlayer> players, Player player, PlayerManager playerManager)
+        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager)
         {
             _players = players;
             _player = player;
@@ -55,12 +55,12 @@ namespace GameClient
                         while (true)
                         {
                             playerNum = _packetStructure.ReadInt();
-                            OtherPlayer otherPlayer = _players.Find(x => x._playerNum == playerNum);
-                            if (otherPlayer == null)
+                            NetworkPlayer networkPlayer = _players.Find(x => x._playerNum == playerNum);
+                            if (networkPlayer == null)
                             {
-                                otherPlayer = _playerManager.AddOtherPlayer(playerNum);
+                                networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                             }
-                            otherPlayer.ReadPacketShort(_packetStructure);
+                            networkPlayer.ReadPacketShort(_packetStructure);
                             if (packetLength <= _packetStructure._offset)
                             {
                                 break;

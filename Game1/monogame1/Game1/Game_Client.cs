@@ -11,7 +11,7 @@ namespace GameClient
         private MenuManager _menuManager;
         private SpriteBatch _spriteBatch;
         private SpriteBatch _UIbatch;
-        private List<OtherPlayer> _other_players;
+        private List<NetworkPlayer> _network_players;
         private Player _player;
         private List<Simple_Enemy> _enemies;
         private EnemyManager _enemyManager;
@@ -55,28 +55,28 @@ namespace GameClient
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _mapManager = new MapManager();
             _menuManager = new MenuManager(this, GraphicsDevice);
-            _other_players = new List<OtherPlayer>();
+            _network_players = new List<NetworkPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
             _UIManager = new UIManager();
-            _playerManager = new PlayerManager(_other_players, _collectionManager);
+            _playerManager = new PlayerManager(_network_players, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _pathFindingManager = new PathFindingManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
-            _networkManager = new NetworkManagerClient(_other_players, _player, _playerManager);
+            _networkManager = new NetworkManagerClient();
             _levelManager = new LevelManager(_tileManager);
-            _networkManager.Initialize_connection();
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
-            _collisionManager.Initialize(_other_players, _player, _enemies);
+            _collisionManager.Initialize(_network_players, _player, _enemies);
             _levelManager.Initialize(_player);
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            
+            _networkManager.Initialize(_network_players, _player, _playerManager);
+            _networkManager.Initialize_connection();
 
 
         }

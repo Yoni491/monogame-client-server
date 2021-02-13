@@ -31,8 +31,8 @@ namespace GameClient
                 _packetStructure.updateBuffer(buffer);
                 packetLength = _packetStructure.ReadUShort();
                 packetType = _packetStructure.ReadUShort();
-                if (packetType != 0)
-                    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                //if (packetType != 0)
+                //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 handle = true;
             }
         }
@@ -40,8 +40,8 @@ namespace GameClient
         {
             if (handle)
             {
-                if (packetType != 0)
-                    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                //if (packetType != 0)
+                //    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 switch (packetType)
                 {
                     case 0:
@@ -70,7 +70,7 @@ namespace GameClient
                     case 3:
                         //long packet containing player number from server
                         _player._playerNum = _packetStructure.ReadInt();
-                        Console.WriteLine("A");
+                        //Console.WriteLine("A");
                         break;
                     case 4:
                         //long packet from client to server

@@ -5,8 +5,6 @@ namespace GameServer
     public class Bullet
     {
 
-        public int _bulletNumber;
-
         private float _speed = 5f;
 
         //public Texture2D _texture;
@@ -23,12 +21,13 @@ namespace GameServer
 
         private List<Simple_Enemy> _enemies;
 
-        public Bullet(int bulletNumber, Gun gun, Vector2 position, Vector2 direction)
+        public bool _sent = false;
+
+        public Bullet(Gun gun, Vector2 position, Vector2 direction)
         {
             _gun = gun;
             _position = position;
             _direction = Vector2.Normalize(direction);
-            _bulletNumber = bulletNumber;
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
         {
@@ -53,7 +52,6 @@ namespace GameServer
         }
         public void UpdatePacketShort(PacketStructure packet)
         {
-            packet.WriteInt(_bulletNumber);
             packet.WriteVector2(_position);
             packet.WriteVector2(_direction);
         }

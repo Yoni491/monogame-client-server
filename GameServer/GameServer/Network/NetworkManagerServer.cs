@@ -52,7 +52,7 @@ namespace GameServer
             }
             addPlayers -= tempPlayers;
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)
+            if (_timer_short >= 0.05f)
             {
                 _timer_short = 0;
                 foreach (var player in _players)
@@ -65,6 +65,10 @@ namespace GameServer
                         if (packetType != 0)
                             Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, player._shortPacket.ReadUShort());
                     }
+                }
+                foreach (var player in _players)
+                {
+                    player._gun._bullets.Clear();
                 }
             }
             _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -104,8 +108,8 @@ namespace GameServer
         private void AcceptCallBack(IAsyncResult result)
         {
             Socket client_socket = _socketServer.EndAccept(result);
-            addPlayers++;
             _socketToAdd.Add(client_socket);
+            addPlayers++;
             Accept();
             
         }

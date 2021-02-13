@@ -69,6 +69,7 @@ namespace GameClient
                 bullet.Update(gameTime);
             }
             _bullets.RemoveAll(bullet => bullet._destroy == true);
+            
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _showLine = showLine;
@@ -93,13 +94,13 @@ namespace GameClient
                     {
                         _isColided = true;
                     }
-                    else if(!_isColided && CollisionManager.isCollidingChests(Rectangle, Vector2.Zero))
-                    {
-                        _isColided = true;
-                    }
                     else if (!_isColided && CollisionManager.isCollidingBoxes(Rectangle, Vector2.Zero))
                     {
-
+                        
+                    }
+                    else if (!_isColided && CollisionManager.isCollidingChests(Rectangle, Vector2.Zero))
+                    {
+                        _isColided = true;
                     }
                 }
             }
@@ -173,7 +174,9 @@ namespace GameClient
         }
         public Gun Copy(float scale,bool hitPlayers)
         {
-            return new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper,_spread,hitPlayers);
+            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers);
+            gun._holderScale = scale;
+            return gun;
         }
         public void Shot()
         {
@@ -193,7 +196,7 @@ namespace GameClient
                         _directionSpread = _direction;
                     }
 
-                    Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _direction, _hitPlayers);
+                    Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _hitPlayers);
                     _bullets.Add(bullet);
                 }
             }
@@ -270,7 +273,8 @@ namespace GameClient
         {
             foreach (var bullet in _bullets)
             {
-                bullet.UpdatePacketShort(packet);
+                if (!bullet._bulletSent)
+                    bullet.UpdatePacketShort(packet);
             }
 
         }
@@ -279,16 +283,9 @@ namespace GameClient
             int bulletAmount = packet.ReadInt();
             for (int i = 0; i < bulletAmount; i++)
             {
-                int bullet_num = packet.ReadInt();
-                Bullet bullet = _bullets.Find(bullet => bullet._bulletNumber == bullet_num);
-                if (bullet != null)
-                {
-                    bullet.readPacketShort(packet);
-                }
-                else
-                {
-                    //_bullets.Add(new Bullet(_bullet._collection_id, this, _bullet._texture, packet.ReadVector2(), packet.ReadVector2(), _enemies, _bullet._speed, bullet_num,_bullet._shootingTimer,_bullet._dmg));
-                }
+                Vector2 position = packet.ReadVector2();
+                Vector2 direction = packet.ReadVector2();
+                _bullets.Add(_bullet.Copy(direction, position, _hitPlayers));
             }
         }
 

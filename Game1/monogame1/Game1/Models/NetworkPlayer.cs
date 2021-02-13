@@ -26,6 +26,7 @@ namespace GameClient
 
         private Vector2 _looking_direction;
         private int _animationNum = -1;
+        private int _gunNum = -1;
         private float _scale = 1.5f;
         private int _width;
         private int _height;
@@ -116,12 +117,6 @@ namespace GameClient
             }
         }
 
-        public void EquipGun(Gun gun)
-        {
-            _gun = gun;
-            _gun._holderScale = _scale;
-        }
-
         public void ReadPacketShort(PacketStructure packet)
         {
             _position = packet.ReadVector2();
@@ -130,11 +125,24 @@ namespace GameClient
             _velocity = packet.ReadVector2();
             _looking_direction = packet.ReadVector2();
             int animationNum = packet.ReadInt();
-            if (animationNum != _animationNum)
+            if (animationNum == 0)
+            {
+                _animationManager = GraphicManager.GetAnimationManager_spriteMovement(3, 1.5f);
+                _width = _animationManager.Animation._frameWidth;
+                _height = _animationManager.Animation._frameHeight;
+            }
+            else if (animationNum != _animationNum)
             {
                 _animationManager = GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f);
                 _width = _animationManager.Animation._frameWidth;
                 _height = _animationManager.Animation._frameHeight;
+            }
+            int gunNum = packet.ReadInt();
+            if (gunNum != _gunNum)
+            {
+                _gunNum = gunNum;
+                _gun = CollectionManager.GetGunCopy(gunNum, _scale, false);
+                _gun._holderScale = _scale;
             }
             _gun.ReadPacketShort(packet);
         }

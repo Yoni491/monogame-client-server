@@ -13,7 +13,7 @@ namespace GameClient
         private MeleeWeapon _meleeWeapon;
         private Input _input;
         private Vector2 _velocity;
-        private AnimationManager _animationManager;
+        public AnimationManager _animationManager;
         public HealthManager _health;
         public Vector2 _position;
         private Vector2 _looking_direction;
@@ -232,7 +232,8 @@ namespace GameClient
             packet.WriteVector2(_velocity);
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
-            packet.WriteInt(_gun._bullets.Count());
+            packet.WriteInt(_gun._id);
+            packet.WriteInt(_gun._bullets.FindAll(x=>x._bulletSent==false).Count());
             _gun.UpdatePacketShort(packet);
         }
         public void UpdatePacketLong(PacketLong_Client packet)

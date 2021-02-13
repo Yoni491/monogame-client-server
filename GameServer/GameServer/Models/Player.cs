@@ -32,6 +32,8 @@ namespace GameServer
         public int PlayerNum { get => playerNum1; set => playerNum1 = value; }
 
         private int _animationNum;
+        private int _gunNum;
+
         public Player(Vector2 position, int health, Socket socket, List<Player> players)
         {
             _position = position;
@@ -66,6 +68,7 @@ namespace GameServer
             packet.WriteVector2(_velocity);
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
+            packet.WriteInt(_gunNum);
             packet.WriteInt(_gun._bullets.Count());
             _gun.UpdatePacketShort(packet);
         }
@@ -77,6 +80,7 @@ namespace GameServer
             _velocity = packet.ReadVector2();
             _looking_direction = packet.ReadVector2();
             _animationNum = packet.ReadInt();
+            _gunNum = packet.ReadInt();
             _gun.ReadPacketShort(packet);
         }
     }

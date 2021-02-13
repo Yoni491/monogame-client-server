@@ -37,16 +37,7 @@ namespace GameServer
             int num = packet.ReadInt();
             for (int i = 0; i < num; i++)
             {
-                int bullet_num = packet.ReadInt();
-                Bullet bullet = _bullets.Find(bullet => bullet._bulletNumber == bullet_num);
-                if (bullet != null)
-                {
-                    bullet.readPacketShort(packet);
-                }
-                else
-                {
-                    _bullets.Add(new Bullet(bullet_num, this, packet.ReadVector2(), packet.ReadVector2()));
-                }
+                _bullets.Add(new Bullet(this, packet.ReadVector2(), packet.ReadVector2()));
             }
         }
         public void UpdatePacketShort(PacketStructure packet)
@@ -54,6 +45,7 @@ namespace GameServer
             foreach (var bullet in _bullets)
             {
                 bullet.UpdatePacketShort(packet);
+                bullet._sent = true;
             }
         }
     }

@@ -11,12 +11,13 @@ namespace GameClient
         private MenuManager _menuManager;
         private SpriteBatch _spriteBatch;
         private SpriteBatch _UIbatch;
+        private SpriteBatch _settingsBatch;
         private List<NetworkPlayer> _network_players;
         private Player _player;
         private List<Simple_Enemy> _enemies;
         private EnemyManager _enemyManager;
         private TileManager _tileManager;
-        private PlayerManager _playerManager;
+        public PlayerManager _playerManager;
         public CollectionManager _collectionManager;
         private NetworkManagerClient _networkManager;
         private InventoryManager _inventoryManager;
@@ -27,7 +28,7 @@ namespace GameClient
         private UIManager _UIManager;
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
-        public bool _inMenu = false;
+        public bool _inMenu = true;
 
         #region Important Functions
         public Game_Client()
@@ -53,6 +54,7 @@ namespace GameClient
             _graphicManager = new GraphicManager(GraphicsDevice, Content,this,_graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
+            _settingsBatch = new SpriteBatch(GraphicsDevice);
             _mapManager = new MapManager();
             _menuManager = new MenuManager(this, GraphicsDevice);
             _network_players = new List<NetworkPlayer>();
@@ -74,7 +76,7 @@ namespace GameClient
             _levelManager.Initialize(_player);
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
-            _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
+            _UIManager.Initialize(Content, _inventoryManager, _graphics, _player,this);
             _networkManager.Initialize(_network_players, _player, _playerManager);
             _networkManager.Initialize_connection();
 
@@ -88,6 +90,7 @@ namespace GameClient
             if (_inMenu)
             {
                 _menuManager.Update(gameTime);
+                _UIManager.Update(gameTime);
             }
             else
             {
@@ -108,22 +111,25 @@ namespace GameClient
             
             _UIbatch.Begin(SpriteSortMode.FrontToBack);
             _spriteBatch.Begin(SpriteSortMode.FrontToBack,transformMatrix: GraphicManager.GetSpriteBatchMatrix());
+            _settingsBatch.Begin(SpriteSortMode.FrontToBack);
             if (_inMenu)
             {
-                _menuManager.Draw(_spriteBatch, GraphicsDevice);
+                _menuManager.Draw(_UIbatch);
+                _UIManager.Draw(_settingsBatch);
             }
             else
             {
+                _UIManager.Draw(_settingsBatch);
                 _tileManager.Draw(_spriteBatch);
                 _playerManager.Draw(_spriteBatch);
                 _enemyManager.Draw(_spriteBatch);
                 _itemManager.Draw(_spriteBatch);
                 _inventoryManager.Draw(_UIbatch);
-                _UIManager.Draw(_UIbatch);
             }
             
             _spriteBatch.End();
             _UIbatch.End();
+            _settingsBatch.End();
             base.Draw(gameTime);
 
         }
@@ -131,6 +137,8 @@ namespace GameClient
         public void ResetGraphics()
         {
             _inventoryManager.ResetGraphics();
+            _UIManager.ResetGraphics();
+            _menuManager.ResetGraphics();
         }
         #endregion
     }

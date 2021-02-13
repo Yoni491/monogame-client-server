@@ -8,8 +8,6 @@ namespace GameClient
         public Texture2D _texture;
         public bool _destroy = false;
         private bool _hitPlayers;
-        static int s_bulletNumber = 0;
-        public int _bulletNumber;
         public int _collection_id;
         public int _maxTravelDistance;
         public int _dmg;
@@ -21,6 +19,8 @@ namespace GameClient
         private Vector2 _direction;
         private Vector2 _startPosition;
         public int _destroyIn3 = -1;
+        public bool _bulletSent;
+
         public Rectangle Rectangle
         {
             get
@@ -29,7 +29,7 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, int bulletNumber, float shootingTimer, int dmg, int travelDistance,bool hitPlayers)
+        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, float shootingTimer, int dmg, int travelDistance,bool hitPlayers)
         {
             _collection_id = id;
             _texture = texture;
@@ -40,16 +40,6 @@ namespace GameClient
             _shootingTimer = shootingTimer;
             _maxTravelDistance = travelDistance;
             _hitPlayers = hitPlayers;
-            if (bulletNumber < 0)
-            {
-                _bulletNumber = s_bulletNumber++;
-                if (bulletNumber > 2000)
-                    s_bulletNumber = 0;
-            }
-            else
-            {
-                _bulletNumber = bulletNumber;
-            }
             _dmg = dmg;
         }
         public Bullet(int id, Texture2D texture, float speed, float shootingTimer,int dmg, int travelDistance)
@@ -94,10 +84,9 @@ namespace GameClient
                 {
                     _destroy = true;
                 }
-                if (_destroyIn3-- == -1)
+                if (--_destroyIn3 == -1)
                     _destroy = true;
             }
-
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)
             {
@@ -109,24 +98,20 @@ namespace GameClient
             }
             _position += _velocity;
         }
-        public Bullet Copy(Vector2 directionSpread,Vector2 position, Vector2 direction,bool hitEnemies)
+        public Bullet Copy(Vector2 direction, Vector2 position, bool hitPlayers)
         {
-            return new Bullet(_collection_id,  _texture, position, directionSpread, _speed, -1, _shootingTimer, _dmg, _maxTravelDistance, hitEnemies);
+            return new Bullet(_collection_id,  _texture, position, direction, _speed, _shootingTimer, _dmg, _maxTravelDistance, hitPlayers);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 1,Vector2.Zero , 1f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));//new Vector2(4, 12)
-        }
-        public void readPacketShort(PacketStructure packet)
-        {
-            _position = packet.ReadVector2();
-            _direction = packet.ReadVector2();
+            if(_destroyIn3 != 0)
+                spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void UpdatePacketShort(PacketStructure packet)
         {
-            packet.WriteInt(_bulletNumber);
-            packet.WriteVector2(_position);
+            packet.WriteVector2(_startPosition);
             packet.WriteVector2(_direction);
+            _bulletSent = true;
         }
     }
 }

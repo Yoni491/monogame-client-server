@@ -11,11 +11,12 @@ namespace GameClient
     {
         List<Simple_Enemy> _enemies;
         ContentManager _contentManager;
-        List<Gun> _guns;
-        List<MeleeWeapon> _meleeWeapons;
-        List<Bullet> _bullets;
-        List<Item> _items;
-        List<Simple_Enemy> _simple_enemies;
+        static List<Gun> _guns;
+        static List<MeleeWeapon> _meleeWeapons;
+        static List<Bullet> _bullets;
+        static List<Item> _items;
+        static List<Simple_Enemy> _simple_enemies;
+        public static List<AnimationManager> _playerAnimationManager;
         PlayerManager _playerManager;
         ItemManager _itemManager;
 
@@ -36,7 +37,7 @@ namespace GameClient
             InitializeMeleeWeapons();
             InitializeItems();
             InitializeSimpleEnemies();
-
+            InitializePlayerTextures();
         }
         private void InitializeMeleeWeapons()
         {
@@ -120,7 +121,15 @@ namespace GameClient
             _guns.Add(MachineGun);
             _guns.Add(Uzi);
         }
-        public Gun GetGunCopy(int id, float scale,bool hitPlayers)
+        private void InitializePlayerTextures()
+        {
+            _playerAnimationManager = new List<AnimationManager>();
+            for (int i = 1; i < 25; i++)
+            {
+                _playerAnimationManager.Add(GraphicManager.GetAnimationManager_spriteMovement(i, 1.5f));
+            }
+        }
+        static public Gun GetGunCopy(int id, float scale,bool hitPlayers)
         {
             if(id == -1)
             {
@@ -129,7 +138,7 @@ namespace GameClient
             }
             return _guns[id].Copy(scale, hitPlayers);
         }
-        public MeleeWeapon GetMeleeWeaponCopy(int id, float scale)
+        static public MeleeWeapon GetMeleeWeaponCopy(int id, float scale)
         {
             if (id == -1)
             {
@@ -140,7 +149,7 @@ namespace GameClient
         }
         public Simple_Enemy GetSimpleEnemyCopyWithGun(int id, float scale)
         {
-            return _simple_enemies[id].Copy(scale,GetGunCopy(-1,0.7f,true),null);
+            return _simple_enemies[id].Copy(scale,GetGunCopy(-1, scale, true),null);
         }
         public Simple_Enemy GetSimpleEnemyCopyWithWeapon(int id, float scale)
         {
@@ -149,6 +158,10 @@ namespace GameClient
         public Item GetItem(int id)
         {
             return _items[id];
+        }
+        static public AnimationManager GetAnimationManagerCopy(int id,float scale)
+        {
+            return _playerAnimationManager[id].Copy(scale);
         }
     }
 }

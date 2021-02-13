@@ -10,7 +10,7 @@ namespace GameClient
     public class PlayerManager
     {
         private List<NetworkPlayer> _players;
-        private Player _player;
+        public Player _player;
         ItemManager _itemManager;
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
@@ -34,7 +34,7 @@ namespace GameClient
         }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, 100, playerNum, _collectionManager.GetGunCopy(3,0.7f,false));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, 100, playerNum, CollectionManager.GetGunCopy(3,0.7f,false));
             _players.Add(networkPlayer);
             NetworkManagerClient._updatenetworkPlayerTexture = true;
             return networkPlayer;
@@ -48,8 +48,8 @@ namespace GameClient
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
             int animationNum = 3;
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
-            _player.EquipGun(_collectionManager.GetGunCopy(4,0.7f,false));
-            _player.EquipMeleeWeapon(_collectionManager.GetMeleeWeaponCopy(1,0.7f));
+            _player.EquipGun(CollectionManager.GetGunCopy(1,0.7f,false));
+            _player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,0.7f));
             return _player;
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)

@@ -58,6 +58,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic.spritefont
 
+#begin Images/settings_background.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/settings_background.jpg
+
 #begin Images/template.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,6 +108,9 @@
 
 #begin maps/map12.tmx
 /copy:maps/map12.tmx
+
+#begin maps/map13.tmx
+/copy:maps/map13.tmx
 
 #begin maps/map2.tmx
 /copy:maps/map2.tmx

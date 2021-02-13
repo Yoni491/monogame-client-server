@@ -36,14 +36,14 @@ namespace GameClient
             if (_socket.Connected)
             {
                 _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (_timer_short >= 0.1f)
+                if (_timer_short >= 0.05f)
                 {
                     _timer_short = 0;
                     _packet_short.UpdatePacket();
                     _socket.Send(_packet_short.Data());
                     packetType = _packet_short.ReadUShort();
-                    if (packetType != 0)
-                        Console.WriteLine("client: packet left Length: {0} | type: {1}", packetType, _packet_short.ReadUShort());
+                    //if (packetType != 0)
+                    //    Console.WriteLine("client: packet left Length: {0} | type: {1}", packetType, _packet_short.ReadUShort());
                 }
                 _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_timer_long >= 1.5f)

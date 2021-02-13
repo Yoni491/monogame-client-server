@@ -89,3 +89,7 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\Dungeon_Tileset.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\resources\Dungeon_Tileset.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map12.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\Images\settings_background.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\‏‏map13.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\Dungeon_Tileset.png
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\Game1\bin\Release\netcoreapp3.1\Content\maps\map13.tmx

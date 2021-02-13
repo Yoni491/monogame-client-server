@@ -54,6 +54,11 @@ namespace GameClient
         }
         public AnimationManager Copy(float scale)
         {
+            Dictionary<int, Animation> animations = new Dictionary<int, Animation>();
+            foreach (var item in _animations)
+            {
+                animations.Add(item.Key, item.Value.Copy());
+            }
             return new AnimationManager(_animations, _frameCount , scale);
         }
         public void Play(int animation_number)

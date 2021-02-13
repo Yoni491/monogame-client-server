@@ -93,7 +93,7 @@ namespace GameServer
             Console.WriteLine("buffer array:");
             for (int i = 0; i < _offset; i++)
             {
-                Console.Write(_buffer[i]);
+                Console.Write(_buffer[i] + ".");
             }
             _offset = 0;
             return _buffer;

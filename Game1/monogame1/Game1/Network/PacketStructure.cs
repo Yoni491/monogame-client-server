@@ -90,12 +90,12 @@ namespace GameClient
         public byte[] Data()
         {
             UpdatePacketLength();
-            Console.WriteLine("buffer array:");
-            for (int i = 0; i < _offset; i++)
-            {
-                Console.Write(_buffer[i]);
-            }
-
+            //Console.WriteLine("buffer array:");
+            //for (int i = 0; i < _offset; i++)
+            //{
+            //    Console.Write(_buffer[i] + ".");
+            //}
+            //Console.WriteLine();
             _offset = 0;
             return _buffer;
         }

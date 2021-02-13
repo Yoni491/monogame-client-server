@@ -58,7 +58,7 @@ namespace GameClient
             if (_isHovering)
                 _color = _hover;
 
-            spriteBatch.Draw(_texture, _rectangle,null, _color,0,Vector2.Zero,SpriteEffects.None,0.5f);
+            spriteBatch.Draw(_texture, _rectangle,null, _color,0,Vector2.Zero,SpriteEffects.None,0.51f);
 
             if (!string.IsNullOrEmpty(_text))
             {
@@ -69,7 +69,11 @@ namespace GameClient
             }
         }
 
-        
+        public void ResetGraphics(Vector2 position)
+        {
+            _position = position;
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
+        }
 
     }
 }

@@ -10,7 +10,7 @@ namespace GameClient
     public class GraphicManager
     {
         public static GraphicsDevice _graphicsDevice;
-        static ContentManager _contentManager;
+        public static ContentManager _contentManager;
         public static SpriteFont _font;
         private float _timer_update_grpahics;
         private Game_Client _gameClient;

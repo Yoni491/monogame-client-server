@@ -15,10 +15,10 @@ namespace GameClient
         Texture2D _menuBackgroundImage;
         GraphicsDevice _graphicsDevice;
         CharacterSelectMenu _characterSelectMenu;
-        bool _showChooseCharacter;
+        public bool _showChooseCharacter;
         public MenuManager(Game_Client game_client, GraphicsDevice graphicsDevice)
         {
-            _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client);
+            _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client,this);
             _graphicsDevice = graphicsDevice;
             _game_client = game_client;
             _menuBackgroundImage = GraphicManager.getImage("MenuBackground");

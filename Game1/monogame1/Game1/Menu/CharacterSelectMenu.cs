@@ -9,18 +9,21 @@ namespace GameClient
     {
         int index = 0;
         int[] characterNumbers = { 1,2,11,12,13,14,17,18,19};
-        Button _nextCharacter,_previousCharacter;
+        Button _nextCharacter,_previousCharacter,_returnToMain;
         Button _startGame;
         Vector2 _buttonPosition;
         private Game_Client _game_Client;
+        private  MenuManager _menuManager;
 
-        public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client)
+        public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client,MenuManager menuManager)
         {
             _buttonPosition = new Vector2(graphicsDevice.Viewport.Bounds.Width / 2, graphicsDevice.Viewport.Bounds.Height / 2);
             _nextCharacter = new Button(GraphicManager.getRectangleTexture(10, 10, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Green, Color.Gray, ">");
             _previousCharacter = new Button(GraphicManager.getRectangleTexture(10, 10, Color.White), GraphicManager.GetBasicFont(), _buttonPosition +new Vector2(-12,0), Color.Green, Color.Gray, "<");
             _startGame = new Button(GraphicManager.getRectangleTexture(100, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0,12), Color.Green, Color.Gray, "StartGame");
+            _returnToMain = new Button(GraphicManager.getRectangleTexture(160, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, 100), Color.Green, Color.Gray, "Return to main menu");
             _game_Client = game_Client;
+            _menuManager = menuManager;
         }
         public void Update(GameTime gameTime)
         {
@@ -44,7 +47,11 @@ namespace GameClient
             {
                 _game_Client._inMenu = false;
                 _game_Client._playerManager._player._animationManager = CollectionManager.GetAnimationManagerCopy(characterNumbers[index],1.5f);
-
+                _menuManager._showChooseCharacter = false;
+            }
+            if(_returnToMain.Update(gameTime))
+            {
+                _menuManager._showChooseCharacter = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -52,6 +59,7 @@ namespace GameClient
             _nextCharacter.Draw(spriteBatch);
             _previousCharacter.Draw(spriteBatch);
             _startGame.Draw(spriteBatch);
+            _returnToMain.Draw(spriteBatch);
             spriteBatch.Draw(CollectionManager._playerAnimationManager[characterNumbers[index]]._animations[1]._textures[0],new Vector2(GraphicManager.screenWidth / 2,GraphicManager.screenHeight / 2 -50),Color.White);
         }
     }

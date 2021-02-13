@@ -75,6 +75,10 @@ namespace GameClient
                     _showSettings = false;
                     _player._clickedOnUi = true;
                 }
+                if(_exitToMain.Update(gameTime))
+                {
+                    _game_client._inMenu = true;
+                }
             }
             else
             {

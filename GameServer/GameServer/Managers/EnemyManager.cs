@@ -6,13 +6,13 @@ namespace GameServer
 {
     public class EnemyManager
     {
-        private List<Player> _players;
+        private List<NetworkPlayer> _players;
         //private ContentManager _contentManager;
         //private GraphicsDevice _graphicsDevice;
         private List<Simple_Enemy> _enemies;
         //private Texture2D _bullet_texture;
         private float _random_enemies_circle_timer = 0;
-        public EnemyManager(List<Player> players, List<Simple_Enemy> enemies)
+        public EnemyManager(List<NetworkPlayer> players, List<Simple_Enemy> enemies)
         {
             _players = players;
             _enemies = enemies;

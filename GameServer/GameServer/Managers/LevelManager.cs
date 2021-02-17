@@ -8,7 +8,7 @@ namespace GameServer
 {
     public class LevelManager
     {
-        private Player _player;
+        private NetworkPlayer _player;
         private readonly TileManager _tileManager;
         Coord _coord_Player;
         Vector2 _spawnPoint;
@@ -18,7 +18,7 @@ namespace GameServer
             this._tileManager = tileManager;
             _spawnPoint = _tileManager.LoadMap(13);
         }
-        public void Initialize(Player player)
+        public void Initialize(NetworkPlayer player)
         {
             _player = player;
             _player.Position = _spawnPoint;

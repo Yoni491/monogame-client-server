@@ -7,7 +7,7 @@ namespace GameServer
 {
     public class PacketHandlerServer
     {
-        List<Player> _players;
+        List<NetworkPlayer> _players;
         PlayerManager _playerManager;
         PacketStructure _packetStructure;
         ushort packetLength;
@@ -15,8 +15,8 @@ namespace GameServer
         int playerNum;
         private bool handle = false;
         private int usingResource = 0;
-        private Player _player;
-        public PacketHandlerServer(List<Player> players, PlayerManager playerManager, Player player)
+        private NetworkPlayer _player;
+        public PacketHandlerServer(List<NetworkPlayer> players, PlayerManager playerManager, NetworkPlayer player)
         {
             _players = players;
             _playerManager = playerManager;
@@ -51,7 +51,7 @@ namespace GameServer
                             playerNum = _packetStructure.ReadInt();
                             if (playerNum == 1)
                                 Console.WriteLine("1");
-                            Player find_player = _players.Find(x => x.PlayerNum == playerNum);
+                            NetworkPlayer find_player = _players.Find(x => x.PlayerNum == playerNum);
                             if (find_player == null)
                                 break;
                             find_player.ReadPacketShort(_packetStructure);

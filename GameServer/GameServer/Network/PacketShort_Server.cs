@@ -4,8 +4,8 @@ namespace GameServer
 {
     public class PacketShort_Server : PacketStructure
     {
-        List<Player> _players;
-        public PacketShort_Server(List<Player> players) : base()
+        List<NetworkPlayer> _players;
+        public PacketShort_Server(List<NetworkPlayer> players) : base()
         {
             _players = players;
             base.UpdateType(2);

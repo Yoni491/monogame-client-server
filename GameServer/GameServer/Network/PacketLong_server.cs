@@ -4,9 +4,9 @@ namespace GameServer
 {
     public class PacketLong_Server : PacketStructure
     {
-        List<Player> _players;
-        Player _player;
-        public PacketLong_Server(List<Player> players, Player player) : base()
+        List<NetworkPlayer> _players;
+        NetworkPlayer _player;
+        public PacketLong_Server(List<NetworkPlayer> players, NetworkPlayer player) : base()
         {
             UpdateType(3);
             _players = players;

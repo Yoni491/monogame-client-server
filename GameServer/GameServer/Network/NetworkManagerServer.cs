@@ -11,7 +11,7 @@ namespace GameServer
         float _timer_short = 0;
         float _timer_long = 0;
         static List<Socket> _socket_list;
-        private List<Player> _players;
+        private List<NetworkPlayer> _players;
         Socket _socketServer;
         private List<byte> _bufferList;
         int packetType;
@@ -21,7 +21,7 @@ namespace GameServer
         int addPlayers = 0;
         List<Socket> _socketToAdd;
 
-        public NetworkManagerServer(List<Socket> socket_list, List<Player> players, PlayerManager playerManager)
+        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, PlayerManager playerManager)
         {
             _socket_list = socket_list;
             _players = players;
@@ -39,7 +39,7 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                Player player = new Player(Vector2.Zero, 100,socket,_players);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero, 100,socket,_players);
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, _playerManager, player);
                 _packetHandlers.Add(packetHandler);

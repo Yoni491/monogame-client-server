@@ -9,14 +9,15 @@ namespace GameServer
     {
         public static GraphicsDeviceManager _graphics;
         //private SpriteBatch spriteBatch;
-        private List<Player> _players;
+        private List<NetworkPlayer> _players;
         private List<Simple_Enemy> _enemies;
         //private Texture2D _line_texture;
         private EnemyManager _enemyManager;
-        private Tile[,] _tiles;
-        private TileManager tileManager;
+        private TileManager _tileManager;
         private PlayerManager _playerManager;
         private NetworkManagerServer _networkManager;
+        private CollectionManager _collectionManager;
+        private MapManager _mapManager;
 
         static List<Socket> _socket_list = new List<Socket>();
         #region Important Functions
@@ -33,12 +34,14 @@ namespace GameServer
         }
         protected override void LoadContent()
         {
-            _players = new List<Player>();
+            _mapManager = new MapManager();
+            _collectionManager = new CollectionManager(_enemies, Content);
+            _players = new List<NetworkPlayer>();
             _enemies = new List<Simple_Enemy>();
             //spriteBatch = new SpriteBatch(GraphicsDevice);
-            _playerManager = new PlayerManager(_players, Content, GraphicsDevice, _enemies);
+            _playerManager = new PlayerManager(_players,_collectionManager);
             _enemyManager = new EnemyManager(_players, _enemies);
-            tileManager = new TileManager(_tiles, GraphicsDevice, Content);
+            _tileManager = new TileManager(GraphicsDevice,Content,_mapManager);
             _networkManager = new NetworkManagerServer(_socket_list, _players, _playerManager);
             _networkManager.Initialize_connection();
         }

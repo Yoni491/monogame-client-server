@@ -1,88 +1,85 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 
 namespace GameServer
 {
     public class Player
     {
-        static int playerNum = 0;
-
-        private int playerNum1;
-
-        public Gun _gun;
-
-        private float _speed = 2f;
-
-        public Vector2 _velocity;
-
-        private Vector2 _position;
-
+        private Gun _gun;
+        private MeleeWeapon _meleeWeapon;
+        private Vector2 _velocity;
         public HealthManager _health;
-
+        public Vector2 _position;
+        public AnimationManager _animationManager;
         private Vector2 _looking_direction;
+        private bool _hide_weapon = false;
+        public bool _isGamePad;
+        public bool _clickedOnUi;
+        private float _speed = 6f;
+        private float _scale;
+        public int _playerNum;
+        private int _width;
+        private int _height;
+        private int _moving_direction;
+        public int _animationNum;
 
-        public Socket _socket;
+        private PlayerManager _playerManager;
+        private ItemManager _itemManager;
 
-        public PacketLong_Server _longPacket;
-
-        public PacketShort_Server _shortPacket; 
-        public Vector2 Position { get => _position; set => _position = value; }
-        public int PlayerNum { get => playerNum1; set => playerNum1 = value; }
-
-        private int _animationNum;
-        private int _gunNum;
-
-        public Player(Vector2 position, int health, Socket socket, List<Player> players)
+        public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
+        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
+        public Player(AnimationManager animationManager,int animationNum, Vector2 position, int health, PlayerManager playerManager, ItemManager itemManager)
         {
+            _animationNum = animationNum;
             _position = position;
-            _health = new HealthManager(health, position + new Vector2(8, 10));
             _velocity = Vector2.Zero;
-            PlayerNum = playerNum++;
-            _gun = new Gun(position, 3);
-            _socket = socket;
-            _shortPacket = new PacketShort_Server(players);
-            _longPacket = new PacketLong_Server(players, this);
+            _playerManager = playerManager;
+            _itemManager = itemManager;
+            _scale = _animationManager._scale;
+            _health = new HealthManager(health);
+            _width = _animationManager.Animation._frameWidth;
+            _height = _animationManager.Animation._frameHeight;
         }
+
         public void EquipGun(Gun gun)
         {
             _gun = gun;
+            //_gun._holderScale = _scale;
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void EquipMeleeWeapon(MeleeWeapon meleeWeapon)
         {
-            _position += _velocity;
+            _meleeWeapon = meleeWeapon;
+        }
+        public void PositionPlayerFeetAt(Vector2 position)
+        {
+            _position = position;
+            Vector2 temp = _position - Position_Feet;
+            _position += temp;
+        }
+        //public void UpdatePacketShort(PacketShort_Client packet)
+        //{
+        //    packet.WriteInt(_playerNum);
+        //    packet.WriteVector2(_position);
+        //    packet.WriteInt(_health._health_left);
+        //    packet.WriteInt(_health._total_health);
+        //    packet.WriteVector2(_velocity);
+        //    packet.WriteVector2(_looking_direction);
+        //    packet.WriteInt(_animationNum);
+        //    packet.WriteInt(_gun._id);
+        //    packet.WriteInt(_gun._bullets.FindAll(x=>x._bulletSent==false).Count());
+        //    _gun.UpdatePacketShort(packet);
+        //}
+        //public void UpdatePacketLong(PacketLong_Client packet)
+        //{
+        //    packet.WriteInt(_playerNum);
+        //    packet.WriteInt(_gun._id);
+        //}
 
-            if (_gun != null)
-            {
-                _gun.Update(gameTime, enemies, _looking_direction);
-            }
-            //_health._position = _position + new Vector2(8, 10);
-        }
-        public void UpdatePacketShort(PacketStructure packet)
-        {
-            packet.WriteInt(PlayerNum);
-            packet.WriteVector2(Position);
-            packet.WriteInt(_health._health_left);
-            packet.WriteInt(_health._total_health);
-            packet.WriteVector2(_velocity);
-            packet.WriteVector2(_looking_direction);
-            packet.WriteInt(_animationNum);
-            packet.WriteInt(_gunNum);
-            packet.WriteInt(_gun._bullets.Count());
-            _gun.UpdatePacketShort(packet);
-        }
-        public void ReadPacketShort(PacketStructure packet)
-        {
-            Position = packet.ReadVector2();
-            _health._health_left = packet.ReadInt();
-            _health._total_health = packet.ReadInt();
-            _velocity = packet.ReadVector2();
-            _looking_direction = packet.ReadVector2();
-            _animationNum = packet.ReadInt();
-            _gunNum = packet.ReadInt();
-            _gun.ReadPacketShort(packet);
-        }
     }
 }
 

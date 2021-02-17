@@ -32,32 +32,19 @@ namespace GameServer
         {
             _playerManager = playerManager;
             _itemManager = itemManager;
-            InitializeBullets();
-            InitializeGuns();
-            InitializeMeleeWeapons();
             InitializeItems();
             InitializeSimpleEnemies();
-            InitializePlayerTextures();
-        }
-        private void InitializeMeleeWeapons()
-        {
-            int id = 0;
-            _meleeWeapons = new List<MeleeWeapon>();
-            _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 6),
-                Vector2.Zero, 0.5f, 1));
-            _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 4),
-                Vector2.Zero, 0.5f, 1));
         }
         private void InitializeSimpleEnemies()
         {
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
             
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));//skeleton
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));//runner
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null, null));//mage
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//sniper
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//machine-gun
+            _simple_enemies.Add(new Simple_Enemy(id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));//skeleton
+            _simple_enemies.Add(new Simple_Enemy(id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));//runner
+            _simple_enemies.Add(new Simple_Enemy(id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null, null));//mage
+            _simple_enemies.Add(new Simple_Enemy(id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//sniper
+            _simple_enemies.Add(new Simple_Enemy(id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//machine-gun
 
 
         }
@@ -109,9 +96,6 @@ namespace GameServer
         {
             return _items[id];
         }
-        static public AnimationManager GetAnimationManagerCopy(int id,float scale)
-        {
-            return _playerAnimationManager[id - 1].Copy(scale);
-        }
+
     }
 }

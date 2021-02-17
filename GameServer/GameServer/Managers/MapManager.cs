@@ -7,7 +7,7 @@ namespace GameServer
     public class MapManager
     {
         public List<Grave> _graves;
-        Player _player;
+        NetworkPlayer _player;
         static public List<Chest> _chests;
         static public List<Box> _boxes;
 
@@ -17,7 +17,7 @@ namespace GameServer
             _chests = new List<Chest>();
             _boxes = new List<Box>();
         }
-        public void Initialize(Player player)
+        public void Initialize(NetworkPlayer player)
         {
             _player = player;
 

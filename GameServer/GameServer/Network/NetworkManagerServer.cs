@@ -50,11 +50,6 @@ namespace GameServer
                 socket.Send(packet.Data());
                 Receive(socket, packetHandler,buffer);
             }
-            foreach (var socket in _socket_list)
-            {
-                if (!socket.Connected)
-                    socket.Close();
-            }
             addPlayers -= tempPlayers;
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_short >= 0.05f)

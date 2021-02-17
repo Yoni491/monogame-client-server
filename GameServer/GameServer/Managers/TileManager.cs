@@ -1,133 +1,48 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using TiledSharp;
+
 namespace GameServer
 {
     public class TileManager
     {
-        static private GraphicsDevice _graphicDevice;
-        private ContentManager _contentManager;
-        private MapManager _mapManager;
-        static List<TileSet> _tileSets;
-        public static TmxMap _map;
-        public static List<Rectangle> _walls;
-        public Grid _grid = PathFinder.s_grid;
-
-        public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
+        private Tile[,] _tiles;
+        //private GraphicsDevice _graphicDevice;
+        //private ContentManager _contentManager;
+        int tile_width_amount;
+        int tile_height_amount;
+        public TileManager(Tile[,] tiles, GraphicsDevice graphicDevice, ContentManager contentManager)
         {
-            _graphicDevice = graphicDevice;
-            _contentManager = contentManager;
-            _mapManager = mapManager;
-            _tileSets = new List<TileSet>();
+            _tiles = tiles;
+            //_graphicDevice = graphicDevice;
+            //_contentManager = contentManager;
+            tile_width_amount = 1600 / 16;
+            tile_height_amount = 1600 / 16;
+            tileMaker();
         }
-        public Vector2 LoadMap(int mapNum)
+        public void tileMaker()
         {
-            _walls = new List<Rectangle>();
 
-            string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
-            _map = new TmxMap(mapName);
-            int tilesetIndex = 0;
-
-            Vector2 spawnPoint = Vector2.Zero;
-
-            for (int i = 0; i < _map.Tilesets.Count; i++)
+            _tiles = new Tile[tile_width_amount, tile_height_amount];
+            for (int i = 0; i < tile_width_amount; i++)
             {
-                _tileSets.Add(new TileSet(_contentManager.Load<Texture2D>("maps/" + _map.Tilesets[i].Name.ToString()),
-                _map.Tilesets[i].TileWidth, _map.Tilesets[i].TileHeight));
-            }
-            _grid = new Grid(_map.Width,_map.Height);
-
-            for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
-            {
-                InitializeGid(i,1,ref spawnPoint);
-
-            }
-            for (int i = 0; i < _map.TileLayers[2].Tiles.Count; i++)
-            {
-                InitializeGid(i, 2, ref spawnPoint);
-
-            }
-
-            PathFinder.UpdateGrid(_grid);
-            return spawnPoint;
-
-        }
-        public void InitializeGid(int i, int tilesetIndex,ref Vector2 spawnPoint)
-        {
-            int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
-            if (gid != 0)
-            {
-
-                if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                for (int j = 0; j < tile_height_amount; j++)
                 {
-                    if (gid == 325)//grave normal
-                    {
-                        _mapManager._graves.Add(new Grave(AddWall(i), false));
-                    }
-                    else if (gid == 326)//grave broken
-                    {
-                        AddWall(i);
-                        _mapManager._graves.Add(new Grave(AddWall(i), true));
-                    }
-                    else if (gid == 134)//spawn point
-                    {
-                        spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
-                    }
-                    else if (gid == 469 || gid == 467)//normal chest
-                    {
-                        MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
-                    }
-                    else if (gid == 468 ||gid == 465)
-                    {
-                        MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
-                        AddWall(i,1.5f);
-                    }
-                    else//normal walls
-                    {
-                        AddWall(i);
-                    }
+                    _tiles[i, j] = new Tile(16, 16, new Vector2(i * 16, j * 16));
                 }
+
             }
         }
-        public Rectangle AddWall(int i,float scale = 1)
-        {
-            float x = (i % _map.Width) * _map.TileWidth;
-            float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-            Rectangle rectangle = new Rectangle((int)x, (int)y, (int)(_tileSets[0]._tileWidth * scale),(int)( _tileSets[0]._tileHeight* scale));
-            _walls.Add(rectangle);
-            _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
-            return rectangle;
-        }
-
-
-        //static public float GetLayerDepth(float y)
+        //public void Draw(SpriteBatch spriteBatch)
         //{
-        //    return (y / _graphicDevice.Viewport.Height * GraphicManager.ScreenScale.Y) + 0.1f;
+        //    for (int i = 0; i < tile_width_amount; i++)
+        //    {
+        //        for (int j = 0; j < tile_height_amount; j++)
+        //        {
+        //            _tiles[i, j].Draw(spriteBatch);
+        //        }
+
+        //    }
         //}
-        static public Coord GetCoordTile(Vector2 _position)
-        {
-            Coord coord = new Coord((int)(_position.X / 1920 * _map.Width), (int)(_position.Y / 1080 * _map.Height));
-            if (coord.X >= _map.Width)
-                coord.X = _map.Width - 1;
-            if (coord.Y >= _map.Height)
-                coord.Y = _map.Height - 1;
-            return coord;
-        }
-        static public Vector2 GetPositionFromCoord(Coord coord)
-        {
-            return new Vector2(coord.X * _tileSets[0]._tileWidth, coord.Y * _tileSets[0]._tileHeight);
-        }
-        static public Vector2 GetPositionFromCoord(int x, int y)
-        {
-            return new Vector2(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight);
-        }
-        static public Rectangle GetRectangleFromCoord(int x, int y,float scale = 1)
-        {
-            return new Rectangle(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight,(int)( 16 * scale),(int)( 16 * scale));
-        }
     }
 }

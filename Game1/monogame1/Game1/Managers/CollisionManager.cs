@@ -61,29 +61,26 @@ namespace GameClient
             }
             return false;
         }
-        static public Chest isCollidingChests(Rectangle rectangle, Vector2 velocity)
+        static public bool isCollidingChests(Rectangle rectangle, Vector2 velocity)
         {
             foreach (var chest in MapManager._chests)
             {
                 if (IsCollidingLeft(rectangle, chest.Rectangle, velocity) || IsCollidingRight(rectangle, chest.Rectangle, velocity) || IsCollidingTop(rectangle, chest.Rectangle, velocity) || IsCollidingBottom(chest.Rectangle, chest.Rectangle, velocity))
                 {
-                    return chest;
+                    chest.Open();
+                    return true;
                 }
             }
-            return null;
+            return false;
         }
-        static public bool isCollidingBoxes(Rectangle rectangle, Vector2 velocity, bool _destroyBox)
+        static public bool isCollidingBoxes(Rectangle rectangle, Vector2 velocity)
         {
             foreach (var box in MapManager._boxes)
             {
-                if (!box._destroy)
+                if (IsCollidingLeft(rectangle, box.Rectangle, velocity) || IsCollidingRight(rectangle, box.Rectangle, velocity) || IsCollidingTop(rectangle, box.Rectangle, velocity) || IsCollidingBottom(box.Rectangle, box.Rectangle, velocity))
                 {
-                    if (IsCollidingLeft(rectangle, box.Rectangle, velocity) || IsCollidingRight(rectangle, box.Rectangle, velocity) || IsCollidingTop(rectangle, box.Rectangle, velocity) || IsCollidingBottom(box.Rectangle, box.Rectangle, velocity))
-                    {
-                        if(_destroyBox)
-                            box.Destroy();
-                        return true;
-                    }
+                    box.Destroy();
+                    return true;
                 }
             }
             return false;

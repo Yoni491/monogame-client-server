@@ -68,7 +68,7 @@ namespace GameClient
                     {
                         _destroy = true;
                     }
-                    else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,true))
+                    else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity))
                     {
                         _destroy = true;
                     }
@@ -80,7 +80,7 @@ namespace GameClient
             }
             else
             {
-                if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,true))
+                if (CollisionManager.isCollidingBoxes(Rectangle, _velocity))
                 {
                     _destroy = true;
                 }

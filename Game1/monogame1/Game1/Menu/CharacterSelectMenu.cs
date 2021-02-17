@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 
 namespace GameClient
@@ -9,7 +8,7 @@ namespace GameClient
     public class CharacterSelectMenu
     {
         int index = 0;
-        int[] characterNumbers = { 2,3,12,13,14,15,18,19,20};
+        int[] characterNumbers = { 1,2,11,12,13,14,17,18,19};
         Button _nextCharacter,_previousCharacter,_returnToMain;
         Button _startGame;
         Vector2 _buttonPosition;
@@ -48,15 +47,11 @@ namespace GameClient
             {
                 _game_Client._inMenu = false;
                 _game_Client._playerManager._player._animationManager = CollectionManager.GetAnimationManagerCopy(characterNumbers[index],1.5f);
-                _game_Client._playerManager._player._animationNum = characterNumbers[index];
-                Console.WriteLine("b" + characterNumbers[index]);
-                _menuManager._showChooseCharacterMenu = false;
+                _menuManager._showChooseCharacter = false;
             }
             if(_returnToMain.Update(gameTime))
             {
-                _menuManager._showMultiplayerMenu = false;
-                _menuManager._showChooseCharacterMenu = false;
-                _game_Client._networkManager.CloseConnection();
+                _menuManager._showChooseCharacter = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -65,7 +60,7 @@ namespace GameClient
             _previousCharacter.Draw(spriteBatch);
             _startGame.Draw(spriteBatch);
             _returnToMain.Draw(spriteBatch);
-            spriteBatch.Draw(CollectionManager._playerAnimationManager[characterNumbers[index] - 1]._animations[1]._textures[0],new Vector2(GraphicManager.screenWidth / 2,GraphicManager.screenHeight / 2 -50),Color.White);
+            spriteBatch.Draw(CollectionManager._playerAnimationManager[characterNumbers[index]]._animations[1]._textures[0],new Vector2(GraphicManager.screenWidth / 2,GraphicManager.screenHeight / 2 -50),Color.White);
         }
     }
 }

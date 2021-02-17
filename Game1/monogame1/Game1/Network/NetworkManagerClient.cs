@@ -19,20 +19,17 @@ namespace GameClient
         ushort packetType;
         PacketShort_Client _packet_short;
         public static bool _updatenetworkPlayerTexture = false;
-        Game_Client _game_Client;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, Game_Client game_Client)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager)
         {
-            _game_Client = game_Client;
             _playerManager = playerManager;
             _player = player;
             _packetHandler = new PacketHandlerClient(_network_players, player, playerManager);
             _packet_short = new PacketShort_Client();
             _packet_short.Initialize(player);
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
         public void Update(GameTime gameTime)
         {
@@ -69,6 +66,7 @@ namespace GameClient
         }
         public void Initialize_connection()
         {
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.124.38.9"), 1994);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
@@ -77,8 +75,6 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
-                MenuManager._connected = true;
-                _game_Client._IsMultiplayer = true;
                 Receive();
             }
             else
@@ -95,11 +91,6 @@ namespace GameClient
             int buffer_size = _socket.EndReceive(result);
             _packetHandler.Handle(_buffer);
             Receive();
-        }
-        public void CloseConnection()
-        {
-            if(_socket.Connected)
-                _socket.Close();
         }
     }
 }

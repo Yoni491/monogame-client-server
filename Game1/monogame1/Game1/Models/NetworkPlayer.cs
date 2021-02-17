@@ -133,8 +133,6 @@ namespace GameClient
             }
             else if (animationNum != _animationNum)
             {
-                _animationNum = animationNum;
-                Console.WriteLine("a" + animationNum);
                 _animationManager = GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f);
                 _width = _animationManager.Animation._frameWidth;
                 _height = _animationManager.Animation._frameHeight;

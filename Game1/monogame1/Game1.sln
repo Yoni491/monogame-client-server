@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameClient", "Game1\GameClient.csproj", "{8ABCF4F3-39C8-46E5-B673-20F280CA264F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "..\..\GameServer\GameServer\GameServer.csproj", "{4484C93A-3A54-43AF-B7CF-A9CE894793D9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A} = {DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiledSharp", "TiledSharp\TiledSharp.csproj", "{DEC7D49B-825F-4EE2-9BA4-CBE727C9318A}"
 EndProject

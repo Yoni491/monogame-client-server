@@ -8,8 +8,8 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/etc/lineSprite.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/etc/settings.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Fonts/basic.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Images/backgroundUnboxingrave.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Images/settings_background.jpg</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/Images/template.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/maps/Dungeon_Tileset.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/maps/tf_A5_ashlands_1.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/Game1/Content/maps/tf_B_ashlands_1.png</File>
@@ -56,7 +56,7 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-    <File xsi:nil="true" />
+    <File>Images/MenuBackground.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

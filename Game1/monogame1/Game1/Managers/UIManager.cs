@@ -19,7 +19,6 @@ namespace GameClient
         private Texture2D _settingsBackground;
         int _buttonHeight = 30;
         Vector2 _buttonsPosition;
-
         public UIManager()
         {
 
@@ -117,10 +116,6 @@ namespace GameClient
             _exitFullScreenButton.ResetGraphics(_buttonsPosition);
             _returnToGame.ResetGraphics(_buttonsPosition * 1.9f);
             
-        }
-        public bool MouseClick()
-        {
-            return false;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace GameClient
         private int _width;
         private int _height;
         private int _moving_direction;
-        public int _animationNum;
+        private int _animationNum;
 
         private PlayerManager _playerManager;
         private ItemManager _itemManager;

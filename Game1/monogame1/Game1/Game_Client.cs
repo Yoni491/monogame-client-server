@@ -19,7 +19,7 @@ namespace GameClient
         private TileManager _tileManager;
         public PlayerManager _playerManager;
         public CollectionManager _collectionManager;
-        private NetworkManagerClient _networkManager;
+        public NetworkManagerClient _networkManager;
         private InventoryManager _inventoryManager;
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
@@ -29,6 +29,7 @@ namespace GameClient
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
         public bool _inMenu = true;
+        public bool _IsMultiplayer = false;
 
         #region Important Functions
         public Game_Client()
@@ -77,8 +78,7 @@ namespace GameClient
             _inventoryManager.Initialize(_player);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player,this);
-            _networkManager.Initialize(_network_players, _player, _playerManager);
-            _networkManager.Initialize_connection();
+            _networkManager.Initialize(_network_players, _player, _playerManager,this);
 
 
         }
@@ -96,7 +96,8 @@ namespace GameClient
             {
                 _enemyManager.Update(gameTime);
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
-                _networkManager.Update(gameTime);
+                if(_IsMultiplayer)
+                    _networkManager.Update(gameTime);
                 _UIManager.Update(gameTime);
                 _playerManager.Update(gameTime, _enemies);
                 _mapManager.Update();

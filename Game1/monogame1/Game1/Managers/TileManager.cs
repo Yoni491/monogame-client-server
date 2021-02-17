@@ -43,12 +43,12 @@ namespace GameClient
 
             for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
             {
-                ManageGid(i,1,ref spawnPoint);
+                InitializeGid(i,1,ref spawnPoint);
 
             }
             for (int i = 0; i < _map.TileLayers[2].Tiles.Count; i++)
             {
-                ManageGid(i, 2, ref spawnPoint);
+                InitializeGid(i, 2, ref spawnPoint);
 
             }
 
@@ -56,7 +56,7 @@ namespace GameClient
             return spawnPoint;
 
         }
-        public void ManageGid(int i, int tilesetIndex,ref Vector2 spawnPoint)
+        public void InitializeGid(int i, int tilesetIndex,ref Vector2 spawnPoint)
         {
             int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
             if (gid != 0)
@@ -79,12 +79,12 @@ namespace GameClient
                     }
                     else if (gid == 469 || gid == 467)//normal chest
                     {
-                        MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width), i, tilesetIndex));
+                        MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
                     }
                     else if (gid == 468 ||gid == 465)
                     {
-                        MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width), i, tilesetIndex));
-                        AddWall(i);
+                        MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
+                        AddWall(i,1.5f);
                     }
                     else//normal walls
                     {
@@ -93,11 +93,27 @@ namespace GameClient
                 }
             }
         }
-        public Rectangle AddWall(int i)
+        public bool ManageGid(SpriteBatch spriteBatch,int i,int gid,int tileLayer)
+        {
+            if (gid == 468 || gid == 465)
+            {
+                gid = gid - _map.Tilesets[2].FirstGid + 1;
+                DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 1.5f);
+                return true;
+            }
+                if (gid == 469 || gid == 467)//normal chest
+            {
+                gid = gid - _map.Tilesets[2].FirstGid + 1;
+                DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2);
+                return true;
+            }
+            return false;
+        }
+        public Rectangle AddWall(int i,float scale = 1)
         {
             float x = (i % _map.Width) * _map.TileWidth;
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-            Rectangle rectangle = new Rectangle((int)x, (int)y, _tileSets[0]._tileWidth, _tileSets[0]._tileHeight);
+            Rectangle rectangle = new Rectangle((int)x, (int)y, (int)(_tileSets[0]._tileWidth * scale),(int)( _tileSets[0]._tileHeight* scale));
             _walls.Add(rectangle);
             _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
             return rectangle;
@@ -114,26 +130,33 @@ namespace GameClient
                 {
                     int gid = _map.TileLayers[tileLayer].Tiles[i].Gid;
                     TileSet tileset=null;
-                    if (gid < _map.Tilesets[1].FirstGid)
+                    if (ManageGid(spriteBatch, i, gid, tileLayer))
                     {
-                        tileset = _tileSets[0];
+
                     }
-                    else if (gid > _map.Tilesets[1].FirstGid && gid < _map.Tilesets[2].FirstGid)
+                    else
                     {
-                        tileset = _tileSets[1];
-                        gid = gid - _map.Tilesets[1].FirstGid + 1;
+                        if (gid < _map.Tilesets[1].FirstGid)
+                        {
+                            tileset = _tileSets[0];
+                        }
+                        else if (gid > _map.Tilesets[1].FirstGid && gid < _map.Tilesets[2].FirstGid)
+                        {
+                            tileset = _tileSets[1];
+                            gid = gid - _map.Tilesets[1].FirstGid + 1;
+                        }
+                        else if (gid > _map.Tilesets[2].FirstGid)
+                        {
+                            tileset = _tileSets[2];
+                            gid = gid - _map.Tilesets[2].FirstGid + 1;
+                        }
+                        if (gid != 0)
+                            DrawTile(gid, tileset, spriteBatch, i, 0.01f * tileLayer);
                     }
-                    else if (gid > _map.Tilesets[2].FirstGid)
-                    {
-                        tileset = _tileSets[2];
-                        gid = gid - _map.Tilesets[2].FirstGid + 1;
-                    }
-                    if(gid!=0)
-                        DrawTile(gid, tileset, spriteBatch, i, 0 + 0.01f* tileLayer) ;
                 }
             }
         }
-        public void DrawTile(int gid,TileSet tileset,SpriteBatch spriteBatch,int i,float layer)
+        public void DrawTile(int gid, TileSet tileset, SpriteBatch spriteBatch, int i, float layer,float scale = 1)
         {
             int tileFrame = gid - 1;
             int column = tileFrame % tileset._tilesetTilesWide;
@@ -142,8 +165,8 @@ namespace GameClient
             float x = (i % _map.Width) * _map.TileWidth;
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
 
-            Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, tileset._tileWidth, tileset._tileHeight);
-            spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, tileset._tileWidth, tileset._tileHeight), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, layer);
+            Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, (int)(tileset._tileWidth), (int)(tileset._tileHeight));
+            spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, (int)(tileset._tileWidth * scale),(int)( tileset._tileHeight * scale)), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, layer);
         }
 
 
@@ -168,9 +191,9 @@ namespace GameClient
         {
             return new Vector2(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight);
         }
-        static public Rectangle GetRectangleFromCoord(int x, int y)
+        static public Rectangle GetRectangleFromCoord(int x, int y,float scale = 1)
         {
-            return new Rectangle(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight, 16, 16);
+            return new Rectangle(x * _tileSets[0]._tileWidth, y * _tileSets[0]._tileHeight,(int)( 16 * scale),(int)( 16 * scale));
         }
     }
 }

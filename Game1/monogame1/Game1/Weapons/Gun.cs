@@ -34,7 +34,8 @@ namespace GameClient
         private float _swing_frame_window = 0.01f;
         private float _swing_frame_timer = 0;
         private float swingSpeed = 14;
-        private bool _isColided = false;
+        private bool _isColided = false,_isColidedBox;
+        private Chest _colidedChest;
         private float _swing_range = 32;
         public bool _swing_weapon;
         #endregion
@@ -80,27 +81,40 @@ namespace GameClient
             if (_swing_weapon)
             {
                 SwingUpdate(gameTime);
+                Rectangle swingRectangle;
+                if (_moving_direction_int == (int)Direction.Right || _moving_direction_int == (int)Direction.Left)
+                    swingRectangle = new Rectangle((int)_position.X, (int)_position.Y-16, 16, 48);
+                else
+                    swingRectangle = new Rectangle((int)_position.X - 16, (int)_position.Y+16, 48, 16);
                 _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_hitPlayers)
                 {
-                    if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle,Vector2.Zero, 5))
+                    if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
                     }
                 }
                 else
                 {
-                    if (!_isColided && CollisionManager.isColidedWithEnemies(Rectangle, Vector2.Zero, 5))
+                    if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
                     }
-                    else if (!_isColided && CollisionManager.isCollidingBoxes(Rectangle, Vector2.Zero))
+                    else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero,true))
                     {
-                        
+                        _isColidedBox = true;
+                        while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero,true))
+                        {
+                            
+                        }
                     }
-                    else if (!_isColided && CollisionManager.isCollidingChests(Rectangle, Vector2.Zero))
+                    else if (!_isColidedBox && !_isColided)
                     {
-                        _isColided = true;
+                        _colidedChest = CollisionManager.isCollidingChests(swingRectangle, Vector2.Zero);
+                        if (_colidedChest != null)
+                        {
+                            _isColided = true;
+                        }
                     }
                 }
             }
@@ -111,10 +125,13 @@ namespace GameClient
             }
             if (_swing_timer >= 0.1f)
             {
+                if (_colidedChest != null && !_isColidedBox)
+                    _colidedChest.Open();
                 _swing_timer = 0;
                 _swing_weapon = false;
                 _position = position + new Vector2(23, 44) * _holderScale;
                 _isColided = false;
+                _isColidedBox = false;
                 _between_attacks_timer = 0;
             }
         }

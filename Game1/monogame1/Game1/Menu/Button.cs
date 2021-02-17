@@ -13,12 +13,12 @@ namespace GameClient
     {
         Texture2D _texture;
         SpriteFont _font;
-        bool _isHovering;
         Rectangle _rectangle;
         Vector2 _position;
+        string _text;
+        bool _isHovering;
         MouseState _previousMouse, _currentMouse;
         Color _normal, _hover;
-        string _text;
 
         public void Text(string text) { _text = text; }
 

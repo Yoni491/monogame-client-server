@@ -67,31 +67,31 @@ namespace GameClient
             _items = new List<Item>();
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 4),//0 - 4 consumables
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 4),
-                id++, "Ore", 0.02f, 1, false, false, false, null, null, 10));
+                id++, "Ore", 0.02f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 0),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 0)
-                , id++, "Wood", 0.02f, 1, false, false, false, null, null, 10));
+                , id++, "Wood", 0.02f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 6, 2),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 6, 2),
-                id++, "Apple", 0.01f, 1, false, false, false, null, null, 10));
+                id++, "Apple", 0.01f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 3),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 3),
-                id++, "Bone", 0.08f, 1, false, false, false, null, null, 10));
+                id++, "Bone", 0.08f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
-                id++, "Potion", 0.04f, 1, false, false, false, null, null, 10));
+                id++, "Potion", 0.04f, 1, false, false, false, null, 10));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),null,//5 - 9 weapons
-                id++, "M16", 0.1f, 1, false, false, false, null, _guns[0], 1));
+                id++, "M16", 0.1f, 1, false, false, false, _guns[0], 1));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"),null,
-                id++, "Sniper", 0.1f, 1, false, false, false, null, _guns[1], 1));
+                id++, "Sniper", 0.1f, 1, false, false, false, _guns[1], 1));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"),null,
-                id++, "Rifle", 0.1f, 1, false, false, false, null, _guns[2], 1));
+                id++, "Rifle", 0.1f, 1, false, false, false, _guns[2], 1));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"),null,
-                id++, "MachineGun", 0.1f, 1, false, false, false, null, _guns[3], 1));
+                id++, "MachineGun", 0.1f, 1, false, false, false, _guns[3], 1));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"),null,
-                id++, "Uzi", 0.1f, 1, false, false, false, null, _guns[4], 1));
+                id++, "Uzi", 0.1f, 1, false, false, false, _guns[4], 1));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8,6), null,
-                id++, "Gold", 0.01f, 1, false, false, false, null, _guns[4], 1000));
+                id++, "Gold", 0.01f, 1, false, false, false, _guns[4], 1000));
 
         }
         private void InitializeBullets()
@@ -161,7 +161,7 @@ namespace GameClient
         }
         static public AnimationManager GetAnimationManagerCopy(int id,float scale)
         {
-            return _playerAnimationManager[id].Copy(scale);
+            return _playerAnimationManager[id - 1].Copy(scale);
         }
     }
 }

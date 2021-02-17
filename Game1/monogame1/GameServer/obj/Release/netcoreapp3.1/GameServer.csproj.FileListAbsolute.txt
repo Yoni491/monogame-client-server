@@ -1,0 +1,10 @@
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.AssemblyInfoInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.AssemblyInfo.cs
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\GameServer\obj\Release\netcoreapp3.1\GameServer.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.AssemblyInfoInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.AssemblyInfo.cs
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\obj\Release\netcoreapp3.1\GameServer.pdb

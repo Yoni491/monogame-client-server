@@ -13,7 +13,6 @@ namespace GameClient
         public static ContentManager _contentManager;
         public static SpriteFont _font;
         private float _timer_update_grpahics;
-        private Game_Client _gameClient;
         public static GraphicsDeviceManager _graphics;
         public static Vector2 ScreenScale;
         public static float screenHeightScaled;
@@ -21,12 +20,11 @@ namespace GameClient
         public static int screenHeight;
         public static int screenWidth;
         public static Vector2 _ScreenMiddle;
-        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, Game_Client gameClient, GraphicsDeviceManager graphics)
+        public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, GraphicsDeviceManager graphics)
         {
             _graphicsDevice = graphicsDevice;
             _contentManager = contentManager;
             _font = contentManager.Load<SpriteFont>("Fonts/basic");
-            _gameClient = gameClient;
             _graphics = graphics;
             ScreenScale = new Vector2((float)1280 / 1920, (float)720 / 1080);
             screenHeight = 720;
@@ -41,7 +39,7 @@ namespace GameClient
             if(_timer_update_grpahics >=1)
             {
                 _timer_update_grpahics = 0;
-                _gameClient.ResetGraphics();
+                Game_Client.ResetGraphics();
             }
         }
         static public SpriteFont GetBasicFont()

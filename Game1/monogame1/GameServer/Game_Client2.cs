@@ -2,11 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using GameClient;
 namespace GameClient
 {
-    public class Game_Client : Game
+    public class Game_Client2 : Game
     {
         public static GraphicsDeviceManager _graphics;
+        private MenuManager _menuManager;
         private SpriteBatch _spriteBatch;
         private SpriteBatch _UIbatch;
         private SpriteBatch _settingsBatch;
@@ -18,20 +20,19 @@ namespace GameClient
         public PlayerManager _playerManager;
         public CollectionManager _collectionManager;
         public NetworkManagerClient _networkManager;
+        private InventoryManager _inventoryManager;
         private ItemManager _itemManager;
         private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
         private LevelManager _levelManager;
+        private UIManager _UIManager;
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
-        static private InventoryManager _inventoryManager;
-        static private MenuManager _menuManager;
-        static private UIManager _UIManager;
-        static public bool _inMenu = true;
-        static public bool _IsMultiplayer = false;
+        public bool _inMenu = true;
+        public bool _IsMultiplayer = false;
 
         #region Important Functions
-        public Game_Client()
+        public Game_Client2()
         {
             _graphics = new GraphicsDeviceManager(this);
             
@@ -56,7 +57,6 @@ namespace GameClient
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             _mapManager = new MapManager();
-            _menuManager = new MenuManager(this, GraphicsDevice);
             _network_players = new List<NetworkPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collisionManager = new CollisionManager();
@@ -134,7 +134,7 @@ namespace GameClient
 
         }
 
-        static public void ResetGraphics()
+        public void ResetGraphics()
         {
             _inventoryManager.ResetGraphics();
             _UIManager.ResetGraphics();

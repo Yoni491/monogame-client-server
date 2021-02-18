@@ -65,21 +65,6 @@ namespace GameServer
         }
 
         #endregion
-        #region etcFunctions
-        //public void DrawLine(Vector2 start, Vector2 end)
-        //{
-        //    _line_texture = Content.Load<Texture2D>("etc/lineSprite");
-        //    spriteBatch.Draw(_line_texture, start, null, Color.White,
-        //                     (float)Math.Atan2(end.Y - start.Y, end.X - start.X),
-        //                     new Vector2(0f, (float)_line_texture.Height / 2),
-        //                     new Vector2(Vector2.Distance(start, end), 0.005f),
-        //                     SpriteEffects.None, 0f);
-
-        //}
-        #endregion
-        #region tiles
-
-        #endregion
 
     }
 }

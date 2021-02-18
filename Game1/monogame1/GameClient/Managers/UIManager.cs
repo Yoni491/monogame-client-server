@@ -11,7 +11,6 @@ namespace GameClient
         InventoryManager _InventoryManager;
         //Rectangle settingsRectangle;
         Button _settingButton, _fullScreenButton, _exitFullScreenButton,_returnToGame,_exitToMain;
-        private Game_Client _game_client;
         GraphicsDeviceManager _graphics;
         private Player _player;
         bool fullScreen;
@@ -24,9 +23,8 @@ namespace GameClient
         {
 
         }
-        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics, Player player, Game_Client game_client)
+        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics, Player player)
         {
-            _game_client = game_client;
             _graphics = graphics;
             _player = player;
             _InventoryManager = InventoryManager;
@@ -51,7 +49,7 @@ namespace GameClient
                         _player._clickedOnUi = true;
                         fullScreen = true;
                         GraphicManager.ChangeToFullScreen(true);
-                        _game_client.ResetGraphics();
+                        Game_Client.ResetGraphics();
                     }
                 }
                 else
@@ -62,7 +60,7 @@ namespace GameClient
                         _player._clickedOnUi = true;
                         fullScreen = false;
                         GraphicManager.ChangeToFullScreen(false);
-                        _game_client.ResetGraphics();
+                        Game_Client.ResetGraphics();
                     }
                 }
                 
@@ -78,7 +76,7 @@ namespace GameClient
                 }
                 if(_exitToMain.Update(gameTime))
                 {
-                    _game_client._inMenu = true;
+                    Game_Client._inMenu = true;
                 }
             }
             else

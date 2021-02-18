@@ -19,14 +19,12 @@ namespace GameClient
         ushort packetType;
         PacketShort_Client _packet_short;
         public static bool _updatenetworkPlayerTexture = false;
-        Game_Client _game_Client;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, Game_Client game_Client)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager)
         {
-            _game_Client = game_Client;
             _playerManager = playerManager;
             _player = player;
             _packetHandler = new PacketHandlerClient(_network_players, player, playerManager);
@@ -78,7 +76,7 @@ namespace GameClient
             if (_socket.Connected)
             {
                 MenuManager._connected = true;
-                _game_Client._IsMultiplayer = true;
+                Game_Client._IsMultiplayer = true;
                 Receive();
             }
             else

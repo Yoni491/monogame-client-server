@@ -107,7 +107,7 @@ namespace GameClient
             if(_destroyIn3 != 0)
                 spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
         }
-        public void UpdatePacketShort(PacketStructure packet)
+        public void UpdatePacketShort(Packet packet)
         {
             packet.WriteVector2(_startPosition);
             packet.WriteVector2(_direction);

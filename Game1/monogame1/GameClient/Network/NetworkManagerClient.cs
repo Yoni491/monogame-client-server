@@ -16,20 +16,18 @@ namespace GameClient
         bool _connect_again = false;
         PlayerManager _playerManager;
         Player _player;
-        ushort packetType;
-        PacketShort_Client _packet_short;
+        Packet _packet;
         public static bool _updatenetworkPlayerTexture = false;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager,List<Simple_Enemy> enemies,EnemyManager enemyManager)
         {
             _playerManager = playerManager;
             _player = player;
-            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager);
-            _packet_short = new PacketShort_Client();
-            _packet_short.Initialize(player);
+            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager);
+            _packet = new Packet();
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
         public void Update(GameTime gameTime)
@@ -40,11 +38,10 @@ namespace GameClient
                 if (_timer_short >= 0.05f)
                 {
                     _timer_short = 0;
-                    _packet_short.UpdatePacket();
-                    _socket.Send(_packet_short.Data());
-                    packetType = _packet_short.ReadUShort();
-                    //if (packetType != 0)
-                    //    Console.WriteLine("client: packet left Length: {0} | type: {1}", packetType, _packet_short.ReadUShort());
+                    _packet.UpdateType(1);//packet type
+                    _packet.WriteInt(1);//number of players to send.
+                    _player.UpdatePacketShort(_packet);//player data
+                    _socket.Send(_packet.Data());
                 }
                 _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_timer_long >= 1.5f)
@@ -67,7 +64,7 @@ namespace GameClient
         }
         public void Initialize_connection()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.124.38.9"), 1994);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.126.31.222"), 1994);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
         }

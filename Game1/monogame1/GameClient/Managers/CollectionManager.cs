@@ -11,7 +11,7 @@ namespace GameClient
     {
         List<Simple_Enemy> _enemies;
         ContentManager _contentManager;
-        static List<Gun> _guns;
+        public static List<Gun> _guns;
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
         static List<Item> _items;
@@ -53,11 +53,16 @@ namespace GameClient
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
             
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager, _itemManager, 15, allConsumables, null,null,null));//skeleton
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null,null));//runner
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager, _itemManager, 10, allWeapons, null, null, null));//mage
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//sniper
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager, _itemManager, 10, allWeapons, null, null, null));//machine-gun
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
+                _itemManager, 15, allConsumables, null,null,null));//skeleton
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager,
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0, 0.7f), null,null));//runner
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
+                _itemManager, 10, allWeapons, null, null, null));//mage
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+                _itemManager, 10, allWeapons, null, null, null));//sniper
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+                _itemManager, 10, allWeapons, null, null, null));//machine-gun
 
 
         }
@@ -147,13 +152,9 @@ namespace GameClient
             }
             return _meleeWeapons[id].Copy(scale);
         }
-        public Simple_Enemy GetSimpleEnemyCopyWithGun(int id, float scale)
+        public Simple_Enemy GetSimpleEnemyCopy(int id, float scale)
         {
-            return _simple_enemies[id].Copy(scale,GetGunCopy(-1, scale, true),null);
-        }
-        public Simple_Enemy GetSimpleEnemyCopyWithWeapon(int id, float scale)
-        {
-            return _simple_enemies[id].Copy(scale, null, GetMeleeWeaponCopy(-1, 0.7f));
+            return _simple_enemies[id].Copy(scale);
         }
         public Item GetItem(int id)
         {

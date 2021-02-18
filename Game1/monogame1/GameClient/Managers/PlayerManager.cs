@@ -78,10 +78,13 @@ namespace GameClient
                         player_position = player.Position_Feet;
                     }
                 }
-            if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
+            if (_player != null)
             {
-                closest_object_distance = Vector2.Distance(position, _player.Position_Feet);
-                player_position = _player.Position_Feet;
+                if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
+                {
+                    closest_object_distance = Vector2.Distance(position, _player.Position_Feet);
+                    player_position = _player.Position_Feet;
+                }
             }
             return player_position;
         }

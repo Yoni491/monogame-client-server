@@ -9,7 +9,7 @@ namespace GameClient
 {
     public class CollisionManager
     {
-        static private List<NetworkPlayer> _other_players;
+        static private List<NetworkPlayer> _networkPlayers;
         static private Player _player;
         static private List<Simple_Enemy> _enemies;
 
@@ -18,7 +18,7 @@ namespace GameClient
         }
         public void Initialize(List<NetworkPlayer> other_players, Player player, List<Simple_Enemy> enemies)
         {
-            _other_players = other_players;
+            _networkPlayers = other_players;
             _player = player;
             _enemies = enemies;
         }
@@ -32,10 +32,25 @@ namespace GameClient
         }
         static public bool isColidedWithPlayer(Rectangle rectangle, Vector2 velocity, int dmg)
         {
+            if (_player == null)
+                return false;
             if (IsCollidingLeft(rectangle, _player.Rectangle, velocity) || IsCollidingRight(rectangle, _player.Rectangle, velocity) || IsCollidingTop(rectangle, _player.Rectangle, velocity) || IsCollidingBottom(_player.Rectangle, _player.Rectangle, velocity))
             {
                 _player._health._health_left -= dmg;
                 return true;
+            }
+            return false;
+        }
+        static public bool isColidedWithNetworkPlayers(Rectangle rectangle, Vector2 velocity, int dmg)
+        {
+            if (_networkPlayers == null)
+                return false;
+            foreach (var player in _networkPlayers)
+            {
+                if (IsCollidingLeft(rectangle, player.Rectangle, velocity) || IsCollidingRight(rectangle, player.Rectangle, velocity) || IsCollidingTop(rectangle, player.Rectangle, velocity) || IsCollidingBottom(player.Rectangle, player.Rectangle, velocity))
+                {
+                    return true;
+                }
             }
             return false;
         }

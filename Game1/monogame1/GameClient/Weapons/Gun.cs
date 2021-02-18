@@ -286,7 +286,7 @@ namespace GameClient
 
             }
         }
-        public void UpdatePacketShort(PacketStructure packet)
+        public void UpdatePacketShort(Packet packet)
         {
             foreach (var bullet in _bullets)
             {
@@ -295,7 +295,7 @@ namespace GameClient
             }
 
         }
-        public void ReadPacketShort(PacketStructure packet)
+        public void ReadPacketShort(Packet packet)
         {
             int bulletAmount = packet.ReadInt();
             for (int i = 0; i < bulletAmount; i++)

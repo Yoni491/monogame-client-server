@@ -8,9 +8,11 @@ namespace GameClient
     public enum Direction { Up = 0, Down, Left, Right };
     public class Simple_Enemy
     {
-        int _id;
+        int _enemyId;
+        static int _s_enemyNum=0;
+        public int _enemyNum;
         private MeleeWeapon _meleeWeapon;
-        private Gun _gun;
+        public Gun _gun;
         private AnimationManager _animationManager;
         private PlayerManager _playerManager;
         public HealthManager _health;
@@ -39,9 +41,9 @@ namespace GameClient
         public Rectangle Rectangle { get => new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale)); }
 
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Simple_Enemy(AnimationManager animationManager, int id, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun,PathFinder pathFinder)
+        public Simple_Enemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun,PathFinder pathFinder,int enemyNum = -1)
         {
-            _id = id;
+            _enemyId = enemyId;
             _animationManager = animationManager;
             _position = position;
             _animationManager._position = _position;
@@ -67,12 +69,20 @@ namespace GameClient
                 _movingToPlayerMaxDistance = _meleeWeapon._maxAttackingDistance;
             }
             _pathFinder = pathFinder;
+            if (enemyNum == -1)
+                _enemyNum = _s_enemyNum++;
+            else
+                _enemyNum = enemyNum;
         }
         public void Update(GameTime gameTime)
         {
             
             Move(gameTime);
 
+            if (stopMoving)
+            {
+                _velocity = new Vector2(0, 0);
+            }
             SetAnimations();
 
             _velocity = _velocity * _speed * 2;
@@ -146,16 +156,21 @@ namespace GameClient
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
         }
-        public Simple_Enemy Copy(float scale, Gun gun, MeleeWeapon meleeWeapon)
+        public Simple_Enemy Copy(float scale)
         {
+            int enemyNum = -1;
+            if (!Game_Client._IsMultiplayer)
+                enemyNum = _s_enemyNum++;
 
-            return new Simple_Enemy(_animationManager.Copy(scale), _id, _position, _speed, _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder());
+            return new Simple_Enemy(_animationManager.Copy(scale), _enemyId, _position, _speed,
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, _gun, PathFindingManager.GetPathFinder(),enemyNum);
         }
 
         public void Move(GameTime gameTime)
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
-            _pathFinder.Update(gameTime, Position_Feet, closest_player);
+            if(!Game_Client._IsMultiplayer)
+                _pathFinder.Update(gameTime, Position_Feet, closest_player);
             if(!_isStopingToAttack)
                 _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
@@ -207,7 +222,6 @@ namespace GameClient
                 {
                     _animationManager.Animation = _animationManager._animations[_moving_direction];
                 }
-                _velocity = new Vector2(0, 0);
                 _animationManager.Stop();
             }
             if (!stopMoving)
@@ -230,6 +244,39 @@ namespace GameClient
                 _destroy = true;
                 PathFindingManager.RemovePathFinder(_pathFinder);
                 ItemManager.DropItem(_items_drop_list, _position);
+            }
+        }
+        public void UpdatePacketShort(Packet packet)
+        {
+            packet.WriteInt(_enemyNum);
+            packet.WriteInt(_enemyId);
+            packet.WriteVector2(_position);
+            packet.WriteInt(_health._health_left);
+            packet.WriteInt(_health._total_health);
+            packet.WriteVector2(_velocity);
+            packet.WriteVector2(_shootingDirection);
+            if (_gun != null)
+            {
+                packet.WriteInt(0);//gun is 0
+                packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
+                _gun.UpdatePacketShort(packet);
+            }
+            else if (_meleeWeapon != null)
+            {
+                packet.WriteInt(1);
+            }
+        }
+        public void ReadPacketShort(Packet packet)
+        {
+            _position = packet.ReadVector2();
+            _health._health_left = packet.ReadInt();
+            _health._total_health = packet.ReadInt();
+            _velocity = packet.ReadVector2();
+            _shootingDirection = packet.ReadVector2();
+            int gunOrMeele = packet.ReadInt();//gun is 0
+            if (gunOrMeele == 0)
+            {
+                _gun.ReadPacketShort(packet);
             }
         }
 

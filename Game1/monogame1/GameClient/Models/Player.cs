@@ -223,7 +223,7 @@ namespace GameClient
             Vector2 temp = _position - Position_Feet;
             _position += temp;
         }
-        public void UpdatePacketShort(PacketShort_Client packet)
+        public void UpdatePacketShort(Packet packet)
         {
             packet.WriteInt(_playerNum);
             packet.WriteVector2(_position);

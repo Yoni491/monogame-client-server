@@ -10,7 +10,7 @@ namespace GameClient
         private SpriteBatch _spriteBatch;
         private SpriteBatch _UIbatch;
         private SpriteBatch _settingsBatch;
-        private List<NetworkPlayer> _network_players;
+        private List<NetworkPlayer> _networkPlayers;
         private Player _player;
         private List<Simple_Enemy> _enemies;
         private EnemyManager _enemyManager;
@@ -19,7 +19,6 @@ namespace GameClient
         public CollectionManager _collectionManager;
         public NetworkManagerClient _networkManager;
         private ItemManager _itemManager;
-        private GraphicManager _graphicManager;
         private CollisionManager _collisionManager;
         private LevelManager _levelManager;
         private MapManager _mapManager;
@@ -29,6 +28,7 @@ namespace GameClient
         static private UIManager _UIManager;
         static public bool _inMenu = true;
         static public bool _IsMultiplayer = false;
+        static public bool _isServer = true;
 
         #region Important Functions
         public Game_Client()
@@ -40,6 +40,7 @@ namespace GameClient
             //Window.AllowUserResizing = true;
             //Scene.SetDefaultDesignResolution(1280, 720, Scene.SceneResolutionPolicy.ShowAllPixelPerfect);
             PlayerIndex.One.GetType();
+            _isServer = false;
         }
 
         protected override void Initialize()
@@ -51,20 +52,20 @@ namespace GameClient
         }
         protected override void LoadContent()
         {
-            _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
+            new GraphicManager(GraphicsDevice, Content,_graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             _mapManager = new MapManager();
             _menuManager = new MenuManager(this, GraphicsDevice);
-            _network_players = new List<NetworkPlayer>();
+            _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<Simple_Enemy>();
             _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
             _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
             _UIManager = new UIManager();
-            _playerManager = new PlayerManager(_network_players, _collectionManager);
+            _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _pathFindingManager = new PathFindingManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
@@ -72,12 +73,12 @@ namespace GameClient
             _levelManager = new LevelManager(_tileManager);
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
-            _collisionManager.Initialize(_network_players, _player, _enemies);
-            _levelManager.Initialize(_player);
+            _collisionManager.Initialize(_networkPlayers, _player, _enemies);
+            _levelManager.Initialize(_player,null);
             _inventoryManager.Initialize(_player);
-            _mapManager.Initialize(_player);
+            _mapManager.Initialize(_player,null);
             _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _networkManager.Initialize(_network_players, _player, _playerManager);
+            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager);
 
 
         }

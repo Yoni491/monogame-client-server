@@ -10,15 +10,16 @@ namespace GameClient
         Player _player;
         static public List<Chest> _chests;
         static public List<Box> _boxes;
-
+        List<NetworkPlayer> _networkPlayers;
         public MapManager()
         {
             _graves = new List<Grave>();
             _chests = new List<Chest>();
             _boxes = new List<Box>();
         }
-        public void Initialize(Player player)
+        public void Initialize(Player player, List<NetworkPlayer> networkPlayers)
         {
+            _networkPlayers = networkPlayers;
             _player = player;
 
         }
@@ -26,7 +27,15 @@ namespace GameClient
         {
             foreach (var grave in _graves)
             {
-                grave.Update(_player.RectangleMovement);
+                if(_player!=null)
+                    grave.Update(_player.RectangleMovement);
+                else if(_networkPlayers!=null)
+                {
+                    foreach (var player in _networkPlayers)
+                    {
+                        grave.Update(player.RectangleMovement);
+                    }
+                }
             }
             _graves.RemoveAll(item => item._destroy == true);
             _boxes.RemoveAll(item => item._destroy == true);

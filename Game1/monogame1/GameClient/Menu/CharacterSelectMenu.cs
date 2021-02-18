@@ -46,7 +46,7 @@ namespace GameClient
             }
             if(_startGame.Update(gameTime))
             {
-                _game_Client._inMenu = false;
+                Game_Client._inMenu = false;
                 _game_Client._playerManager._player._animationManager = CollectionManager.GetAnimationManagerCopy(characterNumbers[index],1.5f);
                 _game_Client._playerManager._player._animationNum = characterNumbers[index];
                 Console.WriteLine("b" + characterNumbers[index]);

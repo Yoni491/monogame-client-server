@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 
 namespace GameClient
 {
@@ -12,7 +13,7 @@ namespace GameClient
 
         public bool updateTexture = true;
 
-        private Gun _gun;
+        public Gun _gun;
 
         private Boolean _hide_gun = false;
 
@@ -28,9 +29,10 @@ namespace GameClient
         private int _animationNum = -1;
         private int _gunNum = -1;
         private float _scale = 1.5f;
-        private int _width;
-        private int _height;
+        private int _width=0;
+        private int _height=0;
         public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
         public Rectangle Rectangle
         {
             get
@@ -44,7 +46,10 @@ namespace GameClient
             _position = position;
             _velocity = Vector2.Zero;
             _playerNum = playerNum;
-            _gun = gun;
+            if (gun != null)
+                _gun = gun;
+            else
+                _gun = CollectionManager._guns[0];
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
         }
         public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
@@ -116,8 +121,21 @@ namespace GameClient
                 else _animationManager.Stop();
             }
         }
+        public void UpdatePacketShort(Packet packet)
+        {
+            packet.WriteInt(_playerNum);
+            packet.WriteVector2(_position);
+            packet.WriteInt(_health._health_left);
+            packet.WriteInt(_health._total_health);
+            packet.WriteVector2(_velocity);
+            packet.WriteVector2(_looking_direction);
+            packet.WriteInt(_animationNum);
+            packet.WriteInt(_gunNum);
+            packet.WriteInt(_gun._bullets.Count());
+            _gun.UpdatePacketShort(packet);
+        }
 
-        public void ReadPacketShort(PacketStructure packet)
+        public void ReadPacketShort(Packet packet)
         {
             _position = packet.ReadVector2();
             _health._health_left = packet.ReadInt();

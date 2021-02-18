@@ -12,25 +12,31 @@ namespace GameClient
         private readonly TileManager _tileManager;
         Coord _coord_Player;
         Vector2 _spawnPoint;
+        List<NetworkPlayer> _networkPlayers;
 
         public LevelManager( TileManager tileManager)
         {
-            this._tileManager = tileManager;
+            _tileManager = tileManager;
             _spawnPoint = _tileManager.LoadMap(13);
         }
-        public void Initialize(Player player)
+        public void Initialize(Player player,List<NetworkPlayer> networkPlayers)
         {
             _player = player;
-            _player.PositionPlayerFeetAt(_spawnPoint);
+            if (_player!=null)
+                _player.PositionPlayerFeetAt(_spawnPoint);
+            _networkPlayers = networkPlayers;
         }
         public void Update()
         {
-            _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
-            if (_coord_Player.X + 2 >=TileManager._map.Width)
+            if (_player != null)
             {
-                _player.PositionPlayerFeetAt(_tileManager.LoadMap(1));
-                PathFindingManager.UseAStar = true;
-                EnemyManager.Reset();
+                _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
+                if (_coord_Player.X + 2 >= TileManager._map.Width)
+                {
+                    _player.PositionPlayerFeetAt(_tileManager.LoadMap(1));
+                    PathFindingManager.UseAStar = true;
+                    EnemyManager.Reset();
+                }
             }
         }
         public void Draw()

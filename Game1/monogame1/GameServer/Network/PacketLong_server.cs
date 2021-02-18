@@ -4,9 +4,9 @@
 //{
 //    public class PacketLong_Server : PacketStructure
 //    {
-//        List<NetworkPlayer> _players;
-//        NetworkPlayer _player;
-//        public PacketLong_Server(List<NetworkPlayer> players, NetworkPlayer player) : base()
+//        List<NetworkPlayerOld> _players;
+//        NetworkPlayerOld _player;
+//        public PacketLong_Server(List<NetworkPlayerOld> players, NetworkPlayerOld player) : base()
 //        {
 //            UpdateType(3);
 //            _players = players;

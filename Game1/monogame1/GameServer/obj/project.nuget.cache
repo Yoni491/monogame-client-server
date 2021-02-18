@@ -1,11 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "QqVDp4cdiJKSv1u+jpahfAUXxklpC+JSJ7aTTwQG7Q4oUYKqSCiu3EHF+and6Zef/BWPdqpU04Zr5zE0mvOzwA==",
+  "dgSpecHash": "Ml54Q2XOa84lfK1y3N8C/yh1glvT5TbdVtkD6w4GWVQxOf2K9pOBN2FULzBcMK7Bd+CN1iz/GoB7n74GrRA/Xw==",
   "success": true,
   "projectFilePath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\GameServer\\GameServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yoni2\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512"
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.graphics\\3.8.0\\monogame.extended.graphics.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.tiled\\3.8.0\\monogame.extended.tiled.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\nez.pipelineimporter\\0.9.5\\nez.pipelineimporter.0.9.5.nupkg.sha512"
   ],
   "logs": []
 }

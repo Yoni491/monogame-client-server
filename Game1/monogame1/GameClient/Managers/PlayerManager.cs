@@ -52,11 +52,12 @@ namespace GameClient
             _player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,0.7f));
             return _player;
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void Update(GameTime gameTime)
         {
-            _player.Update(gameTime);
+            if(_player!=null)
+                _player.Update(gameTime);
             foreach (var player in _players)
-                player.Update(gameTime, enemies);
+                player.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

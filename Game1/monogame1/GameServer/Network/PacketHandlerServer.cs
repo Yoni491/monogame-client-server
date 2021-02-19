@@ -15,11 +15,14 @@ namespace GameServer
         private bool handle = false;
         private int usingResource = 0;
         private NetworkPlayer _player;
-        public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player)
+        private readonly List<Simple_Enemy> _enemies;
+
+        public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<Simple_Enemy> enemies)
         {
             _players = players;
             _packet = new Packet();
             _player = player;
+            this._enemies = enemies;
         }
         public void Handle(byte[] buffer)
         {
@@ -44,14 +47,30 @@ namespace GameServer
                         break;
                     case 1:
                         //short packet from client to server
-                        while (true)
+                        int numOfPlayers = _packet.ReadInt();
+                        playerNum = _packet.ReadInt();
+                        _player.ReadPacketShort(_packet);
+                        int numOfEnemies = _packet.ReadInt();
+                        int enemyNum;
+                        for (int i = 0; i < numOfEnemies; i++)
                         {
-                            int numOfPlayers = _packet.ReadInt();
-                            playerNum = _packet.ReadInt();
-                            _player.ReadPacketShort(_packet);
-                            if (packetLength == _packet._offset)
+                            enemyNum = _packet.ReadInt();
+                            Simple_Enemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
+                            int dmg = _packet.ReadInt();
+                            if (simple_Enemy != null)
                             {
-                                break;
+                                simple_Enemy.DealDamage(dmg);
+                            }
+                        }
+                        int numOfBoxes = _packet.ReadInt();
+                        for (int i = 0; i < numOfBoxes; i++)
+                        {
+                            int boxNum = _packet.ReadInt();
+                            Box box = MapManager._boxes.Find(x => x._tilesetIndex == boxNum);
+                            int dmg = _packet.ReadInt();
+                            if (box != null)
+                            {
+                                box.Destroy();
                             }
                         }
                         break;

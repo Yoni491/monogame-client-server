@@ -35,6 +35,7 @@ namespace GameClient
         private float _sniperStopTime = 1.5f;
         private float _movingBetweenShotsTime = 3f;
         private float _movingToPlayerMaxDistance = 1;
+        public int _dmgDoneForServer=0;
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
 
@@ -238,32 +239,54 @@ namespace GameClient
         }
         public void DealDamage(int dmg)
         {
+            _dmgDoneForServer += dmg;
             _health._health_left -= dmg;
+            
             if (_health._health_left <= 0 && _destroy == false)
             {
                 _destroy = true;
-                PathFindingManager.RemovePathFinder(_pathFinder);
-                ItemManager.DropItem(_items_drop_list, _position);
+                if (!Game_Client._IsMultiplayer)
+                {
+                    PathFindingManager.RemovePathFinder(_pathFinder);
+                    ItemManager.DropItem(_items_drop_list, _position);
+                }
+            }
+        }
+        public void UpdatePacketDmg(Packet packet)
+        {
+            if(_dmgDoneForServer>0)
+            {
+                packet.WriteInt(_enemyNum);
+                packet.WriteInt(_dmgDoneForServer);
+                _dmgDoneForServer = 0;
             }
         }
         public void UpdatePacketShort(Packet packet)
         {
             packet.WriteInt(_enemyNum);
-            packet.WriteInt(_enemyId);
-            packet.WriteVector2(_position);
-            packet.WriteInt(_health._health_left);
-            packet.WriteInt(_health._total_health);
-            packet.WriteVector2(_velocity);
-            packet.WriteVector2(_shootingDirection);
-            if (_gun != null)
+            if (_destroy)
             {
-                packet.WriteInt(0);//gun is 0
-                packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
-                _gun.UpdatePacketShort(packet);
+                packet.WriteInt(-1); // if destroy send -1
             }
-            else if (_meleeWeapon != null)
+            else
             {
-                packet.WriteInt(1);
+                packet.WriteInt(_enemyId);
+                packet.WriteVector2(_position);
+                packet.WriteInt(_health._health_left);
+                packet.WriteInt(_health._total_health);
+                packet.WriteVector2(_velocity);
+                packet.WriteVector2(_shootingDirection);
+                packet.WriteInt(_moving_direction);
+                if (_gun != null)
+                {
+                    packet.WriteInt(0);//gun is 0
+                    packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
+                    _gun.UpdatePacketShort(packet);
+                }
+                else if (_meleeWeapon != null)
+                {
+                    packet.WriteInt(1);
+                }
             }
         }
         public void ReadPacketShort(Packet packet)
@@ -273,12 +296,12 @@ namespace GameClient
             _health._total_health = packet.ReadInt();
             _velocity = packet.ReadVector2();
             _shootingDirection = packet.ReadVector2();
+            _moving_direction = packet.ReadInt();
             int gunOrMeele = packet.ReadInt();//gun is 0
             if (gunOrMeele == 0)
             {
                 _gun.ReadPacketShort(packet);
             }
         }
-
     }
 }

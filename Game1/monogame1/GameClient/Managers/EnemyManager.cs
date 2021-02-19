@@ -28,13 +28,19 @@ namespace GameClient
             //}
             foreach (var enemy in _enemies)
             {
-                enemy.Update(gameTime);
+                if(!enemy._destroy)
+                    enemy.Update(gameTime);
             }
+            if (!Game_Client._IsMultiplayer && !Game_Client._isServer)
+                _enemies.RemoveAll(enemy => enemy._destroy == true);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var enemy in _enemies)
-                enemy.Draw(spriteBatch);
+            {
+                if (!enemy._destroy)
+                    enemy.Draw(spriteBatch);
+            }
 
         }
         public static void AddEnemyAtPosition(Vector2 position)

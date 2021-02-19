@@ -69,7 +69,12 @@ namespace GameClient
             {
                 bullet.Update(gameTime);
             }
-            _bullets.RemoveAll(bullet => bullet._destroy == true);
+            if(Game_Client._IsMultiplayer)
+            {
+                _bullets.RemoveAll(bullet => bullet._destroy == true && bullet._bulletSent == true);
+            }
+            else
+                _bullets.RemoveAll(bullet => bullet._destroy == true);
             
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;

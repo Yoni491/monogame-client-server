@@ -70,9 +70,8 @@ namespace GameServer
                 Exit();
 
             _enemyManager.Update(gameTime);
-            _enemies.RemoveAll(enemy => enemy._destroy == true);
             _networkManager.Update(gameTime);
-            //_playerManager.Update(gameTime, _enemies);
+            _playerManager.Update(gameTime);
             _mapManager.Update();
             _levelManager.Update();
             _pathFindingManager.Update();

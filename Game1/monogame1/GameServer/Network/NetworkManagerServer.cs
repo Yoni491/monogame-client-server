@@ -51,7 +51,7 @@ namespace GameServer
                 byte[] buffer = new byte[10000];
                 NetworkPlayer player = new NetworkPlayer(Vector2.Zero, 100, numOfPlayer,null);
                 _players.Add(player);
-                PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player);
+                PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player,_enemies);
                 _packetHandlers.Add(packetHandler);
                 numOfPlayer++;
                 Packet packet = new Packet();
@@ -62,7 +62,7 @@ namespace GameServer
             }
             addPlayers -= tempPlayers;
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.05f)
+            if (_timer_short >= 0.01f)
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);
@@ -70,7 +70,7 @@ namespace GameServer
                 foreach (var player in _players)
                 {
                     player.UpdatePacketShort(_packet);
-                    if(player._gun!=null)
+                    if (player._gun != null)
                         player._gun._bullets.Clear();
                 }
                 _packet.WriteInt(_enemies.Count);
@@ -80,6 +80,14 @@ namespace GameServer
                     if (enemy._gun != null)
                         enemy._gun._bullets.Clear();
                 }
+                _enemies.RemoveAll(enemy => enemy._destroy == true);
+                _packet.WriteInt(MapManager._boxes.FindAll(box => box._destroy == true).Count);
+                foreach (var box in MapManager._boxes)
+                {
+                    if(box._destroy)
+                        box.UpdatePacket(_packet);
+                }
+                MapManager._boxes.RemoveAll(box => box._destroy == true);
                 foreach (var socket in _socket_list)
                 {
                     if (socket.Connected)

@@ -52,10 +52,11 @@ namespace GameClient
                 _gun = CollectionManager._guns[0];
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
         }
-        public void Update(GameTime gameTime, List<Simple_Enemy> enemies)
+        public void Update(GameTime gameTime)
         {
             if (!updateTexture)
             {
+
                 SetAnimations();
 
                 _position += _velocity;
@@ -63,12 +64,10 @@ namespace GameClient
                 _animationManager.Update(gameTime, _position);
 
 
-
                 if (_gun != null)
                 {
                     _gun.Update(gameTime, _looking_direction,0, false,false, _position);
                 }
-                //_velocity = Vector2.Zero;
 
                 _health.Update(_position);
             }
@@ -131,7 +130,7 @@ namespace GameClient
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
             packet.WriteInt(_gunNum);
-            packet.WriteInt(_gun._bullets.Count());
+            packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
             _gun.UpdatePacketShort(packet);
         }
 

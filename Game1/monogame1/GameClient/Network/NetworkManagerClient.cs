@@ -18,12 +18,14 @@ namespace GameClient
         Player _player;
         Packet _packet;
         public static bool _updatenetworkPlayerTexture = false;
+        List<Simple_Enemy> _enemies;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager,List<Simple_Enemy> enemies,EnemyManager enemyManager)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager)
         {
+            _enemies = enemies;
             _playerManager = playerManager;
             _player = player;
             _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager);
@@ -41,15 +43,26 @@ namespace GameClient
                     _packet.UpdateType(1);//packet type
                     _packet.WriteInt(1);//number of players to send.
                     _player.UpdatePacketShort(_packet);//player data
+                    _packet.WriteInt(_enemies.FindAll(x => x._dmgDoneForServer != 0).Count);
+                    foreach (var enemy in _enemies)
+                    {
+                        enemy.UpdatePacketDmg(_packet);
+                    }
+                    _packet.WriteInt(MapManager._boxesToSend.Count);
+                    foreach (var box in MapManager._boxesToSend)
+                    {
+                        box.UpdatePacket(_packet);
+                    }
+                    MapManager._boxesToSend.Clear();
                     _socket.Send(_packet.Data());
                 }
-                _timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (_timer_long >= 1.5f)
-                {
-                    _timer_long = 0;
-                    PacketLong_Client packet_long = new PacketLong_Client(_player);
-                    _socket.Send(packet_long.Data());
-                }
+                //_timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                //if (_timer_long >= 1.5f)
+                //{
+                //    _timer_long = 0;
+                //    PacketLong_Client packet_long = new PacketLong_Client(_player);
+                //    _socket.Send(packet_long.Data());
+                //}
                 _packetHandler.Update();
             }
             else if (_connect_again)

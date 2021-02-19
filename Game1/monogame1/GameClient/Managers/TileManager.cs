@@ -66,12 +66,15 @@ namespace GameClient
                 {
                     if (gid == 325)//grave normal
                     {
-                        _mapManager._graves.Add(new Grave(AddWall(i), false));
+                        Rectangle rectangle = AddWall(i);
+                        if(!Game_Client._IsMultiplayer)
+                            _mapManager._graves.Add(new Grave(rectangle, false));
                     }
                     else if (gid == 326)//grave broken
                     {
-                        AddWall(i);
-                        _mapManager._graves.Add(new Grave(AddWall(i), true));
+                        Rectangle rectangle = AddWall(i);
+                        if (!Game_Client._IsMultiplayer)
+                            _mapManager._graves.Add(new Grave(rectangle, true));
                     }
                     else if (gid == 134)//spawn point
                     {
@@ -79,7 +82,8 @@ namespace GameClient
                     }
                     else if (gid == 469 || gid == 467)//normal chest
                     {
-                        MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
+                        if (!Game_Client._IsMultiplayer)
+                            MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
                     }
                     else if (gid == 468 ||gid == 465)
                     {

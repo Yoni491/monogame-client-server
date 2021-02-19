@@ -11,7 +11,7 @@ namespace GameClient
         private readonly Vector2 _position;
         private int _numberInTileset;
         public bool _destroy;
-        private int _tilesetIndex;
+        public int _tilesetIndex;
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
         public Box(Rectangle rectangle, int numberInTileset,int tilesetIndex)
@@ -28,11 +28,24 @@ namespace GameClient
         }
         public void Destroy()
         {
-            ItemManager.DropGold(1, _position);
+
+            if (!Game_Client._IsMultiplayer)
+            {
+                _destroy = true;
+                ItemManager.DropGold(1, _position);
+                TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
+                TileManager._walls.RemoveAll(item => item == Rectangle);
+                PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+            }
+            else
+            {
+                MapManager._boxesToSend.Add(this);
+            }
+        }
+        public void UpdatePacket(Packet packet)
+        {
+            packet.WriteInt(_tilesetIndex);
             _destroy = true;
-            TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
-            TileManager._walls.RemoveAll(item=>item==Rectangle);
-            PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
         }
     }
 }

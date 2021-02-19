@@ -81,13 +81,13 @@ namespace GameServer
                         enemy._gun._bullets.Clear();
                 }
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
-                _packet.WriteInt(MapManager._boxes.FindAll(box => box._destroy == true).Count);
-                foreach (var box in MapManager._boxes)
+                _packet.WriteInt(MapManager._boxesToSend.Count);
+                foreach (var box in MapManager._boxesToSend)
                 {
-                    if(box._destroy)
-                        box.UpdatePacket(_packet);
+                    MapManager._boxes[box].UpdatePacket(_packet);
+                    MapManager._boxes.Remove(box);
                 }
-                MapManager._boxes.RemoveAll(box => box._destroy == true);
+                MapManager._boxesToSend.Clear();
                 foreach (var socket in _socket_list)
                 {
                     if (socket.Connected)

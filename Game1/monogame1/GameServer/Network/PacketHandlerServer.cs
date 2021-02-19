@@ -66,7 +66,7 @@ namespace GameServer
                         for (int i = 0; i < numOfBoxes; i++)
                         {
                             int boxNum = _packet.ReadInt();
-                            Box box = MapManager._boxes.Find(x => x._tilesetIndex == boxNum);
+                            Box box = MapManager._boxes[boxNum];
                             int dmg = _packet.ReadInt();
                             if (box != null)
                             {

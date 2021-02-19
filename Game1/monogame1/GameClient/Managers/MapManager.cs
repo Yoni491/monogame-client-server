@@ -9,15 +9,17 @@ namespace GameClient
         public List<Grave> _graves;
         Player _player;
         static public List<Chest> _chests;
-        static public List<Box> _boxes;
+        //static public List<Box> _boxes;
         List<NetworkPlayer> _networkPlayers;
-        static public List<Box> _boxesToSend;
+        static public Dictionary<int, Box> _boxes;
+        static public List<int> _boxesToSend;
         public MapManager()
         {
             _graves = new List<Grave>();
             _chests = new List<Chest>();
-            _boxes = new List<Box>();
-            _boxesToSend = new List<Box>();
+            //_boxes = new List<Box>();
+            _boxes = new Dictionary<int, Box>();
+            _boxesToSend = new List<int>();
         }
         public void Initialize(Player player, List<NetworkPlayer> networkPlayers)
         {
@@ -40,10 +42,15 @@ namespace GameClient
                 }
             }
             _graves.RemoveAll(item => item._destroy == true);
-            if(!Game_Client._IsMultiplayer)
-                _boxes.RemoveAll(item => item._destroy == true);
-            else
-                _boxes.RemoveAll(item => item._destroy == true && item._boxSent == true);
+            if (!Game_Client._IsMultiplayer || !Game_Client._isServer)
+            {
+                foreach (var item in _boxesToSend)
+                {
+                    _boxes.Remove(item);
+                }
+                _boxesToSend.Clear();
+            }
+
             _chests.RemoveAll(item => item._destroy == true);
         }
     }

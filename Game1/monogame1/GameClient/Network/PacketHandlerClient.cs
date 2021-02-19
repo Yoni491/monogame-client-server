@@ -87,11 +87,11 @@ namespace GameClient
                         for (int i = 0; i < numOfBoxes; i++)
                         {
                             int boxNum = _packet.ReadInt();
-                            Box box = MapManager._boxes.Find(x => x._tilesetIndex == boxNum);
-                            int dmg = _packet.ReadInt();
+                            Box box = MapManager._boxes[boxNum];
                             if (box != null)
                             {
                                 box.Destroy();
+                                MapManager._boxes.Remove(boxNum);
                             }
                         }
                         break;

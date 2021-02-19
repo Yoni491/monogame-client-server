@@ -89,8 +89,9 @@ namespace GameClient
         }
         static public bool isCollidingBoxes(Rectangle rectangle, Vector2 velocity, bool _destroyBox)
         {
-            foreach (var box in MapManager._boxes)
+            foreach (var item in MapManager._boxes)
             {
+                Box box = item.Value;
                 if (!box._destroy)
                 {
                     if (IsCollidingLeft(rectangle, box.Rectangle, velocity) || IsCollidingRight(rectangle, box.Rectangle, velocity) || IsCollidingTop(rectangle, box.Rectangle, velocity) || IsCollidingBottom(box.Rectangle, box.Rectangle, velocity))

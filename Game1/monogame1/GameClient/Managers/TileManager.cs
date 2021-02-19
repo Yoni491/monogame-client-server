@@ -87,7 +87,7 @@ namespace GameClient
                     }
                     else if (gid == 468 ||gid == 465)
                     {
-                        MapManager._boxes.Add(new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
+                        MapManager._boxes.Add(i,new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
                         AddWall(i,1.5f);
                     }
                     else//normal walls

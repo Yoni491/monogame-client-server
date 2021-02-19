@@ -307,7 +307,10 @@ namespace GameClient
             {
                 Vector2 position = packet.ReadVector2();
                 Vector2 direction = packet.ReadVector2();
-                _bullets.Add(_bullet.Copy(direction, position, _hitPlayers));
+                Bullet bullet = _bullet.Copy(direction, position, _hitPlayers);
+                if(!Game_Client._isServer)
+                    bullet._bulletSent = true;
+                _bullets.Add(bullet);
             }
         }
 

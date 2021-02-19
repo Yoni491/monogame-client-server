@@ -49,9 +49,10 @@ namespace GameClient
                         enemy.UpdatePacketDmg(_packet);
                     }
                     _packet.WriteInt(MapManager._boxesToSend.Count);
-                    foreach (var box in MapManager._boxesToSend)
+                    foreach (var item in MapManager._boxesToSend)
                     {
-                        box.UpdatePacket(_packet);
+                        MapManager._boxes[item].UpdatePacket(_packet);
+                        MapManager._boxes.Remove(item);
                     }
                     MapManager._boxesToSend.Clear();
                     _socket.Send(_packet.Data());

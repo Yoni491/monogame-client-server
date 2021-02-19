@@ -10,8 +10,10 @@ namespace GameClient
         private Rectangle _rectangle;
         private readonly Vector2 _position;
         private int _numberInTileset;
-        public bool _destroy;
         public int _tilesetIndex;
+        public bool _sendBox;
+        public bool _destroy;
+
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
         public Box(Rectangle rectangle, int numberInTileset,int tilesetIndex)
@@ -22,7 +24,7 @@ namespace GameClient
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
 
         }
-        public void Update(Rectangle player_position_rectangle)
+        public void Update()
         {
 
         }
@@ -31,21 +33,19 @@ namespace GameClient
 
             if (!Game_Client._IsMultiplayer)
             {
-                _destroy = true;
                 ItemManager.DropGold(1, _position);
-                TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
-                TileManager._walls.RemoveAll(item => item == Rectangle);
-                PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
             }
-            else
-            {
-                MapManager._boxesToSend.Add(this);
-            }
+            TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
+            TileManager._walls.RemoveAll(item => item == Rectangle);
+            PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+            MapManager._boxesToSend.Add(_tilesetIndex);
+            _destroy = true;
+
         }
         public void UpdatePacket(Packet packet)
         {
             packet.WriteInt(_tilesetIndex);
-            _destroy = true;
+            _sendBox = true;
         }
     }
 }

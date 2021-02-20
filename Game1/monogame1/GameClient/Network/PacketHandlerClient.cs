@@ -44,8 +44,8 @@ namespace GameClient
         {
             if (handle)
             {
-                //if (packetType != 0)
-                //    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                if (packetType != 0)
+                    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 switch (packetType)
                 {
                     case 0:
@@ -91,6 +91,7 @@ namespace GameClient
                                 Box box = MapManager._boxes[boxNum];
                                 box.Destroy();
                                 MapManager._boxes.Remove(boxNum);
+                                MapManager._boxesToSend.Remove(boxNum);
                             }
                         }
                         break;

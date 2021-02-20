@@ -52,7 +52,7 @@ namespace GameClient
         {
             Gun gun = null;
             if (_gun != null)
-                gun = _gun.Copy(1,false);
+                gun = _gun.Copy(1,false,true);
             return new Item(_texture, _inventoryTexture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed);
         }
         public Item Drop()

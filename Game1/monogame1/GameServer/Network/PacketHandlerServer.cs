@@ -31,8 +31,8 @@ namespace GameServer
                 _packet.UpdateBuffer(buffer);
                 packetLength = _packet.ReadUShort();
                 packetType = _packet.ReadUShort();
-                if (packetType != 0)
-                    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                //if (packetType != 0)
+                //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 handle = true;
             }
 

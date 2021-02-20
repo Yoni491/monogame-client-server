@@ -160,7 +160,7 @@ namespace GameClient
             if (gunNum != _gunNum)
             {
                 _gunNum = gunNum;
-                _gun = CollectionManager.GetGunCopy(gunNum, _scale, false);
+                _gun = CollectionManager.GetGunCopy(gunNum, _scale, false,false);
                 _gun._holderScale = _scale;
             }
             _gun.ReadPacketShort(packet);

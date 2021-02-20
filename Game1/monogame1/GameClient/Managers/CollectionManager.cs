@@ -52,11 +52,11 @@ namespace GameClient
         {
             int id = 0;
             _simple_enemies = new List<Simple_Enemy>();
-            
+
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 15, allConsumables, null,null,null));//skeleton
+                _itemManager, 15, allConsumables, null, null, null));//skeleton
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager,
-                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0, 0.7f), null,null));//runner
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0, 0.7f), null, null));//runner
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
                 _itemManager, 10, allWeapons, null, null, null));//mage
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
@@ -85,17 +85,17 @@ namespace GameClient
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
                 id++, "Potion", 0.04f, 1, false, false, false, null, 10));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"),null,//5 - 9 weapons
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"), null,//5 - 9 weapons
                 id++, "M16", 0.1f, 1, false, false, false, _guns[0], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"),null,
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"), null,
                 id++, "Sniper", 0.1f, 1, false, false, false, _guns[1], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"),null,
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"), null,
                 id++, "Rifle", 0.1f, 1, false, false, false, _guns[2], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"),null,
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"), null,
                 id++, "MachineGun", 0.1f, 1, false, false, false, _guns[3], 1));
-            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"),null,
+            _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"), null,
                 id++, "Uzi", 0.1f, 1, false, false, false, _guns[4], 1));
-            _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8,6), null,
+            _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8, 6), null,
                 id++, "Gold", 0.01f, 1, false, false, false, _guns[4], 1000));
 
         }
@@ -104,22 +104,22 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 2,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.3f, 10,2000));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.04f, 5,350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.001f, 1,200));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 2, 350));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.3f, 10, 2000));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5, 350));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.04f, 5, 350));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.001f, 1, 200));
 
         }
         private void InitializeGuns()
         {
             int id = 0;
             _guns = new List<Gun>();
-            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false,0.1f,true);
-            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true,0, true);
-            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false,0, true);
-            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false,0.5f, true);
-            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false,0.2f, true);
+            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false, 0.1f, true, true);
+            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true, 0, true, true);
+            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false, 0, true, true);
+            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false, 0.5f, true, true);
+            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.2f, true, true);
             _guns.Add(M16);
             _guns.Add(Sniper);
             _guns.Add(Rifle);
@@ -134,14 +134,14 @@ namespace GameClient
                 _playerAnimationManager.Add(GraphicManager.GetAnimationManager_spriteMovement(i, 1.5f));
             }
         }
-        static public Gun GetGunCopy(int id, float scale,bool hitPlayers)
+        static public Gun GetGunCopy(int id, float scale, bool hitPlayers, bool dealDmg)
         {
-            if(id == -1)
+            if (id == -1)
             {
                 Random x = new Random();
                 id = x.Next(0, 5);
             }
-            return _guns[id].Copy(scale, hitPlayers);
+            return _guns[id].Copy(scale, hitPlayers, dealDmg);
         }
         static public MeleeWeapon GetMeleeWeaponCopy(int id, float scale)
         {
@@ -160,7 +160,7 @@ namespace GameClient
         {
             return _items[id];
         }
-        static public AnimationManager GetAnimationManagerCopy(int id,float scale)
+        static public AnimationManager GetAnimationManagerCopy(int id, float scale)
         {
             return _playerAnimationManager[id - 1].Copy(scale);
         }

@@ -24,7 +24,7 @@ namespace GameClient
             Vector2 player_position = new Vector2(player_position_rectangle.X, player_position_rectangle.Y);
             if (Vector2.Distance(player_position, _position) <= spawnDistance || _spawnAtTheStart)
             {
-                if(!CollisionManager.isCollidingBoxes(_rectangle,Vector2.Zero,false))
+                if(!CollisionManager.isCollidingBoxes(_rectangle,Vector2.Zero,0))
                 {
                     EnemyManager.AddEnemyAtPosition(_position);
                     _destroy = true;

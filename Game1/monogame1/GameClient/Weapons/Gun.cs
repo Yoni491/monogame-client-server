@@ -25,6 +25,7 @@ namespace GameClient
         private bool _hitPlayers;
         private Vector2 _MaxPointBulletReach;
         private Vector2 _tipOfTheGun;
+        private bool _dealDmg;
 
         #region meleeAttackVariables
         private int _moving_direction_int;
@@ -49,7 +50,7 @@ namespace GameClient
             }
         }
 
-        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread,bool hitPlayers)
+        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
         {
             _id = id;
             _texture = texture;
@@ -59,6 +60,7 @@ namespace GameClient
             _isSniper = isSniper;
             _spread = spread;
             _hitPlayers = hitPlayers;
+            _dealDmg = dealDmg;
         }
         public void Update(GameTime gameTime, Vector2 direction,int moving_direction, bool isGamePad,bool showLine, Vector2 position)
         {
@@ -105,10 +107,10 @@ namespace GameClient
                     {
                         _isColided = true;
                     }
-                    else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero,true))
+                    else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColidedBox = true;
-                        while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero,true))
+                        while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
                         {
                             
                         }
@@ -194,9 +196,9 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy(float scale,bool hitPlayers)
+        public Gun Copy(float scale,bool hitPlayers,bool dealDmg)
         {
-            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers);
+            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers,dealDmg);
             gun._holderScale = scale;
             return gun;
         }
@@ -219,6 +221,8 @@ namespace GameClient
                     }
 
                     Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _hitPlayers);
+                    if (!_dealDmg)
+                        bullet._dmg = 0;
                     _bullets.Add(bullet);
                 }
             }
@@ -308,6 +312,8 @@ namespace GameClient
                 Vector2 position = packet.ReadVector2();
                 Vector2 direction = packet.ReadVector2();
                 Bullet bullet = _bullet.Copy(direction, position, _hitPlayers);
+                if (!_dealDmg)
+                    bullet._dmg = 0;
                 if(!Game_Client._isServer)
                     bullet._bulletSent = true;
                 _bullets.Add(bullet);

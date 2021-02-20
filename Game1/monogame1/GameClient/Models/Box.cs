@@ -36,15 +36,16 @@ namespace GameClient
                 ItemManager.DropGold(1, _position);
             }
             TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
-            TileManager._walls.RemoveAll(item => item == Rectangle);
-            PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
-            MapManager._boxesToSend.Add(_tilesetIndex);
+            TileManager._destroyableWalls.Remove(_numberInTileset);
+            if(!TileManager._walls.ContainsKey(_numberInTileset))
+                PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+            MapManager._boxesToSend.Add(_numberInTileset);
             _destroy = true;
 
         }
         public void UpdatePacket(Packet packet)
         {
-            packet.WriteInt(_tilesetIndex);
+            packet.WriteInt(_numberInTileset);
             _sendBox = true;
         }
     }

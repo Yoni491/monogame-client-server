@@ -74,22 +74,21 @@ namespace GameClient
                             enemyNum = _packet.ReadInt();
                             Simple_Enemy simple_Enemy  = _enemies.Find(x => x._enemyNum == enemyNum);
                             int enemyId = _packet.ReadInt();
-                            if (simple_Enemy == null && enemyId != -1)
+                            if (simple_Enemy == null)
                             {
                                 simple_Enemy = _enemyManager.AddEnemyFromServer(enemyNum, enemyId);
                             }
-                            if (enemyId == -1)
+                            simple_Enemy.ReadPacketShort(_packet);
+                            if(simple_Enemy._health._health_left<=0)
                                 _enemies.Remove(simple_Enemy);
-                            else
-                                simple_Enemy.ReadPacketShort(_packet);
                         }
                         int numOfBoxes = _packet.ReadInt();
                         for (int i = 0; i < numOfBoxes; i++)
                         {
                             int boxNum = _packet.ReadInt();
-                            Box box = MapManager._boxes[boxNum];
-                            if (box != null)
+                            if (MapManager._boxes.ContainsKey(boxNum))
                             {
+                                Box box = MapManager._boxes[boxNum];
                                 box.Destroy();
                                 MapManager._boxes.Remove(boxNum);
                             }

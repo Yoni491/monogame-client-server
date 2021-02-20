@@ -28,8 +28,7 @@ namespace GameClient
             //}
             foreach (var enemy in _enemies)
             {
-                if(!enemy._destroy)
-                    enemy.Update(gameTime);
+                 enemy.Update(gameTime);
             }
             if (!Game_Client._IsMultiplayer && !Game_Client._isServer)
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
@@ -38,8 +37,7 @@ namespace GameClient
         {
             foreach (var enemy in _enemies)
             {
-                if (!enemy._destroy)
-                    enemy.Draw(spriteBatch);
+                enemy.Draw(spriteBatch);
             }
 
         }

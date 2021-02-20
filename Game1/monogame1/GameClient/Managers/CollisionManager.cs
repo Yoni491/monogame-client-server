@@ -71,7 +71,16 @@ namespace GameClient
 
             foreach (var wall in TileManager._walls)
             {
-                if (IsCollidingLeft(rectangle, wall, velocity) || IsCollidingRight(rectangle, wall, velocity) || IsCollidingTop(rectangle, wall, velocity) || IsCollidingBottom(rectangle, wall, velocity))
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (IsCollidingLeft(rectangle, Wallrectangle, velocity) || IsCollidingRight(rectangle, Wallrectangle, velocity)
+                    || IsCollidingTop(rectangle, Wallrectangle, velocity) || IsCollidingBottom(rectangle, Wallrectangle, velocity))
+                    return true;
+            }
+            foreach (var wall in TileManager._destroyableWalls)
+            {
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (IsCollidingLeft(rectangle, Wallrectangle, velocity) || IsCollidingRight(rectangle, Wallrectangle, velocity)
+                    || IsCollidingTop(rectangle, Wallrectangle, velocity) || IsCollidingBottom(rectangle, Wallrectangle, velocity))
                     return true;
             }
             return false;
@@ -107,7 +116,6 @@ namespace GameClient
 
         static public bool IsCollidingLeft(Rectangle rectangle, Rectangle wall, Vector2 velocity)
         {
-
             if (wall.Right > rectangle.Left + velocity.X &&
                 wall.Left < rectangle.Left &&
                 wall.Bottom > rectangle.Top &&
@@ -150,10 +158,20 @@ namespace GameClient
         {
             foreach (var wall in TileManager._walls)
             {
-                if (wall.Right > rectangle.Left + velocity.X &&
-                    wall.Left < rectangle.Left &&
-                    wall.Bottom > rectangle.Top &&
-                    wall.Top < rectangle.Bottom)
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Right > rectangle.Left + velocity.X &&
+                    Wallrectangle.Left < rectangle.Left &&
+                    Wallrectangle.Bottom > rectangle.Top &&
+                    Wallrectangle.Top < rectangle.Bottom)
+                    return true;
+            }
+            foreach (var wall in TileManager._destroyableWalls)
+            {
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Right > rectangle.Left + velocity.X &&
+                    Wallrectangle.Left < rectangle.Left &&
+                    Wallrectangle.Bottom > rectangle.Top &&
+                    Wallrectangle.Top < rectangle.Bottom)
                     return true;
             }
             return false;
@@ -163,10 +181,20 @@ namespace GameClient
         {
             foreach (var wall in TileManager._walls)
             {
-                if (wall.Left < rectangle.Right + velocity.X &&
-                    wall.Right > rectangle.Right &&
-                    wall.Bottom > rectangle.Top &&
-                    wall.Top < rectangle.Bottom)
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Left < rectangle.Right + velocity.X &&
+                    Wallrectangle.Right > rectangle.Right &&
+                    Wallrectangle.Bottom > rectangle.Top &&
+                    Wallrectangle.Top < rectangle.Bottom)
+                    return true;
+            }
+            foreach (var wall in TileManager._destroyableWalls)
+            {
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Left < rectangle.Right + velocity.X &&
+                    Wallrectangle.Right > rectangle.Right &&
+                    Wallrectangle.Bottom > rectangle.Top &&
+                    Wallrectangle.Top < rectangle.Bottom)
                     return true;
             }
             return false;
@@ -176,10 +204,20 @@ namespace GameClient
         {
             foreach (var wall in TileManager._walls)
             {
-                if (wall.Bottom > rectangle.Top + velocity.Y &&
-                    wall.Top < rectangle.Top &&
-                    wall.Right > rectangle.Left &&
-                    wall.Left < rectangle.Right)
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Bottom > rectangle.Top + velocity.Y &&
+                    Wallrectangle.Top < rectangle.Top &&
+                    Wallrectangle.Right > rectangle.Left &&
+                    Wallrectangle.Left < rectangle.Right)
+                    return true;
+            }
+            foreach (var wall in TileManager._destroyableWalls)
+            {
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Bottom > rectangle.Top + velocity.Y &&
+                    Wallrectangle.Top < rectangle.Top &&
+                    Wallrectangle.Right > rectangle.Left &&
+                    Wallrectangle.Left < rectangle.Right)
                     return true;
             }
             return false;
@@ -189,10 +227,20 @@ namespace GameClient
         {
             foreach (var wall in TileManager._walls)
             {
-                if (wall.Top < rectangle.Bottom + velocity.Y &&
-                    wall.Bottom > rectangle.Bottom &&
-                    wall.Right > rectangle.Left &&
-                    wall.Left < rectangle.Right)
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Top < rectangle.Bottom + velocity.Y &&
+                    Wallrectangle.Bottom > rectangle.Bottom &&
+                    Wallrectangle.Right > rectangle.Left &&
+                    Wallrectangle.Left < rectangle.Right)
+                    return true;
+            }
+            foreach (var wall in TileManager._destroyableWalls)
+            {
+                Rectangle Wallrectangle = wall.Value._rectangle;
+                if (Wallrectangle.Top < rectangle.Bottom + velocity.Y &&
+                    Wallrectangle.Bottom > rectangle.Bottom &&
+                    Wallrectangle.Right > rectangle.Left &&
+                    Wallrectangle.Left < rectangle.Right)
                     return true;
             }
             return false;

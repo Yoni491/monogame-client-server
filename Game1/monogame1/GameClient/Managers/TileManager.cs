@@ -14,7 +14,8 @@ namespace GameClient
         private MapManager _mapManager;
         static List<TileSet> _tileSets;
         public static TmxMap _map;
-        public static List<Rectangle> _walls;
+        public static Dictionary<int, Wall> _walls;
+        public static Dictionary<int, Wall> _destroyableWalls;
         public Grid _grid = PathFinder.s_grid;
 
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
@@ -26,7 +27,8 @@ namespace GameClient
         }
         public Vector2 LoadMap(int mapNum)
         {
-            _walls = new List<Rectangle>();
+            _walls = new Dictionary<int, Wall>();
+            _destroyableWalls = new Dictionary<int, Wall>();
 
             string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
             _map = new TmxMap(mapName);
@@ -66,13 +68,13 @@ namespace GameClient
                 {
                     if (gid == 325)//grave normal
                     {
-                        Rectangle rectangle = AddWall(i);
+                        Rectangle rectangle = AddWall(i,false);
                         if(!Game_Client._IsMultiplayer)
                             _mapManager._graves.Add(new Grave(rectangle, false));
                     }
                     else if (gid == 326)//grave broken
                     {
-                        Rectangle rectangle = AddWall(i);
+                        Rectangle rectangle = AddWall(i,false);
                         if (!Game_Client._IsMultiplayer)
                             _mapManager._graves.Add(new Grave(rectangle, true));
                     }
@@ -88,11 +90,11 @@ namespace GameClient
                     else if (gid == 468 ||gid == 465)
                     {
                         MapManager._boxes.Add(i,new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
-                        AddWall(i,1.5f);
+                        AddWall(i,true,1.5f);
                     }
                     else//normal walls
                     {
-                        AddWall(i);
+                        AddWall(i,false);
                     }
                 }
             }
@@ -113,12 +115,18 @@ namespace GameClient
             }
             return false;
         }
-        public Rectangle AddWall(int i,float scale = 1)
+        public Rectangle AddWall(int i,bool destroyableWall,float scale = 1)
         {
             float x = (i % _map.Width) * _map.TileWidth;
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
             Rectangle rectangle = new Rectangle((int)x, (int)y, (int)(_tileSets[0]._tileWidth * scale),(int)( _tileSets[0]._tileHeight* scale));
-            _walls.Add(rectangle);
+            if (!destroyableWall)
+            {
+                if (!_walls.ContainsKey(i))
+                    _walls.Add(i, new Wall(rectangle));
+            }
+            else
+                _destroyableWalls.Add(i, new Wall(rectangle));
             _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
             return rectangle;
         }

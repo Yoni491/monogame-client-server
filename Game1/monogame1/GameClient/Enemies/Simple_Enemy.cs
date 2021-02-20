@@ -240,15 +240,18 @@ namespace GameClient
         public void DealDamage(int dmg)
         {
             _dmgDoneForServer += dmg;
-            _health._health_left -= dmg;
-            
-            if (_health._health_left <= 0 && _destroy == false)
+            if (!Game_Client._IsMultiplayer)
             {
-                _destroy = true;
-                if (!Game_Client._IsMultiplayer)
+                _health._health_left -= dmg;
+
+                if (_health._health_left <= 0 && _destroy == false)
                 {
-                    PathFindingManager.RemovePathFinder(_pathFinder);
-                    ItemManager.DropItem(_items_drop_list, _position);
+                    _destroy = true;
+                    if (!Game_Client._IsMultiplayer)
+                    {
+                        PathFindingManager.RemovePathFinder(_pathFinder);
+                        ItemManager.DropItem(_items_drop_list, _position);
+                    }
                 }
             }
         }
@@ -264,29 +267,22 @@ namespace GameClient
         public void UpdatePacketShort(Packet packet)
         {
             packet.WriteInt(_enemyNum);
-            if (_destroy)
+            packet.WriteInt(_enemyId);
+            packet.WriteVector2(_position);
+            packet.WriteInt(_health._health_left);
+            packet.WriteInt(_health._total_health);
+            packet.WriteVector2(_velocity);
+            packet.WriteVector2(_shootingDirection);
+            packet.WriteInt(_moving_direction);
+            if (_gun != null)
             {
-                packet.WriteInt(-1); // if destroy send -1
+                packet.WriteInt(0);//gun is 0
+                packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
+                _gun.UpdatePacketShort(packet);
             }
-            else
+            else if (_meleeWeapon != null)
             {
-                packet.WriteInt(_enemyId);
-                packet.WriteVector2(_position);
-                packet.WriteInt(_health._health_left);
-                packet.WriteInt(_health._total_health);
-                packet.WriteVector2(_velocity);
-                packet.WriteVector2(_shootingDirection);
-                packet.WriteInt(_moving_direction);
-                if (_gun != null)
-                {
-                    packet.WriteInt(0);//gun is 0
-                    packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
-                    _gun.UpdatePacketShort(packet);
-                }
-                else if (_meleeWeapon != null)
-                {
-                    packet.WriteInt(1);
-                }
+                packet.WriteInt(1);
             }
         }
         public void ReadPacketShort(Packet packet)

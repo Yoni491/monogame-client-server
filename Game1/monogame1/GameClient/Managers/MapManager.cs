@@ -42,7 +42,7 @@ namespace GameClient
                 }
             }
             _graves.RemoveAll(item => item._destroy == true);
-            if (!Game_Client._IsMultiplayer || !Game_Client._isServer)
+            if (!Game_Client._IsMultiplayer && !Game_Client._isServer)
             {
                 foreach (var item in _boxesToSend)
                 {

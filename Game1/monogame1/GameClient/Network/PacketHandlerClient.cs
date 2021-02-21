@@ -44,56 +44,16 @@ namespace GameClient
         {
             if (handle)
             {
-                if (packetType != 0)
-                    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                //if (packetType != 0)
+                //    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
                 switch (packetType)
                 {
                     case 0:
                         break;
                     case 1://short packet
-                        int numOfPlayers = _packet.ReadInt();
-                        int playerNum;
-                        for (int i = 0; i < numOfPlayers; i++)
-                        {
-                            playerNum = _packet.ReadInt();
-                            NetworkPlayer networkPlayer = _players.Find(x => x._playerNum == playerNum);
-                            if (networkPlayer == null)
-                            {
-                                networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
-                            }
-                            networkPlayer.ReadPacketShort(_packet);
-                            if (packetLength <= _packet._offset)
-                            {
-                                break;
-                            }
-                        }
-                        int numOfEnemies = _packet.ReadInt();
-                        int enemyNum;
-                        for (int i = 0; i < numOfEnemies; i++)
-                        {
-                            enemyNum = _packet.ReadInt();
-                            Simple_Enemy simple_Enemy  = _enemies.Find(x => x._enemyNum == enemyNum);
-                            int enemyId = _packet.ReadInt();
-                            if (simple_Enemy == null)
-                            {
-                                simple_Enemy = _enemyManager.AddEnemyFromServer(enemyNum, enemyId);
-                            }
-                            simple_Enemy.ReadPacketShort(_packet);
-                            if(simple_Enemy._health._health_left<=0)
-                                _enemies.Remove(simple_Enemy);
-                        }
-                        int numOfBoxes = _packet.ReadInt();
-                        for (int i = 0; i < numOfBoxes; i++)
-                        {
-                            int boxNum = _packet.ReadInt();
-                            if (MapManager._boxes.ContainsKey(boxNum))
-                            {
-                                Box box = MapManager._boxes[boxNum];
-                                box.Destroy();
-                                MapManager._boxes.Remove(boxNum);
-                                MapManager._boxesToSend.Remove(boxNum);
-                            }
-                        }
+                        ReadPlayers();
+                        ReadEnemies();
+                        ReadBoxes();
                         break;
                     case 2:
                         break;
@@ -109,6 +69,55 @@ namespace GameClient
                 _packet._offset = 0;
                 handle = false;
                 Interlocked.Exchange(ref usingResource, 0);
+            }
+        }
+        public void ReadPlayers()
+        {
+            int numOfPlayers = _packet.ReadInt();
+            int playerNum;
+            for (int i = 0; i < numOfPlayers; i++)
+            {
+                playerNum = _packet.ReadInt();
+                NetworkPlayer networkPlayer = _players.Find(x => x._playerNum == playerNum);
+                if (networkPlayer == null)
+                {
+                    networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
+                }
+                networkPlayer.ReadPacketShort(_packet);
+            }
+        }
+        public void ReadEnemies()
+        {
+            int numOfEnemies = _packet.ReadInt();
+            int enemyNum;
+            for (int i = 0; i < numOfEnemies; i++)
+            {
+                enemyNum = _packet.ReadInt();
+                Simple_Enemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
+                int enemyId = _packet.ReadInt();
+                if (simple_Enemy == null)
+                {
+                    simple_Enemy = _enemyManager.AddEnemyFromServer(enemyNum, enemyId);
+                }
+                simple_Enemy.ReadPacketShort(_packet);
+                if (simple_Enemy._health._health_left <= 0)
+                    _enemies.Remove(simple_Enemy);
+            }
+        }
+        public void ReadBoxes()
+        {
+            int numOfBoxes = _packet.ReadInt();
+            for (int i = 0; i < numOfBoxes; i++)
+            {
+                int boxNum = _packet.ReadInt();
+                Console.WriteLine("Box recieved");
+                if (MapManager._boxes.ContainsKey(boxNum))
+                {
+                    Box box = MapManager._boxes[boxNum];
+                    box.Destroy();
+                    MapManager._boxes.Remove(boxNum);
+                    MapManager._boxesToSend.Remove(boxNum);
+                }
             }
         }
     }

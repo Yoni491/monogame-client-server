@@ -47,7 +47,9 @@ namespace GameClient
             _velocity = Vector2.Zero;
             _playerNum = playerNum;
             if (gun != null)
+            {
                 _gun = gun;
+            }
             else
                 _gun = CollectionManager._guns[0];
             _health = new HealthManager(health, position + new Vector2(8, 10),_scale);

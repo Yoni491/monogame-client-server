@@ -90,24 +90,24 @@ namespace GameClient
         public byte[] Data()
         {
             UpdatePacketLength();
-            if (Game_Client._isServer)
-            {
-                Console.WriteLine("buffer array:");
-                for (int i = 0; i < _offset; i++)
-                {
-                    if (i % 4 == 0)
-                    {
-                        Console.Write(i/4 + "-");
-                    }
-                    Console.Write(_buffer[i]);
-                    if (i % 4 == 3)
-                        Console.Write(" ");
-                    else
-                        Console.Write(".");
-                }
-                Console.WriteLine();
-            }
             return _buffer;
+        }
+        public void PrintData()
+        {
+            Console.WriteLine("buffer array:");
+            for (int i = 0; i < _offset; i++)
+            {
+                //if (i % 4 == 0)
+                //{
+                //    Console.Write(i/4 + "-");
+                //}
+                Console.Write(_buffer[i]);
+                if (i % 4 == 3)
+                    Console.Write(" ");
+                else
+                    Console.Write(".");
+            }
+            Console.WriteLine();
         }
     }
 }

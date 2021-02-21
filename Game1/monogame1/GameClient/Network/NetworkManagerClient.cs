@@ -36,46 +36,53 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
-                _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (_timer_short >= 0.05f)
-                {
-                    _timer_short = 0;
-                    _packet.UpdateType(1);//packet type
-                    _packet.WriteInt(1);//number of players to send.
-                    _player.UpdatePacketShort(_packet);//player data
-                    _packet.WriteInt(_enemies.FindAll(x => x._dmgDoneForServer != 0).Count);
-                    foreach (var enemy in _enemies)
-                    {
-                        enemy.UpdatePacketDmg(_packet);
-                    }
-                    _packet.WriteInt(MapManager._boxesToSend.Count);
-                    foreach (var item in MapManager._boxesToSend)
-                    {
-                        MapManager._boxes[item].UpdatePacket(_packet);
-                        MapManager._boxes.Remove(item);
-                    }
-                    MapManager._boxesToSend.Clear();
-                    _socket.Send(_packet.Data());
-                }
-                //_timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //if (_timer_long >= 1.5f)
-                //{
-                //    _timer_long = 0;
-                //    PacketLong_Client packet_long = new PacketLong_Client(_player);
-                //    _socket.Send(packet_long.Data());
-                //}
-                _packetHandler.Update();
+                SendPacket(gameTime);
             }
             else if (_connect_again)
             {
                 _connect_again = false;
                 Initialize_connection();
             }
-            if (NetworkManagerClient._updatenetworkPlayerTexture)
+            if (_updatenetworkPlayerTexture)
             {
                 _playerManager.updatenetworkPlayerTexture();
             }
         }
+        public void WriteEnemies()
+        {
+            _packet.WriteInt(_enemies.FindAll(x => x._dmgDoneForServer != 0).Count);
+            foreach (var enemy in _enemies)
+            {
+                enemy.UpdatePacketDmg(_packet);
+            }
+        }
+        public void WriteBoxes()
+        {
+            _packet.WriteInt(MapManager._boxesToSend.Count);
+            foreach (var item in MapManager._boxesToSend)
+            {
+                MapManager._boxes[item].UpdatePacket(_packet);
+                Console.WriteLine("box,");
+                MapManager._boxes.Remove(item);
+            }
+        }
+        public void SendPacket(GameTime gameTime)
+        {
+            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer_short >= 0.05f)
+            {
+                _timer_short = 0;
+                _packet.UpdateType(1);//packet type
+                _packet.WriteInt(1);//number of players to send.
+                _player.UpdatePacketShort(_packet);//player data
+                WriteEnemies();
+                WriteBoxes();
+                MapManager._boxesToSend.Clear();
+                _socket.Send(_packet.Data());
+            }
+            _packetHandler.Update();
+        }
+        #region NetworkMethods
         public void Initialize_connection()
         {
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.126.31.222"), 1994);
@@ -110,5 +117,6 @@ namespace GameClient
             if(_socket.Connected)
                 _socket.Close();
         }
+        #endregion
     }
 }

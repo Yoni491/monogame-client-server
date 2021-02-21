@@ -42,16 +42,26 @@ namespace GameServer
         }
         public void Update(GameTime gameTime)
         {
+            AddPlayerSocket();
+            SendPacket(gameTime);
+            for (int i = 0; i < numOfPlayer; i++)
+            {
+                _packetHandlers[i].Update();
+            }
+        }
+        public void AddPlayerSocket()
+        {
             int tempPlayers = addPlayers;
             for (int i = 0; i < tempPlayers; i++)
             {
+                addPlayers -= tempPlayers;
                 Socket socket = _socketToAdd[0];
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero, 100, numOfPlayer,null);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero, 100, numOfPlayer, null);
                 _players.Add(player);
-                PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player,_enemies);
+                PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
                 numOfPlayer++;
                 Packet packet = new Packet();
@@ -60,63 +70,60 @@ namespace GameServer
                 socket.Send(packet.Data());
                 Receive(socket, packetHandler, buffer);
             }
-            addPlayers -= tempPlayers;
+        }
+        public void SendPacket(GameTime gameTime)
+        {
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_short >= 0.01f)
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);
-                _packet.WriteInt(_players.Count);
-                foreach (var player in _players)
-                {
-                    player.UpdatePacketShort(_packet);
-                    if (player._gun != null)
-                        player._gun._bullets.Clear();
-                }
-                _packet.WriteInt(_enemies.Count);
-                foreach (var enemy in _enemies)
-                {
-                    enemy.UpdatePacketShort(_packet);
-                    if (enemy._gun != null)
-                        enemy._gun._bullets.Clear();
-                }
+                WritePlayers();
+                WriteEnemies();
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
-                _packet.WriteInt(MapManager._boxesToSend.Count);
-                foreach (var box in MapManager._boxesToSend)
-                {
-                    MapManager._boxes[box].UpdatePacket(_packet);
-                    MapManager._boxes.Remove(box);
-                }
+                WriteBoxes();
                 MapManager._boxesToSend.Clear();
                 foreach (var socket in _socket_list)
                 {
                     if (socket.Connected)
-                        socket.Send(_packet.Data());
+                    {
+                        byte[] buffer = _packet.Data();
+                        socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, Send, null);
+                    }
                 }
             }
-            //_timer_long += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //if (_timer_long >= 1.5f)
-            //{
-            //    _timer_long = 0;
-            //    foreach (var player in _players)
-            //    {
-            //        if (player._socket.Connected)
-            //        {
-            //            player._longPacket.UpdatePacket();
-            //            player._socket.Send(player._longPacket.Data());
-            //            packetType = player._longPacket.ReadUShort();
-            //            if (packetType != 0)
-            //                Console.WriteLine("server: packet left Length: {0} | type: {1}", packetType, player._longPacket.ReadUShort());
-            //        }
-            //    }
-            //}
-            for (int i = 0; i < numOfPlayer; i++)
-            {
-                _packetHandlers[i].Update();
-            }
-
         }
-
+        public void WritePlayers()
+        {
+            _packet.WriteInt(_players.Count);
+            foreach (var player in _players)
+            {
+                player.UpdatePacketShort(_packet);
+                if (player._gun != null)
+                    player._gun._bullets.Clear();
+            }
+        }
+        public void WriteEnemies()
+        {
+            _packet.WriteInt(_enemies.Count);
+            foreach (var enemy in _enemies)
+            {
+                enemy.UpdatePacketShort(_packet);
+                if (enemy._gun != null)
+                    enemy._gun._bullets.Clear();
+            }
+        }
+        public void WriteBoxes()
+        {
+            _packet.WriteInt(MapManager._boxesToSend.Count);
+            foreach (var box in MapManager._boxesToSend)
+            {
+                MapManager._boxes[box].UpdatePacket(_packet);
+                MapManager._boxes.Remove(box);
+                Console.WriteLine("Box,sent");
+            }
+        }
+        #region socketMethods
         private void Accept()
         {
             _socketServer.BeginAccept(AcceptCallBack, null);
@@ -127,6 +134,10 @@ namespace GameServer
             _socketToAdd.Add(client_socket);
             addPlayers++;
             Accept();
+
+        }
+        private void Send(IAsyncResult result)
+        {
 
         }
         private void Receive(Socket client_socket, PacketHandlerServer packetHandlerServer, byte[] buffer)
@@ -143,5 +154,6 @@ namespace GameServer
             packetHandlerServer.Handle(buffer);
             Receive(client_socket, packetHandlerServer, buffer);
         }
+        #endregion
     }
 }

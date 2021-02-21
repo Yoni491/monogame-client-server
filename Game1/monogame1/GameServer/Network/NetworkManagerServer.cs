@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GameServer
 {
@@ -59,7 +61,7 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero, 100, numOfPlayer, null);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, numOfPlayer, null);
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
@@ -74,22 +76,21 @@ namespace GameServer
         public void SendPacket(GameTime gameTime)
         {
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.01f)
+            if (_timer_short >= 0.1f)
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);
-                WritePlayers();
-                WriteEnemies();
+                //WritePlayers();
+                //WriteEnemies();
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
                 WriteBoxes();
+                if (MapManager._boxesToSend.Count > 0)
+                    _packet.PrintData();
                 MapManager._boxesToSend.Clear();
                 foreach (var socket in _socket_list)
                 {
-                    if (socket.Connected)
-                    {
-                        byte[] buffer = _packet.Data();
-                        socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, Send, null);
-                    }
+                    byte[] buffer = _packet.Data();
+                    socket.Send(buffer);
                 }
             }
         }
@@ -116,11 +117,13 @@ namespace GameServer
         public void WriteBoxes()
         {
             _packet.WriteInt(MapManager._boxesToSend.Count);
+            if(MapManager._boxesToSend.Count>0)
+                Console.WriteLine("Box,sent: " + MapManager._boxesToSend.Count);
             foreach (var box in MapManager._boxesToSend)
             {
                 MapManager._boxes[box].UpdatePacket(_packet);
                 MapManager._boxes.Remove(box);
-                Console.WriteLine("Box,sent");
+                
             }
         }
         #region socketMethods
@@ -134,10 +137,6 @@ namespace GameServer
             _socketToAdd.Add(client_socket);
             addPlayers++;
             Accept();
-
-        }
-        private void Send(IAsyncResult result)
-        {
 
         }
         private void Receive(Socket client_socket, PacketHandlerServer packetHandlerServer, byte[] buffer)

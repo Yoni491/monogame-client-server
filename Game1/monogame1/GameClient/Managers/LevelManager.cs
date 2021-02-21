@@ -17,7 +17,10 @@ namespace GameClient
         public LevelManager( TileManager tileManager)
         {
             _tileManager = tileManager;
-            _spawnPoint = _tileManager.LoadMap(13);
+        }
+        public void LoadMap(int num)
+        {
+            _spawnPoint = _tileManager.LoadMap(num);
         }
         public void Initialize(Player player,List<NetworkPlayer> networkPlayers)
         {

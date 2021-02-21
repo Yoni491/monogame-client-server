@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
@@ -26,16 +27,17 @@ namespace GameServer
         }
         public void Handle(byte[] buffer)
         {
-            if (0 == Interlocked.Exchange(ref usingResource, 1))
-            {
-                _packet.UpdateBuffer(buffer);
-                packetLength = _packet.ReadUShort();
-                packetType = _packet.ReadUShort();
-                //if (packetType != 0)
-                //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-                handle = true;
-            }
-
+            //if (packetType != 0)
+            //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+            while(true)
+                if (0 == Interlocked.Exchange(ref usingResource, 1))
+                {
+                    _packet.UpdateBuffer(buffer);
+                    packetLength = _packet.ReadUShort();
+                    packetType = _packet.ReadUShort();
+                    handle = true;
+                    return;
+                }
         }
         public void Update()
         {
@@ -47,8 +49,8 @@ namespace GameServer
                         break;
                     case 1:
                         //short packet from client to server
-                        ReadPlayer();
-                        ReadEnemies();
+                        //ReadPlayer();
+                        //ReadEnemies();
                         ReadBoxes();
                        
                         
@@ -102,7 +104,6 @@ namespace GameServer
                 {
                     Box box = MapManager._boxes[boxNum];
                     box.Destroy();
-                    Console.WriteLine("Box,Destroy");
                 }
             }
         }

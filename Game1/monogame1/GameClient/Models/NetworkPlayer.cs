@@ -41,8 +41,10 @@ namespace GameClient
             }
         }
 
-        public NetworkPlayer(Vector2 position, int health, int playerNum, Gun gun)
+        public NetworkPlayer(Vector2 position,AnimationManager animationManager, int health, int playerNum, Gun gun)
         {
+            _animationManager = animationManager;
+            _scale = _animationManager._scale;
             _position = position;
             _velocity = Vector2.Zero;
             _playerNum = playerNum;
@@ -56,9 +58,8 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if (!updateTexture)
+            if (!Game_Client._isServer)
             {
-
                 SetAnimations();
 
                 _position += _velocity;
@@ -85,13 +86,6 @@ namespace GameClient
                 _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             if (_hide_gun && _gun != null)
                 _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-        }
-        public void UpdateTexture(AnimationManager animationManager)
-        {
-            updateTexture = false;
-            _animationManager = animationManager;
-            _scale = _animationManager._scale;
-            //maybe there will be a problem with the server when there is no gun scale
         }
         protected void SetAnimations()
         {

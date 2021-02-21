@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace GameClient
 {
@@ -17,7 +18,6 @@ namespace GameClient
         PlayerManager _playerManager;
         Player _player;
         Packet _packet;
-        public static bool _updatenetworkPlayerTexture = false;
         List<Simple_Enemy> _enemies;
         public NetworkManagerClient()
         {
@@ -37,16 +37,18 @@ namespace GameClient
             if (_socket.Connected)
             {
                 SendPacket(gameTime);
+                _packetHandler.Update();
             }
             else if (_connect_again)
             {
                 _connect_again = false;
                 Initialize_connection();
             }
-            if (_updatenetworkPlayerTexture)
-            {
-                _playerManager.updatenetworkPlayerTexture();
-            }
+        }
+        public void WritePlayers()
+        {
+            _packet.WriteInt(1);//number of players to send.
+            _player.UpdatePacketShort(_packet);//player data
         }
         public void WriteEnemies()
         {
@@ -73,14 +75,13 @@ namespace GameClient
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);//packet type
-                _packet.WriteInt(1);//number of players to send.
-                _player.UpdatePacketShort(_packet);//player data
-                WriteEnemies();
+                //WritePlayers();
+                //WriteEnemies();
                 WriteBoxes();
                 MapManager._boxesToSend.Clear();
-                _socket.Send(_packet.Data());
+                byte[] buffer = _packet.Data();
+                _socket.Send(buffer);
             }
-            _packetHandler.Update();
         }
         #region NetworkMethods
         public void Initialize_connection()

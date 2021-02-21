@@ -61,7 +61,7 @@ namespace GameServer
             _levelManager.Initialize(null,_networkPlayers);
             _mapManager.Initialize(null,_networkPlayers);
             _networkManager.Initialize_connection();
-
+            _levelManager.LoadMap(13);
         }
 
         protected override void Update(GameTime gameTime)

@@ -90,7 +90,9 @@ namespace GameClient
         public byte[] Data()
         {
             UpdatePacketLength();
-            return _buffer;
+            Byte[] buffer = new Byte[_offset];
+            Array.Copy(_buffer, buffer, _offset);
+            return buffer;
         }
         public void PrintData()
         {

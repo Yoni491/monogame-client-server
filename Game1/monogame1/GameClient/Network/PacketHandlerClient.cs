@@ -29,16 +29,15 @@ namespace GameClient
         }
         public void Handle(byte[] buffer)
         {
-
-            if (0 == Interlocked.Exchange(ref usingResource, 1))
-            {
-                _packet.UpdateBuffer(buffer);
-                packetLength = _packet.ReadUShort();
-                packetType = _packet.ReadUShort();
-                //if (packetType != 0)
-                //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-                handle = true;
-            }
+            while (true)
+                if (0 == Interlocked.Exchange(ref usingResource, 1))
+                {
+                    _packet.UpdateBuffer(buffer);
+                    packetLength = _packet.ReadUShort();
+                    packetType = _packet.ReadUShort();
+                    handle = true;
+                    return;
+                }
         }
         public void Update()
         {
@@ -51,8 +50,8 @@ namespace GameClient
                     case 0:
                         break;
                     case 1://short packet
-                        ReadPlayers();
-                        ReadEnemies();
+                        //ReadPlayers();
+                        //ReadEnemies();
                         ReadBoxes();
                         break;
                     case 2:
@@ -107,10 +106,11 @@ namespace GameClient
         public void ReadBoxes()
         {
             int numOfBoxes = _packet.ReadInt();
+            if(numOfBoxes>0)
+                Console.WriteLine("Box recieved: " + numOfBoxes);
             for (int i = 0; i < numOfBoxes; i++)
             {
                 int boxNum = _packet.ReadInt();
-                Console.WriteLine("Box recieved");
                 if (MapManager._boxes.ContainsKey(boxNum))
                 {
                     Box box = MapManager._boxes[boxNum];

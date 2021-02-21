@@ -51,6 +51,7 @@ namespace GameClient
                 _game_Client._playerManager._player._animationNum = characterNumbers[index];
                 Console.WriteLine("b" + characterNumbers[index]);
                 _menuManager._showChooseCharacterMenu = false;
+                _game_Client._levelManager.LoadMap(13);
             }
             if(_returnToMain.Update(gameTime))
             {

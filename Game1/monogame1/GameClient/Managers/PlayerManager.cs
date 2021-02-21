@@ -21,22 +21,10 @@ namespace GameClient
             _collectionManager = collectionManager;
             
         }
-        public void updatenetworkPlayerTexture()
-        {
-            NetworkManagerClient._updatenetworkPlayerTexture = false;
-            foreach (var player in _players)
-            {
-                if (player.updateTexture)
-                {
-                    player.UpdateTexture(GraphicManager.GetAnimationManager_spriteMovement(10,1.5f));
-                }
-            }
-        }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, 100, playerNum, CollectionManager.GetGunCopy(3,0.7f,false,false));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1), 100, playerNum, CollectionManager.GetGunCopy(3,0.7f,false,false));
             _players.Add(networkPlayer);
-            NetworkManagerClient._updatenetworkPlayerTexture = true;
             return networkPlayer;
         }
         public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice, UIManager uIManager)

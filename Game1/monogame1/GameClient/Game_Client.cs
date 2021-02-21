@@ -20,7 +20,7 @@ namespace GameClient
         public NetworkManagerClient _networkManager;
         private ItemManager _itemManager;
         private CollisionManager _collisionManager;
-        private LevelManager _levelManager;
+        public LevelManager _levelManager;
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
         static private InventoryManager _inventoryManager;

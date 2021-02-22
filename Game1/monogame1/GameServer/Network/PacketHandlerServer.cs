@@ -49,8 +49,8 @@ namespace GameServer
                         break;
                     case 1:
                         //short packet from client to server
-                        //ReadPlayer();
-                        //ReadEnemies();
+                        ReadPlayer();
+                        ReadEnemies();
                         ReadBoxes();
                        
                         

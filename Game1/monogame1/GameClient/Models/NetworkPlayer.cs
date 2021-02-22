@@ -21,7 +21,7 @@ namespace GameClient
 
         private AnimationManager _animationManager;
 
-        private Vector2 _position;
+        private Vector2 _position , _previousPosition;
 
         private HealthManager _health;
 
@@ -62,9 +62,9 @@ namespace GameClient
             {
                 SetAnimations();
 
-                _position += _velocity;
-
                 _animationManager.Update(gameTime, _position);
+
+                _position += _velocity;
 
 
                 if (_gun != null)

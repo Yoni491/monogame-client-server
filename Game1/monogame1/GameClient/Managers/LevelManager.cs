@@ -11,7 +11,7 @@ namespace GameClient
         private Player _player;
         private readonly TileManager _tileManager;
         Coord _coord_Player;
-        Vector2 _spawnPoint;
+        static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
 
         public LevelManager( TileManager tileManager)

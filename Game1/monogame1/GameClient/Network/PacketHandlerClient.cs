@@ -50,14 +50,15 @@ namespace GameClient
                     case 0:
                         break;
                     case 1://short packet
-                        //ReadPlayers();
-                        //ReadEnemies();
+                        ReadPlayers();
+                        ReadEnemies();
                         ReadBoxes();
                         break;
                     case 2:
                         break;
                     case 3:
                         //long packet containing player number from server
+                        _player.PositionPlayerFeetAt(_packet.ReadVector2());
                         _player._playerNum = _packet.ReadInt();
                         //Console.WriteLine("A");
                         break;

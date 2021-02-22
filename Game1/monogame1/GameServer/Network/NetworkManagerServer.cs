@@ -68,6 +68,7 @@ namespace GameServer
                 numOfPlayer++;
                 Packet packet = new Packet();
                 packet.UpdateType(3);
+                packet.WriteVector2(LevelManager._spawnPoint);
                 packet.WriteInt(player._playerNum);
                 socket.Send(packet.Data());
                 Receive(socket, packetHandler, buffer);
@@ -80,8 +81,8 @@ namespace GameServer
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);
-                //WritePlayers();
-                //WriteEnemies();
+                WritePlayers();
+                WriteEnemies();
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
                 WriteBoxes();
                 if (MapManager._boxesToSend.Count > 0)

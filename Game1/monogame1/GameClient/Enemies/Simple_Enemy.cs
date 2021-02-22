@@ -85,8 +85,10 @@ namespace GameClient
                 _velocity = new Vector2(0, 0);
             }
             SetAnimations();
-
-            _velocity = _velocity * _speed * 2;
+            if (!Game_Client._IsMultiplayer)
+            {
+                _velocity = _velocity * _speed;
+            }
 
             _animationManager.Update(gameTime, _position);
 
@@ -135,8 +137,6 @@ namespace GameClient
                 }
 
             }
-            _velocity = Vector2.Zero;
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -170,8 +170,14 @@ namespace GameClient
         public void Move(GameTime gameTime)
         {
             Vector2 closest_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
-            if(!Game_Client._IsMultiplayer)
+            if (!Game_Client._IsMultiplayer)
+            {
                 _pathFinder.Update(gameTime, Position_Feet, closest_player);
+                Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
+                _velocity = Vector2.Normalize(coordPosition - Position_Feet);
+                if (coordPosition == Vector2.Zero)
+                    _velocity = Vector2.Zero;
+            }
             if(!_isStopingToAttack)
                 _shootingDirection = closest_player - Position_Feet;
             if (Vector2.Distance(closest_player, Position_Feet) > _movingToPlayerMaxDistance)
@@ -184,11 +190,6 @@ namespace GameClient
                 if(_meleeWeapon!=null)
                     _meleeWeapon.SwingWeapon();
             }
-            Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
-            _velocity = Vector2.Normalize(coordPosition - Position_Feet);
-            if (coordPosition == Vector2.Zero)
-                _velocity = Vector2.Zero;
-            //_velocity = Vector2.Normalize(closest_player - Position_Feet);
             if (_velocity.X > Math.Abs(_velocity.Y))
             {
                 _hide_weapon = false;

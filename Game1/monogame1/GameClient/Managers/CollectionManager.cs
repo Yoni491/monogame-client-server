@@ -55,7 +55,7 @@ namespace GameClient
 
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 15, allConsumables, null, null, null));//skeleton
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 3, _playerManager,
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 6, _playerManager,
                 _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0, 0.7f), null, null));//runner
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
                 _itemManager, 10, allWeapons, null, null, null));//mage

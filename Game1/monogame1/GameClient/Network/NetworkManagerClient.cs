@@ -71,12 +71,12 @@ namespace GameClient
         public void SendPacket(GameTime gameTime)
         {
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.05f)
+            if (_timer_short >= 0.1f)//doesnt work if it is too fast
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);//packet type
-                //WritePlayers();
-                //WriteEnemies();
+                WritePlayers();
+                WriteEnemies();
                 WriteBoxes();
                 MapManager._boxesToSend.Clear();
                 byte[] buffer = _packet.Data();

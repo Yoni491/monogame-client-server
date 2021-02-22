@@ -96,6 +96,7 @@ namespace GameClient
                     }
                     if (!searchStatus.PathPossible)
                     {
+                        PathFindingManager.UseAStar = true;
                         _newSearchReady = true;
                         return;
                     }

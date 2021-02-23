@@ -6,26 +6,28 @@ namespace GameClient
 {
     public class MapManager
     {
-        public List<Grave> _graves;
+        static public List<Grave> _graves;
         Player _player;
-        static public List<Chest> _chests;
-        //static public List<Box> _boxes;
+        static public Dictionary<int, Chest> _chests;
         List<NetworkPlayer> _networkPlayers;
         static public Dictionary<int, Box> _boxes;
         static public List<int> _boxesToSend;
+        static public List<int> _chestsToSend;
         public MapManager()
         {
             _graves = new List<Grave>();
-            _chests = new List<Chest>();
-            //_boxes = new List<Box>();
+            _chests = new Dictionary<int, Chest>();
             _boxes = new Dictionary<int, Box>();
             _boxesToSend = new List<int>();
+            _chestsToSend = new List<int>();
         }
-        public void Initialize(Player player, List<NetworkPlayer> networkPlayers)
+        public void Initialize(Player player)
+        {
+            _player = player;
+        }
+        public void Initialize(List<NetworkPlayer> networkPlayers)
         {
             _networkPlayers = networkPlayers;
-            _player = player;
-
         }
         public void Update()
         {
@@ -49,9 +51,20 @@ namespace GameClient
                     _boxes.Remove(item);
                 }
                 _boxesToSend.Clear();
+                foreach (var item in _chestsToSend)
+                {
+                    _chests.Remove(item);
+                }
+                _chestsToSend.Clear();
             }
-
-            _chests.RemoveAll(item => item._destroy == true);
+        }
+        public static void ResetMap()
+        {
+            _graves.Clear();
+            _chests.Clear();
+            _boxes.Clear();
+            _boxesToSend.Clear();
+            _chestsToSend.Clear();
         }
     }
 }

@@ -157,13 +157,13 @@ namespace GameClient
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
         }
-        public Simple_Enemy Copy(float scale)
+        public Simple_Enemy Copy()
         {
             int enemyNum = -1;
             if (!Game_Client._IsMultiplayer)
                 enemyNum = _s_enemyNum++;
 
-            return new Simple_Enemy(_animationManager.Copy(scale), _enemyId, _position, _speed,
+            return new Simple_Enemy(_animationManager.Copy(_scale), _enemyId, _position, _speed,
                 _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, _gun, PathFindingManager.GetPathFinder(),enemyNum);
         }
 

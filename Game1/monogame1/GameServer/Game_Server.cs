@@ -45,23 +45,27 @@ namespace GameServer
             _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
 
             _mapManager = new MapManager();
-            _networkPlayers = new List<NetworkPlayer>();
-            _enemies = new List<Simple_Enemy>();
-            _collisionManager = new CollisionManager();
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
+            _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
+            _levelManager = new LevelManager(_tileManager);
+            
+            _networkPlayers = new List<NetworkPlayer>();
+            _enemies = new List<Simple_Enemy>();
             _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
+
+            _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
-            _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
+            
             _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies);
-            _levelManager = new LevelManager(_tileManager);
+
             _collectionManager.Initialize(_playerManager, _itemManager);
             _collisionManager.Initialize(_networkPlayers, null, _enemies);
-            _levelManager.Initialize(null,_networkPlayers);
-            _mapManager.Initialize(null,_networkPlayers);
+            _levelManager.Initialize(_networkPlayers);
+            _mapManager.Initialize(_networkPlayers);
             _networkManager.Initialize_connection();
-            _levelManager.LoadMap(13);
+            _levelManager.LoadNewLevel();
         }
 
         protected override void Update(GameTime gameTime)

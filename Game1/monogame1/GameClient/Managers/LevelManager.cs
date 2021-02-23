@@ -13,38 +13,49 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
+        static public int _currentLevel = 0;
+        static public bool _sendNewLevel;
 
         public LevelManager( TileManager tileManager)
         {
             _tileManager = tileManager;
         }
-        public void LoadMap(int num)
+        public void LoadNewLevel(int num=0)
         {
-            _spawnPoint = _tileManager.LoadMap(num);
+            if (num != 0)
+                _currentLevel = num;
+            if(_player!=null)
+                _player.PositionPlayerFeetAt(_tileManager.LoadMap(++_currentLevel));
+            PathFindingManager.UseAStar = true;
+            EnemyManager.Reset();
+            _sendNewLevel = true;
+
         }
-        public void Initialize(Player player,List<NetworkPlayer> networkPlayers)
+        public void Initialize(Player player)
         {
             _player = player;
-            if (_player!=null)
-                _player.PositionPlayerFeetAt(_spawnPoint);
+            _player.PositionPlayerFeetAt(_spawnPoint);
+        }
+        public void Initialize(List<NetworkPlayer> networkPlayers)
+        {
             _networkPlayers = networkPlayers;
         }
         public void Update()
         {
-            if (_player != null)
+            if (!Game_Client._IsMultiplayer)
             {
-                _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
-                if (_coord_Player.X + 2 >= TileManager._map.Width)
+                if (_player != null)
                 {
-                    _player.PositionPlayerFeetAt(_tileManager.LoadMap(1));
-                    PathFindingManager.UseAStar = true;
-                    EnemyManager.Reset();
+                    _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
+                    if (_coord_Player.X + 2 >= TileManager._map.Width)
+                    {
+
+                        LoadNewLevel();
+
+                    }
                 }
             }
         }
-        public void Draw()
-        {
 
-        }
     }
 }

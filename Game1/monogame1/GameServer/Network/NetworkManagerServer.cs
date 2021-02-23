@@ -68,31 +68,10 @@ namespace GameServer
                 numOfPlayer++;
                 Packet packet = new Packet();
                 packet.UpdateType(3);
-                packet.WriteVector2(LevelManager._spawnPoint);
+                
                 packet.WriteInt(player._playerNum);
                 socket.Send(packet.Data());
                 Receive(socket, packetHandler, buffer);
-            }
-        }
-        public void SendPacket(GameTime gameTime)
-        {
-            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)
-            {
-                _timer_short = 0;
-                _packet.UpdateType(1);
-                WritePlayers();
-                WriteEnemies();
-                _enemies.RemoveAll(enemy => enemy._destroy == true);
-                WriteBoxes();
-                if (MapManager._boxesToSend.Count > 0)
-                    _packet.PrintData();
-                MapManager._boxesToSend.Clear();
-                foreach (var socket in _socket_list)
-                {
-                    byte[] buffer = _packet.Data();
-                    socket.Send(buffer);
-                }
             }
         }
         public void WritePlayers()
@@ -118,8 +97,6 @@ namespace GameServer
         public void WriteBoxes()
         {
             _packet.WriteInt(MapManager._boxesToSend.Count);
-            if(MapManager._boxesToSend.Count>0)
-                Console.WriteLine("Box,sent: " + MapManager._boxesToSend.Count);
             foreach (var box in MapManager._boxesToSend)
             {
                 MapManager._boxes[box].UpdatePacket(_packet);
@@ -127,6 +104,75 @@ namespace GameServer
                 
             }
         }
+        public void WriteChests()
+        {
+            _packet.WriteInt(MapManager._chestsToSend.Count);
+            foreach (var chest in MapManager._chestsToSend)
+            {
+                MapManager._chests[chest].UpdatePacket(_packet);
+                MapManager._chests.Remove(chest);
+
+            }
+        }
+        public void WriteItems()
+        {
+            _packet.WriteInt(ItemManager._itemsToSend.Count);
+            foreach (var item in ItemManager._itemsToSend)
+            {
+                ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
+            }
+        }
+        public void WriteItemsPickedUp()
+        {
+            _packet.WriteInt(ItemManager._itemsPickedUpToSend.Count);
+            foreach (var item in ItemManager._itemsPickedUpToSend)
+            {
+                _packet.WriteInt(item.Item1);//player num
+                _packet.WriteInt(item.Item2);//item num
+                ItemManager._itemsOnTheGround.Remove(item.Item2);
+            }
+        }
+        public void WriteNewLevel()
+        {
+            if(LevelManager._sendNewLevel)
+            {
+                _packet.WriteInt(1);
+                LevelManager._sendNewLevel = false;
+                _packet.WriteInt(LevelManager._currentLevel);
+                _packet.WriteVector2(LevelManager._spawnPoint);
+            }
+            else
+            {
+                _packet.WriteInt(0);
+            }
+        }
+        public void SendPacket(GameTime gameTime)
+        {
+            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer_short >= 0.1f)
+            {
+                _timer_short = 0;
+                _packet.UpdateType(1);
+                WriteNewLevel();
+                WritePlayers();
+                WriteEnemies();
+                _enemies.RemoveAll(enemy => enemy._destroy == true);
+                WriteBoxes();
+                MapManager._boxesToSend.Clear();
+                WriteChests();
+                MapManager._chestsToSend.Clear();
+                WriteItems();
+                ItemManager._itemsToSend.Clear();
+                WriteItemsPickedUp();
+                ItemManager._itemsPickedUpToSend.Clear();
+                foreach (var socket in _socket_list)
+                {
+                    byte[] buffer = _packet.Data();
+                    socket.Send(buffer);
+                }
+            }
+        }
+
         #region socketMethods
         private void Accept()
         {

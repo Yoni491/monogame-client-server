@@ -9,17 +9,22 @@ namespace GameClient
     public class ItemManager
     {
         static CollectionManager _collectionManager;
-        static List<Item> _itemsOnTheGround;
+        static public Dictionary<int,Item> _itemsOnTheGround;
+        static public int itemNumber = 0;
+        static public List<int> _itemsToSend;
+        static public List<(int,int)> _itemsPickedUpToSend;
         public ItemManager(CollectionManager collectionManager)
         {
             _collectionManager = collectionManager;
-            _itemsOnTheGround = new List<Item>();
+            _itemsOnTheGround = new Dictionary<int, Item>();
+            _itemsPickedUpToSend = new List<(int, int)>();
+            _itemsToSend = new List<int>();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var item in _itemsOnTheGround)
             {
-                item.DrawOnGround(spriteBatch);
+                item.Value.DrawOnGround(spriteBatch);
             }
         }
         static public void DropItem(int []items, Vector2 position)
@@ -30,9 +35,21 @@ namespace GameClient
                 if(item!=null)
                 {
                     item._position = position;
-                    _itemsOnTheGround.Add(item);
+                    _itemsToSend.Add(item._itemNum);
+                    _itemsOnTheGround.Add(item._itemNum,item);
                     return;
                 }
+            }
+        }
+        static public void DropItemFromServer(int num, int id, Vector2 position)
+        {
+            Item item = _collectionManager.GetItem(id).Drop(true);
+            if (item != null)
+            {
+                item._itemNum = num;
+                item._position = position;
+                _itemsOnTheGround.Add(item._itemNum, item);
+                return;
             }
         }
         static public void DropGold(int amount, Vector2 position)
@@ -43,32 +60,36 @@ namespace GameClient
                 if (item != null)
                 {
                     item._position = position;
-                    _itemsOnTheGround.Add(item);
+                    _itemsToSend.Add(item._itemNum);
+                    _itemsOnTheGround.Add(item._itemNum,item);
                 }
             }
             
         }
         public Item findClosestItem(Vector2 position)
         {
-            Item _item = null;
+            Item itemResult = null;
             Vector2 object_position = position;
             float distance;
             float closest_object_distance = float.MaxValue;
             foreach (var item in _itemsOnTheGround)
             {
-                distance = Vector2.Distance(position, item._position);
-                if (distance < closest_object_distance && distance < 50)
+                if (!item.Value._aboutToBeSent)
                 {
-                    closest_object_distance = distance;
-                    object_position = item._position;
-                    _item = item;
+                    distance = Vector2.Distance(position, item.Value._position);
+                    if (distance < closest_object_distance && distance < 50)
+                    {
+                        closest_object_distance = distance;
+                        object_position = item.Value._position;
+                        itemResult = item.Value;
+                    }
                 }
             }
-            return _item;
+            return itemResult;
         }
         public void RemoveItemFromFloor(Item item)
         {
-            _itemsOnTheGround.Remove(item);
+            _itemsOnTheGround.Remove(item._itemNum);
         }
     }
 }

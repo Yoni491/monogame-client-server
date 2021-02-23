@@ -43,13 +43,13 @@ namespace GameClient
         }
         public static void AddEnemyAtPosition(Vector2 position)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(1, 1f);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(1);
             enemy.PositionFeetAt(position);
             _enemies.Add(enemy);
         }
         public Simple_Enemy AddEnemyFromServer(int enemyNum,int enemyId)
         {
-            Simple_Enemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId,1);
+            Simple_Enemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId);
             simple_Enemy._enemyNum = enemyNum;
             _enemies.Add(simple_Enemy);
             return simple_Enemy;

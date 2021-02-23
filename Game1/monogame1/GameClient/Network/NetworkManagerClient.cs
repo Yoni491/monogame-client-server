@@ -23,12 +23,12 @@ namespace GameClient
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
         {
             _enemies = enemies;
             _playerManager = playerManager;
             _player = player;
-            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager);
+            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager,inventoryManager, levelManager);
             _packet = new Packet();
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
@@ -64,14 +64,30 @@ namespace GameClient
             foreach (var item in MapManager._boxesToSend)
             {
                 MapManager._boxes[item].UpdatePacket(_packet);
-                Console.WriteLine("box,");
                 MapManager._boxes.Remove(item);
+            }
+        }
+        public void WriteChests()
+        {
+            _packet.WriteInt(MapManager._chestsToSend.Count);
+            foreach (var item in MapManager._chestsToSend)
+            {
+                MapManager._chests[item].UpdatePacket(_packet);
+                MapManager._chests.Remove(item);
+            }
+        }
+        public void WriteItems()
+        {
+            _packet.WriteInt(ItemManager._itemsToSend.Count);
+            foreach (var item in ItemManager._itemsToSend)
+            {
+                ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
             }
         }
         public void SendPacket(GameTime gameTime)
         {
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)//doesnt work if it is too fast
+            if (_timer_short >= 0.1f)//doesnt work if it is too fastss
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);//packet type
@@ -79,6 +95,10 @@ namespace GameClient
                 WriteEnemies();
                 WriteBoxes();
                 MapManager._boxesToSend.Clear();
+                WriteChests();
+                MapManager._chestsToSend.Clear();
+                WriteItems();
+                ItemManager._itemsToSend.Clear();
                 byte[] buffer = _packet.Data();
                 _socket.Send(buffer);
             }
@@ -86,7 +106,7 @@ namespace GameClient
         #region NetworkMethods
         public void Initialize_connection()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.126.31.222"), 1994);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.2.108"), 1994);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
         }

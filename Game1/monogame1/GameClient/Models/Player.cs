@@ -9,7 +9,7 @@ namespace GameClient
 {
     public class Player
     {
-        private Gun _gun;
+        public Gun _gun;
         private MeleeWeapon _meleeWeapon;
         private Input _input;
         private Vector2 _velocity;
@@ -19,7 +19,7 @@ namespace GameClient
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
         public bool _isGamePad;
-        public bool _clickedOnUi;
+        static public bool _mouseIntersectsUI;
         private float _speed = 6f;
         private float _scale;
         public int _playerNum;
@@ -131,7 +131,6 @@ namespace GameClient
                 _isGamePad = true;
                 _velocity = _input._left_joystick_direction;
             }
-
             if (_velocity != Vector2.Zero)
             {
                 _velocity = Vector2.Normalize(_velocity) * _speed;
@@ -141,12 +140,14 @@ namespace GameClient
                 _isGamePad = true;
                 _looking_direction = _input._right_joystick_direction;
             }
-            if(!_isGamePad)
+            if (!_isGamePad)
+            {
                 _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
+            }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
-                if(!_clickedOnUi)
+                if(!_mouseIntersectsUI)
                 { 
                     _gun.Shot();
                 }
@@ -169,10 +170,19 @@ namespace GameClient
                 Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPosition()));
                 if(item!=null)
                 {
-                    _inventoryManager.addItemToInventory(item);
+                    if (!Game_Client._IsMultiplayer)
+                    {
+                        _inventoryManager.addItemToInventory(item);
+                    }
+                    else
+                    {
+                        item._aboutToBeSent = true;
+                        ItemManager._itemsToSend.Add(item._itemNum);
+                    }
+                    
                 }
             }
-            _clickedOnUi = false;
+            _mouseIntersectsUI = false;
 
         }
         protected void SetAnimations()
@@ -216,6 +226,7 @@ namespace GameClient
         public void EquipMeleeWeapon(MeleeWeapon meleeWeapon)
         {
             _meleeWeapon = meleeWeapon;
+            _meleeWeapon._holderScale = _scale;
         }
         public void PositionPlayerFeetAt(Vector2 position)
         {
@@ -227,6 +238,7 @@ namespace GameClient
         {
             packet.WriteInt(_playerNum);
             packet.WriteVector2(_position);
+            packet.WriteInt(_moving_direction);
             packet.WriteInt(_health._health_left);
             packet.WriteInt(_health._total_health);
             packet.WriteVector2(_velocity);

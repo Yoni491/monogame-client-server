@@ -196,10 +196,9 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy(float scale,bool hitPlayers,bool dealDmg)
+        public Gun Copy(bool hitPlayers,bool dealDmg)
         {
             Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers,dealDmg);
-            gun._holderScale = scale;
             return gun;
         }
         public void Shot()

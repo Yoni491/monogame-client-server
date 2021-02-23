@@ -52,35 +52,40 @@ namespace GameClient
         }
         protected override void LoadContent()
         {
+            //graphics
             new GraphicManager(GraphicsDevice, Content,_graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
-            _mapManager = new MapManager();
+            //menu and ui
             _menuManager = new MenuManager(this, GraphicsDevice);
-            _networkPlayers = new List<NetworkPlayer>();
-            _enemies = new List<Simple_Enemy>();
-            _collisionManager = new CollisionManager();
+            _UIManager = new UIManager();
+            _inventoryManager = new InventoryManager(GraphicsDevice);
+            //game content
+            _mapManager = new MapManager();
+            _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
+            _levelManager = new LevelManager(_tileManager);
             _collectionManager = new CollectionManager(_enemies, Content);
             _itemManager = new ItemManager(_collectionManager);
-            _inventoryManager = new InventoryManager(GraphicsDevice, _itemManager);
-            _UIManager = new UIManager();
+            //players and enemies
+            _networkPlayers = new List<NetworkPlayer>();
+            _enemies = new List<Simple_Enemy>();
             _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
+            //calculations
+            _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
-            _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
+            //network
             _networkManager = new NetworkManagerClient();
-            _levelManager = new LevelManager(_tileManager);
+            //initializers
             _collectionManager.Initialize(_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
-            _levelManager.Initialize(_player,null);
-            _inventoryManager.Initialize(_player);
-            _mapManager.Initialize(_player,null);
-            _UIManager.Initialize(Content, _inventoryManager, _graphics, _player);
-            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager);
-
-
+            _levelManager.Initialize(_player);
+            _inventoryManager.Initialize(_player,_itemManager);
+            _mapManager.Initialize(_player);
+            _UIManager.Initialize(Content, _inventoryManager, _graphics);
+            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
         }
 
         protected override void Update(GameTime gameTime)
@@ -95,7 +100,6 @@ namespace GameClient
             else
             {
                 _enemyManager.Update(gameTime);
-                
                 if(_IsMultiplayer)
                     _networkManager.Update(gameTime);
                 _UIManager.Update(gameTime);
@@ -126,13 +130,11 @@ namespace GameClient
                 _enemyManager.Draw(_spriteBatch);
                 _itemManager.Draw(_spriteBatch);
                 _inventoryManager.Draw(_UIbatch);
-            }
-            
+            }           
             _spriteBatch.End();
             _UIbatch.End();
             _settingsBatch.End();
             base.Draw(gameTime);
-
         }
 
         static public void ResetGraphics()

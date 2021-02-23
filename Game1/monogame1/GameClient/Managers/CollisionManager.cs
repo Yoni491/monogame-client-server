@@ -87,8 +87,9 @@ namespace GameClient
         }
         static public Chest isCollidingChests(Rectangle rectangle, Vector2 velocity)
         {
-            foreach (var chest in MapManager._chests)
+            foreach (var item in MapManager._chests)
             {
+                Chest chest = item.Value;
                 if (IsCollidingLeft(rectangle, chest.Rectangle, velocity) || IsCollidingRight(rectangle, chest.Rectangle, velocity) || IsCollidingTop(rectangle, chest.Rectangle, velocity) || IsCollidingBottom(chest.Rectangle, chest.Rectangle, velocity))
                 {
                     return chest;

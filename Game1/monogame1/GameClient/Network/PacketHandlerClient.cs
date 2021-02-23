@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
@@ -11,19 +12,23 @@ namespace GameClient
         List<NetworkPlayer> _players;
         Player _player;
         PlayerManager _playerManager;
-        private readonly EnemyManager _enemyManager;
+        private EnemyManager _enemyManager;
+        private InventoryManager _inventoryManager;
+        private LevelManager _levelManager;
         private  List<Simple_Enemy> _enemies;
         Packet _packet;
         ushort packetLength;
         ushort packetType;
 
         int usingResource = 0;
-        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager)
+        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager, InventoryManager inventoryManager, LevelManager levelManager)
         {
             _players = players;
             _player = player;
             _playerManager = playerManager;
             _enemyManager = enemyManager;
+            _inventoryManager = inventoryManager;
+            _levelManager = levelManager;
             _enemies = enemies;
             _packet = new Packet();
         }
@@ -50,20 +55,17 @@ namespace GameClient
                     case 0:
                         break;
                     case 1://short packet
+                        ReadNewLevel();
                         ReadPlayers();
                         ReadEnemies();
                         ReadBoxes();
-                        break;
-                    case 2:
+                        ReadChests();
+                        ReadItems();
+                        ReadItemsPickedUp();
                         break;
                     case 3:
                         //long packet containing player number from server
-                        _player.PositionPlayerFeetAt(_packet.ReadVector2());
                         _player._playerNum = _packet.ReadInt();
-                        //Console.WriteLine("A");
-                        break;
-                    case 4:
-                        //long packet from client to server
                         break;
                 }
                 _packet._offset = 0;
@@ -107,8 +109,6 @@ namespace GameClient
         public void ReadBoxes()
         {
             int numOfBoxes = _packet.ReadInt();
-            if(numOfBoxes>0)
-                Console.WriteLine("Box recieved: " + numOfBoxes);
             for (int i = 0; i < numOfBoxes; i++)
             {
                 int boxNum = _packet.ReadInt();
@@ -119,6 +119,63 @@ namespace GameClient
                     MapManager._boxes.Remove(boxNum);
                     MapManager._boxesToSend.Remove(boxNum);
                 }
+            }
+        }
+        public void ReadChests()
+        {
+            int numOfChests = _packet.ReadInt();
+            for (int i = 0; i < numOfChests; i++)
+            {
+                int chestNum = _packet.ReadInt();
+                if (MapManager._chests.ContainsKey(chestNum))
+                {
+                    Chest chest = MapManager._chests[chestNum];
+                    chest.Open();
+                    MapManager._chests.Remove(chestNum);
+                    MapManager._chestsToSend.Remove(chestNum);
+                }
+            }
+        }
+        public void ReadItems()
+        {
+            int numOfItems = _packet.ReadInt();
+            for (int i = 0; i < numOfItems; i++)
+            {
+                int itemNum = _packet.ReadInt();
+                int itemId = _packet.ReadInt();
+                Vector2 position = _packet.ReadVector2(); 
+                if (!ItemManager._itemsOnTheGround.ContainsKey(itemNum))
+                {
+                    ItemManager.DropItemFromServer(itemNum, itemId, position);
+                }
+            }
+        }
+        public void ReadItemsPickedUp()
+        {
+            int numOfItems = _packet.ReadInt();
+            for (int i = 0; i < numOfItems; i++)
+            {
+                int playerNum = _packet.ReadInt();
+                int itemNum = _packet.ReadInt();
+                if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
+                {
+                    if(playerNum == _player._playerNum)
+                    {
+                        _inventoryManager.addItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
+                    }
+                    else
+                    {
+                        ItemManager._itemsOnTheGround.Remove(itemNum);
+                    }
+                }
+            }
+        }
+        public void ReadNewLevel()
+        {
+            if(_packet.ReadInt()==1)
+            {
+                _levelManager.LoadNewLevel(_packet.ReadInt());
+                _player.PositionPlayerFeetAt(_packet.ReadVector2());
             }
         }
     }

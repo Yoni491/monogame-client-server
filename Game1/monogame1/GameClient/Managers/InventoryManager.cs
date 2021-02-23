@@ -20,9 +20,8 @@ namespace GameClient
         int _itemBlockAmount = 8;
         MouseState _previousMouse, _currentMouse;
 
-        public InventoryManager(GraphicsDevice graphicsDevice, ItemManager itemManager)
+        public InventoryManager(GraphicsDevice graphicsDevice)
         {
-            _itemManager = itemManager;
             _graphicsDevice = graphicsDevice;
             _inventoryBlock = new Texture2D(graphicsDevice, width, height);
             Color[] data2 = new Color[width * height];
@@ -50,8 +49,9 @@ namespace GameClient
             _graphicsDevice.Viewport.Bounds.Height - (_graphicsDevice.Viewport.Bounds.Height / 20));
             return new Vector2(_position.X - _itemBlockAmount / 2 * width - (_itemBlockAmount / 2 - 1), _position.Y);
         }
-        public void Initialize(Player player)
+        public void Initialize(Player player, ItemManager itemManager)
         {
+            _itemManager = itemManager;
             _player = player;
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -95,7 +95,7 @@ namespace GameClient
                     ItemStock itemStock = tuple.Item2;
                     if (itemStock != null)
                     {
-                        if (itemStock._item._item_id == itemToAdd._item_id)
+                        if (itemStock._item._itemId == itemToAdd._itemId)
                         {
                             if (itemStock._amount < tuple.Item2._item._invenotryAmountAllowed)
                             {
@@ -130,14 +130,15 @@ namespace GameClient
             {
                 if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
                 {
+                    Player._mouseIntersectsUI = true;
                     if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                     {
-                        _player._clickedOnUi = true;
                         if (_inventory_rectangles[i].Item2 != null)
                         {
                             Gun gun = _inventory_rectangles[i].Item2._item._gun;
                             if (gun != null)
                             {
+                                _player._gun._bullets.Clear();
                                 _player.EquipGun(gun);
                             }
 

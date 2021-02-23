@@ -52,14 +52,9 @@ namespace GameServer
                         ReadPlayer();
                         ReadEnemies();
                         ReadBoxes();
-                       
+                        ReadChests();
+                        ReadItems();
                         
-                        break;
-                    case 2:
-                        //short packet from client to server
-                        break;
-                    case 3:
-                        //long packet containing player number from server
                         break;
                     case 4:
                         //long packet from client to server
@@ -104,6 +99,31 @@ namespace GameServer
                 {
                     Box box = MapManager._boxes[boxNum];
                     box.Destroy();
+                }
+            }
+        }
+        public void ReadChests()
+        {
+            int numOfChests = _packet.ReadInt();
+            for (int i = 0; i < numOfChests; i++)
+            {
+                int chestNum = _packet.ReadInt();
+                if (MapManager._chests.ContainsKey(chestNum))
+                {
+                    MapManager._chests[chestNum].Open();
+                }
+            }
+        }
+        public void ReadItems()
+        {
+            int numOfItems = _packet.ReadInt();
+            for (int i = 0; i < numOfItems; i++)
+            {
+                int itemNum = _packet.ReadInt();
+                if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
+                {
+                    ItemManager._itemsPickedUpToSend.Add((_player._playerNum,itemNum));
+                    ItemManager._itemsOnTheGround.Remove(itemNum);
                 }
             }
         }

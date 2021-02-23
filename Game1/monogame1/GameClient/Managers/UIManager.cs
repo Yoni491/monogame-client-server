@@ -12,7 +12,6 @@ namespace GameClient
         //Rectangle settingsRectangle;
         Button _settingButton, _fullScreenButton, _exitFullScreenButton,_returnToGame,_exitToMain;
         GraphicsDeviceManager _graphics;
-        private Player _player;
         bool fullScreen;
         public static bool _showSettings;
         private Texture2D _settingsBackground;
@@ -23,10 +22,9 @@ namespace GameClient
         {
 
         }
-        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics, Player player)
+        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics)
         {
             _graphics = graphics;
-            _player = player;
             _InventoryManager = InventoryManager;
             _settingButton = new Button(content.Load<Texture2D>("etc/settings"), null, new Vector2(0, 0), Color.White, Color.Gray, null);
             _buttonsPosition = new Vector2(GraphicManager.screenWidth / 3, GraphicManager.screenHeight / 3);
@@ -45,8 +43,6 @@ namespace GameClient
                 {
                     if (_fullScreenButton.Update(gameTime))
                     {
-
-                        _player._clickedOnUi = true;
                         fullScreen = true;
                         GraphicManager.ChangeToFullScreen(true);
                         Game_Client.ResetGraphics();
@@ -56,8 +52,6 @@ namespace GameClient
                 {
                     if (_exitFullScreenButton.Update(gameTime))
                     {
-
-                        _player._clickedOnUi = true;
                         fullScreen = false;
                         GraphicManager.ChangeToFullScreen(false);
                         Game_Client.ResetGraphics();
@@ -67,12 +61,10 @@ namespace GameClient
                 if (_settingButton.Update(gameTime))
                 {
                     _showSettings = false;
-                    _player._clickedOnUi = true;
                 }
                 if(_returnToGame.Update(gameTime))
                 {
                     _showSettings = false;
-                    _player._clickedOnUi = true;
                 }
                 if(_exitToMain.Update(gameTime))
                 {
@@ -84,7 +76,6 @@ namespace GameClient
                 if (_settingButton.Update(gameTime))
                 {
                     _showSettings = true;
-                    _player._clickedOnUi = true;
                 }
             }
         }

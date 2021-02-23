@@ -100,38 +100,8 @@
 #begin maps/map1.tmx
 /copy:maps/map1.tmx
 
-#begin maps/map10.tmx
-/copy:maps/map10.tmx
-
-#begin maps/map11.tmx
-/copy:maps/map11.tmx
-
-#begin maps/map12.tmx
-/copy:maps/map12.tmx
-
-#begin maps/map13.tmx
-/copy:maps/map13.tmx
-
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
-
-#begin maps/map3.tmx
-/copy:maps/map3.tmx
-
-#begin maps/map5.tmx
-/copy:maps/map5.tmx
-
-#begin maps/map6.tmx
-/copy:maps/map6.tmx
-
-#begin maps/map7.tmx
-/copy:maps/map7.tmx
-
-#begin maps/map8.tmx
-/copy:maps/map8.tmx
-
-#begin maps/map9.tmx
-/copy:maps/map9.tmx
 
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter

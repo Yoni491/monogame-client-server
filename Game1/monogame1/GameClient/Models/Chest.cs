@@ -12,6 +12,7 @@ namespace GameClient
         private int _numberInTileset;
         private readonly int tilesetIndex;
         public bool _destroy;
+        public bool _sendChest;
 
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
@@ -29,10 +30,19 @@ namespace GameClient
         }
         public void Open()
         {
-            ItemManager.DropItem(CollectionManager.allWeapons, _position);
-            ItemManager.DropGold(100, _position);
+            if (!Game_Client._IsMultiplayer)
+            {
+                ItemManager.DropItem(CollectionManager.allWeapons, _position);
+                ItemManager.DropGold(100, _position);
+            }
+            MapManager._chestsToSend.Add(_numberInTileset);
             _destroy = true;
             TileManager._map.TileLayers[tilesetIndex].Tiles[_numberInTileset].Gid = 0;
+        }
+        public void UpdatePacket(Packet packet)
+        {
+            packet.WriteInt(_numberInTileset);
+            _sendChest = true;
         }
     }
 }

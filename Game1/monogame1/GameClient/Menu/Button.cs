@@ -42,6 +42,7 @@ namespace GameClient
 
             if (mouseRectangle.Intersects(_rectangle))
             {
+                Player._mouseIntersectsUI = true;
                 _isHovering = true;
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)

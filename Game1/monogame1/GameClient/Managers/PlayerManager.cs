@@ -23,7 +23,7 @@ namespace GameClient
         }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1), 100, playerNum, CollectionManager.GetGunCopy(3,0.7f,false,false));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), 100, playerNum, CollectionManager.GetGunCopy(3,false,false));
             _players.Add(networkPlayer);
             return networkPlayer;
         }
@@ -36,8 +36,8 @@ namespace GameClient
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
             int animationNum = 3;
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
-            _player.EquipGun(CollectionManager.GetGunCopy(1,0.7f,false,true));
-            _player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,0.7f));
+            _player.EquipGun(CollectionManager.GetGunCopy(1,false,true));
+            _player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1));
             return _player;
         }
         public void Update(GameTime gameTime)

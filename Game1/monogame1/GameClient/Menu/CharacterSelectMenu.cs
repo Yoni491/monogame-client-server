@@ -49,9 +49,9 @@ namespace GameClient
                 Game_Client._inMenu = false;
                 _game_Client._playerManager._player._animationManager = CollectionManager.GetAnimationManagerCopy(characterNumbers[index],1.5f);
                 _game_Client._playerManager._player._animationNum = characterNumbers[index];
-                Console.WriteLine("b" + characterNumbers[index]);
                 _menuManager._showChooseCharacterMenu = false;
-                _game_Client._levelManager.LoadMap(13);
+                if(!Game_Client._isServer)
+                    _game_Client._levelManager.LoadNewLevel();
             }
             if(_returnToMain.Update(gameTime))
             {

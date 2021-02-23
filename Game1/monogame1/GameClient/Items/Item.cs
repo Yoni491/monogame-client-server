@@ -10,7 +10,8 @@ namespace GameClient
     {
         Texture2D _texture;
         Texture2D _inventoryTexture;
-        public int _item_id;
+        public int _itemId;
+        public int _itemNum;
         private string _name;
         private float _dropRate;
         private int _itemLvl;
@@ -21,15 +22,17 @@ namespace GameClient
         public Vector2 _position;
         private bool _inInventory;
         public int _invenotryAmountAllowed;
+        public bool _aboutToBeSent;
 
         public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Gun gun, int invenotryAmountAllowed)
         {
             _texture = texture;
-            if(framedTexture == null)
+            _itemNum = ItemManager.itemNumber++;
+            if (framedTexture == null)
                 _inventoryTexture = texture;
             else
                 _inventoryTexture = framedTexture;
-            _item_id = item_id;
+            _itemId = item_id;
             _name = name;
             _dropRate = dropRate;
             _itemLvl = itemLvl;
@@ -46,19 +49,19 @@ namespace GameClient
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.1f);
+            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.2f + _itemId * 0.001f);
         }
         public Item Copy()
         {
             Gun gun = null;
             if (_gun != null)
-                gun = _gun.Copy(1,false,true);
-            return new Item(_texture, _inventoryTexture, _item_id, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed);
+                gun = _gun.Copy(false,true);
+            return new Item(_texture, _inventoryTexture, _itemId, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed);
         }
-        public Item Drop()
+        public Item Drop(bool dropAlways = false)
         {
             Random x = new Random();
-            if ((float)x.NextDouble() < _dropRate)
+            if ((float)x.NextDouble() < _dropRate || dropAlways)
             {
                 return Copy();
             }
@@ -69,6 +72,16 @@ namespace GameClient
         {
             _position = position;
             _inInventory = true;
+        }
+        public void UpdatePacket(Packet packet)
+        {
+            packet.WriteInt(_itemNum);
+            packet.WriteInt(_itemId);
+            packet.WriteVector2(_position);
+        }
+        public void UpdatePacketNum(Packet packet)
+        {
+            packet.WriteInt(_itemNum);
         }
     }
 

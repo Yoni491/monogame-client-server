@@ -27,6 +27,7 @@ namespace GameClient
         }
         public Vector2 LoadMap(int mapNum)
         {
+            MapManager.ResetMap();
             _walls = new Dictionary<int, Wall>();
             _destroyableWalls = new Dictionary<int, Wall>();
 
@@ -70,13 +71,13 @@ namespace GameClient
                     {
                         Rectangle rectangle = AddWall(i,false);
                         if(!Game_Client._IsMultiplayer)
-                            _mapManager._graves.Add(new Grave(rectangle, false));
+                            MapManager._graves.Add(new Grave(rectangle, false));
                     }
                     else if (gid == 326)//grave broken
                     {
                         Rectangle rectangle = AddWall(i,false);
                         if (!Game_Client._IsMultiplayer)
-                            _mapManager._graves.Add(new Grave(rectangle, true));
+                            MapManager._graves.Add(new Grave(rectangle, true));
                     }
                     else if (gid == 134)//spawn point
                     {
@@ -84,8 +85,7 @@ namespace GameClient
                     }
                     else if (gid == 469 || gid == 467)//normal chest
                     {
-                        if (!Game_Client._IsMultiplayer)
-                            MapManager._chests.Add(new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
+                        MapManager._chests.Add(i,new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
                     }
                     else if (gid == 468 ||gid == 465)
                     {

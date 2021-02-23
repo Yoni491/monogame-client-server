@@ -56,7 +56,7 @@ namespace GameClient
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 15, allConsumables, null, null, null));//skeleton
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 6, _playerManager,
-                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0, 0.7f), null, null));//runner
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0), null, null));//runner
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
                 _itemManager, 10, allWeapons, null, null, null));//mage
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
@@ -134,27 +134,27 @@ namespace GameClient
                 _playerAnimationManager.Add(GraphicManager.GetAnimationManager_spriteMovement(i, 1.5f));
             }
         }
-        static public Gun GetGunCopy(int id, float scale, bool hitPlayers, bool dealDmg)
+        static public Gun GetGunCopy(int id, bool hitPlayers, bool dealDmg)
         {
             if (id == -1)
             {
                 Random x = new Random();
                 id = x.Next(0, 5);
             }
-            return _guns[id].Copy(scale, hitPlayers, dealDmg);
+            return _guns[id].Copy(hitPlayers, dealDmg);
         }
-        static public MeleeWeapon GetMeleeWeaponCopy(int id, float scale)
+        static public MeleeWeapon GetMeleeWeaponCopy(int id)
         {
             if (id == -1)
             {
                 Random x = new Random();
                 id = x.Next(0, 1);
             }
-            return _meleeWeapons[id].Copy(scale);
+            return _meleeWeapons[id].Copy();
         }
-        public Simple_Enemy GetSimpleEnemyCopy(int id, float scale)
+        public Simple_Enemy GetSimpleEnemyCopy(int id)
         {
-            return _simple_enemies[id].Copy(scale);
+            return _simple_enemies[id].Copy();
         }
         public Item GetItem(int id)
         {

@@ -68,7 +68,8 @@ namespace GameClient
                 {
                     if (index > _pathFinderList.Count - 1)
                         index = 0;
-                    if (_pathFinderList.Count > 0)
+
+                    if (_pathFinderList.Count > 0 && _pathFinderList[index]._pathNotFound-- < 1)
                         _pathFinderList[index].FindPaths();
                     index++;
                     _continueSearch = false;

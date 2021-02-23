@@ -20,6 +20,8 @@ namespace GameClient
         private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
         public int _id;
+        private bool _usedBfs;
+        public int _pathNotFound = 0;
         public PathFinder(int id)
         {
             _path = new List<Coord>();
@@ -60,8 +62,10 @@ namespace GameClient
             _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), s_grid);
             while (true)
             {
-                if (tickAmount < 1000 && PathFindingManager.UseAStar)
+                if (tickAmount < 1000 && PathFindingManager.UseAStar || _usedBfs)
                 {
+                    if (tickAmount > 1500)
+                        return;
                     var searchStatus = _AStar.GetPathTick();
                     tickAmount++;
                     if (searchStatus.PathFound)
@@ -90,6 +94,7 @@ namespace GameClient
                     var searchStatus = _BreadthFirst.GetPathTick();
                     if (searchStatus.PathFound)
                     {
+                        _usedBfs = true;
                         _searchDetails = searchStatus;
                         _newSearchReady = true;
                         return;
@@ -98,6 +103,7 @@ namespace GameClient
                     {
                         PathFindingManager.UseAStar = true;
                         _newSearchReady = true;
+                        _pathNotFound = 20;
                         return;
                     }
                 }

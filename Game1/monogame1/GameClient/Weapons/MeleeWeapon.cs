@@ -90,7 +90,7 @@ namespace GameClient
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
         }
-        public MeleeWeapon Copy(float scale)
+        public MeleeWeapon Copy()
         {
             return new MeleeWeapon(_id, _texture, _position, _swing_range, _dmg);
         }

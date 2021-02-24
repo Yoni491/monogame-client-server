@@ -23,9 +23,17 @@ namespace GameClient
         public void LoadNewLevel(int num=0)
         {
             if (num != 0)
+            {
                 _currentLevel = num;
-            if(_player!=null)
-                _player.PositionPlayerFeetAt(_tileManager.LoadMap(++_currentLevel));
+                _spawnPoint = _tileManager.LoadMap(_currentLevel);
+                _player.PositionPlayerFeetAt(_spawnPoint);
+            }
+            else
+            {
+                _spawnPoint = _tileManager.LoadMap(++_currentLevel);
+                if (_player != null)
+                    _player.PositionPlayerFeetAt(_spawnPoint);
+            }
             PathFindingManager.UseAStar = true;
             EnemyManager.Reset();
             _sendNewLevel = true;
@@ -34,7 +42,6 @@ namespace GameClient
         public void Initialize(Player player)
         {
             _player = player;
-            _player.PositionPlayerFeetAt(_spawnPoint);
         }
         public void Initialize(List<NetworkPlayer> networkPlayers)
         {
@@ -49,9 +56,21 @@ namespace GameClient
                     _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
                     if (_coord_Player.X + 2 >= TileManager._map.Width)
                     {
-
                         LoadNewLevel();
-
+                    }
+                }
+                if (!_sendNewLevel)
+                {
+                    if (_networkPlayers != null)
+                    {
+                        foreach (var player in _networkPlayers)
+                        {
+                            _coord_Player = TileManager.GetCoordTile(player.Position_Feet);
+                            if (_coord_Player.X + 2 >= TileManager._map.Width)
+                            {
+                                LoadNewLevel();
+                            }
+                        }
                     }
                 }
             }

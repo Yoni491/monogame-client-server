@@ -21,7 +21,7 @@ namespace GameClient
 
         private AnimationManager _animationManager;
 
-        private Vector2 _position;
+        public Vector2 _position;
 
         private HealthManager _health;
 

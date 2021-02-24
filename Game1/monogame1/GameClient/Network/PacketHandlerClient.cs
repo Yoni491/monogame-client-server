@@ -55,7 +55,7 @@ namespace GameClient
                     case 0:
                         break;
                     case 1://short packet
-                        ReadNewLevel();
+                        ReadLevel();
                         ReadPlayers();
                         ReadEnemies();
                         ReadBoxes();
@@ -170,12 +170,14 @@ namespace GameClient
                 }
             }
         }
-        public void ReadNewLevel()
+        public void ReadLevel()
         {
-            if(_packet.ReadInt()==1)
+            int levelNum = _packet.ReadInt();
+            Vector2 position = _packet.ReadVector2();
+            if (levelNum != LevelManager._currentLevel)
             {
-                _levelManager.LoadNewLevel(_packet.ReadInt());
-                _player.PositionPlayerFeetAt(_packet.ReadVector2());
+                _levelManager.LoadNewLevel(levelNum);
+                _player.PositionPlayerFeetAt(position);
             }
         }
     }

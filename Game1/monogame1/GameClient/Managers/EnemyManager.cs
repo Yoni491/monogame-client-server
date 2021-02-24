@@ -64,10 +64,7 @@ namespace GameClient
         }
         public static void Reset()
         {
-            foreach (var enemy in _enemies)
-            {
-                enemy._destroy = true;
-            }
+            _enemies.Clear();
         }
     }
 }

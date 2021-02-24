@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using GameClient;
+using Microsoft.Xna.Framework;
+
 namespace GameServer
 {
     public class PacketHandlerServer
@@ -17,6 +19,8 @@ namespace GameServer
         private int usingResource = 0;
         private NetworkPlayer _player;
         private readonly List<Simple_Enemy> _enemies;
+        public int _playerCurrentLevel;
+        private Vector2 _playerPreviousPosition;
 
         public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<Simple_Enemy> enemies)
         {
@@ -49,6 +53,7 @@ namespace GameServer
                         break;
                     case 1:
                         //short packet from client to server
+                        ReadLevel();
                         ReadPlayer();
                         ReadEnemies();
                         ReadBoxes();
@@ -68,11 +73,18 @@ namespace GameServer
                 Interlocked.Exchange(ref usingResource, 0);
             }
         }
+        public void ReadLevel()
+        {
+            _playerCurrentLevel = _packet.ReadInt();
+        }
         public void ReadPlayer()
         {
             int numOfPlayers = _packet.ReadInt();
             playerNum = _packet.ReadInt();
+            //_playerPreviousPosition = _player._position;
             _player.ReadPacketShort(_packet);
+            //if (_playerCurrentLevel != LevelManager._currentLevel)
+            //    _player._position = _playerPreviousPosition;
         }
         public void ReadEnemies()
         {

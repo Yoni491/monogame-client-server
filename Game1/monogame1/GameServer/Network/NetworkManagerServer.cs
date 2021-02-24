@@ -24,6 +24,7 @@ namespace GameServer
         int addPlayers = 0;
         List<Socket> _socketToAdd;
         Packet _packet;
+        static bool _everyClientGotCurrentLevel;
         public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<Simple_Enemy> enemies)
         {
             _socket_list = socket_list;
@@ -46,10 +47,15 @@ namespace GameServer
         {
             AddPlayerSocket();
             SendPacket(gameTime);
+            _everyClientGotCurrentLevel = true;
             for (int i = 0; i < numOfPlayer; i++)
             {
+                if (_packetHandlers[i]._playerCurrentLevel != LevelManager._currentLevel)
+                    _everyClientGotCurrentLevel = false;
                 _packetHandlers[i].Update();
             }
+            if (_everyClientGotCurrentLevel)
+                LevelManager._sendNewLevel = false;
         }
         public void AddPlayerSocket()
         {
@@ -132,19 +138,10 @@ namespace GameServer
                 ItemManager._itemsOnTheGround.Remove(item.Item2);
             }
         }
-        public void WriteNewLevel()
+        public void WriteLevel()
         {
-            if(LevelManager._sendNewLevel)
-            {
-                _packet.WriteInt(1);
-                LevelManager._sendNewLevel = false;
-                _packet.WriteInt(LevelManager._currentLevel);
-                _packet.WriteVector2(LevelManager._spawnPoint);
-            }
-            else
-            {
-                _packet.WriteInt(0);
-            }
+            _packet.WriteInt(LevelManager._currentLevel);
+            _packet.WriteVector2(LevelManager._spawnPoint);
         }
         public void SendPacket(GameTime gameTime)
         {
@@ -153,7 +150,7 @@ namespace GameServer
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);
-                WriteNewLevel();
+                WriteLevel();
                 WritePlayers();
                 WriteEnemies();
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
@@ -165,6 +162,7 @@ namespace GameServer
                 ItemManager._itemsToSend.Clear();
                 WriteItemsPickedUp();
                 ItemManager._itemsPickedUpToSend.Clear();
+                _packet.PrintData();
                 foreach (var socket in _socket_list)
                 {
                     byte[] buffer = _packet.Data();

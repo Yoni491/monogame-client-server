@@ -45,6 +45,10 @@ namespace GameClient
                 Initialize_connection();
             }
         }
+        public void WriteLevel()
+        {
+            _packet.WriteInt(LevelManager._currentLevel);
+        }
         public void WritePlayers()
         {
             _packet.WriteInt(1);//number of players to send.
@@ -91,6 +95,7 @@ namespace GameClient
             {
                 _timer_short = 0;
                 _packet.UpdateType(1);//packet type
+                WriteLevel();
                 WritePlayers();
                 WriteEnemies();
                 WriteBoxes();
@@ -106,7 +111,7 @@ namespace GameClient
         #region NetworkMethods
         public void Initialize_connection()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.2.108"), 1994);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.124.1.95"), 1994);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
         }

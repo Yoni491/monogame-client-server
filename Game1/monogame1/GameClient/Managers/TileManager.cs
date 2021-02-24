@@ -17,6 +17,7 @@ namespace GameClient
         public static Dictionary<int, Wall> _walls;
         public static Dictionary<int, Wall> _destroyableWalls;
         public Grid _grid = PathFinder.s_grid;
+        public bool _levelLoaded;
 
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
@@ -54,8 +55,8 @@ namespace GameClient
                 InitializeGid(i, 2, ref spawnPoint);
 
             }
-
             PathFinder.UpdateGrid(_grid);
+            _levelLoaded = true;
             return spawnPoint;
 
         }

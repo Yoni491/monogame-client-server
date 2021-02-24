@@ -99,14 +99,17 @@ namespace GameClient
             }
             else
             {
-                _enemyManager.Update(gameTime);
                 if(_IsMultiplayer)
                     _networkManager.Update(gameTime);
                 _UIManager.Update(gameTime);
-                _playerManager.Update(gameTime);
-                _mapManager.Update();
-                _levelManager.Update();
-                _pathFindingManager.Update();
+                if (_tileManager._levelLoaded)
+                {
+                    _enemyManager.Update(gameTime);
+                    _playerManager.Update(gameTime);
+                    _mapManager.Update();
+                    _levelManager.Update();
+                    _pathFindingManager.Update();
+                }
             }
             base.Update(gameTime);
 
@@ -125,11 +128,14 @@ namespace GameClient
             else
             {
                 _UIManager.Draw(_settingsBatch);
-                _tileManager.Draw(_spriteBatch);
-                _playerManager.Draw(_spriteBatch);
-                _enemyManager.Draw(_spriteBatch);
-                _itemManager.Draw(_spriteBatch);
-                _inventoryManager.Draw(_UIbatch);
+                if (_tileManager._levelLoaded)
+                {
+                    _tileManager.Draw(_spriteBatch);
+                    _playerManager.Draw(_spriteBatch);
+                    _enemyManager.Draw(_spriteBatch);
+                    _itemManager.Draw(_spriteBatch);
+                    _inventoryManager.Draw(_UIbatch);
+                }
             }           
             _spriteBatch.End();
             _UIbatch.End();

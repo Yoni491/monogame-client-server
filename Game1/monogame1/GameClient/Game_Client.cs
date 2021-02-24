@@ -65,7 +65,7 @@ namespace GameClient
             _mapManager = new MapManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _levelManager = new LevelManager(_tileManager);
-            _collectionManager = new CollectionManager(_enemies, Content);
+            _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
@@ -78,7 +78,7 @@ namespace GameClient
             //network
             _networkManager = new NetworkManagerClient();
             //initializers
-            _collectionManager.Initialize(_playerManager, _itemManager);
+            _collectionManager.Initialize(_enemies, Content,_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player);

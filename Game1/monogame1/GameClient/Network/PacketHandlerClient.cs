@@ -54,24 +54,30 @@ namespace GameClient
                 {
                     case 0:
                         break;
-                    case 1://short packet
-                        ReadLevel();
-                        ReadPlayers();
-                        ReadEnemies();
-                        ReadBoxes();
-                        ReadChests();
-                        ReadItems();
-                        ReadItemsPickedUp();
+                    case 1:
+                        ReadPacket();
                         break;
                     case 3:
-                        //long packet containing player number from server
+                        //first packet from the server containing player num.
                         _player._playerNum = _packet.ReadInt();
+                        ReadPacket();
                         break;
                 }
                 _packet._offset = 0;
                 handle = false;
                 Interlocked.Exchange(ref usingResource, 0);
             }
+        }
+        public void ReadPacket()
+        {
+            ReadLevel();
+            ReadPlayers();
+            ReadEnemies();
+            ReadBoxes();
+            ReadDoors();
+            ReadChests();
+            ReadItems();
+            ReadItemsPickedUp();
         }
         public void ReadPlayers()
         {
@@ -121,6 +127,21 @@ namespace GameClient
                 }
             }
         }
+        public void ReadDoors()
+        {
+            int numOfDoors = _packet.ReadInt();
+            for (int i = 0; i < numOfDoors; i++)
+            {
+                int doorNum = _packet.ReadInt();
+                if (MapManager._doors.ContainsKey(doorNum))
+                {
+                    Door door = MapManager._doors[doorNum];
+                    door.Destroy();
+                    MapManager._doors.Remove(doorNum);
+                    MapManager._doorsToSend.Remove(doorNum);
+                }
+            }
+        }
         public void ReadChests()
         {
             int numOfChests = _packet.ReadInt();
@@ -161,7 +182,7 @@ namespace GameClient
                 {
                     if(playerNum == _player._playerNum)
                     {
-                        _inventoryManager.addItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
+                        _inventoryManager.AddItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
                     }
                     else
                     {

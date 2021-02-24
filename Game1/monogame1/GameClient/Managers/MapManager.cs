@@ -11,15 +11,19 @@ namespace GameClient
         static public Dictionary<int, Chest> _chests;
         List<NetworkPlayer> _networkPlayers;
         static public Dictionary<int, Box> _boxes;
+        static public Dictionary<int, Door> _doors;
         static public List<int> _boxesToSend;
+        static public List<int> _doorsToSend;
         static public List<int> _chestsToSend;
         public MapManager()
         {
             _graves = new List<Grave>();
             _chests = new Dictionary<int, Chest>();
             _boxes = new Dictionary<int, Box>();
+            _doors = new Dictionary<int, Door>();
             _boxesToSend = new List<int>();
             _chestsToSend = new List<int>();
+            _doorsToSend = new List<int>();
         }
         public void Initialize(Player player)
         {
@@ -51,6 +55,11 @@ namespace GameClient
                     _boxes.Remove(item);
                 }
                 _boxesToSend.Clear();
+                foreach (var item in _doorsToSend)
+                {
+                    _doors.Remove(item);
+                }
+                _doorsToSend.Clear();
                 foreach (var item in _chestsToSend)
                 {
                     _chests.Remove(item);

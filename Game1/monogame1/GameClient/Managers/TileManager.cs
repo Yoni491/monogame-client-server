@@ -93,6 +93,23 @@ namespace GameClient
                         MapManager._boxes.Add(i,new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
                         AddWall(i,true,1.5f);
                     }
+                    else if (gid == 451)
+                    {
+                        MapManager._doors.Add(i, new Door(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
+                        AddWall(i, false, 2);
+                    }
+                    else if(gid == 484)
+                    {
+                        if (!Game_Client._IsMultiplayer)
+                            ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight),true);
+                        _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
+                    }
+                    else if(gid >= 137 && gid <= 159)
+                    {//enemies
+                        if (!Game_Client._IsMultiplayer)
+                            EnemyManager.AddEnemyAtPosition(gid-137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight));
+                        _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
+                    }
                     else//normal walls
                     {
                         AddWall(i,false);
@@ -112,6 +129,15 @@ namespace GameClient
             {
                 gid = gid - _map.Tilesets[2].FirstGid + 1;
                 DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2);
+                return true;
+            }
+            if(gid == 451 || gid == 452)
+            {
+                gid = gid - _map.Tilesets[2].FirstGid + 1;
+                float rotation = 0;
+                if (_map.TileLayers[tileLayer].Tiles[i].DiagonalFlip)
+                    rotation = (float)Math.PI / 2.0f;
+                DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2, rotation);
                 return true;
             }
             return false;
@@ -169,7 +195,7 @@ namespace GameClient
                 }
             }
         }
-        public void DrawTile(int gid, TileSet tileset, SpriteBatch spriteBatch, int i, float layer,float scale = 1)
+        public void DrawTile(int gid, TileSet tileset, SpriteBatch spriteBatch, int i, float layer,float scale = 1,float rotation=0)
         {
             int tileFrame = gid - 1;
             int column = tileFrame % tileset._tilesetTilesWide;
@@ -179,7 +205,7 @@ namespace GameClient
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
 
             Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, (int)(tileset._tileWidth), (int)(tileset._tileHeight));
-            spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, (int)(tileset._tileWidth * scale),(int)( tileset._tileHeight * scale)), tilesetRec, Color.White, 0, Vector2.Zero, SpriteEffects.None, layer);
+            spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, (int)(tileset._tileWidth * scale),(int)( tileset._tileHeight * scale)), tilesetRec, Color.White, rotation, Vector2.Zero, SpriteEffects.None, layer);
         }
 
 

@@ -13,7 +13,7 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int _currentLevel = 0;
+        static public int _currentLevel = 1;
         static public bool _sendNewLevel;
 
         public LevelManager( TileManager tileManager)
@@ -22,6 +22,9 @@ namespace GameClient
         }
         public void LoadNewLevel(int num=0)
         {
+            PathFindingManager.UseAStar = true;
+            EnemyManager.Reset();
+            ItemManager.Reset();
             if (num != 0)
             {
                 _currentLevel = num;
@@ -34,8 +37,6 @@ namespace GameClient
                 if (_player != null)
                     _player.PositionPlayerFeetAt(_spawnPoint);
             }
-            PathFindingManager.UseAStar = true;
-            EnemyManager.Reset();
             _sendNewLevel = true;
 
         }

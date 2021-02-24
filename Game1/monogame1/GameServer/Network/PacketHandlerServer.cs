@@ -57,6 +57,7 @@ namespace GameServer
                         ReadPlayer();
                         ReadEnemies();
                         ReadBoxes();
+                        ReadDoors();
                         ReadChests();
                         ReadItems();
                         
@@ -111,6 +112,19 @@ namespace GameServer
                 {
                     Box box = MapManager._boxes[boxNum];
                     box.Destroy();
+                }
+            }
+        }
+        public void ReadDoors()
+        {
+            int numOfDoors = _packet.ReadInt();
+            for (int i = 0; i < numOfDoors; i++)
+            {
+                int doorNum = _packet.ReadInt();
+                if (MapManager._doors.ContainsKey(doorNum))
+                {
+                    Door door = MapManager._doors[doorNum];
+                    door.Destroy();
                 }
             }
         }

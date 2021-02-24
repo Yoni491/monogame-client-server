@@ -26,6 +26,7 @@ namespace GameClient
         private Vector2 _MaxPointBulletReach;
         private Vector2 _tipOfTheGun;
         private bool _dealDmg;
+        public InventoryManager _inventoryManager;
 
         #region meleeAttackVariables
         private int _moving_direction_int;
@@ -122,6 +123,14 @@ namespace GameClient
                         {
                             _isColided = true;
                         }
+                        Door _colidedDoor = CollisionManager.IsCollidingDoors(swingRectangle, Vector2.Zero);
+                        if(_colidedDoor!=null)
+                        {
+                            if(_inventoryManager.RemoveItemFromInventory(11))
+                            {
+                                _colidedDoor.Destroy();
+                            }
+                        }
                     }
                 }
             }
@@ -196,7 +205,7 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy(bool hitPlayers,bool dealDmg)
+        public Gun Copy(bool hitPlayers,bool dealDmg,InventoryManager inventoryManager)
         {
             Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers,dealDmg);
             return gun;

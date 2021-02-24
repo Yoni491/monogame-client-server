@@ -45,7 +45,7 @@ namespace GameServer
             _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
 
             _mapManager = new MapManager();
-            _collectionManager = new CollectionManager(_enemies, Content);
+            _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _levelManager = new LevelManager(_tileManager);
@@ -60,7 +60,7 @@ namespace GameServer
             
             _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies);
 
-            _collectionManager.Initialize(_playerManager, _itemManager);
+            _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
             _collisionManager.Initialize(_networkPlayers, null, _enemies);
             _levelManager.Initialize(_networkPlayers);
             _mapManager.Initialize(_networkPlayers);

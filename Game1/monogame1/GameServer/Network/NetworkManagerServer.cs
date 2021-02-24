@@ -46,7 +46,12 @@ namespace GameServer
         public void Update(GameTime gameTime)
         {
             AddPlayerSocket();
-            SendPacket(gameTime);
+            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer_short >= 0.1f)
+            {
+                _timer_short = 0;
+                SendPacket(1,false);
+            }
             _everyClientGotCurrentLevel = true;
             for (int i = 0; i < numOfPlayer; i++)
             {
@@ -72,11 +77,10 @@ namespace GameServer
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
                 numOfPlayer++;
-                Packet packet = new Packet();
-                packet.UpdateType(3);
+                SendPacket(3, true, player._playerNum);
                 
-                packet.WriteInt(player._playerNum);
-                socket.Send(packet.Data());
+                WriteItems(true);
+                socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
             }
         }
@@ -100,7 +104,7 @@ namespace GameServer
                     enemy._gun._bullets.Clear();
             }
         }
-        public void WriteBoxes()
+        public void WriteBoxes(bool sendAll)
         {
             _packet.WriteInt(MapManager._boxesToSend.Count);
             foreach (var box in MapManager._boxesToSend)
@@ -110,7 +114,17 @@ namespace GameServer
                 
             }
         }
-        public void WriteChests()
+        public void WriteDoors(bool sendAll)
+        {
+            _packet.WriteInt(MapManager._doorsToSend.Count);
+            foreach (var door in MapManager._doorsToSend)
+            {
+                MapManager._doors[door].UpdatePacket(_packet);
+                MapManager._doors.Remove(door);
+
+            }
+        }
+        public void WriteChests(bool sendAll)
         {
             _packet.WriteInt(MapManager._chestsToSend.Count);
             foreach (var chest in MapManager._chestsToSend)
@@ -120,12 +134,23 @@ namespace GameServer
 
             }
         }
-        public void WriteItems()
+        public void WriteItems(bool sendAll)
         {
-            _packet.WriteInt(ItemManager._itemsToSend.Count);
-            foreach (var item in ItemManager._itemsToSend)
+            if (sendAll)
             {
-                ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
+                _packet.WriteInt(ItemManager._itemsOnTheGround.Count);
+                foreach (var item in ItemManager._itemsOnTheGround)
+                {
+                    item.Value.UpdatePacket(_packet);
+                }
+            }
+            else
+            {
+                _packet.WriteInt(ItemManager._itemsToSend.Count);
+                foreach (var item in ItemManager._itemsToSend)
+                {
+                    ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
+                }
             }
         }
         public void WriteItemsPickedUp()
@@ -143,31 +168,30 @@ namespace GameServer
             _packet.WriteInt(LevelManager._currentLevel);
             _packet.WriteVector2(LevelManager._spawnPoint);
         }
-        public void SendPacket(GameTime gameTime)
+        public void SendPacket(int type,bool sendEverything ,int playerNum = 0)
         {
-            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)
+            _packet.UpdateType((ushort)type);
+            if(type == 3)
+                _packet.WriteInt(playerNum);
+            WriteLevel();
+            WritePlayers();
+            WriteEnemies();
+            _enemies.RemoveAll(enemy => enemy._destroy == true);
+            WriteBoxes(sendEverything);
+            MapManager._boxesToSend.Clear();
+            WriteDoors(sendEverything);
+            MapManager._doorsToSend.Clear();
+            WriteChests(sendEverything);
+            MapManager._chestsToSend.Clear();
+            WriteItems(sendEverything);
+            ItemManager._itemsToSend.Clear();
+            WriteItemsPickedUp();
+            ItemManager._itemsPickedUpToSend.Clear();
+            _packet.PrintData();
+            foreach (var socket in _socket_list)
             {
-                _timer_short = 0;
-                _packet.UpdateType(1);
-                WriteLevel();
-                WritePlayers();
-                WriteEnemies();
-                _enemies.RemoveAll(enemy => enemy._destroy == true);
-                WriteBoxes();
-                MapManager._boxesToSend.Clear();
-                WriteChests();
-                MapManager._chestsToSend.Clear();
-                WriteItems();
-                ItemManager._itemsToSend.Clear();
-                WriteItemsPickedUp();
-                ItemManager._itemsPickedUpToSend.Clear();
-                _packet.PrintData();
-                foreach (var socket in _socket_list)
-                {
-                    byte[] buffer = _packet.Data();
-                    socket.Send(buffer);
-                }
+                byte[] buffer = _packet.Data();
+                socket.Send(buffer);
             }
         }
 

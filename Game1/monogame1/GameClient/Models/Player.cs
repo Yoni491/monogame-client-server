@@ -31,7 +31,7 @@ namespace GameClient
         private PlayerManager _playerManager;
         private ItemManager _itemManager;
         private UIManager _uIManager;
-        private InventoryManager _inventoryManager;
+        public InventoryManager _inventoryManager;
 
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.5f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.4));}
@@ -172,7 +172,7 @@ namespace GameClient
                 {
                     if (!Game_Client._IsMultiplayer)
                     {
-                        _inventoryManager.addItemToInventory(item);
+                        _inventoryManager.AddItemToInventory(item);
                     }
                     else
                     {
@@ -222,6 +222,7 @@ namespace GameClient
         {
             _gun = gun;
             _gun._holderScale = _scale;
+            _gun._inventoryManager = _inventoryManager;
         }
         public void EquipMeleeWeapon(MeleeWeapon meleeWeapon)
         {

@@ -32,8 +32,8 @@ namespace GameClient
         private float _speed;
         private float _scale;
         private float _sniperTimer = 0;
-        private float _sniperStopTime = 1.5f;
-        private float _movingBetweenShotsTime = 3f;
+        private float _sniperStopTime = 1f;
+        private float _movingBetweenShotsTime = 1f;
         private float _movingToPlayerMaxDistance = 1;
         public int _dmgDoneForServer=0;
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
@@ -62,7 +62,7 @@ namespace GameClient
             _gun = gun;
             if (gun != null)
             {
-                _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 500);
+                _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 1000);
                 _gun._holderScale = _scale;
             }
             if(_meleeWeapon!=null)
@@ -162,9 +162,11 @@ namespace GameClient
             int enemyNum = -1;
             if (!Game_Client._IsMultiplayer)
                 enemyNum = _s_enemyNum++;
-
+            Gun gun = null;
+            if (_gun!=null)
+                gun = _gun.Copy(true, true, null);
             return new Simple_Enemy(_animationManager.Copy(_scale), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, _gun, PathFindingManager.GetPathFinder(),enemyNum);
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(),enemyNum);
         }
 
         public void Move(GameTime gameTime)

@@ -86,7 +86,35 @@ namespace GameClient
                 _inventory_rectangles[i].Item1 = new Rectangle((int)fixedPosition.X + width * i + i, (int)fixedPosition.Y, width, height);
             }
         }
-        public void addItemToInventory(Item itemToAdd)
+        public bool RemoveItemFromInventory(int itemID)
+        {
+            int index = 0;
+            bool foundItem = false;
+            if (_item_list != null)
+                foreach (var tuple in _inventory_rectangles)
+                {
+                    ItemStock itemStock = tuple.Item2;
+                    if (itemStock != null)
+                    {
+                        if (itemStock._item._itemId == itemID)
+                        {
+                            foundItem = true;
+                            break;                            
+                        }
+                    }
+                    index++;
+                }
+            if(foundItem)
+            {
+                if(--_inventory_rectangles[index].Item2._amount == 0)
+                {
+                    _inventory_rectangles[index].Item2 = null;
+                }
+                return true;
+            }
+            return false;
+        }
+        public void AddItemToInventory(Item itemToAdd)
         {
             int index = 0;
             if (_item_list != null)
@@ -105,9 +133,7 @@ namespace GameClient
                             }
                         }
                     }
-                    index++;
                 }
-            index = 0;
             foreach (var tuple in _inventory_rectangles)
             {
                 if (tuple.Item2 == null)

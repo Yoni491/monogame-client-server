@@ -26,7 +26,7 @@ namespace GameClient
             {
                 if(!CollisionManager.isCollidingBoxes(_rectangle,Vector2.Zero,0))
                 {
-                    EnemyManager.AddEnemyAtPosition(_position);
+                    EnemyManager.AddEnemyAtPosition(1,_position);
                     _destroy = true;
                 }
             }

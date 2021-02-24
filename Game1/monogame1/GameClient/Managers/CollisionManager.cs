@@ -114,7 +114,21 @@ namespace GameClient
             }
             return false;
         }
-
+        static public Door IsCollidingDoors(Rectangle rectangle, Vector2 velocity)
+        {
+            foreach (var item in MapManager._doors)
+            {
+                Door door = item.Value;
+                if (!door._destroy)
+                {
+                    if (IsCollidingLeft(rectangle, door.Rectangle, velocity) || IsCollidingRight(rectangle, door.Rectangle, velocity) || IsCollidingTop(rectangle, door.Rectangle, velocity) || IsCollidingBottom(door.Rectangle, door.Rectangle, velocity))
+                    {
+                        return door;
+                    }
+                }
+            }
+            return null;
+        }
         static public bool IsCollidingLeft(Rectangle rectangle, Rectangle wall, Vector2 velocity)
         {
             if (wall.Right > rectangle.Left + velocity.X &&

@@ -71,6 +71,15 @@ namespace GameClient
                 MapManager._boxes.Remove(item);
             }
         }
+        public void WriteDoors()
+        {
+            _packet.WriteInt(MapManager._doorsToSend.Count);
+            foreach (var item in MapManager._doorsToSend)
+            {
+                MapManager._doors[item].UpdatePacket(_packet);
+                MapManager._doors.Remove(item);
+            }
+        }
         public void WriteChests()
         {
             _packet.WriteInt(MapManager._chestsToSend.Count);
@@ -100,6 +109,8 @@ namespace GameClient
                 WriteEnemies();
                 WriteBoxes();
                 MapManager._boxesToSend.Clear();
+                WriteDoors();
+                MapManager._doorsToSend.Clear();
                 WriteChests();
                 MapManager._chestsToSend.Clear();
                 WriteItems();

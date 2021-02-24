@@ -49,13 +49,13 @@ namespace GameClient
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.2f + _itemId * 0.001f);
+            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.015f + _itemId * 0.00001f);
         }
         public Item Copy()
         {
             Gun gun = null;
             if (_gun != null)
-                gun = _gun.Copy(false,true);
+                gun = _gun.Copy(false,true,null);
             return new Item(_texture, _inventoryTexture, _itemId, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed);
         }
         public Item Drop(bool dropAlways = false)

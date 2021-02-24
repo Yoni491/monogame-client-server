@@ -27,11 +27,11 @@ namespace GameClient
                 item.Value.DrawOnGround(spriteBatch);
             }
         }
-        static public void DropItem(int []items, Vector2 position)
+        static public void DropItem(int []items, Vector2 position,bool alwaysDrop = false)
         {
             foreach (var item_id in items)
             {
-                Item item = _collectionManager.GetItem(item_id).Drop();
+                Item item = _collectionManager.GetItem(item_id).Drop(alwaysDrop);
                 if(item!=null)
                 {
                     item._position = position;
@@ -40,6 +40,18 @@ namespace GameClient
                     return;
                 }
             }
+        }
+        static public void DropItem(int itemId, Vector2 position, bool alwaysDrop = false)
+        {
+
+                Item item = _collectionManager.GetItem(itemId).Drop(alwaysDrop);
+                if (item != null)
+                {
+                    item._position = position;
+                    _itemsToSend.Add(item._itemNum);
+                    _itemsOnTheGround.Add(item._itemNum, item);
+                    return;
+                }
         }
         static public void DropItemFromServer(int num, int id, Vector2 position)
         {
@@ -90,6 +102,17 @@ namespace GameClient
         public void RemoveItemFromFloor(Item item)
         {
             _itemsOnTheGround.Remove(item._itemNum);
+        }
+        public static void Reset()
+        {
+            if (!Game_Client._isServer && !Game_Client._isServer)
+            {
+                _itemsOnTheGround.Clear();
+            }
+            foreach (var item in _itemsOnTheGround)
+            {
+                _itemsPickedUpToSend.Add((-1, item.Key));
+            }
         }
     }
 }

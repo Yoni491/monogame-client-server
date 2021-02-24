@@ -41,9 +41,9 @@ namespace GameClient
             }
 
         }
-        public static void AddEnemyAtPosition(Vector2 position)
+        public static void AddEnemyAtPosition(int EnemyID,Vector2 position)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(1);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID);
             enemy.PositionFeetAt(position);
             _enemies.Add(enemy);
         }
@@ -54,14 +54,14 @@ namespace GameClient
             _enemies.Add(simple_Enemy);
             return simple_Enemy;
         }
-        public void AddEnemiesRandomCircle()
-        {
+        //public void AddEnemiesRandomCircle()
+        //{
 
-            Vector2 center = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
-            Random x = new Random();
-            Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;
-            AddEnemyAtPosition(center + random_direction);
-        }
+        //    Vector2 center = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
+        //    Random x = new Random();
+        //    Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;
+        //    AddEnemyAtPosition(center + random_direction);
+        //}
         public static void Reset()
         {
             _enemies.Clear();

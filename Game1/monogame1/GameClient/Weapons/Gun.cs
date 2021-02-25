@@ -23,8 +23,8 @@ namespace GameClient
         public float _holderScale = 0;
         private float _shooting_timer = 0;
         private bool _hitPlayers;
-        private Vector2 _MaxPointBulletReach;
-        private Vector2 _tipOfTheGun;
+        public Vector2 _MaxPointBulletReach;
+        public Vector2 _tipOfTheGun;
         private bool _dealDmg;
         public InventoryManager _inventoryManager;
 
@@ -72,12 +72,14 @@ namespace GameClient
             {
                 bullet.Update(gameTime);
             }
-            if(Game_Client._IsMultiplayer)
+            if (Game_Client._isServer)
             {
                 _bullets.RemoveAll(bullet => bullet._destroy == true && bullet._bulletSent == true);
             }
             else
+            {
                 _bullets.RemoveAll(bullet => bullet._destroy == true);
+            }
             
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -278,6 +280,11 @@ namespace GameClient
                 {
                     tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
                     if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, Vector2.Zero, 0))
+                    {
+                        _MaxPointBulletReach = tempPos;
+                        return true;
+                    }
+                    else if (_hitPlayers && CollisionManager.isColidedWithNetworkPlayers(tempRec, Vector2.Zero, 0))
                     {
                         _MaxPointBulletReach = tempPos;
                         return true;

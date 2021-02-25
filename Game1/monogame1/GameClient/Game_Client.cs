@@ -26,6 +26,7 @@ namespace GameClient
         static private InventoryManager _inventoryManager;
         static private MenuManager _menuManager;
         static private UIManager _UIManager;
+        private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
         static public bool _IsMultiplayer = false;
         static public bool _isServer = true;
@@ -75,11 +76,13 @@ namespace GameClient
             //calculations
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
+            _bulletReachManager = new BulletReachManager();
             //network
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content,_playerManager, _itemManager);
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
+            _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player);
             _inventoryManager.Initialize(_player,_itemManager);
@@ -108,6 +111,7 @@ namespace GameClient
                     _playerManager.Update(gameTime);
                     _mapManager.Update();
                     _levelManager.Update();
+                    _bulletReachManager.Update();
                     _pathFindingManager.Update();
                 }
             }

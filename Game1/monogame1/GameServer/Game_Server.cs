@@ -23,6 +23,8 @@ namespace GameServer
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
         static List<Socket> _socket_list = new List<Socket>();
+        private BulletReachManager _bulletReachManager;
+
 
         #region Important Functions
         public Game_Server()
@@ -57,9 +59,11 @@ namespace GameServer
 
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
-            
+            _bulletReachManager = new BulletReachManager();
+
             _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies);
 
+            _bulletReachManager.Initialize(null, _networkPlayers);
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
             _collisionManager.Initialize(_networkPlayers, null, _enemies);
             _levelManager.Initialize(_networkPlayers);
@@ -78,6 +82,7 @@ namespace GameServer
             _playerManager.Update(gameTime);
             _mapManager.Update();
             _levelManager.Update();
+            _bulletReachManager.Update();
             _pathFindingManager.Update();
             base.Update(gameTime);
 

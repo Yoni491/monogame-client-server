@@ -38,6 +38,15 @@ namespace GameClient
             Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
             _offset += 4;
         }
+        public void WriteBool(bool value)
+        {
+            if (value)
+            {
+                WriteInt(1);
+            }
+            else
+                WriteInt(0);
+        }
         public void WriteFloat(float value)
         {
             Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
@@ -67,6 +76,10 @@ namespace GameClient
                 return -1;
             _offset += 4;
             return BitConverter.ToInt32(_buffer, _offset - 4);
+        }
+        public bool ReadBool()
+        {
+            return ReadInt() == 1;
         }
         public string ReadString(int count)
         {

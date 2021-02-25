@@ -56,15 +56,15 @@ namespace GameClient
             _simple_enemies = new List<Simple_Enemy>();
 
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 15, allConsumables, null, _guns[0], null));//skeleton GID=137
+                _itemManager, 15, allConsumables, null, _guns[0], null,null));//skeleton GID=137
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
-                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0), null, null));//runner GID=138
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0), null, null, null));//runner GID=138
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
-                _itemManager, 10, allWeapons, null, _guns[2], null));//mage GID=139
+                _itemManager, 10, allWeapons, null, _guns[2], null, null));//mage GID=139
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 10, allWeapons, null, _guns[1], null));//sniper GID=140
+                _itemManager, 10, allWeapons, null, _guns[1], null, null));//sniper GID=140
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 10, allWeapons, null, _guns[3], null));//machine-gun GID=141
+                _itemManager, 10, allWeapons, null, _guns[3], null, null));//machine-gun GID=141
 
 
         }

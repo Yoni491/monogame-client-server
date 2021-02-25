@@ -34,7 +34,15 @@ namespace GameClient
         {
             if (_player == null)
                 return false;
-            if (IsCollidingLeft(rectangle, _player.Rectangle, velocity) || IsCollidingRight(rectangle, _player.Rectangle, velocity) || IsCollidingTop(rectangle, _player.Rectangle, velocity) || IsCollidingBottom(_player.Rectangle, _player.Rectangle, velocity))
+            if (IsCollidingLeft(rectangle, _player.Rectangle, velocity) || IsCollidingRight(rectangle, _player.Rectangle, velocity) || 
+                IsCollidingTop(rectangle, _player.Rectangle, velocity) || IsCollidingBottom(rectangle, _player.Rectangle, velocity))
+            {
+                _player._health._health_left -= dmg;
+                return true;
+            }
+
+            if (IsCollidingLeft(rectangle, _player.RectangleMovement, velocity) || IsCollidingRight(rectangle, _player.RectangleMovement, velocity) || 
+                IsCollidingTop(rectangle, _player.RectangleMovement, velocity) || IsCollidingBottom(rectangle, _player.RectangleMovement, velocity))
             {
                 _player._health._health_left -= dmg;
                 return true;
@@ -47,7 +55,13 @@ namespace GameClient
                 return false;
             foreach (var player in _networkPlayers)
             {
-                if (IsCollidingLeft(rectangle, player.Rectangle, velocity) || IsCollidingRight(rectangle, player.Rectangle, velocity) || IsCollidingTop(rectangle, player.Rectangle, velocity) || IsCollidingBottom(player.Rectangle, player.Rectangle, velocity))
+                if (IsCollidingLeft(rectangle, player.Rectangle, velocity) || IsCollidingRight(rectangle, player.Rectangle, velocity) || 
+                    IsCollidingTop(rectangle, player.Rectangle, velocity) || IsCollidingBottom(rectangle, player.Rectangle, velocity))
+                {
+                    return true;
+                }
+                if (IsCollidingLeft(rectangle, player.RectangleMovement, velocity) || IsCollidingRight(rectangle, player.RectangleMovement, velocity) || 
+                    IsCollidingTop(rectangle, player.RectangleMovement, velocity) || IsCollidingBottom(rectangle, player.RectangleMovement, velocity))
                 {
                     return true;
                 }
@@ -58,7 +72,8 @@ namespace GameClient
         {
             foreach (var enemy in _enemies)
             {
-                if (IsCollidingLeft(rectangle, enemy.Rectangle, velocity) || IsCollidingRight(rectangle, enemy.Rectangle, velocity) || IsCollidingTop(rectangle, enemy.Rectangle, velocity) || IsCollidingBottom(rectangle, enemy.Rectangle, velocity))
+                if (IsCollidingLeft(rectangle, enemy.Rectangle, velocity) || IsCollidingRight(rectangle, enemy.Rectangle, velocity) || 
+                    IsCollidingTop(rectangle, enemy.Rectangle, velocity) || IsCollidingBottom(rectangle, enemy.Rectangle, velocity))
                 {
                     enemy.DealDamage(dmg);
                     return true;
@@ -90,7 +105,8 @@ namespace GameClient
             foreach (var item in MapManager._chests)
             {
                 Chest chest = item.Value;
-                if (IsCollidingLeft(rectangle, chest.Rectangle, velocity) || IsCollidingRight(rectangle, chest.Rectangle, velocity) || IsCollidingTop(rectangle, chest.Rectangle, velocity) || IsCollidingBottom(chest.Rectangle, chest.Rectangle, velocity))
+                if (IsCollidingLeft(rectangle, chest.Rectangle, velocity) || IsCollidingRight(rectangle, chest.Rectangle, velocity) || 
+                    IsCollidingTop(rectangle, chest.Rectangle, velocity) || IsCollidingBottom(rectangle, chest.Rectangle, velocity))
                 {
                     return chest;
                 }
@@ -104,7 +120,8 @@ namespace GameClient
                 Box box = item.Value;
                 if (!box._destroy)
                 {
-                    if (IsCollidingLeft(rectangle, box.Rectangle, velocity) || IsCollidingRight(rectangle, box.Rectangle, velocity) || IsCollidingTop(rectangle, box.Rectangle, velocity) || IsCollidingBottom(box.Rectangle, box.Rectangle, velocity))
+                    if (IsCollidingLeft(rectangle, box.Rectangle, velocity) || IsCollidingRight(rectangle, box.Rectangle, velocity) || 
+                        IsCollidingTop(rectangle, box.Rectangle, velocity) || IsCollidingBottom(rectangle, box.Rectangle, velocity))
                     {
                         if(dmg>0)
                             box.Destroy();
@@ -121,7 +138,8 @@ namespace GameClient
                 Door door = item.Value;
                 if (!door._destroy)
                 {
-                    if (IsCollidingLeft(rectangle, door.Rectangle, velocity) || IsCollidingRight(rectangle, door.Rectangle, velocity) || IsCollidingTop(rectangle, door.Rectangle, velocity) || IsCollidingBottom(door.Rectangle, door.Rectangle, velocity))
+                    if (IsCollidingLeft(rectangle, door.Rectangle, velocity) || IsCollidingRight(rectangle, door.Rectangle, velocity) || 
+                        IsCollidingTop(rectangle, door.Rectangle, velocity) || IsCollidingBottom(rectangle, door.Rectangle, velocity))
                     {
                         return door;
                     }

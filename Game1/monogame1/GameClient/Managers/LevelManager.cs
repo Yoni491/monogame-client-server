@@ -13,7 +13,7 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int _currentLevel = 1;
+        static public int _currentLevel = 2;
         static public bool _sendNewLevel;
 
         public LevelManager( TileManager tileManager)

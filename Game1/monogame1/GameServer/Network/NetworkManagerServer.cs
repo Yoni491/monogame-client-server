@@ -187,7 +187,6 @@ namespace GameServer
             ItemManager._itemsToSend.Clear();
             WriteItemsPickedUp();
             ItemManager._itemsPickedUpToSend.Clear();
-            _packet.PrintData();
             foreach (var socket in _socket_list)
             {
                 byte[] buffer = _packet.Data();

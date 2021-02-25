@@ -45,14 +45,17 @@ namespace GameClient
             if(_player!=null)
                 _player.Update(gameTime);
             foreach (var player in _players)
-                player.Update(gameTime);
+                    player.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _player.Draw(spriteBatch);
-            foreach (var sprite in _players)
-                sprite.Draw(spriteBatch);
+            foreach (var player in _players)
+            {
+                if (player._playerNum != _player._playerNum)
+                    player.Draw(spriteBatch);
+            }
         }
         public Vector2 getClosestPlayerToPosition(Vector2 position)
         {
@@ -66,12 +69,22 @@ namespace GameClient
                         closest_object_distance = Vector2.Distance(position, player.Position_Feet);
                         player_position = player.Position_Feet;
                     }
+                    if (Vector2.Distance(position, player._position) < closest_object_distance)
+                    {
+                        closest_object_distance = Vector2.Distance(position, player._position);
+                        player_position = player._position;
+                    }
                 }
             if (_player != null)
             {
                 if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
                 {
                     closest_object_distance = Vector2.Distance(position, _player.Position_Feet);
+                    player_position = _player.Position_Feet;
+                }
+                if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
+                {
+                    closest_object_distance = Vector2.Distance(position, _player._position);
                     player_position = _player.Position_Feet;
                 }
             }

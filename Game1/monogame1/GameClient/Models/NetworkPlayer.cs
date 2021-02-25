@@ -33,14 +33,10 @@ namespace GameClient
         private int _height=0;
         int _movingDirection = 0;
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
+        public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Rectangle Rectangle
-        {
-            get
-            {
-                return new Rectangle((int)_position.X, (int)_position.Y, (int)(_width * _scale), (int)(_height * _scale));
-            }
-        }
+        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
+
 
         public NetworkPlayer(Vector2 position,AnimationManager animationManager, int health, int playerNum, Gun gun)
         {
@@ -66,8 +62,8 @@ namespace GameClient
 
                 _animationManager.Update(gameTime, _position);
 
+                //Console.WriteLine(_position);
                 _position += _velocity;
-
 
                 if (_gun != null)
                 {

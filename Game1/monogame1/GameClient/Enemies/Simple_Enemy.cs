@@ -41,7 +41,7 @@ namespace GameClient
         
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
-
+        public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
 
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
@@ -117,18 +117,19 @@ namespace GameClient
                         if (_isStopingToAttack)
                         {
                             _gun.Update(gameTime, _shootingDirection, 0, false, true, _position);
-                            if (_sniperTimer >= _sniperStopTime)
+                            if (_sniperTimer >= _sniperStopTime && _bulletReach._reachablePlayerPos != Vector2.Zero)
                             {
                                 _sniperTimer = 0;
                                 _gun.Shot();
                                 _isStopingToAttack = false;
+                                //_bulletReach._reachablePlayerPos = Vector2.Zero;
                             }
                         }
                         else
                         {
                             _gun.Update(gameTime, _shootingDirection, 0, false, false, _position);
                             _position += _velocity;
-                            if (_sniperTimer >= _movingBetweenShotsTime && _bulletReach._reachablePlayerPos!=Vector2.Zero)
+                            if (_sniperTimer >= _movingBetweenShotsTime)
                             {
                                 _sniperTimer = 0;
                                 _isStopingToAttack = true;
@@ -158,14 +159,13 @@ namespace GameClient
             Vector2 target_player;
             if (!Game_Client._IsMultiplayer)
             {
-                _bulletReach.Update(Position_Feet);
+                _bulletReach.Update();
                 if (_gun != null && _gun._isSniper)
                 {
                     if (_bulletReach._reachablePlayerPos != Vector2.Zero)
                     {
                         target_player = _bulletReach._reachablePlayerPos;
-                        _shootingDirection = _gun._MaxPointBulletReach - _gun._tipOfTheGun;
-                        _bulletReach._reachablePlayerPos = Vector2.Zero;
+                        _shootingDirection = target_player - _gun.GetTipOfTheGun(target_player);
                     }
                     else
                     {
@@ -218,6 +218,10 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            //GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _gun.GetTipOfTheGun(_playerManager._player.Position_Feet), 1);
+            GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _gun.GetTipOfTheGun(_bulletReach._reachablePlayerPos), 1);
+
+            //GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _bulletReach._reachablePlayerPos, 1);
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_hide_weapon)
@@ -244,7 +248,7 @@ namespace GameClient
             if (_gun != null)
                 gun = _gun.Copy(true, true, null);
             return new Simple_Enemy(_animationManager.Copy(_scale), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(), BulletReachManager.GetBulletReach(), enemyNum);
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(), BulletReachManager.GetBulletReach(gun), enemyNum);
         }
         protected void SetAnimations()
         {

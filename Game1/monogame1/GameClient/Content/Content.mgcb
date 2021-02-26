@@ -109,6 +109,9 @@
 #begin maps/map4.tmx
 /copy:maps/map4.tmx
 
+#begin maps/map5.tmx
+/copy:maps/map5.tmx
+
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

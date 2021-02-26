@@ -9,7 +9,7 @@ namespace GameClient
     public class Gun
     {
         public int _id;
-        private Vector2 _position;
+        public Vector2 _position;
         private Texture2D _texture;
         public List<Bullet> _bullets = new List<Bullet>();
         private Vector2 _direction;
@@ -309,6 +309,11 @@ namespace GameClient
                 }
 
             }
+        }
+        public Vector2 GetTipOfTheGun(Vector2 target)
+        {
+            Vector2 direction = target - _position;
+            return _position + Vector2.Normalize(direction) * _texture.Width / 2 + new Vector2(0, 5);
         }
         public void UpdatePacketShort(Packet packet)
         {

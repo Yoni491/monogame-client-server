@@ -40,9 +40,9 @@ namespace GameClient
                 _continueSearch = true;
             }
         }
-        static public BulletReach GetBulletReach()
+        static public BulletReach GetBulletReach(Gun gun)
         {
-            BulletReach bulletReach = new BulletReach(id++,_player,_networkPlayers);
+            BulletReach bulletReach = new BulletReach(id++,_player,_networkPlayers,gun);
             _bulletReachesToAdd.Add(bulletReach);
             return bulletReach;
         }

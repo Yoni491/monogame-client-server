@@ -37,7 +37,7 @@ namespace GameClient
             int animationNum = 3;
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
             _player.EquipGun(CollectionManager.GetGunCopy(1,false,true,_player._inventoryManager));
-            _player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1));
+            //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
         }
         public void Update(GameTime gameTime)

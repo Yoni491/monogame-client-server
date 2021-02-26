@@ -164,7 +164,8 @@ namespace GameClient
                             Gun gun = _inventory_rectangles[i].Item2._item._gun;
                             if (gun != null)
                             {
-                                _player._gun._bullets.Clear();
+                                if(_player._gun!=null)
+                                    _player._gun._bullets.Clear();
                                 _player.EquipGun(gun);
                             }
 

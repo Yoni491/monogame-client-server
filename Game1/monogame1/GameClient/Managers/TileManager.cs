@@ -106,8 +106,14 @@ namespace GameClient
                     }
                     else if(gid >= 137 && gid <= 159)
                     {//enemies
+                        bool useAstar = true;
+                        bool waitForDestroyedWall=false;
+                        if (_map.TileLayers[tilesetIndex].Tiles[i].HorizontalFlip)
+                            waitForDestroyedWall = true;
+                        else if (_map.TileLayers[tilesetIndex].Tiles[i].HorizontalFlip)
+                            useAstar = false;
                         if (!Game_Client._IsMultiplayer)
-                            EnemyManager.AddEnemyAtPosition(gid-137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight));
+                            EnemyManager.AddEnemyAtPosition(gid-137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight),useAstar,waitForDestroyedWall);
                         _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
                     }
                     else//normal walls

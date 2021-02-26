@@ -309,3 +309,4 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.genruntimeconfig.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Release\netcoreapp3.1\win-x86\Content\maps\map4.tmx

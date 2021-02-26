@@ -96,13 +96,16 @@ namespace GameClient
 
             _animationManager.Update(gameTime, _position);
 
-            if (_meleeWeapon != null)
+            if (!Game_Client._IsMultiplayer)
             {
-                _meleeWeapon.Update(_moving_direction, gameTime, _position);
-                if (!_meleeWeapon._swing_weapon)
-                    _position += _velocity;
-                if (stopMoving)
-                    _meleeWeapon.SwingWeapon();
+                if (_meleeWeapon != null)
+                {
+                    _meleeWeapon.Update(_moving_direction, gameTime, _position);
+                    if (!_meleeWeapon._swing_weapon)
+                        _position += _velocity;
+                    if (stopMoving)
+                        _meleeWeapon.SwingWeapon();
+                }
             }
 
             _health.Update(_position);
@@ -159,9 +162,9 @@ namespace GameClient
             Vector2 target_player;
             if (!Game_Client._IsMultiplayer)
             {
-                _bulletReach.Update();
-                if (_gun != null && _gun._isSniper)
+                if (_gun != null)
                 {
+                _bulletReach.Update();
                     if (_bulletReach._reachablePlayerPos != Vector2.Zero)
                     {
                         target_player = _bulletReach._reachablePlayerPos;
@@ -177,6 +180,7 @@ namespace GameClient
                 else
                 {
                     target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
+                    _pathFinder.Update(gameTime, Position_Feet, target_player);
                 }
                 
                 Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
@@ -218,10 +222,6 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _gun.GetTipOfTheGun(_playerManager._player.Position_Feet), 1);
-            GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _gun.GetTipOfTheGun(_bulletReach._reachablePlayerPos), 1);
-
-            //GraphicManager.DrawSmallSquareAtPosition(spriteBatch, _bulletReach._reachablePlayerPos, 1);
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_hide_weapon)
@@ -239,7 +239,7 @@ namespace GameClient
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
         }
-        public Simple_Enemy Copy()
+        public Simple_Enemy Copy(bool useAstar,bool waitForDestroyedWall)
         {
             int enemyNum = -1;
             if (!Game_Client._IsMultiplayer)
@@ -247,8 +247,11 @@ namespace GameClient
             Gun gun = null;
             if (_gun != null)
                 gun = _gun.Copy(true, true, null);
+            BulletReach bulletReach=null;
+            if (gun != null)
+                bulletReach = BulletReachManager.GetBulletReach(gun);
             return new Simple_Enemy(_animationManager.Copy(_scale), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(), BulletReachManager.GetBulletReach(gun), enemyNum);
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar,waitForDestroyedWall), bulletReach, enemyNum);
         }
         protected void SetAnimations()
         {

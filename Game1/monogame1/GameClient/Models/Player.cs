@@ -88,17 +88,22 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_hide_weapon && _gun != null)
+            if (_hide_weapon)
             {
-                //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                if(_gun!=null)
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                if(_meleeWeapon!=null)
+                    _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
             }
             _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-            if (_gun != null && !_hide_weapon)
+            if (!_hide_weapon)
             {
-                //_meleeWeapon.Draw(spriteBatch, _position, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                if (_gun != null)
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                if (_meleeWeapon != null)
+                    _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
+
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
             
         }
@@ -143,14 +148,18 @@ namespace GameClient
             }
             if (!_isGamePad)
             {
-                _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
+                if(_gun!=null)
+                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
+                else
+                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _meleeWeapon.Position * GraphicManager.ScreenScale;
             }
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
                 if(!_mouseIntersectsUI)
                 { 
-                    _gun.Shot();
+                    if(_gun!=null)
+                        _gun.Shot();
                 }
 
             }

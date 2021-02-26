@@ -20,12 +20,14 @@ namespace GameClient
         private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
         public int _id;
-        private bool _usedBfs;
-        public int _pathNotFound = 0;
-        public PathFinder(int id)
+        private bool _useAstar =true;
+        public bool _waitForDestroyedWall;
+        public PathFinder(int id,bool useAstar,bool waitForDestroyedWall)
         {
             _path = new List<Coord>();
             _id = id;
+            _useAstar = useAstar;
+            _waitForDestroyedWall = waitForDestroyedWall;
         }
         public static void UpdateGrid(Grid grid)
         {
@@ -62,7 +64,7 @@ namespace GameClient
             _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), s_grid);
             while (true)
             {
-                if (tickAmount < 1000 && PathFindingManager.UseAStar || _usedBfs)
+                if (_useAstar && tickAmount < 1000)
                 {
                     if (tickAmount > 1500)
                         return;
@@ -85,25 +87,23 @@ namespace GameClient
                     if(pathNotPossible>1)
                     {
                         _newSearchReady = true;
+                        _waitForDestroyedWall = true;
                         return;
                     }
                 }
                 else
                 {
-                    PathFindingManager.UseAStar = false;
                     var searchStatus = _BreadthFirst.GetPathTick();
                     if (searchStatus.PathFound)
                     {
-                        _usedBfs = true;
                         _searchDetails = searchStatus;
                         _newSearchReady = true;
                         return;
                     }
                     if (!searchStatus.PathPossible)
                     {
-                        PathFindingManager.UseAStar = true;
                         _newSearchReady = true;
-                        _pathNotFound = 20;
+                        _waitForDestroyedWall = true;
                         return;
                     }
                 }

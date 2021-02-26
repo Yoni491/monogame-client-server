@@ -58,15 +58,15 @@ namespace GameClient
                     }
                     if (_howToPlay.Update(gameTime))
                     {
-                        Game_Client._inMenu = false;
+                        //Game_Client._inMenu = false;
                     }
                     if (_highScores.Update(gameTime))
                     {
-                        Game_Client._inMenu = false;
+                        //Game_Client._inMenu = false;
                     }
                     if (_exit.Update(gameTime))
                     {
-                        Game_Client._inMenu = false;
+                        //Game_Client._inMenu = false;
                     }
                 }
             }

@@ -31,14 +31,13 @@ namespace GameClient
         #region meleeAttackVariables
         private int _moving_direction_int;
         private float _between_attacks_timer;
-        private float _between_attacks_timer_window = 0.2f;
         private float _swing_timer;
+        private float _between_attacks_timer_window = 0.2f;
         private float _swing_frame_window = 0.01f;
         private float _swing_frame_timer = 0;
         private float swingSpeed = 14;
         private bool _isColided = false,_isColidedBox;
         private Chest _colidedChest;
-        private float _swing_range = 32;
         public bool _swing_weapon;
         #endregion
 

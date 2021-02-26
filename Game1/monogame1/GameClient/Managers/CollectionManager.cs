@@ -46,9 +46,9 @@ namespace GameClient
             int id = 0;
             _meleeWeapons = new List<MeleeWeapon>();
             _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 6),
-                Vector2.Zero, 0.5f, 1));
+                Vector2.Zero, 0.5f, 1,false,false,null));
             _meleeWeapons.Add(new MeleeWeapon(id++, GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("Weapons/swords-sheet"), 1, 13, 0, 4),
-                Vector2.Zero, 0.5f, 1));
+                Vector2.Zero, 0.5f, 1, false, false, null));
         }
         private void InitializeSimpleEnemies()
         {
@@ -58,7 +58,7 @@ namespace GameClient
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 15, allConsumables, null, _guns[0], null,null));//skeleton GID=137
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
-                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0), null, null, null));//runner GID=138
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner GID=138
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
                 _itemManager, 10, allWeapons, null, _guns[2], null, null));//mage GID=139
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
@@ -147,18 +147,18 @@ namespace GameClient
             }
             return _guns[id].Copy(hitPlayers, dealDmg, inventoryManager);
         }
-        static public MeleeWeapon GetMeleeWeaponCopy(int id)
+        static public MeleeWeapon GetMeleeWeaponCopy(int id,bool hitPlayers,bool dealDmg,InventoryManager inventoryManager)
         {
             if (id == -1)
             {
                 Random x = new Random();
                 id = x.Next(0, 1);
             }
-            return _meleeWeapons[id].Copy();
+            return _meleeWeapons[id].Copy(hitPlayers, dealDmg, inventoryManager);
         }
-        public Simple_Enemy GetSimpleEnemyCopy(int id)
+        public Simple_Enemy GetSimpleEnemyCopy(int id,bool useAstar,bool waitForDestroyedWall)
         {
-            return _simple_enemies[id].Copy();
+            return _simple_enemies[id].Copy(useAstar, waitForDestroyedWall);
         }
         public Item GetItem(int id)
         {

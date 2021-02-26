@@ -34,9 +34,9 @@ namespace GameClient
                 foreach (var player in _networkPlayers)
                 {
                     if(CheckIfReachable(player.Position_Feet))
-                        _reachablePlayerPos = _player.Position_Feet;
+                        _reachablePlayerPos = player.Position_Feet;
                     if(CheckIfReachable(player.Position_Head))
-                        _reachablePlayerPos = _player.Position_Feet;
+                        _reachablePlayerPos = player.Position_Feet;
                 }
             }
             if(_player!=null)

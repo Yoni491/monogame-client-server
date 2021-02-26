@@ -40,7 +40,7 @@ namespace GameClient
                 PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
             MapManager._boxesToSend.Add(_numberInTileset);
             _destroy = true;
-
+            PathFindingManager._continueSearchingBlockedPaths = true;
         }
         public void UpdatePacket(Packet packet)
         {

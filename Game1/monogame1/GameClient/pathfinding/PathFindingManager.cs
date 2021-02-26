@@ -11,10 +11,10 @@ namespace GameClient
         static private List<PathFinder> _pathFinderList,_pathsToAdd;
         static public bool _isThreadBusy;
         static public PathFinder _currentPathFinder;
-        static public bool UseAStar = true;
         static List<int> _indecesToRemove;
         static private bool _continueSearch=false;
         static int id = 0;
+        static public bool _continueSearchingBlockedPaths;
         public PathFindingManager()
         {
             t = new Thread(new ThreadStart(FindPaths));
@@ -27,14 +27,22 @@ namespace GameClient
         {
             if (!_continueSearch)
             {
+                if (_continueSearchingBlockedPaths)
+                {
+                    foreach (var item in _pathFinderList)
+                    {
+                        item._waitForDestroyedWall=false;
+                    }
+                    _continueSearchingBlockedPaths = false;
+                }
                 AddPaths();
                 RemovePaths();
                 _continueSearch = true;
             }
         }
-        static public PathFinder GetPathFinder()
+        static public PathFinder GetPathFinder(bool useAstar,bool waitForDestroyedWall)
         {
-            PathFinder pathFinder = new PathFinder(id++);
+            PathFinder pathFinder = new PathFinder(id++,useAstar,waitForDestroyedWall);
             _pathsToAdd.Add(pathFinder);
             return pathFinder;
         }
@@ -69,7 +77,7 @@ namespace GameClient
                     if (index > _pathFinderList.Count - 1)
                         index = 0;
 
-                    if (_pathFinderList.Count > 0 && _pathFinderList[index]._pathNotFound-- < 1)
+                    if (_pathFinderList.Count > 0 && !_pathFinderList[index]._waitForDestroyedWall)
                         _pathFinderList[index].FindPaths();
                     index++;
                     _continueSearch = false;

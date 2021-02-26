@@ -41,15 +41,15 @@ namespace GameClient
             }
 
         }
-        public static void AddEnemyAtPosition(int EnemyID,Vector2 position)
+        public static void AddEnemyAtPosition(int EnemyID,Vector2 position,bool useAstar,bool waitForDestroyedWall)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID);
+            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID, useAstar, waitForDestroyedWall);
             enemy.PositionFeetAt(position);
             _enemies.Add(enemy);
         }
         public Simple_Enemy AddEnemyFromServer(int enemyNum,int enemyId)
         {
-            Simple_Enemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId);
+            Simple_Enemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId,true,false);
             simple_Enemy._enemyNum = enemyNum;
             _enemies.Add(simple_Enemy);
             return simple_Enemy;

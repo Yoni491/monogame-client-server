@@ -17,6 +17,7 @@ C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map12.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map13.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map2.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map3.tmx
+C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map4.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map5.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map6.tmx
 C:\Users\yoni2\Desktop\משחק גרסאות\Content/maps\map7.tmx

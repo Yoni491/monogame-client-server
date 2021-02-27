@@ -65,61 +65,61 @@ namespace GameClient
             int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
             if (gid != 0)
             {
-
-                if (_map.Tilesets[tilesetIndex].FirstGid > 0)
+                if (gid == 325)//grave normal
                 {
-                    if (gid == 325)//grave normal
-                    {
-                        Rectangle rectangle = AddWall(i,false);
-                        if(!Game_Client._IsMultiplayer)
-                            MapManager._graves.Add(new Grave(rectangle, false));
-                    }
-                    else if (gid == 326)//grave broken
-                    {
-                        Rectangle rectangle = AddWall(i,false);
-                        if (!Game_Client._IsMultiplayer)
-                            MapManager._graves.Add(new Grave(rectangle, true));
-                    }
-                    else if (gid == 134)//spawn point
-                    {
-                        spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
-                    }
-                    else if (gid == 469 || gid == 467)//normal chest
-                    {
-                        MapManager._chests.Add(i,new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width,2), i, tilesetIndex));
-                    }
-                    else if (gid == 468 ||gid == 465)
-                    {
-                        MapManager._boxes.Add(i,new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width,1.5f), i, tilesetIndex));
-                        AddWall(i,true,1.5f);
-                    }
-                    else if (gid == 451)
-                    {
-                        MapManager._doors.Add(i, new Door(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
-                        AddWall(i, false, 2);
-                    }
-                    else if(gid == 484)
-                    {
-                        if (!Game_Client._IsMultiplayer)
-                            ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight),true);
-                        _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
-                    }
-                    else if(gid >= 137 && gid <= 159)
-                    {//enemies
-                        bool useAstar = true;
-                        bool waitForDestroyedWall=false;
-                        if (_map.TileLayers[tilesetIndex].Tiles[i].HorizontalFlip)
-                            waitForDestroyedWall = true;
-                        else if (_map.TileLayers[tilesetIndex].Tiles[i].HorizontalFlip)
-                            useAstar = false;
-                        if (!Game_Client._IsMultiplayer)
-                            EnemyManager.AddEnemyAtPosition(gid-137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight),useAstar,waitForDestroyedWall);
-                        _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
-                    }
-                    else//normal walls
-                    {
-                        AddWall(i,false);
-                    }
+                    Rectangle rectangle = AddWall(i, false);
+                    if (!Game_Client._IsMultiplayer)
+                        MapManager._graves.Add(new Grave(rectangle, false));
+                }
+                else if (gid == 326)//grave broken
+                {
+                    Rectangle rectangle = AddWall(i, false);
+                    if (!Game_Client._IsMultiplayer)
+                        MapManager._graves.Add(new Grave(rectangle, true));
+                }
+                else if (gid == 134)//spawn point
+                {
+                    spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
+                }
+                else if (gid == 469 || gid == 467)//normal chest
+                {
+                    MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex));
+                }
+                else if (gid == 468 || gid == 465)
+                {
+                    MapManager._boxes.Add(i, new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
+                    AddWall(i, true, 1.5f);
+                }
+                else if (gid == 451)
+                {
+                    MapManager._doors.Add(i, new Door(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
+                    AddWall(i, false, 2);
+                }
+                else if (gid == 484)
+                {
+                    if (!Game_Client._IsMultiplayer)
+                        ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), true);
+                    _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
+                }
+                else if (gid >= 137 && gid <= 159)
+                {//enemies
+                    bool useAstar = true;
+                    bool waitForDestroyedWall = false;
+                    if (_map.TileLayers[tilesetIndex].Tiles[i].HorizontalFlip)
+                        waitForDestroyedWall = true;
+                    else if (_map.TileLayers[tilesetIndex].Tiles[i].VerticalFlip)
+                        useAstar = false;
+                    if (!Game_Client._IsMultiplayer)
+                        EnemyManager.AddEnemyAtPosition(gid - 137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), useAstar, waitForDestroyedWall);
+                    _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
+                }
+                else if (gid == 459)
+                {
+                    _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid, 0);
+                }
+                else//normal walls
+                {
+                    AddWall(i, false);
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace GameClient
             }
             return false;
         }
-        public Rectangle AddWall(int i,bool destroyableWall,float scale = 1)
+        public Rectangle AddWall(int i,bool destroyableWall,float scale = 1,int weight = 1)
         {
             float x = (i % _map.Width) * _map.TileWidth;
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
@@ -160,7 +160,7 @@ namespace GameClient
             }
             else
                 _destroyableWalls.Add(i, new Wall(rectangle));
-            _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid);
+            _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid, weight);
             return rectangle;
         }
         public void Draw(SpriteBatch spriteBatch)

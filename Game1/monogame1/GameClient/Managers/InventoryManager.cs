@@ -167,6 +167,7 @@ namespace GameClient
                                 if(_player._gun!=null)
                                     _player._gun._bullets.Clear();
                                 _player.EquipGun(gun);
+                                _inventory_rectangles[i].Item2 = null;
                             }
 
                         }

@@ -38,6 +38,8 @@ namespace GameClient
                 IsCollidingTop(rectangle, _player.Rectangle, velocity) || IsCollidingBottom(rectangle, _player.Rectangle, velocity))
             {
                 _player._health._health_left -= dmg;
+                if (_player._health._health_left <= 0)
+                    _player._dead = true;
                 return true;
             }
 

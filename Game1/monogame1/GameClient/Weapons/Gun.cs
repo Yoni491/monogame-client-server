@@ -193,7 +193,8 @@ namespace GameClient
                 }
                 if (_isSniper && _showLine)
                 {
-                    BulletReach();
+                    if(!_hitPlayers)
+                        BulletReach();
                     if (_isGamePad)
                     {
                         GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);

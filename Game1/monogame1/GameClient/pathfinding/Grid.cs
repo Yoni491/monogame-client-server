@@ -49,8 +49,15 @@
                 Type = type,
                 Weight = GetCell(x, y)?.Weight ?? 0
             };
-
-            //SetStartAndEnd();
+        }
+        public void SetCell(int x, int y, CellType type,int weight)
+        {
+            _grid[x, y] = new Cell
+            {
+                Coord = new Coord(x, y),
+                Type = type,
+                Weight = GetCell(x, y).Weight == 0 ? 0 : weight
+            };
         }
 
         public void SetCell(Coord coord, CellType type)

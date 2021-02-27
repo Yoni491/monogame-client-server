@@ -20,7 +20,7 @@ namespace GameClient
         private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
         public int _id;
-        private bool _useAstar =true;
+        public bool _useAstar =true;
         public bool _waitForDestroyedWall;
         public PathFinder(int id,bool useAstar,bool waitForDestroyedWall)
         {
@@ -64,10 +64,14 @@ namespace GameClient
             _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), s_grid);
             while (true)
             {
-                if (_useAstar && tickAmount < 1000)
+                if (_useAstar && tickAmount <= 1000)
                 {
-                    if (tickAmount > 1500)
+                    if (tickAmount == 1000)
+                    {
+                        _useAstar = false;
+                        _newSearchReady = true;
                         return;
+                    }
                     var searchStatus = _AStar.GetPathTick();
                     tickAmount++;
                     if (searchStatus.PathFound)
@@ -152,7 +156,8 @@ namespace GameClient
             }    
             if (_path.Count>0)
             {
-                
+                if (_path.Count < 10)
+                    _useAstar = true;
                 while (_path.Count > 0 && Vector2.Distance(_position, TileManager.GetPositionFromCoord(_path[0])) <16f)
                 {
                     _path.RemoveAt(0);

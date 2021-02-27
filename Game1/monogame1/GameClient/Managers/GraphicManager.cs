@@ -20,6 +20,7 @@ namespace GameClient
         public static int screenHeight;
         public static int screenWidth;
         public static Vector2 _ScreenMiddle;
+        public static Texture2D _deadPlayerTexture;
         public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, GraphicsDeviceManager graphics)
         {
             _graphicsDevice = graphicsDevice;
@@ -32,6 +33,7 @@ namespace GameClient
             screenHeightScaled = ScreenScale.Y * graphicsDevice.Viewport.Height;
             screenWidthScaled = ScreenScale.X * graphicsDevice.Viewport.Width;
             _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
+            _deadPlayerTexture = GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 3);
         }
         public void Update(GameTime gameTime)
         {
@@ -124,7 +126,7 @@ namespace GameClient
         }
         static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum,float scale)
         {
-            return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4 , scale);
+            return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4, scale, spriteNum);
         }
         static public void DrawLine(Vector2 start, Vector2 end, SpriteBatch spriteBatch)
         {

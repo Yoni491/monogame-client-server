@@ -21,9 +21,5 @@ namespace GameClient
             _frameWidth = textures[0].Width;
             _frameHeight = textures[0].Height;
         }
-        public Animation Copy()
-        {
-            return new Animation(_textures);
-        }
     }
 }

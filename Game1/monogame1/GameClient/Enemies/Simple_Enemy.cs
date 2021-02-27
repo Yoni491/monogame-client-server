@@ -175,19 +175,28 @@ namespace GameClient
                         target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
                     }
                     
-                    _pathFinder.Update(gameTime, Position_Feet, target_player);
                 }                    
                 else
                 {
                     target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
-                    _pathFinder.Update(gameTime, Position_Feet, target_player);
                 }
-                
+                _pathFinder.Update(gameTime, Position_Feet, target_player);
+
                 Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
-                _velocity = Vector2.Normalize(coordPosition - Position_Feet);
                 if (coordPosition == Vector2.Zero)
+                {
                     _velocity = Vector2.Zero;
+                    Vector2 direction = target_player - Position_Feet;
+                    SetDirection(ref direction);
+                }
+                else
+                {
+                    _velocity = Vector2.Normalize(coordPosition - Position_Feet);
+                    SetDirection(ref _velocity);
+                }
+
                 
+
                 if (Vector2.Distance(target_player, Position_Feet) > _movingToPlayerMaxDistance)
                 {
                     stopMoving = false;
@@ -199,22 +208,26 @@ namespace GameClient
                         _meleeWeapon.SwingWeapon();
                 }
             }
-            if (_velocity.X > Math.Abs(_velocity.Y))
+            
+        }
+        public void SetDirection(ref Vector2 velocity)
+        {
+            if (velocity.X > Math.Abs(velocity.Y))
             {
                 _hide_weapon = false;
                 _moving_direction = (int)Direction.Right;
             }
-            else if (-_velocity.X > Math.Abs(_velocity.Y))
+            else if (-velocity.X > Math.Abs(velocity.Y))
             {
                 _hide_weapon = false;
                 _moving_direction = (int)Direction.Left;
             }
-            else if (_velocity.Y > 0)
+            else if (velocity.Y > 0)
             {
                 _hide_weapon = false;
                 _moving_direction = (int)Direction.Down;
             }
-            else if (_velocity.Y < 0)
+            else if (velocity.Y < 0)
             {
                 _hide_weapon = true;
                 _moving_direction = (int)Direction.Up;
@@ -250,8 +263,11 @@ namespace GameClient
             BulletReach bulletReach=null;
             if (gun != null)
                 bulletReach = BulletReachManager.GetBulletReach(gun);
-            return new Simple_Enemy(_animationManager.Copy(_scale), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, _meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar,waitForDestroyedWall), bulletReach, enemyNum);
+            MeleeWeapon meleeWeapon = null;
+            if (_meleeWeapon != null)
+                meleeWeapon = _meleeWeapon.Copy(true,true,null);
+            return new Simple_Enemy(_animationManager.Copy(), _enemyId, _position, _speed,
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar,waitForDestroyedWall), bulletReach, enemyNum);
         }
         protected void SetAnimations()
         {

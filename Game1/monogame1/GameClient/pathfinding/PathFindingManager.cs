@@ -7,38 +7,48 @@ namespace GameClient
 {
     public class PathFindingManager
     {
-        static Thread t;
+        static Thread AstarThread,BFSThread;
         static private List<PathFinder> _pathFinderList,_pathsToAdd;
-        static public bool _isThreadBusy;
         static public PathFinder _currentPathFinder;
         static List<int> _indecesToRemove;
-        static private bool _continueSearch=false;
+        static private bool _continueSearch, _continueSearchBFS;
         static int id = 0;
         static public bool _continueSearchingBlockedPaths;
         public PathFindingManager()
         {
-            t = new Thread(new ThreadStart(FindPaths));
-            t.Start();
+            AstarThread = new Thread(new ThreadStart(()=>FindPaths(true,ref _continueSearch)));
+            AstarThread.Start();
+            BFSThread = new Thread(new ThreadStart(() => FindPaths(false,ref _continueSearchBFS)));
+            BFSThread.Start();
             _pathFinderList = new List<PathFinder>();
             _pathsToAdd = new List<PathFinder>();
             _indecesToRemove = new List<int>();
         }
         public void Update()
         {
-            if (!_continueSearch)
+            if (!_continueSearchBFS)
             {
-                if (_continueSearchingBlockedPaths)
+                if (!_continueSearch)
                 {
-                    foreach (var item in _pathFinderList)
+                    if (_continueSearchingBlockedPaths)
                     {
-                        item._waitForDestroyedWall=false;
+                        foreach (var item in _pathFinderList)
+                        {
+                            item._waitForDestroyedWall = false;
+                        }
+                        _continueSearchingBlockedPaths = false;
                     }
-                    _continueSearchingBlockedPaths = false;
+                    AddPaths();
+                    RemovePaths();
+                    _continueSearch = true;
+                    _continueSearchBFS = true;
                 }
-                AddPaths();
-                RemovePaths();
+            }
+            else if (!_continueSearch)
+            {
                 _continueSearch = true;
             }
+            
         }
         static public PathFinder GetPathFinder(bool useAstar,bool waitForDestroyedWall)
         {
@@ -67,20 +77,37 @@ namespace GameClient
                 _pathsToAdd.RemoveAt(0);
             }
         }
-        static public void FindPaths()
+        static public void FindPaths(bool UseAstar, ref bool continueSearch)
         {
             int index = 0;
+            int timer = 0;
             while (true)
             {
-                if (_continueSearch)
+                if (continueSearch)
                 {
-                    if (index > _pathFinderList.Count - 1)
-                        index = 0;
-
-                    if (_pathFinderList.Count > 0 && !_pathFinderList[index]._waitForDestroyedWall)
-                        _pathFinderList[index].FindPaths();
-                    index++;
-                    _continueSearch = false;
+                    if (_pathFinderList.Count > 0)
+                    {
+                        if (index > _pathFinderList.Count - 1)
+                            index = 0;
+                        if (UseAstar && _pathFinderList[index]._useAstar)
+                        {
+                            if (!_pathFinderList[index]._waitForDestroyedWall)
+                            {
+                                _pathFinderList[index].FindPaths();
+                                continueSearch = false;
+                            }
+                        }
+                        else if (!UseAstar && !_pathFinderList[index]._useAstar)
+                        {
+                            if (!_pathFinderList[index]._waitForDestroyedWall)
+                            {
+                                _pathFinderList[index].FindPaths();
+                                continueSearch = false;
+                            }
+                        }
+                        index++;
+                    }
+                    continueSearch = false;
                 }
                 Thread.Sleep(1);
             }

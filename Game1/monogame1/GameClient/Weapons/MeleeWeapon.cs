@@ -23,7 +23,7 @@ namespace GameClient
         private float _between_attacks_timer_window = 0.2f;
         private float swingSpeed = 14;
         private int _dmg;
-        public int _maxAttackingDistance = 30;
+        public int _maxAttackingDistance = 60;
         private bool _isColided = false;
         public bool _hitPlayers;
         private bool _dealDmg;

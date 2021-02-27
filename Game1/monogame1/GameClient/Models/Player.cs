@@ -27,6 +27,7 @@ namespace GameClient
         private int _height;
         private int _moving_direction;
         public int _animationNum;
+        public bool _dead;
 
         private PlayerManager _playerManager;
         private ItemManager _itemManager;
@@ -88,6 +89,8 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (_dead)
+                spriteBatch.Draw(GraphicManager._deadPlayerTexture,Position_Feet,null,Color.White,0,Vector2.Zero,2f,SpriteEffects.None, TileManager.GetLayerDepth(_position.Y));
             if (_hide_weapon)
             {
                 if(_gun!=null)

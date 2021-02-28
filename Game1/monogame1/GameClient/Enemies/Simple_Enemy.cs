@@ -187,12 +187,12 @@ namespace GameClient
                 {
                     _velocity = Vector2.Zero;
                     Vector2 direction = target_player - Position_Feet;
-                    SetDirection(ref direction);
+                    _animationManager.SetAnimations(direction, ref _hide_weapon, ref _moving_direction);
                 }
                 else
                 {
                     _velocity = Vector2.Normalize(coordPosition - Position_Feet);
-                    SetDirection(ref _velocity);
+                    _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
                 }
 
                 
@@ -209,29 +209,6 @@ namespace GameClient
                 }
             }
             
-        }
-        public void SetDirection(ref Vector2 velocity)
-        {
-            if (velocity.X > Math.Abs(velocity.Y))
-            {
-                _hide_weapon = false;
-                _moving_direction = (int)Direction.Right;
-            }
-            else if (-velocity.X > Math.Abs(velocity.Y))
-            {
-                _hide_weapon = false;
-                _moving_direction = (int)Direction.Left;
-            }
-            else if (velocity.Y > 0)
-            {
-                _hide_weapon = false;
-                _moving_direction = (int)Direction.Down;
-            }
-            else if (velocity.Y < 0)
-            {
-                _hide_weapon = true;
-                _moving_direction = (int)Direction.Up;
-            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -251,24 +228,8 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-        }
-        public Simple_Enemy Copy(bool useAstar,bool waitForDestroyedWall)
-        {
-            int enemyNum = -1;
-            if (!Game_Client._IsMultiplayer)
-                enemyNum = _s_enemyNum++;
-            Gun gun = null;
-            if (_gun != null)
-                gun = _gun.Copy(true, true, null);
-            BulletReach bulletReach=null;
-            if (gun != null)
-                bulletReach = BulletReachManager.GetBulletReach(gun);
-            MeleeWeapon meleeWeapon = null;
-            if (_meleeWeapon != null)
-                meleeWeapon = _meleeWeapon.Copy(true,true,null);
-            return new Simple_Enemy(_animationManager.Copy(), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar,waitForDestroyedWall), bulletReach, enemyNum);
-        }
+        }        
+        
         protected void SetAnimations()
         {
             if (stopMoving)
@@ -313,6 +274,23 @@ namespace GameClient
                     }
                 }
             }
+        }
+        public Simple_Enemy Copy(bool useAstar, bool waitForDestroyedWall)
+        {
+            int enemyNum = -1;
+            if (!Game_Client._IsMultiplayer)
+                enemyNum = _s_enemyNum++;
+            Gun gun = null;
+            if (_gun != null)
+                gun = _gun.Copy(true, true, null);
+            BulletReach bulletReach = null;
+            if (gun != null)
+                bulletReach = BulletReachManager.GetBulletReach(gun);
+            MeleeWeapon meleeWeapon = null;
+            if (_meleeWeapon != null)
+                meleeWeapon = _meleeWeapon.Copy(true, true, null);
+            return new Simple_Enemy(_animationManager.Copy(), _enemyId, _position, _speed,
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall), bulletReach, enemyNum);
         }
         public void UpdatePacketDmg(Packet packet)
         {

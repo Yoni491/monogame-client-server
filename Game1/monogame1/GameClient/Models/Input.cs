@@ -13,6 +13,7 @@ namespace GameClient
         public Vector2 _left_joystick_direction;
         public Vector2 _right_joystick_direction;
         public float _right_trigger;
+        public bool _isGamePad;
 
         GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
@@ -48,6 +49,85 @@ namespace GameClient
                     state.IsButtonDown(Buttons.A);
                 }
             }
+        }
+        public void GetVelocity(ref Vector2 _velocity,float _speed)
+        {
+            if (Keyboard.GetState().IsKeyDown(_up))
+            {
+                _isGamePad = false;
+                _velocity.Y = -1;
+
+            }
+            else if (Keyboard.GetState().IsKeyDown(_down))
+            {
+                _isGamePad = false;
+                _velocity.Y = 1;
+            }
+            if (Keyboard.GetState().IsKeyDown(_left))
+            {
+                _isGamePad = false;
+                _velocity.X = -1;
+            }
+            else if (Keyboard.GetState().IsKeyDown(_right))
+            {
+                _isGamePad = false;
+                _velocity.X = 1;
+            }
+            if (_left_joystick_direction != Vector2.Zero)
+            {
+                _isGamePad = true;
+                _velocity = _left_joystick_direction;
+            }
+            if (_velocity != Vector2.Zero)
+            {
+                _velocity = Vector2.Normalize(_velocity) * _speed;
+            }
+        }
+        public void GetLookingDirection(ref Vector2 _looking_direction, Gun _gun,MeleeWeapon _meleeWeapon)
+        {
+            if (_right_joystick_direction != Vector2.Zero)
+            {
+                _isGamePad = true;
+                _looking_direction = _right_joystick_direction;
+            }
+            if (!_isGamePad)
+            {
+                if (_gun != null)
+                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
+                else if (_meleeWeapon != null)
+                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _meleeWeapon.Position * GraphicManager.ScreenScale;
+            }
+        }
+        public bool MeleeAttack()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                _isGamePad = false;
+                return true;
+            }
+            return false;
+        }
+        public bool Shot()
+        {
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                _isGamePad = false;
+                return true;
+            }
+            else if(_right_trigger > 0)
+            {
+                _isGamePad = false;
+                return true;
+            }
+            return false;
+        }
+        public bool Pick()
+        {
+            if (Keyboard.GetState().IsKeyDown(_pick))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

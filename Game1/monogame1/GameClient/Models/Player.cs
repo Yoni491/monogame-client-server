@@ -18,7 +18,6 @@ namespace GameClient
         public Vector2 _position;
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
-        public bool _isGamePad;
         static public bool _mouseIntersectsUI;
         private float _speed = 6f;
         private float _scale;
@@ -59,8 +58,9 @@ namespace GameClient
 
             InputReader(gameTime);
 
-            SetAnimations();
+            _animationManager.Update(gameTime, _position);
 
+            _animationManager.SetAnimations(_velocity,ref _hide_weapon,ref _moving_direction);
             if (CollisionManager.IsCollidingLeftWalls(RectangleMovement, _velocity) && _velocity.X < 0)
                 _velocity -= new Vector2(_velocity.X,0);
             if (CollisionManager.IsCollidingRightWalls(RectangleMovement, _velocity) && _velocity.X > 0)
@@ -72,11 +72,10 @@ namespace GameClient
             _position += _velocity;
 
 
-            _animationManager.Update(gameTime, _position);
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, _looking_direction, _moving_direction, _isGamePad,_gun._isSniper,_position);
+                _gun.Update(gameTime, _looking_direction, _moving_direction, _input._isGamePad,_gun._isSniper,_position);
             }
             if (_meleeWeapon != null)
             {
@@ -114,74 +113,27 @@ namespace GameClient
         public void InputReader(GameTime gameTime)
         {
             _velocity = Vector2.Zero;
-            if (Keyboard.GetState().IsKeyDown(_input._up))
+            _input.GetVelocity(ref _velocity, _speed);
+            _input.GetLookingDirection(ref _looking_direction, _gun, _meleeWeapon);
+            if(_input.MeleeAttack())
             {
-                _isGamePad = false;
-                _velocity.Y = -1;
-
-            }
-            else if (Keyboard.GetState().IsKeyDown(_input._down))
-            {
-                _isGamePad = false;
-                _velocity.Y = 1;
-            }
-            if (Keyboard.GetState().IsKeyDown(_input._left))
-            {
-                _isGamePad = false;
-                _velocity.X = -1;
-            }
-            else if (Keyboard.GetState().IsKeyDown(_input._right))
-            {
-                _isGamePad = false;
-                _velocity.X = 1;
-            }
-            if (_input._left_joystick_direction != Vector2.Zero)
-            {
-                _isGamePad = true;
-                _velocity = _input._left_joystick_direction;
-            }
-            if (_velocity != Vector2.Zero)
-            {
-                _velocity = Vector2.Normalize(_velocity) * _speed;
-            }
-            if (_input._right_joystick_direction != Vector2.Zero)
-            {
-                _isGamePad = true;
-                _looking_direction = _input._right_joystick_direction;
-            }
-            if (!_isGamePad)
-            {
-                if(_gun!=null)
-                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
-                else
-                    _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _meleeWeapon.Position * GraphicManager.ScreenScale;
-            }
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                _isGamePad = false;
-                if(!_mouseIntersectsUI)
-                { 
-                    if(_gun!=null)
+                if (!_mouseIntersectsUI)
+                {
+                    if (_gun != null)
                         _gun.Shot();
                 }
-
             }
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            if(_input.Shot())
             {
-                _isGamePad = false;
                 if (_gun != null)
                     _gun.SwingWeapon();
                 else
                     _meleeWeapon.SwingWeapon();
             }
-            if (_input._right_trigger > 0)
-            {
-                _gun.Shot();
-            }
-            if(Keyboard.GetState().IsKeyDown(_input._pick))
+            if (_input.Pick())
             {
                 Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPosition()));
-                if(item!=null)
+                if (item != null)
                 {
                     if (!Game_Client._IsMultiplayer)
                     {
@@ -192,44 +144,12 @@ namespace GameClient
                         item._aboutToBeSent = true;
                         ItemManager._itemsToSend.Add(item._itemNum);
                     }
-                    
                 }
             }
             _mouseIntersectsUI = false;
 
         }
-        protected void SetAnimations()
-        {
-
-            if (_velocity == Vector2.Zero)
-                _animationManager.Stop();
-            else
-            {
-                _hide_weapon = false;
-                _moving_direction = -1;
-                if (_velocity.X >= Math.Abs(_velocity.Y))
-                {
-                    _moving_direction = (int)Direction.Right;
-
-                }
-                else if (-_velocity.X >= Math.Abs(_velocity.Y))
-                {
-                    _moving_direction = (int)Direction.Left;
-                }
-                else if (_velocity.Y > 0)
-                {
-                    _moving_direction = (int)Direction.Down;
-                }
-                else if (_velocity.Y < 0)
-                {
-                    _moving_direction = (int)Direction.Up;
-                    _hide_weapon = true;
-                }
-                else _animationManager.Stop();
-                if (_moving_direction != -1)
-                    _animationManager.Play(_moving_direction);
-            }
-        }
+        
 
         public void EquipGun(Gun gun)
         {

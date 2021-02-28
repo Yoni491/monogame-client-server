@@ -10,18 +10,19 @@ namespace GameClient
 {
     public class PathFinder
     {
-        static public Grid s_grid;
+        static public Grid Astar_Grid,Bfs_Grid;
         private AStar _AStar;
         private BreadthFirst _BreadthFirst;
         private SearchDetails _searchDetails;
         private Vector2 _position;
-        private List<Coord> _path;
+        public List<Coord> _path;
         private Coord lastCoord;
         private Vector2 _start, _end,_first_position = Vector2.Zero;
         private bool _newSearchReady = true,_startNewSearch = true;
         public int _id;
         public bool _useAstar =true;
         public bool _waitForDestroyedWall;
+        public bool _waitForEndPath;
         public PathFinder(int id,bool useAstar,bool waitForDestroyedWall)
         {
             _path = new List<Coord>();
@@ -31,7 +32,8 @@ namespace GameClient
         }
         public static void UpdateGrid(Grid grid)
         {
-            s_grid = grid;
+            Astar_Grid = grid;
+            Bfs_Grid = grid.GetGridCopy();
         }
         public void FindPaths()
         {
@@ -41,6 +43,7 @@ namespace GameClient
                 {
                     lastCoord = _path[20];
                     _start = TileManager.GetPositionFromCoord(_path[20]);
+                    return;
                 }
                 else if (_path.Count > 0)
                 {
@@ -59,9 +62,9 @@ namespace GameClient
             int tickAmount = 0;
             int pathNotPossible = 0;
             _AStar = new AStar();
-            _AStar.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), s_grid);
+            _AStar.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), Astar_Grid);
             _BreadthFirst = new BreadthFirst();
-            _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), s_grid);
+            _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), Bfs_Grid);
             while (true)
             {
                 if (_useAstar && tickAmount <= 1000)
@@ -100,12 +103,14 @@ namespace GameClient
                     var searchStatus = _BreadthFirst.GetPathTick();
                     if (searchStatus.PathFound)
                     {
+                        _useAstar = true;
                         _searchDetails = searchStatus;
                         _newSearchReady = true;
                         return;
                     }
                     if (!searchStatus.PathPossible)
                     {
+                        _useAstar = true;
                         _newSearchReady = true;
                         _waitForDestroyedWall = true;
                         return;

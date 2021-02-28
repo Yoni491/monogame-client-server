@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace GameClient
@@ -66,12 +67,40 @@ namespace GameClient
             _timer = 0;
             _animation._currentFrame = 0;
         }
-
         public Vector2 getAnimationPickPosition()
         {
             return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);
-            //return new Vector2(_animation.Texture.Width / 2, _animation.Texture.Height);
         }
+        public void SetAnimations(Vector2 _velocity, ref bool _hide_weapon,ref int _moving_direction)
+        {
+            if (_velocity == Vector2.Zero)
+                Stop();
+            else
+            {
+                _hide_weapon = false;
+                _moving_direction = -1;
+                if (_velocity.X >= Math.Abs(_velocity.Y))
+                {
+                    _moving_direction = (int)Direction.Right;
 
+                }
+                else if (-_velocity.X >= Math.Abs(_velocity.Y))
+                {
+                    _moving_direction = (int)Direction.Left;
+                }
+                else if (_velocity.Y > 0)
+                {
+                    _moving_direction = (int)Direction.Down;
+                }
+                else if (_velocity.Y < 0)
+                {
+                    _moving_direction = (int)Direction.Up;
+                    _hide_weapon = true;
+                }
+                else Stop();
+                if (_moving_direction != -1)
+                    Play(_moving_direction);
+            }
+        }
     }
 }

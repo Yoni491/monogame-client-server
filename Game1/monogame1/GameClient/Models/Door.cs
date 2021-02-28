@@ -33,7 +33,8 @@ namespace GameClient
             TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
             if (TileManager._walls.ContainsKey(_numberInTileset))
             {
-                PathFinder.s_grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
                 TileManager._walls.Remove(_numberInTileset);
             }
             MapManager._doorsToSend.Add(_numberInTileset);

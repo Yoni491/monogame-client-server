@@ -58,11 +58,10 @@ namespace GameClient
         {
             if (!Game_Client._isServer)
             {
-                SetAnimations();
-
                 _animationManager.Update(gameTime, _position);
 
-                //Console.WriteLine(_position);
+                _animationManager.SetAnimations(_velocity,ref _hide_gun,ref _movingDirection);
+
                 _position += _velocity;
 
                 if (_gun != null)
@@ -84,39 +83,6 @@ namespace GameClient
                 _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             if (_hide_gun && _gun != null)
                 _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-        }
-        protected void SetAnimations()
-        {
-
-            if (_velocity == Vector2.Zero)
-                _animationManager.Stop();
-            else
-            {
-                _hide_gun = false;
-                if (_velocity.X >= Math.Abs(_velocity.Y))
-                {
-                    _animationManager.Play((int)Direction.Right);
-
-                }
-                else if (-_velocity.X >= Math.Abs(_velocity.Y))
-                {
-                    _animationManager.Play((int)Direction.Left);
-                }
-                else if (_velocity.Y > 0)
-                {
-                    _animationManager.Play((int)Direction.Down);
-                }
-                else if (_velocity.Y < 0)
-                {
-                    _animationManager.Play((int)Direction.Up);
-                    _hide_gun = true;
-                }
-                else
-                {
-                    _animationManager.Play(_movingDirection);
-                    _animationManager.Stop();
-                }
-            }
         }
         public void UpdatePacketShort(Packet packet)
         {

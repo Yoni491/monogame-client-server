@@ -16,7 +16,7 @@ namespace GameClient
         public static TmxMap _map;
         public static Dictionary<int, Wall> _walls;
         public static Dictionary<int, Wall> _destroyableWalls;
-        public Grid _grid = PathFinder.s_grid;
+        public Grid _grid;
         public bool _levelLoaded;
 
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
@@ -34,7 +34,6 @@ namespace GameClient
 
             string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
             _map = new TmxMap(mapName);
-            int tilesetIndex = 0;
 
             Vector2 spawnPoint = Vector2.Zero;
 

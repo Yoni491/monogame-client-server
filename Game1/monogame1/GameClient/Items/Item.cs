@@ -22,9 +22,10 @@ namespace GameClient
         public Vector2 _position;
         private bool _inInventory;
         public int _invenotryAmountAllowed;
+        public int _itemHealing;
         public bool _aboutToBeSent;
-
-        public Item(Texture2D texture, Texture2D framedTexture, int item_id, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Gun gun, int invenotryAmountAllowed)
+        private float _drawScale=1;
+        public Item(Texture2D texture, Texture2D framedTexture, int item_id,float scale, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Gun gun, int invenotryAmountAllowed,int itemHealing = 0)
         {
             _texture = texture;
             _itemNum = ItemManager.itemNumber++;
@@ -33,6 +34,7 @@ namespace GameClient
             else
                 _inventoryTexture = framedTexture;
             _itemId = item_id;
+            _drawScale = scale;
             _name = name;
             _dropRate = dropRate;
             _itemLvl = itemLvl;
@@ -41,22 +43,23 @@ namespace GameClient
             _isCraftable = isCraftable;
             _gun = gun;
             _invenotryAmountAllowed = invenotryAmountAllowed;
+            _itemHealing = itemHealing;
         }
         public void DrawInventory(SpriteBatch spriteBatch,Vector2 position)
         {
-            float scale = _gun == null ? 1 : 0.7f;
-            spriteBatch.Draw(_inventoryTexture, position, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 0.99f);
+            
+            spriteBatch.Draw(_inventoryTexture, position, null, Color.White, 0, new Vector2(0, 0), _drawScale, SpriteEffects.None, 0.99f);
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.015f + _itemId * 0.00001f);
+            spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(0, 0), _drawScale, SpriteEffects.None, 0.015f + _itemId * 0.00001f);
         }
         public Item Copy()
         {
             Gun gun = null;
             if (_gun != null)
                 gun = _gun.Copy(false,true,null);
-            return new Item(_texture, _inventoryTexture, _itemId, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed);
+            return new Item(_texture, _inventoryTexture, _itemId, _drawScale, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed,_itemHealing);
         }
         public Item Drop(bool dropAlways = false)
         {

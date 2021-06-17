@@ -86,6 +86,7 @@ namespace GameClient
                 _inventory_rectangles[i].Item1 = new Rectangle((int)fixedPosition.X + width * i + i, (int)fixedPosition.Y, width, height);
             }
         }
+        //used for removing an item from the inventory automaticly, example: key when opening door
         public bool RemoveItemFromInventory(int itemID)
         {
             int index = 0;
@@ -168,6 +169,14 @@ namespace GameClient
                                     _player._gun._bullets.Clear();
                                 _player.EquipGun(gun);
                                 _inventory_rectangles[i].Item2 = null;
+                            }
+                            else if(_inventory_rectangles[i].Item2._item._itemHealing>0)
+                            {
+                                _player._health._health_left += _inventory_rectangles[i].Item2._item._itemHealing;
+                                if (--_inventory_rectangles[i].Item2._amount == 0)
+                                {
+                                    _inventory_rectangles[i].Item2 = null;
+                                }
                             }
 
                         }

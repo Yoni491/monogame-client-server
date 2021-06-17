@@ -74,33 +74,33 @@ namespace GameClient
             _items = new List<Item>();
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 4),//0 - 4 consumables
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 4),
-                id++, "Ore", 0.02f, 1, false, false, false, null, 10));
+                id++, 1, "Ore", 0.02f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 0),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 0)
-                , id++, "Wood", 0.02f, 1, false, false, false, null, 10));
+                , id++, 1, "Wood", 0.02f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 6, 2),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 6, 2),
-                id++, "Apple", 0.01f, 1, false, false, false, null, 10));
+                id++, 1, "Apple", 0.01f, 1, false, false, false, null, 10,10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 0, 3),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 0, 3),
-                id++, "Bone", 0.08f, 1, false, false, false, null, 10));
+                id++, 1, "Bone", 0.08f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
-                id++, "Potion", 0.04f, 1, false, false, false, null, 10));
+                id++, 1.5f, "Potion", 0.009f, 1, false, false, false, null, 10,50));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"), null,//5 - 9 weapons
-                id++, "M16", 0.1f, 1, false, false, false, _guns[0], 1));
+                id++, 0.7f, "M16", 0.01f, 1, false, false, false, _guns[0], 1));//rating 4
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"), null,
-                id++, "Sniper", 0.1f, 1, false, false, false, _guns[1], 1));
+                id++, 0.7f, "Sniper", 0.03f, 1, false, false, false, _guns[1], 1));//rating 3
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/3"), null,
-                id++, "Rifle", 0.1f, 1, false, false, false, _guns[2], 1));
+                id++, 0.7f, "Rifle", 0.1f, 1, false, false, false, _guns[2], 1));//rating 1
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/4"), null,
-                id++, "MachineGun", 0.1f, 1, false, false, false, _guns[3], 1));
+                id++, 0.7f, "MachineGun", 0.005f, 1, false, false, false, _guns[3], 1));//rating 5
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"), null,
-                id++, "Uzi", 0.1f, 1, false, false, false, _guns[4], 1));
+                id++, 0.7f, "Uzi", 0.05f, 1, false, false, false, _guns[4], 1));//rating 2
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8, 6), null,//10,11 gold,key
-                id++, "Gold", 0.01f, 1, false, false, false, null, 1000));
+                id++, 1.5f, "Gold", 0.01f, 1, false, false, false, null, 1000));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 9), null,
-                id++, "Key", 0, 1, false, false, false, null, 1000));
+                id++, 2f, "Key", 0, 1, false, false, false, null, 1000));
 
         }
         private void InitializeBullets()
@@ -108,11 +108,11 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.1f, 2, 350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.3f, 10, 2000));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5, 350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.04f, 5, 350));
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.001f, 1, 200));
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.08f, 2, 480));//M16
+            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.12f, 5, 480));//Rifle
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 4, 350));//MachineGun
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 2, 400));//Uzi
 
         }
         private void InitializeGuns()

@@ -53,6 +53,7 @@ namespace GameClient
                     return;
                 }
         }
+        //Client function to drop item that server sends
         static public void DropItemFromServer(int num, int id, Vector2 position)
         {
             Item item = _collectionManager.GetItem(id).Drop(true);

@@ -80,7 +80,7 @@ namespace GameClient
             screenWidthScaled = ScreenScale.X * width;
             _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
         }
-        static public Texture2D Resize4x4Sprite(Texture2D texture, int x)
+        static public Texture2D GetRowFrom4x4Sprite(Texture2D texture, int x)
         {
             Rectangle newBounds = texture.Bounds;
             newBounds.Y = (texture.Height / 4) * x;
@@ -118,10 +118,10 @@ namespace GameClient
         {
             return new Dictionary<int, Animation>()
             {
-            { (int)Direction.Down, MakeAnimationFromRow(Resize4x4Sprite(i_texture,0),4) },
-            { (int)Direction.Left, MakeAnimationFromRow(Resize4x4Sprite(i_texture,1),4) },
-            { (int)Direction.Right, MakeAnimationFromRow(Resize4x4Sprite(i_texture,2),4) },
-            { (int)Direction.Up, MakeAnimationFromRow(Resize4x4Sprite(i_texture,3),4) },
+            { (int)Direction.Down, MakeAnimationFromRow(GetRowFrom4x4Sprite(i_texture,0),4) },
+            { (int)Direction.Left, MakeAnimationFromRow(GetRowFrom4x4Sprite(i_texture,1),4) },
+            { (int)Direction.Right, MakeAnimationFromRow(GetRowFrom4x4Sprite(i_texture,2),4) },
+            { (int)Direction.Up, MakeAnimationFromRow(GetRowFrom4x4Sprite(i_texture,3),4) },
             };
         }
         static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum,float scale)

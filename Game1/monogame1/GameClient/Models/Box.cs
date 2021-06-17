@@ -33,6 +33,7 @@ namespace GameClient
             if (!Game_Client._IsMultiplayer)
             {
                 ItemManager.DropGold(1, _position);
+                ItemManager.DropItem(CollectionManager.allConsumables,_position);
             }
             TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
             TileManager._destroyableWalls.Remove(_numberInTileset);

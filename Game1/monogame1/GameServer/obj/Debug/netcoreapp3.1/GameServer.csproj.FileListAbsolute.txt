@@ -98,3 +98,7 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\GameClient.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\TiledSharp.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map4.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\GameClient.deps.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.dev.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameServer\bin\Debug\netcoreapp3.1\Content\maps\‏‏map6.tmx

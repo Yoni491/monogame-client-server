@@ -20,13 +20,11 @@ namespace GameClient
         private Vector2 _velocity;
         public Vector2 _position;
         private Vector2 _shootingDirection = Vector2.Zero;
-        private Vector2 _movingDirection;
         private PathFinder _pathFinder;
         private BulletReach _bulletReach;
-        public bool _destroy = false;
+        public bool _destroy;
         private bool _hide_weapon;
-        private bool stopMoving;
-        private bool _isStopingToAttack=false;
+        private bool _isStopingToShotOrMeleeAttack;
         private int[] _items_drop_list;
         private int _moving_direction;
         private int _width;
@@ -43,7 +41,6 @@ namespace GameClient
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
-
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
         public Simple_Enemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder, BulletReach bulletReach, int enemyNum = -1)
         {
@@ -81,35 +78,34 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            
             Move(gameTime);
-
-            if (stopMoving)
-            {
-                _velocity = new Vector2(0, 0);
-            }
-            SetAnimations();
-            if (!Game_Client._IsMultiplayer)
-            {
-                _velocity = _velocity * _speed;
-            }
 
             _animationManager.Update(gameTime, _position);
 
-            if (!Game_Client._IsMultiplayer)
+            _health.Update(_position);
+
+            MeleeCombatAlgorithm(gameTime);
+
+            ShootingAlgorithm(gameTime);
+        }
+        public void MeleeCombatAlgorithm(GameTime gameTime)
+        {
+            if (_meleeWeapon != null)
             {
-                if (_meleeWeapon != null)
+                if (!Game_Client._IsMultiplayer)
                 {
                     _meleeWeapon.Update(_moving_direction, gameTime, _position);
                     if (!_meleeWeapon._swing_weapon)
                         _position += _velocity;
-                    if (stopMoving)
+                    if (_isStopingToShotOrMeleeAttack)
+                    {
                         _meleeWeapon.SwingWeapon();
+                    }
                 }
             }
-
-            _health.Update(_position);
-            
+        }
+        public void ShootingAlgorithm(GameTime gameTime)
+        {
             if (_gun != null)
             {
                 if (!Game_Client._IsMultiplayer)
@@ -117,15 +113,14 @@ namespace GameClient
                     _sniperTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (_gun._isSniper)
                     {
-                        if (_isStopingToAttack)
+                        if (_isStopingToShotOrMeleeAttack)
                         {
                             _gun.Update(gameTime, _shootingDirection, 0, false, true, _position);
                             if (_sniperTimer >= _sniperStopTime && _bulletReach._reachablePlayerPos != Vector2.Zero)
                             {
                                 _sniperTimer = 0;
                                 _gun.Shot();
-                                _isStopingToAttack = false;
-                                //_bulletReach._reachablePlayerPos = Vector2.Zero;
+                                _isStopingToShotOrMeleeAttack = false;
                             }
                         }
                         else
@@ -135,7 +130,7 @@ namespace GameClient
                             if (_sniperTimer >= _movingBetweenShotsTime)
                             {
                                 _sniperTimer = 0;
-                                _isStopingToAttack = true;
+                                _isStopingToShotOrMeleeAttack = true;
                             }
                         }
                     }
@@ -143,22 +138,19 @@ namespace GameClient
                     {
                         _position += _velocity;
                         _gun.Update(gameTime, _shootingDirection, 0, false, false, _position);
-                        if (stopMoving)
+                        if (_velocity == Vector2.Zero)
                             _gun.Shot();
                     }
                 }
                 else
                 {
-                    _gun.Update(gameTime, _shootingDirection, 0, false, _isStopingToAttack, _position);
+                    _gun.Update(gameTime, _shootingDirection, 0, false, _isStopingToShotOrMeleeAttack, _position);
                 }
             }
-            
         }
-        
 
         public void Move(GameTime gameTime)
         {
-
             Vector2 target_player;
             if (!Game_Client._IsMultiplayer)
             {
@@ -174,7 +166,6 @@ namespace GameClient
                     {
                         target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
                     }
-                    
                 }                    
                 else
                 {
@@ -194,19 +185,13 @@ namespace GameClient
                     _velocity = Vector2.Normalize(coordPosition - Position_Feet);
                     _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
                 }
-
-                
-
-                if (Vector2.Distance(target_player, Position_Feet) > _movingToPlayerMaxDistance)
+                if (Vector2.Distance(target_player, Position_Feet) < _movingToPlayerMaxDistance)
                 {
-                    stopMoving = false;
+                    if(_meleeWeapon!=null)
+                        _isStopingToShotOrMeleeAttack = true;
+                    _velocity = Vector2.Zero;
                 }
-                else
-                {
-                    stopMoving = true;
-                    if (_meleeWeapon != null)
-                        _meleeWeapon.SwingWeapon();
-                }
+                _velocity = _velocity * _speed;
             }
             
         }
@@ -230,27 +215,6 @@ namespace GameClient
             }
         }        
         
-        protected void SetAnimations()
-        {
-            if (stopMoving)
-            {
-                if (_meleeWeapon != null)
-                {
-                    if (!_meleeWeapon._swing_weapon)
-                        _animationManager.Animation = _animationManager._animations[_moving_direction];
-                }
-                else
-                {
-                    _animationManager.Animation = _animationManager._animations[_moving_direction];
-                }
-                _animationManager.Stop();
-            }
-            if (!stopMoving)
-            {
-                _animationManager.Play(_moving_direction);
-            }
-
-        }
         public void PositionFeetAt(Vector2 position)
         {
             _position = position;
@@ -311,7 +275,7 @@ namespace GameClient
             packet.WriteVector2(_velocity);
             packet.WriteVector2(_shootingDirection);
             packet.WriteInt(_moving_direction);
-            packet.WriteBool(_isStopingToAttack);
+            packet.WriteBool(_isStopingToShotOrMeleeAttack);
             if (_gun != null)
             {
                 packet.WriteInt(0);//gun is 0
@@ -331,7 +295,7 @@ namespace GameClient
             _velocity = packet.ReadVector2();
             _shootingDirection = packet.ReadVector2();
             _moving_direction = packet.ReadInt();
-            _isStopingToAttack = packet.ReadBool();
+            _isStopingToShotOrMeleeAttack = packet.ReadBool();
             int gunOrMeele = packet.ReadInt();//gun is 0
             if (gunOrMeele == 0)
             {

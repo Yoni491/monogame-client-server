@@ -139,6 +139,7 @@ namespace GameClient
                     _enemyManager.Draw(_spriteBatch);
                     _itemManager.Draw(_spriteBatch);
                     _inventoryManager.Draw(_UIbatch);
+                    _mapManager.Draw(_UIbatch);
                 }
             }           
             _spriteBatch.End();

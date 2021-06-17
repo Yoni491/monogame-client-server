@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace GameClient
     public class MapManager
     {
         static public List<Grave> _graves;
+        static public List<MassageBoard> _massageBoards;
         Player _player;
         static public Dictionary<int, Chest> _chests;
         List<NetworkPlayer> _networkPlayers;
@@ -18,6 +20,7 @@ namespace GameClient
         public MapManager()
         {
             _graves = new List<Grave>();
+            _massageBoards = new List<MassageBoard>();
             _chests = new Dictionary<int, Chest>();
             _boxes = new Dictionary<int, Box>();
             _doors = new Dictionary<int, Door>();
@@ -35,6 +38,11 @@ namespace GameClient
         }
         public void Update()
         {
+            foreach (var item in _massageBoards)
+            {
+                if (_player != null)
+                    item.Update(_player.RectangleMovement);
+            }
             foreach (var grave in _graves)
             {
                 if(_player!=null)
@@ -67,8 +75,16 @@ namespace GameClient
                 _chestsToSend.Clear();
             }
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (var item in _massageBoards)
+            {
+                item.Draw(spriteBatch);
+            }
+        }
         public static void ResetMap()
         {
+            _massageBoards.Clear();
             _graves.Clear();
             _chests.Clear();
             _boxes.Clear();

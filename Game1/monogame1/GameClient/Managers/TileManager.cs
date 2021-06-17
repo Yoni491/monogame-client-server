@@ -84,17 +84,17 @@ namespace GameClient
                 {
                     MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex));
                 }
-                else if (gid == 468 || gid == 465)
+                else if (gid == 468 || gid == 465)//box
                 {
                     MapManager._boxes.Add(i, new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
                     AddWall(i, true, 1.5f);
                 }
-                else if (gid == 451)
+                else if (gid == 451)//door
                 {
                     MapManager._doors.Add(i, new Door(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
                     AddWall(i, false, 2);
                 }
-                else if (gid == 484)
+                else if (gid == 484)//key
                 {
                     if (!Game_Client._IsMultiplayer)
                         ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), true);
@@ -116,33 +116,50 @@ namespace GameClient
                 {
                     _grid.SetCell(i % _map.Width, i / _map.Width, Enums.CellType.Solid, 0);
                 }
+                else if(gid>=130 && gid <= 133)//MessageBoards
+                {
+                    Rectangle rectangle = AddWall(i, false);
+                    MapManager._massageBoards.Add(new MassageBoard(rectangle));
+                }
                 else//normal walls
                 {
                     AddWall(i, false);
                 }
             }
         }
-        public bool ManageGid(SpriteBatch spriteBatch,int i,int gid,int tileLayer)
+        public bool ManageGid(SpriteBatch spriteBatch, int i, int gid, int tileLayer)
         {
-            if (gid == 468 || gid == 465)
+            if (gid == 325 || gid == 326)//grave normal
+            {
+                gid = gid - _map.Tilesets[1].FirstGid + 1;
+                DrawTile(gid, _tileSets[1], spriteBatch, i, 0.01f * tileLayer, 1.7f);
+                return true;
+            }
+            if (gid == 468 || gid == 465)//box
             {
                 gid = gid - _map.Tilesets[2].FirstGid + 1;
                 DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 1.5f);
                 return true;
             }
-                if (gid == 469 || gid == 467)//normal chest
+            if (gid == 469 || gid == 467)//normal chest
             {
                 gid = gid - _map.Tilesets[2].FirstGid + 1;
                 DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2);
                 return true;
             }
-            if(gid == 451 || gid == 452)
+            if (gid == 451 || gid == 452)//doors
             {
                 gid = gid - _map.Tilesets[2].FirstGid + 1;
                 float rotation = 0;
                 if (_map.TileLayers[tileLayer].Tiles[i].DiagonalFlip)
                     rotation = (float)Math.PI / 2.0f;
                 DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2, rotation);
+                return true;
+            }
+            if (gid >= 130 && gid <= 133)//MessageBoards
+            {
+                gid = gid - _map.Tilesets[1].FirstGid + 1;
+                DrawTile(gid, _tileSets[1], spriteBatch, i, 0.01f * tileLayer, 1.7f);
                 return true;
             }
             return false;

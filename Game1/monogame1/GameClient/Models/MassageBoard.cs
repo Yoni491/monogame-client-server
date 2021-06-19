@@ -10,15 +10,15 @@ namespace GameClient
     {
         private readonly Vector2 _position;
         private readonly Rectangle _rectangle;
-        private int _showMassageDistance = 100;
+        private int _showMassageDistance = 50;
         public bool _destroy;
         ScreenMassage _screenMassage;
 
-        public MassageBoard(Rectangle rectangle,bool triggerByHitting = false)
+        public MassageBoard(Rectangle rectangle, string text, bool triggerByHitting = false)
         {
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
             _rectangle = rectangle;
-            _screenMassage = new ScreenMassage("HELLO WORLD");
+            _screenMassage = new ScreenMassage(text);
         }
         public void Update(Rectangle player_position_rectangle)
         {

@@ -23,6 +23,7 @@ namespace GameClient
         public LevelManager _levelManager;
         private MapManager _mapManager;
         private PathFindingManager _pathFindingManager;
+        private AudioManager _audioManager;
         static private InventoryManager _inventoryManager;
         static private MenuManager _menuManager;
         static private UIManager _UIManager;
@@ -63,6 +64,7 @@ namespace GameClient
             _UIManager = new UIManager();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             //game content
+            _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _levelManager = new LevelManager(_tileManager);

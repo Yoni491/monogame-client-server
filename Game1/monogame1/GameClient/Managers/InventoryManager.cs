@@ -130,6 +130,7 @@ namespace GameClient
                             {
                                 itemStock._amount++;
                                 _itemManager.RemoveItemFromFloor(itemToAdd);
+                                AudioManager.PlaySound("PickingItem");
                                 return;
                             }
                         }
@@ -144,6 +145,7 @@ namespace GameClient
                     ItemStock itemStock = new ItemStock(1, itemToAdd);
                     _item_list.Add(itemStock);
                     _inventory_rectangles[index] = (tuple.Item1, itemStock);
+                    AudioManager.PlaySound("PickingItem");
                     return;
                 }
                 index++;
@@ -172,6 +174,7 @@ namespace GameClient
                             }
                             else if(_inventory_rectangles[i].Item2._item._itemHealing>0)
                             {
+                                AudioManager.PlaySound("UsingPotion");
                                 _player._health._health_left += _inventory_rectangles[i].Item2._item._itemHealing;
                                 if (--_inventory_rectangles[i].Item2._amount == 0)
                                 {

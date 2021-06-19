@@ -63,8 +63,8 @@ namespace GameClient
 
             if (!string.IsNullOrEmpty(_text))
             {
-                var x = (_rectangle.X + (_rectangle.Width / 2)) - (_font.MeasureString(_text).X / 2);
-                var y = (_rectangle.Y + (_rectangle.Height / 2)) - (_font.MeasureString(_text).Y / 2);
+                int x = (int)((_rectangle.X + (_rectangle.Width / 2)) - (_font.MeasureString(_text).X / 2));
+                int y = (int)((_rectangle.Y + (_rectangle.Height / 2)) - (_font.MeasureString(_text).Y / 2));
 
                 spriteBatch.DrawString(_font, _text, new Vector2(x, y), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0.6f);
             }

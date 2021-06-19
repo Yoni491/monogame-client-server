@@ -105,7 +105,8 @@ namespace GameClient
             _fullScreenButton.ResetGraphics(_buttonsPosition);
             _exitFullScreenButton.ResetGraphics(_buttonsPosition);
             _returnToGame.ResetGraphics(_buttonsPosition * 1.9f);
-            
+            _exitToMain.ResetGraphics(_buttonsPosition + new Vector2(0, GraphicManager.screenHeight / 4));
+
         }
         public bool MouseClick()
         {

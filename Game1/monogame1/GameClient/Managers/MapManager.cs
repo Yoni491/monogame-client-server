@@ -60,6 +60,7 @@ namespace GameClient
             {
                 foreach (var item in _boxesToSend)
                 {
+                    AudioManager.PlaySound("DestroyBox");
                     _boxes.Remove(item);
                 }
                 _boxesToSend.Clear();

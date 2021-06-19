@@ -18,6 +18,8 @@ namespace GameClient
         public static Dictionary<int, Wall> _destroyableWalls;
         public Grid _grid;
         public bool _levelLoaded;
+        int _mapNum;
+        int massageNum = 0;
 
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
@@ -31,7 +33,7 @@ namespace GameClient
             MapManager.ResetMap();
             _walls = new Dictionary<int, Wall>();
             _destroyableWalls = new Dictionary<int, Wall>();
-
+            _mapNum = mapNum;
             string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
             _map = new TmxMap(mapName);
 
@@ -56,12 +58,14 @@ namespace GameClient
             }
             PathFinder.UpdateGrid(_grid);
             _levelLoaded = true;
+            massageNum = 0;
             return spawnPoint;
 
         }
         public void InitializeGid(int i, int tilesetIndex,ref Vector2 spawnPoint)
         {
             int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
+            
             if (gid != 0)
             {
                 if (gid == 325)//grave normal
@@ -119,7 +123,7 @@ namespace GameClient
                 else if(gid>=130 && gid <= 133)//MessageBoards
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    MapManager._massageBoards.Add(new MassageBoard(rectangle));
+                    MapManager._massageBoards.Add(new MassageBoard(rectangle,CollectionManager.GetMassageFromMassageArray(_mapNum, massageNum++)));
                 }
                 else//normal walls
                 {
@@ -153,7 +157,7 @@ namespace GameClient
                 float rotation = 0;
                 if (_map.TileLayers[tileLayer].Tiles[i].DiagonalFlip)
                     rotation = (float)Math.PI / 2.0f;
-                DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2, rotation);
+                DrawTile(gid, _tileSets[2], spriteBatch, i+2, 0.01f * tileLayer, 2, rotation);
                 return true;
             }
             if (gid >= 130 && gid <= 133)//MessageBoards

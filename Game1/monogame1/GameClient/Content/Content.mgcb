@@ -481,6 +481,48 @@
 /processorParam:TextureFormat=Color
 /build:resources/resources_outlined.png
 
+#begin Sound/DestroyBox.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/DestroyBox.wav
+
+#begin Sound/GettingHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/GettingHit.wav
+
+#begin Sound/PickingItem.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/PickingItem.wav
+
+#begin Sound/Rifle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Rifle.wav
+
+#begin Sound/Sniper.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Sniper.wav
+
+#begin Sound/SwingWeapon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SwingWeapon.wav
+
+#begin Sound/UsingPotion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/UsingPotion.wav
+
 #begin tiles/tf_A2_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -13,6 +13,7 @@ namespace GameClient
         ContentManager _contentManager;
         private InventoryManager _inventoryManager;
         public static List<Gun> _guns;
+        public static string[,] _massagesArray = new string[30, 10];
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
         static List<Item> _items;
@@ -40,6 +41,7 @@ namespace GameClient
             InitializeItems();
             InitializeSimpleEnemies();
             InitializePlayerTextures();
+            InitializeMassagesArray();
         }
         private void InitializeMeleeWeapons()
         {
@@ -56,11 +58,11 @@ namespace GameClient
             _simple_enemies = new List<Simple_Enemy>();
 
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 30, allConsumables, null, _guns[0], null,null));//skeleton GID=137
+                _itemManager, 30, allConsumables, null, _guns[0], null,null));//skeleton M16 GID=137
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
-                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner GID=138
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
-                _itemManager, 20, allWeapons, null, _guns[2], null, null));//mage GID=139
+                _itemManager, 20, allWeapons, null, _guns[2], null, null));//RIFLE GID=139
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, allWeapons, null, _guns[1], null, null));//sniper GID=140
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
@@ -109,8 +111,8 @@ namespace GameClient
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.08f, 2, 480));//M16
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.12f, 5, 480));//Rifle
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.45f, 40, 2000));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5, 480));//Rifle
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 4, 350));//MachineGun
             _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 2, 400));//Uzi
 
@@ -130,6 +132,33 @@ namespace GameClient
             _guns.Add(MachineGun);
             _guns.Add(Uzi);
         }
+        private void InitializeMassagesArray()
+        {
+            _massagesArray[1, 0] = "Welcome to UNBOXINGRAVE\nUse 'W' 'A' 'S' 'D' keys to move around";
+            _massagesArray[1, 1] = "Use left mouse button to shot";
+            _massagesArray[1, 2] = "Use right mouse button to melee attack";
+            _massagesArray[1, 3] = "Use spacebar to pick items near you";
+            _massagesArray[1, 4] = "Your inventory is at the bottom of the screen, click on inventory items to use them";
+            _massagesArray[1, 5] = "Move to the right side of the map to progress";
+
+            _massagesArray[2, 0] = "use melee attack or shooting to destroy the boxes";
+            _massagesArray[2, 1] = "boxes may drop items for you to use";
+            _massagesArray[2, 2] = "pick up the key using spacebar";
+            _massagesArray[2, 3] = "open the door with melee attack";
+            _massagesArray[2, 4] = "good job";
+
+            _massagesArray[3, 0] = "WARNING!!\nenemies attack when they can reach you";
+            _massagesArray[3, 1] = "once your destroy the boxes prepare to fight!";
+            _massagesArray[3, 2] = "well done";
+
+            _massagesArray[4, 0] = "Warning! graves spawn enemies when you are getting closer to them!";
+            _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
+            _massagesArray[4, 2] = "Watch out from those boxes.. something could be behind them";
+
+            _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
+            _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
+        }
+
         private void InitializePlayerTextures()
         {
             _playerAnimationManager = new List<AnimationManager>();
@@ -168,5 +197,10 @@ namespace GameClient
         {
             return _playerAnimationManager[id - 1].Copy();
         }
+        static public string GetMassageFromMassageArray(int level, int massageNum)
+        {
+            return _massagesArray[level, massageNum];
+        }
+
     }
 }

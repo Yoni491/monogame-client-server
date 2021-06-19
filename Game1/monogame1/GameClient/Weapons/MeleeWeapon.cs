@@ -148,8 +148,9 @@ namespace GameClient
         }
         public void SwingWeapon()
         {
-            if (_between_attacks_timer > _between_attacks_timer_window)
+            if (_between_attacks_timer > _between_attacks_timer_window && !_swing_weapon)
             {
+                AudioManager.PlaySound("SwingWeapon");
                 _swing_weapon = true;
             }
         }

@@ -218,6 +218,10 @@ namespace GameClient
             {
                 if (_shooting_timer >= _bullet._shootingTimer)
                 {
+                    if(_isSniper)
+                        AudioManager.PlaySound("Rifle");
+                    else
+                        AudioManager.PlaySound("Rifle");
                     _shooting_timer = 0;
                     Vector2 _directionSpread;
                     if (_spread != 0)
@@ -264,8 +268,9 @@ namespace GameClient
         }
         public void SwingWeapon()
         {
-            if (_between_attacks_timer > _between_attacks_timer_window)
+            if (_between_attacks_timer > _between_attacks_timer_window && !_swing_weapon)
             {
+                AudioManager.PlaySound("SwingWeapon");
                 _swing_weapon = true;
             }
         }

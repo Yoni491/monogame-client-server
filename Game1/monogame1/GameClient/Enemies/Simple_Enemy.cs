@@ -138,7 +138,7 @@ namespace GameClient
                     {
                         _position += _velocity;
                         _gun.Update(gameTime, _shootingDirection, 0, false, false, _position);
-                        if (_velocity == Vector2.Zero)
+                        if (_velocity == Vector2.Zero && _shootingDirection != Vector2.Zero)
                             _gun.Shot();
                     }
                 }
@@ -191,6 +191,11 @@ namespace GameClient
                         _isStopingToShotOrMeleeAttack = true;
                     _velocity = Vector2.Zero;
                 }
+                else
+                {
+                    if (_meleeWeapon != null)
+                        _isStopingToShotOrMeleeAttack = false;
+                }
                 _velocity = _velocity * _speed;
             }
             
@@ -234,7 +239,7 @@ namespace GameClient
                     if (!Game_Client._IsMultiplayer)
                     {
                         PathFindingManager.RemovePathFinder(_pathFinder);
-                        ItemManager.DropItem(_items_drop_list, _position);
+                        ItemManager.DropItemFromList(_items_drop_list, Position_Feet);
                     }
                 }
             }

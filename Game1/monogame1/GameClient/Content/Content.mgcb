@@ -100,6 +100,15 @@
 #begin maps/map1.tmx
 /copy:maps/map1.tmx
 
+#begin maps/map10.tmx
+/copy:maps/map10.tmx
+
+#begin maps/map11.tmx
+/copy:maps/map11.tmx
+
+#begin maps/map12.tmx
+/copy:maps/map12.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 
@@ -112,8 +121,17 @@
 #begin maps/map5.tmx
 /copy:maps/map5.tmx
 
-#begin maps/‏‏map6.tmx
-/copy:maps/‏‏map6.tmx
+#begin maps/map6.tmx
+/copy:maps/map6.tmx
+
+#begin maps/map7.tmx
+/copy:maps/map7.tmx
+
+#begin maps/map8.tmx
+/copy:maps/map8.tmx
+
+#begin maps/map9.tmx
+/copy:maps/map9.tmx
 
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter
@@ -487,6 +505,12 @@
 /processorParam:Quality=Best
 /build:Sound/DestroyBox.wav
 
+#begin Sound/DroppingItem.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/DroppingItem.wav
+
 #begin Sound/GettingHit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -511,11 +535,35 @@
 /processorParam:Quality=Best
 /build:Sound/Sniper.wav
 
+#begin Sound/Songs/1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Songs/1.mp3
+
+#begin Sound/Songs/2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Songs/2.mp3
+
+#begin Sound/Songs/3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Songs/3.mp3
+
 #begin Sound/SwingWeapon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/SwingWeapon.wav
+
+#begin Sound/SwitchingWeapon.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SwitchingWeapon.wav
 
 #begin Sound/UsingPotion.wav
 /importer:WavImporter

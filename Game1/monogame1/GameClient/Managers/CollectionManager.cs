@@ -11,9 +11,9 @@ namespace GameClient
     {
         List<Simple_Enemy> _enemies;
         ContentManager _contentManager;
-        private InventoryManager _inventoryManager;
         public static List<Gun> _guns;
-        public static string[,] _massagesArray = new string[30, 10];
+        public static string[,] _massagesArray;
+        public static int[,] _chestsArray;
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
         static List<Item> _items;
@@ -35,6 +35,8 @@ namespace GameClient
             _contentManager = contentManager;
             _playerManager = playerManager;
             _itemManager = itemManager;
+            _massagesArray = new string[30, 10];
+            _chestsArray = new int[30, 10];
             InitializeBullets();
             InitializeGuns();
             InitializeMeleeWeapons();
@@ -42,6 +44,7 @@ namespace GameClient
             InitializeSimpleEnemies();
             InitializePlayerTextures();
             InitializeMassagesArray();
+            InitializeChestArray();
         }
         private void InitializeMeleeWeapons()
         {
@@ -58,7 +61,7 @@ namespace GameClient
             _simple_enemies = new List<Simple_Enemy>();
 
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 30, allConsumables, null, _guns[0], null,null));//skeleton M16 GID=137
+                _itemManager, 30, allConsumables, null, _guns[0], null,null));//M16 GID=137
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
                 _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
@@ -67,6 +70,8 @@ namespace GameClient
                 _itemManager, 20, allWeapons, null, _guns[1], null, null));//sniper GID=140
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, allWeapons, null, _guns[3], null, null));//machine-gun GID=141
+            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+                _itemManager, 20, allWeapons, null, _guns[4], null, null));//UZI GID=142
 
 
         }
@@ -88,7 +93,7 @@ namespace GameClient
                 id++, 1, "Bone", 0.08f, 1, false, false, false, null, 10));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_basic"), 11, 11, 10, 1),
                 GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/resources_outlined"), 11, 11, 10, 1),
-                id++, 1.5f, "Potion", 0.009f, 1, false, false, false, null, 10,50));
+                id++, 1.5f, "Potion", 0.003f, 1, false, false, false, null, 10,50));
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/1"), null,//5 - 9 weapons
                 id++, 0.7f, "M16", 0.01f, 1, false, false, false, _guns[0], 1));//rating 4
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/2"), null,
@@ -100,7 +105,7 @@ namespace GameClient
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"), null,
                 id++, 0.7f, "Uzi", 0.05f, 1, false, false, false, _guns[4], 1));//rating 2
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8, 6), null,//10,11 gold,key
-                id++, 1.5f, "Gold", 0.01f, 1, false, false, false, null, 1000));
+                id++, 1.5f, "Gold", 0.003f, 1, false, false, false, null, 1000));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 9), null,
                 id++, 2f, "Key", 0, 1, false, false, false, null, 1000));
 
@@ -110,11 +115,11 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.08f, 2, 480));//M16
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.45f, 40, 2000));//Sniper
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.2f, 5, 480));//Rifle
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 4, 350));//MachineGun
-            _bullets.Add(new Bullet(id++, _bullet_texture, 15, 0.02f, 2, 400));//Uzi
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.08f, 2, 500));//M16
+            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 5, 600));//Rifle
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 4, 400));//MachineGun
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 2, 400));//Uzi
 
         }
         private void InitializeGuns()
@@ -124,8 +129,8 @@ namespace GameClient
             Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false, 0.1f, true, true);
             Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true, 0, true, true);
             Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false, 0, true, true);
-            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false, 0.5f, true, true);
-            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.2f, true, true);
+            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false, 0.4f, true, true);
+            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
             _guns.Add(M16);
             _guns.Add(Sniper);
             _guns.Add(Rifle);
@@ -157,8 +162,34 @@ namespace GameClient
 
             _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
             _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
-        }
 
+            _massagesArray[6, 0] = "Watch out from the sniper";
+
+            _massagesArray[7, 0] = "This guys looks scary.. watch out";
+
+            _massagesArray[8, 0] = "It's christmas! your present is in the chest!";
+            _massagesArray[8, 1] = "This weapon is basically cheating, use it wisely";
+
+            _massagesArray[9, 0] = "The sniper is probably not so good here";
+
+            _massagesArray[10, 0] = "It's better to avoid some fights";
+            _massagesArray[10, 1] = "RUN!!";
+            _massagesArray[10, 2] = "Slow down";
+            _massagesArray[10, 3] = "Just kidding, run faster";
+            _massagesArray[10, 4] = "WHO IS SPEED?";
+            _massagesArray[10, 5] = "YOU ARE SPEED!!!";
+
+            _massagesArray[11, 0] = "It's christmas again? your present is in the chest!";
+            _massagesArray[11, 1] = "say this out loud: 'say hello to my little friend'";
+
+            _massagesArray[12, 0] = "if you can't kill them, join them - Isaac Newton";
+
+        }
+        private void InitializeChestArray()
+        {
+            _chestsArray[8, 0] = 6;
+            _chestsArray[11, 0] = 9;
+        }
         private void InitializePlayerTextures()
         {
             _playerAnimationManager = new List<AnimationManager>();
@@ -201,6 +232,9 @@ namespace GameClient
         {
             return _massagesArray[level, massageNum];
         }
-
+        static public int GetItemIDFromChestArray(int level, int chestNum)
+        {
+            return _chestsArray[level, chestNum];
+        }
     }
 }

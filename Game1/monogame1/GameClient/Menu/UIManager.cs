@@ -33,10 +33,12 @@ namespace GameClient
             _returnToGame = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition * 1.9f, Color.Blue, Color.Gray, "Return to game");
             _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition + new Vector2(0,GraphicManager.screenHeight / 4), Color.DarkRed, Color.Gray, "Exit To Menu");
             _settingsBackground = GraphicManager._contentManager.Load<Texture2D>("Images/settings_background");
+            AudioManager.PlaySong(menu: true);
         }
         public void Update(GameTime gameTime)
         {
             _InventoryManager.MouseClick();
+            _InventoryManager.MouseRightClick();
             if (_showSettings)
             {
                 if (!fullScreen)
@@ -69,6 +71,7 @@ namespace GameClient
                 if(_exitToMain.Update(gameTime))
                 {
                     Game_Client._inMenu = true;
+                    AudioManager.PlaySong(menu: true);
                 }
             }
             else

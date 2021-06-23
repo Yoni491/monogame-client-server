@@ -13,16 +13,19 @@ namespace GameClient
         private readonly int tilesetIndex;
         public bool _destroy;
         public bool _sendChest;
+        private int _itemToDrop;
+        private bool _smallChest;
 
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
-        public Chest(Rectangle rectangle, int numberInTileset, int tilesetIndex)
+        public Chest(Rectangle rectangle, int numberInTileset, int tilesetIndex,int item = -1, bool smallChest = false)
         {
             _numberInTileset = numberInTileset;
             this.tilesetIndex = tilesetIndex;
             Rectangle = rectangle;
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
-
+            _itemToDrop = item;
+            _smallChest = smallChest;
         }
         public void Update(Rectangle player_position_rectangle)
         {
@@ -32,8 +35,18 @@ namespace GameClient
         {
             if (!Game_Client._IsMultiplayer)
             {
-                ItemManager.DropItem(CollectionManager.allWeapons, _position);
-                ItemManager.DropGold(100, _position);
+                if(_itemToDrop != -1)
+                {
+                    ItemManager.DropItem(_itemToDrop, _position, true);
+                }
+                else if(_smallChest)
+                {
+                    ItemManager.DropItemSmallChest(_position);
+                }
+                else
+                {
+                    ItemManager.DropItemNormalChest(_position);
+                }
             }
             MapManager._chestsToSend.Add(_numberInTileset);
             _destroy = true;

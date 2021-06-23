@@ -42,11 +42,16 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_basic.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_outlined.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DestroyBox.wav</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DroppingItem.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/GettingHit.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/PickingItem.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Rifle.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Sniper.wav</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/1.mp3</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/2.mp3</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/3.mp3</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwingWeapon.wav</File>
+    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwitchingWeapon.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/UsingPotion.wav</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/tiles/tf_A2_ashlands_1.png</File>
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Towers/AttackTower.png</File>
@@ -58,6 +63,11 @@
     <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/swords-sheet.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -13,12 +13,13 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int _currentLevel = 3;
+        static public int _currentLevel = 1;
         static public bool _sendNewLevel;
 
         public LevelManager( TileManager tileManager)
         {
             _tileManager = tileManager;
+            _currentLevel--;
         }
         public void LoadNewLevel(int num=0)
         {
@@ -32,12 +33,13 @@ namespace GameClient
             }
             else
             {
-                if (_currentLevel == 5)
+                if (_currentLevel == 100)
                     _currentLevel = 0;
                 _spawnPoint = _tileManager.LoadMap(++_currentLevel);
                 if (_player != null)
                     _player.PositionPlayerFeetAt(_spawnPoint);
             }
+            AudioManager.PlaySong(_currentLevel);
             _sendNewLevel = true;
 
         }

@@ -19,7 +19,7 @@ namespace GameClient
         {
             _texture = GraphicManager.getRectangleTexture(450, 50, Color.Black);
             _font = GraphicManager.GetBasicFont();
-            _position = new Vector2(200,100);
+            _position = new Vector2(500,50);
             _text = text;
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, (int)_font.MeasureString(_text).X + 20, (int)_font.MeasureString(_text).Y + 20);
             _background = new Color(Color.Black, 0.1f);

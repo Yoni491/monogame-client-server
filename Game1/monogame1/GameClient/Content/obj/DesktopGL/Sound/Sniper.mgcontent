@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Sniper.wav</SourceFile>
   <SourceTime>2021-06-19T20:41:06.5983929+03:00</SourceTime>
   <DestFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/bin/DesktopGL/Sound/Sniper.xnb</DestFile>
-  <DestTime>2021-06-19T21:13:14.7414321+03:00</DestTime>
+  <DestTime>2021-06-23T17:41:25.5533291+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

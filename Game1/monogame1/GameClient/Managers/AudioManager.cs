@@ -13,6 +13,8 @@ namespace GameClient
     {
         private static ContentManager _contentManager;
         private static SoundEffect _soundEffect;
+        private static Song _song;
+        private static string _currentSong = "";
         public AudioManager(ContentManager contentManager)
         {
             _contentManager = contentManager;
@@ -26,10 +28,30 @@ namespace GameClient
             {
                 _soundEffect.Play();
             }
-            //MediaPlayer.Play(_soundEffect);
-            //  Uncomment the following line will also loop the song
-            //  MediaPlayer.IsRepeating = true;
-            //MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+        }
+        static public void PlaySong(int currentLevel = -1, bool menu = false)
+        {
+            string songName = "";
+            if(menu)
+            {
+                songName = "3";
+            }
+            else if(currentLevel >=0 && currentLevel <= 3)
+            {
+                songName = "2";
+            }
+            else if(currentLevel >= 4 && currentLevel <= 30)
+            {
+                songName = "1";
+            }
+            if(_currentSong != songName)
+            {
+                _song = _contentManager.Load<Song>("Sound/Songs/" + songName);
+                MediaPlayer.Play(_song);
+                MediaPlayer.IsRepeating = true;
+                //MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+                _currentSong = songName;
+            }
         }
     }
 

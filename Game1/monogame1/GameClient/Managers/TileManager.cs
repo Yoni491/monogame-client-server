@@ -19,8 +19,8 @@ namespace GameClient
         public Grid _grid;
         public bool _levelLoaded;
         int _mapNum;
-        int massageNum = 0;
-
+        int _massageNum = 0;
+        int _chestNum = 0;
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
             _graphicDevice = graphicDevice;
@@ -58,7 +58,8 @@ namespace GameClient
             }
             PathFinder.UpdateGrid(_grid);
             _levelLoaded = true;
-            massageNum = 0;
+            _massageNum = 0;
+            _chestNum = 0;
             return spawnPoint;
 
         }
@@ -84,7 +85,15 @@ namespace GameClient
                 {
                     spawnPoint = GetPositionFromCoord(i % _map.Width, i / _map.Width);
                 }
-                else if (gid == 469 || gid == 467)//normal chest
+                else if (gid == 467)//normal chest
+                {
+                    MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex));
+                }
+                else if(gid == 469)//chest with specific item
+                {
+                    MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex,CollectionManager.GetItemIDFromChestArray(_mapNum, _chestNum++)));
+                }
+                else if (gid == 470 || gid == 466)//small chest
                 {
                     MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex));
                 }
@@ -123,7 +132,7 @@ namespace GameClient
                 else if(gid>=130 && gid <= 133)//MessageBoards
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    MapManager._massageBoards.Add(new MassageBoard(rectangle,CollectionManager.GetMassageFromMassageArray(_mapNum, massageNum++)));
+                    MapManager._massageBoards.Add(new MassageBoard(rectangle,CollectionManager.GetMassageFromMassageArray(_mapNum, _massageNum++)));
                 }
                 else//normal walls
                 {
@@ -146,6 +155,12 @@ namespace GameClient
                 return true;
             }
             if (gid == 469 || gid == 467)//normal chest
+            {
+                gid = gid - _map.Tilesets[2].FirstGid + 1;
+                DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2);
+                return true;
+            }
+            if (gid == 470 || gid == 466)//small chest
             {
                 gid = gid - _map.Tilesets[2].FirstGid + 1;
                 DrawTile(gid, _tileSets[2], spriteBatch, i, 0.01f * tileLayer, 2);

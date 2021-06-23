@@ -27,11 +27,11 @@ namespace GameClient
                 item.Value.DrawOnGround(spriteBatch);
             }
         }
-        static public void DropItem(int []items, Vector2 position,bool alwaysDrop = false)
+        static public void DropItemFromList(int []items, Vector2 position)
         {
             foreach (var item_id in items)
             {
-                Item item = _collectionManager.GetItem(item_id).Drop(alwaysDrop);
+                Item item = _collectionManager.GetItem(item_id).Drop();
                 if(item!=null)
                 {
                     item._position = position;
@@ -40,6 +40,26 @@ namespace GameClient
                     return;
                 }
             }
+        }
+        static public void DropItemSmallChest(Vector2 position)
+        {
+            int[] items = { 2, 2, 2, 4, 10, 7};
+            Random x = new Random();
+            int y = (int)x.NextDouble() * items.Length;
+            Item item = _collectionManager.GetItem(items[y]).Drop(true);
+            item._position = position;
+            _itemsToSend.Add(item._itemNum);
+            _itemsOnTheGround.Add(item._itemNum, item);
+        }
+        static public void DropItemNormalChest(Vector2 position)
+        {
+            int[] items = { 4, 5, 6, 7, 8, 9, 10};
+            Random x = new Random();
+            int y = (int)x.NextDouble() * items.Length;
+            Item item = _collectionManager.GetItem(items[y]).Drop(true);
+            item._position = position;
+            _itemsToSend.Add(item._itemNum);
+            _itemsOnTheGround.Add(item._itemNum, item);
         }
         static public void DropItem(int itemId, Vector2 position, bool alwaysDrop = false)
         {

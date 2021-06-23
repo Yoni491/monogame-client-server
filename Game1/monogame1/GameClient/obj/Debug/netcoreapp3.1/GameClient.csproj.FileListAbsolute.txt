@@ -191,3 +191,11 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Sniper.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\SwingWeapon.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\DestroyBox.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\1.ogg
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\1.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\2.ogg
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\2.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\3.ogg
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\Songs\3.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\DroppingItem.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\SwitchingWeapon.xnb

@@ -218,10 +218,6 @@ namespace GameClient
             {
                 if (_shooting_timer >= _bullet._shootingTimer)
                 {
-                    if(_isSniper)
-                        AudioManager.PlaySound("Rifle");
-                    else
-                        AudioManager.PlaySound("Rifle");
                     _shooting_timer = 0;
                     Vector2 _directionSpread;
                     if (_spread != 0)
@@ -236,7 +232,10 @@ namespace GameClient
 
                     Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _hitPlayers);
                     if (!_dealDmg)
+                    {
                         bullet._dmg = 0;
+                    }
+                    AudioManager.PlaySound("Rifle");
                     _bullets.Add(bullet);
                 }
             }

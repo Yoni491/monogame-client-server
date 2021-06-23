@@ -19,7 +19,7 @@ namespace GameClient
         int height = 35;
         int _itemBlockAmount = 8;
         MouseState _previousMouse, _currentMouse;
-
+        public Item EquippedGun = null;
         public InventoryManager(GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
@@ -115,7 +115,7 @@ namespace GameClient
             }
             return false;
         }
-        public void AddItemToInventory(Item itemToAdd)
+        public void AddItemToInventory(Item itemToAdd,bool sound = true)
         {
             int index = 0;
             if (_item_list != null)
@@ -130,7 +130,10 @@ namespace GameClient
                             {
                                 itemStock._amount++;
                                 _itemManager.RemoveItemFromFloor(itemToAdd);
-                                AudioManager.PlaySound("PickingItem");
+                                if (sound)
+                                {
+                                    AudioManager.PlaySound("PickingItem");
+                                }
                                 return;
                             }
                         }
@@ -145,16 +148,24 @@ namespace GameClient
                     ItemStock itemStock = new ItemStock(1, itemToAdd);
                     _item_list.Add(itemStock);
                     _inventory_rectangles[index] = (tuple.Item1, itemStock);
-                    AudioManager.PlaySound("PickingItem");
+                    if (sound)
+                    {
+                        AudioManager.PlaySound("PickingItem");
+                    }
                     return;
                 }
                 index++;
             }
         }
-        public bool MouseClick()
+        public void MouseClick()
         {
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
+            MouseLeftClick();
+            MouseRightClick();
+        }
+        public bool MouseLeftClick()
+        {
             for (int i = 0; i < 8; i++)
             {
                 if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
@@ -167,15 +178,49 @@ namespace GameClient
                             Gun gun = _inventory_rectangles[i].Item2._item._gun;
                             if (gun != null)
                             {
-                                if(_player._gun!=null)
+                                if (_player._gun != null)
                                     _player._gun._bullets.Clear();
                                 _player.EquipGun(gun);
+                                Item EquippedGunTemp = _inventory_rectangles[i].Item2._item;
                                 _inventory_rectangles[i].Item2 = null;
+                                if (EquippedGun != null)
+                                    AddItemToInventory(EquippedGun,false);
+                                AudioManager.PlaySound("SwitchingWeapon");
+                                EquippedGun = EquippedGunTemp;
                             }
-                            else if(_inventory_rectangles[i].Item2._item._itemHealing>0)
+                            else if (_inventory_rectangles[i].Item2._item._itemHealing > 0)
                             {
                                 AudioManager.PlaySound("UsingPotion");
                                 _player._health._health_left += _inventory_rectangles[i].Item2._item._itemHealing;
+                                if (--_inventory_rectangles[i].Item2._amount == 0)
+                                {
+                                    _inventory_rectangles[i].Item2 = null;
+                                }
+                            }
+
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool MouseRightClick()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
+                {
+                    Player._mouseIntersectsUI = true;
+                    if (_currentMouse.RightButton == ButtonState.Released && _previousMouse.RightButton == ButtonState.Pressed)
+                    {
+                        if (_inventory_rectangles[i].Item2 != null)
+                        {
+                            
+                            if (_inventory_rectangles[i].Item2._amount > 0)
+                            {
+                                AudioManager.PlaySound("DroppingItem");
+                                ItemManager.DropItem(_inventory_rectangles[i].Item2._item._itemId, _player.Position_Feet, true);
                                 if (--_inventory_rectangles[i].Item2._amount == 0)
                                 {
                                     _inventory_rectangles[i].Item2 = null;

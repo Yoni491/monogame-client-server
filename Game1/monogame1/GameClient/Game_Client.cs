@@ -25,7 +25,7 @@ namespace GameClient
         private PathFindingManager _pathFindingManager;
         private AudioManager _audioManager;
         static private InventoryManager _inventoryManager;
-        static private MenuManager _menuManager;
+        static private MainMenuManager _menuManager;
         static private UIManager _UIManager;
         private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
@@ -60,7 +60,7 @@ namespace GameClient
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             //menu and ui
-            _menuManager = new MenuManager(this, GraphicsDevice);
+            _menuManager = new MainMenuManager(this, GraphicsDevice);
             _UIManager = new UIManager();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             //game content

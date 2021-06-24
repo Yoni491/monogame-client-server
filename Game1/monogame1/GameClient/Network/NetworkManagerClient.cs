@@ -130,7 +130,7 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
-                MenuManager._connected = true;
+                MainMenuManager._connected = true;
                 Game_Client._IsMultiplayer = true;
                 Receive();
             }

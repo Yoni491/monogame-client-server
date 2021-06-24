@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class MenuManager
+    public class MainMenuManager
     {
         Button _singlePlayer, _multiPlayerButton, _exit, _howToPlay,_highScores;
-        int _buttonHeight = 30;
-        int _buttonWidth = 100;
+        int _buttonHeight = 60;
+        int _buttonWidth = 250;
         Vector2 _buttonPosition;
         Game_Client _game_client;
         Texture2D _menuBackgroundImage;
@@ -18,14 +18,14 @@ namespace GameClient
         MultiplayerMenu _multiplayerMenu;
         public bool _showChooseCharacterMenu, _showMultiplayerMenu;
         public static bool _connected;
-        public MenuManager(Game_Client game_client, GraphicsDevice graphicsDevice)
+        public MainMenuManager(Game_Client game_client, GraphicsDevice graphicsDevice)
         {
             _multiplayerMenu = new MultiplayerMenu(graphicsDevice, game_client, this);
             _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client,this);
             _graphicsDevice = graphicsDevice;
             _game_client = game_client;
             _menuBackgroundImage = GraphicManager.getImage("backgroundUnboxingrave");
-            _buttonPosition = new Vector2(7 * (graphicsDevice.Viewport.Bounds.Width / 10), graphicsDevice.Viewport.Bounds.Height / 2);
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 -120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
             _singlePlayer = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),GraphicManager.GetBasicFont(), _buttonPosition, Color.Green,Color.Gray,"Single player");
             _multiPlayerButton = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), GraphicManager.GetBasicFont(),_buttonPosition + new Vector2(0,_buttonHeight +2), Color.Green, Color.Gray, "Multiplayer");
             _howToPlay = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight * 2 + 4), Color.Green, Color.Gray, "How to play");
@@ -94,7 +94,9 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-            _buttonPosition = new Vector2(7 * (_graphicsDevice.Viewport.Bounds.Width / 10), _graphicsDevice.Viewport.Bounds.Height / 2);
+            _characterSelectMenu.ResetGraphics();
+            _multiplayerMenu.ResetGraphics();
+            _buttonPosition = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2 - 100), _graphicsDevice.Viewport.Bounds.Height / 2);
             _singlePlayer.ResetGraphics(_buttonPosition);
             _multiPlayerButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
             _howToPlay.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 2 + 4));

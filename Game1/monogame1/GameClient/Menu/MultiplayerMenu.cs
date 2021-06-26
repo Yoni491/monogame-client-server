@@ -15,13 +15,15 @@ namespace GameClient
         private Game_Client _game_Client;
         private MainMenuManager _menuManager;
         private bool connecting;
+        int _buttonHeight = 60;
+        int _buttonWeight = 250;
         
         public MultiplayerMenu(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuManager menuManager)
         {
-            _buttonPosition = new Vector2(graphicsDevice.Viewport.Bounds.Width / 2, graphicsDevice.Viewport.Bounds.Height / 2);
-            _connect = new Button(GraphicManager.getRectangleTexture(160, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, 12), Color.Green, Color.Gray, "Connect to server");
-            _returnToMain = new Button(GraphicManager.getRectangleTexture(160, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, 100), Color.Green, Color.Gray, "Return to main menu");
             _graphicsDevice = graphicsDevice;
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _connect = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, 0), Color.Green, Color.Gray, "Connect to server");
+            _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Return to main menu");
             _game_Client = game_Client;
             _menuManager = menuManager;
         }
@@ -55,7 +57,7 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
             _connect.ResetGraphics(_buttonPosition + new Vector2(0, 12));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, 100));
         }

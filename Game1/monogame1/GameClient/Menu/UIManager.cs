@@ -10,28 +10,30 @@ namespace GameClient
     {
         InventoryManager _InventoryManager;
         //Rectangle settingsRectangle;
-        Button _settingButton, _fullScreenButton, _exitFullScreenButton,_returnToGame,_exitToMain;
-        GraphicsDeviceManager _graphics;
-        bool fullScreen;
+        Button _settingButton, _fullScreenButton,_returnToGame,_exitToMain,_muteSoundButton,_muteMusicButton;
+        GraphicsDevice _graphicsDevice;
+        bool _fullScreen,_soundMuted,_musicMuted;
         public static bool _showSettings;
         private Texture2D _settingsBackground;
-        int _buttonHeight = 30;
-        Vector2 _buttonsPosition;
+        int _buttonHeight = 50 , _buttonWeight = 200;
+        Vector2 _buttonPosition;
 
         public UIManager()
         {
 
         }
-        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDeviceManager graphics)
+        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics)
         {
-            _graphics = graphics;
+            _graphicsDevice = graphics;
             _InventoryManager = InventoryManager;
             _settingButton = new Button(content.Load<Texture2D>("etc/settings"), null, new Vector2(0, 0), Color.White, Color.Gray, null);
-            _buttonsPosition = new Vector2(GraphicManager.screenWidth / 3, GraphicManager.screenHeight / 3);
-            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(100, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition, Color.Green, Color.Gray, "Full Screen");
-            _exitFullScreenButton = new Button(GraphicManager.getRectangleTexture(110, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition, Color.Green, Color.Gray, "Exit full Screen");
-            _returnToGame = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition * 1.9f, Color.Blue, Color.Gray, "Return to game");
-            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonsPosition + new Vector2(0,GraphicManager.screenHeight / 4), Color.DarkRed, Color.Gray, "Exit To Menu");
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _returnToGame = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Blue, Color.Gray, "Return to game");
+            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0,_buttonHeight + 2), Color.Green, Color.Gray, "Full Screen");
+            //_exitFullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Green, Color.Gray, "Exit full Screen");
+            _muteMusicButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*2 + 4), Color.DarkRed, Color.Gray, "Mute music");
+            _muteSoundButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*3 + 6), Color.DarkRed, Color.Gray, "Mute sound");
+            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight * 4 + 8), Color.DarkRed, Color.Gray, "Exit To Menu");
             _settingsBackground = GraphicManager._contentManager.Load<Texture2D>("Images/settings_background");
             AudioManager.PlaySong(menu: true);
         }
@@ -41,23 +43,23 @@ namespace GameClient
             _InventoryManager.MouseRightClick();
             if (_showSettings)
             {
-                if (!fullScreen)
+                if (!_fullScreen)
                 {
                     if (_fullScreenButton.Update(gameTime))
                     {
-                        fullScreen = true;
+                        _fullScreen = true;
                         GraphicManager.ChangeToFullScreen(true);
                         Game_Client.ResetGraphics();
                     }
                 }
                 else
                 {
-                    if (_exitFullScreenButton.Update(gameTime))
-                    {
-                        fullScreen = false;
-                        GraphicManager.ChangeToFullScreen(false);
-                        Game_Client.ResetGraphics();
-                    }
+                    //if (_exitFullScreenButton.Update(gameTime))
+                    //{
+                    //    _fullScreen = false;
+                    //    GraphicManager.ChangeToFullScreen(false);
+                    //    Game_Client.ResetGraphics();
+                    //}
                 }
                 
                 if (_settingButton.Update(gameTime))
@@ -72,6 +74,30 @@ namespace GameClient
                 {
                     Game_Client._inMenu = true;
                     AudioManager.PlaySong(menu: true);
+                }
+                if (_muteSoundButton.Update(gameTime))
+                {
+                    if(_soundMuted)
+                    {
+                        AudioManager.MuteSound(false);
+                    }
+                    else
+                    {
+                        AudioManager.MuteSound(true);
+                    }
+                    _soundMuted = !_soundMuted;
+                }
+                if (_muteMusicButton.Update(gameTime))
+                {
+                    if (_musicMuted)
+                    {
+                        AudioManager.MuteMusic(false);
+                    }
+                    else
+                    {
+                        AudioManager.MuteMusic(true);
+                    }
+                    _musicMuted = !_musicMuted;
                 }
             }
             else
@@ -90,9 +116,9 @@ namespace GameClient
                 int height = GraphicManager.screenHeight / 2;
                 int width = GraphicManager.screenWidth / 2;
                 spriteBatch.Draw(_settingsBackground,new Rectangle(GraphicManager.screenWidth/4, GraphicManager.screenHeight/4, width, height),null,Color.White,0,Vector2.Zero,SpriteEffects.None,0.1f);
-                if(fullScreen)
+                if(_fullScreen)
                 {
-                    _exitFullScreenButton.Draw(spriteBatch);
+                    //_exitFullScreenButton.Draw(spriteBatch);
                 }
                 else
                 {
@@ -100,19 +126,21 @@ namespace GameClient
                 }
                 _returnToGame.Draw(spriteBatch);
                 _exitToMain.Draw(spriteBatch);
+                _muteMusicButton.Draw(spriteBatch);
+                _muteSoundButton.Draw(spriteBatch);
             }
         }
         public void ResetGraphics()
         {
-            _buttonsPosition = new Vector2(GraphicManager.screenWidth / 3, GraphicManager.screenHeight / 3);
-            _fullScreenButton.ResetGraphics(_buttonsPosition);
-            _exitFullScreenButton.ResetGraphics(_buttonsPosition);
-            _returnToGame.ResetGraphics(_buttonsPosition * 1.9f);
-            _exitToMain.ResetGraphics(_buttonsPosition + new Vector2(0, GraphicManager.screenHeight / 4));
-
-        }
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _returnToGame.ResetGraphics(_buttonPosition);
+            _fullScreenButton.ResetGraphics(_buttonPosition);
+            _muteMusicButton.ResetGraphics(_buttonPosition);
+            _muteSoundButton.ResetGraphics(_buttonPosition);
+            _exitToMain.ResetGraphics(_buttonPosition);
+        }    
         public bool MouseClick()
-        {
+        {    
             return false;
         }
     }

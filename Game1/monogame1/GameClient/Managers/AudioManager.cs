@@ -53,6 +53,20 @@ namespace GameClient
                 _currentSong = songName;
             }
         }
+        static public void MuteSound(bool mute)
+        {
+            if(mute)
+            {
+
+            }
+        }
+        static public void MuteMusic(bool mute)
+        {
+            if (mute)
+            {
+
+            }
+        }
     }
 
 }

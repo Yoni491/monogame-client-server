@@ -52,6 +52,10 @@ namespace GameClient
             }
             return false;
         }
+        public void ChangeText(string text)
+        {
+
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             Color _color = _normal;

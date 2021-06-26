@@ -89,7 +89,7 @@ namespace GameClient
             _levelManager.Initialize(_player);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _UIManager.Initialize(Content, _inventoryManager, _graphics);
+            _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
         }
 

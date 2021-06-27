@@ -54,7 +54,7 @@ namespace GameClient
         }
         public void ChangeText(string text)
         {
-            _text = text;
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -15,24 +15,19 @@ namespace GameClient
         private static SoundEffect _soundEffect;
         private static Song _song;
         private static string _currentSong = "";
-        static bool _muteSound;
         public AudioManager(ContentManager contentManager)
         {
             _contentManager = contentManager;
         }
         static public void PlaySound(string text)
         {
-            if(!_muteSound)
+            _soundEffect = _contentManager.Load<SoundEffect>("Sound/" + text);
+            if (text == "DestroyBox")
+                _soundEffect.Play(0.05f, 0, 0);
+            else
             {
-                _soundEffect = _contentManager.Load<SoundEffect>("Sound/" + text);
-                if (text == "DestroyBox")
-                    _soundEffect.Play(0.05f, 0, 0);
-                else
-                {
-                    _soundEffect.Play();
-                }
+                _soundEffect.Play();
             }
-            
         }
         static public void PlaySong(int currentLevel = -1, bool menu = false)
         {
@@ -58,13 +53,19 @@ namespace GameClient
                 _currentSong = songName;
             }
         }
-        static public void MuteSound(bool muteSound)
+        static public void MuteSound(bool mute)
         {
-            _muteSound = muteSound;
+            if(mute)
+            {
+
+            }
         }
-        static public void MuteMusic(bool muteMusic)
+        static public void MuteMusic(bool mute)
         {
-            MediaPlayer.IsMuted = muteMusic;
+            if (mute)
+            {
+
+            }
         }
     }
 

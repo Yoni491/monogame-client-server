@@ -15,7 +15,6 @@ namespace GameClient
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
         UIManager _UImanager;
-        int _playerStartingHealth = 200;
         public PlayerManager(List<NetworkPlayer> players, CollectionManager collectionManager)
         {
             _players = players;
@@ -24,7 +23,7 @@ namespace GameClient
         }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3,false,false, null));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), 100, playerNum, CollectionManager.GetGunCopy(3,false,false, null));
             _players.Add(networkPlayer);
             return networkPlayer;
         }
@@ -36,7 +35,7 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
             int animationNum = 3;
-            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager);
+            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, 100,this,_itemManager,_inventoryManager,_UImanager);
             _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).Drop(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));

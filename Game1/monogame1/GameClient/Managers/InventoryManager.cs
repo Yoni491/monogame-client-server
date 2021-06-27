@@ -13,7 +13,7 @@ namespace GameClient
         Texture2D _inventoryBlock;
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
-        public List<ItemStock> _item_list;
+        List<ItemStock> _item_list;
         (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;

@@ -25,7 +25,6 @@ namespace GameClient
         public static int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public static int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
         public static int[] allConsumables = new int[] { 2, 4 };
-        public static int[] basicDrops = new int[] { 2, 10 };
         public CollectionManager()
         {
             
@@ -62,17 +61,17 @@ namespace GameClient
             _simple_enemies = new List<Simple_Enemy>();
 
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 30, basicDrops, null, _guns[0], null,null));//M16 GID=137
+                _itemManager, 30, allConsumables, null, _guns[0], null,null));//M16 GID=137
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
-                _itemManager, 10, basicDrops, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
+                _itemManager, 10, allWeapons, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[2], null, null));//RIFLE GID=139
+                _itemManager, 20, allWeapons, null, _guns[2], null, null));//RIFLE GID=139
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[1], null, null));//sniper GID=140
+                _itemManager, 20, allWeapons, null, _guns[1], null, null));//sniper GID=140
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[3], null, null));//machine-gun GID=141
+                _itemManager, 20, allWeapons, null, _guns[3], null, null));//machine-gun GID=141
             _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[4], null, null));//UZI GID=142
+                _itemManager, 20, allWeapons, null, _guns[4], null, null));//UZI GID=142
 
 
         }
@@ -106,7 +105,7 @@ namespace GameClient
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"), null,
                 id++, 0.7f, "Uzi", 0.05f, 1, false, false, false, _guns[4], 1));//rating 2
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8, 6), null,//10,11 gold,key
-                id++, 1.5f, "Gold", 0.006f, 1, false, false, false, null, 1000));
+                id++, 1.5f, "Gold", 0.003f, 1, false, false, false, null, 1000));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 9), null,
                 id++, 2f, "Key", 0, 1, false, false, false, null, 1000));
 

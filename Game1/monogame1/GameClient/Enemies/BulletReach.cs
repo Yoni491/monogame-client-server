@@ -14,7 +14,6 @@ namespace GameClient
         private Gun _gun;
         private Bullet _bullet;
         public Vector2 _reachablePlayerPos=Vector2.Zero;
-        private Vector2 _position;
         public BulletReach(int id, Player player, List<NetworkPlayer> networkPlayers, Gun gun)
         {
             _id = id;

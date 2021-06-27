@@ -56,7 +56,7 @@ namespace GameClient
                     _game_Client._playerManager._player._animationNum = characterNumbers[index];
                     _menuManager._showChooseCharacterMenu = false;
                     if (!Game_Client._IsMultiplayer)
-                        _game_Client._levelManager.LoadNewLevel();
+                        _game_Client._levelManager.LoadNewLevel(11);
                 }
                 if (_returnToMain.Update(gameTime))
                 {

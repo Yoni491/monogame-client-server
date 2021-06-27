@@ -19,7 +19,6 @@ namespace GameClient
         public LevelManager( TileManager tileManager)
         {
             _tileManager = tileManager;
-            _currentLevel--;
         }
         public void LoadNewLevel(int num=0)
         {

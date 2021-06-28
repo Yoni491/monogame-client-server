@@ -9,6 +9,7 @@ namespace GameClient
     public class LevelManager
     {
         private Player _player;
+        ProgressManager _progressManager;
         private readonly TileManager _tileManager;
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
@@ -40,15 +41,17 @@ namespace GameClient
             }
             AudioManager.PlaySong(_currentLevel);
             _sendNewLevel = true;
-
+            _progressManager.CreateProgressData();
         }
-        public void Initialize(Player player)
+        public void Initialize(Player player, ProgressManager progressManager)
         {
             _player = player;
+            _progressManager = progressManager;
         }
-        public void Initialize(List<NetworkPlayer> networkPlayers)
+        public void Initialize(List<NetworkPlayer> networkPlayers, ProgressManager progressManager)
         {
             _networkPlayers = networkPlayers;
+            _progressManager = progressManager;
         }
         public void Update()
         {

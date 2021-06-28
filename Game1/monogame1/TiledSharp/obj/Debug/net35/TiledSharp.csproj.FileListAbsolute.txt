@@ -10,3 +10,9 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.csproj.CoreCompileInputs.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.pdb
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\bin\Debug\net35\TiledSharp.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\bin\Debug\net35\TiledSharp.pdb
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.csprojAssemblyReference.cache
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.csproj.CoreCompileInputs.cache
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\TiledSharp\obj\Debug\net35\TiledSharp.pdb

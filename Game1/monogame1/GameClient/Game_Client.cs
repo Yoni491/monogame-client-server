@@ -27,6 +27,7 @@ namespace GameClient
         static private InventoryManager _inventoryManager;
         static private MainMenuManager _menuManager;
         static private UIManager _UIManager;
+        private ProgressManager _progressManager;
         private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
         static public bool _IsMultiplayer = false;
@@ -70,6 +71,7 @@ namespace GameClient
             _levelManager = new LevelManager(_tileManager);
             _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
+            _progressManager = new ProgressManager();
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<Simple_Enemy>();
@@ -86,11 +88,12 @@ namespace GameClient
             _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
-            _levelManager.Initialize(_player);
+            _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
+            _progressManager.Initialize(_player);
         }
 
         protected override void Update(GameTime gameTime)

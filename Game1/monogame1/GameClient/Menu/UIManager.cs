@@ -39,8 +39,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            _InventoryManager.MouseClick();
-            _InventoryManager.MouseRightClick();
+
             if (_showSettings)
             {
                 if (_fullScreenButton.Update(gameTime))
@@ -105,6 +104,8 @@ namespace GameClient
                 {
                     _showSettings = true;
                 }
+                _InventoryManager.MouseClick();
+                _InventoryManager.MouseRightClick();
             }
         }
         public void Draw(SpriteBatch spriteBatch)

@@ -44,6 +44,10 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
+            if(_player._dead)
+            {
+
+            }
             if(_player!=null)
                 _player.Update(gameTime);
             foreach (var player in _players)

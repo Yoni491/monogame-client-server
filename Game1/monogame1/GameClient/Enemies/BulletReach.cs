@@ -22,10 +22,6 @@ namespace GameClient
             _gun = gun;
             _bullet = _gun._bullet;
         }
-        public void Update()
-        {
-
-        }
         public bool FindReachablePlayer()
         {
             if (_networkPlayers != null)

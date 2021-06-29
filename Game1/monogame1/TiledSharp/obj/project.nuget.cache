@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "p0wZHqsdCF3EKJ8zcAN4nmYzi2z6hqQwntEf0aCX3xDYM2ZaVCrbajcwdkEJ63GreWAXRdPJBl0wHTHG9CM9AQ==",
+  "dgSpecHash": "qiGEfootSCBqIUp12cy6Dql58B4ceS9GWCSgY77k4Bup1eINKjtdF89bmR0cR1VWHxeVG9f5+SWj6dhv3Ejnog==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj",
+  "projectFilePath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj",
   "expectedPackageFiles": [
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\yoni2\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

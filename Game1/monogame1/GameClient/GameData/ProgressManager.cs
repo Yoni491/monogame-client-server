@@ -9,27 +9,35 @@ namespace GameClient
 {
     public class ProgressManager
     {
-        ProgressData _progressData;
+        ProgressData _latestProgressData;
         int _level;
         Player _player;
         InventoryManager _inventoryManager;
         public ProgressManager()
         {
         }
-        public void Initialize(Player player)
+        public void Initialize(Player player, InventoryManager inventoryManager)
         {
+            _inventoryManager = inventoryManager;
             _player = player;
         }
         public void CreateProgressData()
         {
-            string fileName = "JsonTestPlayer1.json";
-            string jsonString = JsonSerializer.Serialize(_player);
+            _latestProgressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._animationNum,_player._health,_player._gun._id,_inventoryManager._item_list);
+            string fileName = "ProgressData.json";
+            string jsonString = JsonSerializer.Serialize(_latestProgressData);
             File.WriteAllText(fileName, jsonString);
-            //_progressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._health);
         }
         public void UpdateProgressData()
         {
 
+        }
+        public void LoadData(bool loadLatest = false, string dataName = null)
+        {
+            if (loadLatest)
+            {
+                //PlayerManager.
+            }
         }
     }
 }

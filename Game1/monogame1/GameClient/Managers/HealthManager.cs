@@ -5,9 +5,9 @@ namespace GameClient
 {
     public class HealthManager
     {
-        public int _total_health;
+        public int _total_health { get; set; }
 
-        public int _health_left;
+        public int _health_left { get; set; }
 
         private Vector2 _position;
 
@@ -16,7 +16,6 @@ namespace GameClient
         private Texture2D _healthbar_background;
 
         private int healthbar_width = 30;
-
 
         private float _Scale;
 

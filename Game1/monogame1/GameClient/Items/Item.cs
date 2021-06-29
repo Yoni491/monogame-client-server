@@ -10,7 +10,7 @@ namespace GameClient
     {
         Texture2D _texture;
         Texture2D _inventoryTexture;
-        public int _itemId;
+        public int _itemId { get; set; }
         public int _itemNum;
         private string _name;
         private float _dropRate;

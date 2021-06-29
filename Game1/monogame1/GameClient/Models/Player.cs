@@ -55,7 +55,6 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-
             InputReader(gameTime);
 
             _animationManager.Update(gameTime, _position);

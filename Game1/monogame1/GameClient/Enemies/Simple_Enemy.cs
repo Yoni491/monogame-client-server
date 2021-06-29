@@ -156,7 +156,6 @@ namespace GameClient
             {
                 if (_gun != null)
                 {
-                _bulletReach.Update();
                     if (_bulletReach._reachablePlayerPos != Vector2.Zero)
                     {
                         target_player = _bulletReach._reachablePlayerPos;

@@ -1,1 +1,1 @@
-{"Position_Feet":{},"Position_Head":{},"Rectangle":{"Left":29,"Right":50,"Top":528,"Bottom":585,"IsEmpty":false,"Location":{},"Size":{},"Center":{}},"RectangleMovement":{"Left":32,"Right":39,"Top":576,"Bottom":585,"IsEmpty":false,"Location":{},"Size":{},"Center":{}}}
+{"_playerID":0,"_level":12,"_animationNum":2,"_Health":{"_total_health":200,"_health_left":20},"_healthLeft":0,"_gunNum":4,"_item_list":[{"_amount":1,"_item":{"_itemId":9}},{"_amount":1,"_item":{"_itemId":7}},{"_amount":1,"_item":{"_itemId":4}}]}

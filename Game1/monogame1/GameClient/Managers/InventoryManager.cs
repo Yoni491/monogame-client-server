@@ -13,8 +13,8 @@ namespace GameClient
         Texture2D _inventoryBlock;
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
-        public List<ItemStock> _item_list;
-        (Rectangle, ItemStock)[] _inventory_rectangles;
+        //public List<ItemStock> _item_list;
+        public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
         int _itemBlockAmount = 8;
@@ -33,7 +33,7 @@ namespace GameClient
                     data2[i] = Color.SaddleBrown;
             }
             _inventoryBlock.SetData(data2);
-            _item_list = new List<ItemStock>();
+            //_item_list = new List<ItemStock>();
             Vector2 fixedPosition = GetInventoryPosition();
             Rectangle Dest_rectangle;
             _inventory_rectangles = new (Rectangle, ItemStock)[_itemBlockAmount];
@@ -91,20 +91,19 @@ namespace GameClient
         {
             int index = 0;
             bool foundItem = false;
-            if (_item_list != null)
-                foreach (var tuple in _inventory_rectangles)
+            foreach (var tuple in _inventory_rectangles)
+            {
+                ItemStock itemStock = tuple.Item2;
+                if (itemStock != null)
                 {
-                    ItemStock itemStock = tuple.Item2;
-                    if (itemStock != null)
+                    if (itemStock._item._itemId == itemID)
                     {
-                        if (itemStock._item._itemId == itemID)
-                        {
-                            foundItem = true;
-                            break;                            
-                        }
+                        foundItem = true;
+                        break;                            
                     }
-                    index++;
                 }
+                index++;
+            }
             if(foundItem)
             {
                 if(--_inventory_rectangles[index].Item2._amount == 0)
@@ -117,12 +116,8 @@ namespace GameClient
         }
         public void AddItemToInventory(Item itemToAdd,bool sound = true,int amount = 1)
         {
-            for (int i = 0; i < amount; i++)
-            {
 
-            }
             int index = 0;
-            if (_item_list != null)
                 foreach (var tuple in _inventory_rectangles)
                 {
                     ItemStock itemStock = tuple.Item2;
@@ -132,7 +127,7 @@ namespace GameClient
                         {
                             if (itemStock._amount < tuple.Item2._item._invenotryAmountAllowed)
                             {
-                                itemStock._amount++;
+                                itemStock._amount += amount;
                                 _itemManager.RemoveItemFromFloor(itemToAdd);
                                 if (sound)
                                 {
@@ -149,8 +144,8 @@ namespace GameClient
                 {
                     _itemManager.RemoveItemFromFloor(itemToAdd);
                     itemToAdd.MakeInventoryItem(new Vector2(tuple.Item1.X, tuple.Item1.Y));
-                    ItemStock itemStock = new ItemStock(1, itemToAdd);
-                    _item_list.Add(itemStock);
+                    ItemStock itemStock = new ItemStock(amount, itemToAdd);
+                    //_item_list.Add(itemStock);
                     _inventory_rectangles[index] = (tuple.Item1, itemStock);
                     if (sound)
                     {
@@ -159,6 +154,13 @@ namespace GameClient
                     return;
                 }
                 index++;
+            }
+        }
+        public void ResetInventory()
+        {
+            for (int i = 0; i < _itemBlockAmount; i++)
+            {
+                _inventory_rectangles[i].Item2 = null;
             }
         }
         public void MouseClick()

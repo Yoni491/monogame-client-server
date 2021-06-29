@@ -32,7 +32,7 @@ namespace GameClient
         }
         public void CreateProgressData()
         {
-            _latestProgressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._animationNum,_player._health,_player._gun._id,_inventoryManager._item_list);
+            _latestProgressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._animationNum,_player._health,_player._gun._id,_inventoryManager._inventory_rectangles);
             _fileName = "ProgressData.json";
             _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
             File.WriteAllText(_fileName, _progressDataJson);
@@ -48,16 +48,12 @@ namespace GameClient
 
                 _latestProgressData = JsonSerializer.Deserialize<ProgressData>(_progressDataJson);
                 _playerManager.AddPlayerFromData(_latestProgressData);
-                _levelManager.LoadNewLevel(_latestProgressData._level);
+                _inventoryManager.ResetInventory();
                 foreach (var item in _latestProgressData._item_list)
                 {
-                    Item currentItem = _collectionManager.GetItem(item._itemID).Drop(true);
-                    for (int i = 0; i < item._amount; i++)
-                    {
-
-                    }
-                    _inventoryManager.AddItemToInventory() ;
+                    _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false,item._amount) ;
                 }
+                _levelManager.LoadNewLevel(_latestProgressData._level);
             }
         }
     }

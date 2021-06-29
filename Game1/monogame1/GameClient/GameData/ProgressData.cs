@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace GameClient
         {
 
         }
-        public ProgressData(int playerID, int level, int animationNum, HealthManager health, int gunNum, List<ItemStock> item_list)
+        public ProgressData(int playerID, int level, int animationNum, HealthManager health, int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles)
         {
             _playerID = playerID;
             _level = level;
@@ -26,9 +27,10 @@ namespace GameClient
             _Health = health;
             _gunNum = gunNum;
             _item_list = new List<ProgressDataItem>();
-            foreach (var item in item_list)
+            foreach (var item in _inventory_rectangles)
             {
-                _item_list.Add(new ProgressDataItem(item._item._itemId, item._amount));
+                if(item.Item2!=null)
+                    _item_list.Add(new ProgressDataItem(item.Item2._item._itemId, item.Item2._amount));
             }
         }
 

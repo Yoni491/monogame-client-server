@@ -95,7 +95,7 @@ namespace GameClient
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
-            _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager);
+            _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
             _gameOverScreen.Initialize(Content, GraphicsDevice, _progressManager);
         }
 

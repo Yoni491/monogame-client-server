@@ -313,3 +313,10 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClien
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\obj\Debug\netcoreapp3.1\GameClient.dll
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\obj\Debug\netcoreapp3.1\GameClient.pdb
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\obj\Debug\netcoreapp3.1\GameClient.genruntimeconfig.cache
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Microsoft.Owin.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Microsoft.Owin.Security.OAuth.dll
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Owin.dll

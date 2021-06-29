@@ -115,8 +115,12 @@ namespace GameClient
             }
             return false;
         }
-        public void AddItemToInventory(Item itemToAdd,bool sound = true)
+        public void AddItemToInventory(Item itemToAdd,bool sound = true,int amount = 1)
         {
+            for (int i = 0; i < amount; i++)
+            {
+
+            }
             int index = 0;
             if (_item_list != null)
                 foreach (var tuple in _inventory_rectangles)

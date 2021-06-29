@@ -11,6 +11,7 @@ namespace GameClient
         private SpriteBatch _UIbatch;
         private SpriteBatch _settingsBatch;
         private List<NetworkPlayer> _networkPlayers;
+        private GameOverScreen _gameOverScreen;
         private Player _player;
         private List<Simple_Enemy> _enemies;
         private EnemyManager _enemyManager;
@@ -64,6 +65,7 @@ namespace GameClient
             _menuManager = new MainMenuManager(this, GraphicsDevice);
             _UIManager = new UIManager();
             _inventoryManager = new InventoryManager(GraphicsDevice);
+            _gameOverScreen = new GameOverScreen();
             //game content
             _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
@@ -93,32 +95,41 @@ namespace GameClient
             _mapManager.Initialize(_player);
             _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
-            _progressManager.Initialize(_player,_inventoryManager);
+            _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager);
+            _gameOverScreen.Initialize(Content, GraphicsDevice, _progressManager);
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            _UIManager.Update(gameTime);
             if (_inMenu)
             {
                 _menuManager.Update(gameTime);
-                _UIManager.Update(gameTime);
             }
             else
             {
-                if(_IsMultiplayer)
-                    _networkManager.Update(gameTime);
-                _UIManager.Update(gameTime);
-                if (_tileManager._levelLoaded)
+                if (GameOverScreen._showScreen)
                 {
-                    _enemyManager.Update(gameTime);
-                    _playerManager.Update(gameTime);
-                    _mapManager.Update();
-                    _levelManager.Update();
-                    _bulletReachManager.Update();
-                    _pathFindingManager.Update();
+                    Player player = null;
+                    _gameOverScreen.Update(gameTime);
+                    _player = player;
                 }
+                else
+                {
+                    if (_tileManager._levelLoaded)
+                    {
+                        _enemyManager.Update(gameTime);
+                        _playerManager.Update(gameTime);
+                        _mapManager.Update();
+                        _levelManager.Update();
+                        _bulletReachManager.Update();
+                        _pathFindingManager.Update();
+                    }
+                }
+                if (_IsMultiplayer)
+                    _networkManager.Update(gameTime);
             }
             base.Update(gameTime);
 
@@ -136,6 +147,10 @@ namespace GameClient
             }
             else
             {
+                if (GameOverScreen._showScreen)
+                {
+                    _gameOverScreen.Draw(_UIbatch);
+                }
                 _UIManager.Draw(_settingsBatch);
                 if (_tileManager._levelLoaded)
                 {

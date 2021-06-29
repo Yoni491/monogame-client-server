@@ -19,6 +19,10 @@ namespace GameClient
 
         private float _Scale;
 
+        private HealthManager()//for deserealizion
+        {
+
+        }
         public HealthManager(int total_health, Vector2 position, float scale)
         {
             healthbar_width =(int) (30 * scale / 1);

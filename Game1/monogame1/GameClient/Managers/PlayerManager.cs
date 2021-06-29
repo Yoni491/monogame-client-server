@@ -34,7 +34,7 @@ namespace GameClient
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
-            Vector2 position = new Vector2(graphicsDevice.Viewport.Width/2 + -300, graphicsDevice.Viewport.Height / 2 +200);
+            Vector2 position = Vector2.Zero;
             int animationNum = 3;
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager);
             _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).Drop(true);
@@ -42,11 +42,23 @@ namespace GameClient
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
         }
+        public void AddPlayerFromData(ProgressData progressData)
+        {
+            Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
+            Vector2 position = _player._position;
+            int animationNum = progressData._animationNum;
+            _player._animationNum = progressData._animationNum;
+            _player._health._health_left = progressData._Health._health_left;
+            _player._health._total_health = progressData._Health._total_health;
+            _inventoryManager.EquippedGun = _collectionManager.GetItem(progressData._gunNum + 5).Drop(true);
+            _player.EquipGun(_inventoryManager.EquippedGun._gun);
+            _player._dead = false;
+        }
         public void Update(GameTime gameTime)
         {
             if(_player._dead)
             {
-
+                GameOverScreen._showScreen = true;
             }
             if(_player!=null)
                 _player.Update(gameTime);

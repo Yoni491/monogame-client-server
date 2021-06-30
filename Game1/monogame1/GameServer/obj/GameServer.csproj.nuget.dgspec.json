@@ -50,14 +50,6 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
-            "Microsoft.Owin.Security.OAuth": {
-              "target": "Package",
-              "version": "[4.2.0, )"
-            },
             "MonoGame.Content.Builder.Task": {
               "target": "Package",
               "version": "[3.8.0.1641, )"

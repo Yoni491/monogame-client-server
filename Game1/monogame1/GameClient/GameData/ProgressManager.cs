@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.Xna.Framework;
 
 namespace GameClient
@@ -30,14 +29,16 @@ namespace GameClient
             _playerManager = playerManager;
             _levelManager = levelManager;
             _collectionManager = collectionManager;
-            string jsonString = File.ReadAllText(_fileName);
-            if (!string.IsNullOrEmpty(jsonString))
+            if (File.Exists(_fileName))
             {
-                _latestProgressData = JsonSerializer.Deserialize<ProgressData>(jsonString);
-                _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
-                _saveFileAvailable = true;
+                string jsonString = File.ReadAllText(_fileName);
+                if (!string.IsNullOrEmpty(jsonString))
+                {
+                    _latestProgressData = JsonSerializer.Deserialize<ProgressData>(jsonString);
+                    _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
+                    _saveFileAvailable = true;
+                }
             }
-
         }
         public void CreateProgressData()
         {

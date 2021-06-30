@@ -8,8 +8,6 @@
     ".NETCoreApp,Version=v3.1": {
       "GameClient/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.0",
-          "Microsoft.Owin.Security.OAuth": "4.2.0",
           "MonoGame.Content.Builder.Task": "3.8.0.1641",
           "MonoGame.Extended": "3.8.0",
           "MonoGame.Extended.Tiled": "3.8.0",
@@ -19,69 +17,6 @@
         },
         "runtime": {
           "GameClient.dll": {}
-        }
-      },
-      "Microsoft.AspNetCore.JsonPatch/3.1.0": {
-        "dependencies": {
-          "Microsoft.CSharp": "4.7.0",
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.AspNetCore.JsonPatch.dll": {
-            "assemblyVersion": "3.1.0.0",
-            "fileVersion": "3.100.19.56601"
-          }
-        }
-      },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/3.1.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "3.1.0",
-          "Newtonsoft.Json": "12.0.3",
-          "Newtonsoft.Json.Bson": "1.0.2"
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
-            "assemblyVersion": "3.1.0.0",
-            "fileVersion": "3.100.19.56601"
-          }
-        }
-      },
-      "Microsoft.CSharp/4.7.0": {},
-      "Microsoft.Owin/4.2.0": {
-        "dependencies": {
-          "Owin": "1.0.0"
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.34971.142"
-          }
-        }
-      },
-      "Microsoft.Owin.Security/4.2.0": {
-        "dependencies": {
-          "Microsoft.Owin": "4.2.0",
-          "Owin": "1.0.0"
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.Security.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.34971.142"
-          }
-        }
-      },
-      "Microsoft.Owin.Security.OAuth/4.2.0": {
-        "dependencies": {
-          "Microsoft.Owin": "4.2.0",
-          "Microsoft.Owin.Security": "4.2.0",
-          "Newtonsoft.Json": "12.0.3",
-          "Owin": "1.0.0"
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.Security.OAuth.dll": {
-            "assemblyVersion": "4.2.0.0",
-            "fileVersion": "4.2.34971.142"
-          }
         }
       },
       "MonoGame.Content.Builder.Task/3.8.0.1641": {},
@@ -177,26 +112,7 @@
           }
         }
       },
-      "Newtonsoft.Json.Bson/1.0.2": {
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.2.22727"
-          }
-        }
-      },
       "Nez.PipelineImporter/0.9.5": {},
-      "Owin/1.0.0": {
-        "runtime": {
-          "lib/net40/Owin.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
       "TiledSharp/1.0.0": {
         "runtime": {
           "TiledSharp.dll": {}
@@ -209,48 +125,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "Microsoft.AspNetCore.JsonPatch/3.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-EctKEX24sGLS4Brg2hdxZQc3WwP9MKFvk0d1oa8ilyt8q0rgo73G6ptxQvkFmQwaG+SKnkVV31T2UN3nSYhPGA==",
-      "path": "microsoft.aspnetcore.jsonpatch/3.1.0",
-      "hashPath": "microsoft.aspnetcore.jsonpatch.3.1.0.nupkg.sha512"
-    },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/3.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-DL3tgfLLeLT6bd64MiByrvDJn27Z8DNX4KWM1Ss4ge8zitcB8inNMVCpx4w+uVvdPqkVkLgVgPWIBx/cWXYaVQ==",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/3.1.0",
-      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.3.1.0.nupkg.sha512"
-    },
-    "Microsoft.CSharp/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
-      "path": "microsoft.csharp/4.7.0",
-      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
-    },
-    "Microsoft.Owin/4.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NPPwhK+oSf6JWAy6m2Dq7xYIVnEvUTeMM1mVaOobkiVsOaHPAu8E05/fKAjrDBBDCC14z32jwnZyPs3z9UNV5w==",
-      "path": "microsoft.owin/4.2.0",
-      "hashPath": "microsoft.owin.4.2.0.nupkg.sha512"
-    },
-    "Microsoft.Owin.Security/4.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-w/cWWNkc4sBRYHmY49VSfgKGEXVbBNecnrLR6sHf/shkRpFvitduo6dGUy/CwL3bQEFPEbuyQeXmMVVXQj3R4Q==",
-      "path": "microsoft.owin.security/4.2.0",
-      "hashPath": "microsoft.owin.security.4.2.0.nupkg.sha512"
-    },
-    "Microsoft.Owin.Security.OAuth/4.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-aMHGnSrCqFyS3a5mwiTx0isrxXoYvi3Xt4KDjj00zswFhb9EmjfJL6EmP6WuopefixdMpNQGJ5XQjT+qtBd5lA==",
-      "path": "microsoft.owin.security.oauth/4.2.0",
-      "hashPath": "microsoft.owin.security.oauth.4.2.0.nupkg.sha512"
     },
     "MonoGame.Content.Builder.Task/3.8.0.1641": {
       "type": "package",
@@ -294,26 +168,12 @@
       "path": "newtonsoft.json/12.0.3",
       "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
-    "Newtonsoft.Json.Bson/1.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
-      "path": "newtonsoft.json.bson/1.0.2",
-      "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
-    },
     "Nez.PipelineImporter/0.9.5": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-8OMCdKv+oDb/PXfgBF6eFwsG1oya7FKSDuSnU3rOu+bzF9ArL8TybXjs60pSe4FIEO3kN3+dG3LpLUk9rYSE0g==",
       "path": "nez.pipelineimporter/0.9.5",
       "hashPath": "nez.pipelineimporter.0.9.5.nupkg.sha512"
-    },
-    "Owin/1.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OseTFniKmyp76mEzOBwIKGBRS5eMoYNkMKaMXOpxx9jv88+b6mh1rSaw43vjBOItNhaLFG3d0a20PfHyibH5sw==",
-      "path": "owin/1.0.0",
-      "hashPath": "owin.1.0.0.nupkg.sha512"
     },
     "TiledSharp/1.0.0": {
       "type": "project",

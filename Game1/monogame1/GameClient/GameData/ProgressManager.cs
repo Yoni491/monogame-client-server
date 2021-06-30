@@ -18,7 +18,8 @@ namespace GameClient
         LevelManager _levelManager;
         CollectionManager _collectionManager;
         string _progressDataJson;
-        string _fileName;
+        string _fileName = "ProgressData.json";
+        static public bool _saveFileAvailable;
         public ProgressManager()
         {
         }
@@ -29,11 +30,18 @@ namespace GameClient
             _playerManager = playerManager;
             _levelManager = levelManager;
             _collectionManager = collectionManager;
+            string jsonString = File.ReadAllText(_fileName);
+            if (!string.IsNullOrEmpty(jsonString))
+            {
+                _latestProgressData = JsonSerializer.Deserialize<ProgressData>(jsonString);
+                _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
+                _saveFileAvailable = true;
+            }
+
         }
         public void CreateProgressData()
         {
             _latestProgressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._animationNum,_player._health,_player._gun._id,_inventoryManager._inventory_rectangles);
-            _fileName = "ProgressData.json";
             _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
             File.WriteAllText(_fileName, _progressDataJson);
         }
@@ -41,20 +49,16 @@ namespace GameClient
         {
 
         }
-        public void LoadData(bool loadLatest = false, string dataName = null)
+        public void LoadData()
         {
-            if (loadLatest)
+            _latestProgressData = JsonSerializer.Deserialize<ProgressData>(_progressDataJson);
+            _playerManager.AddPlayerFromData(_latestProgressData);
+            _inventoryManager.ResetInventory();
+            foreach (var item in _latestProgressData._item_list)
             {
-
-                _latestProgressData = JsonSerializer.Deserialize<ProgressData>(_progressDataJson);
-                _playerManager.AddPlayerFromData(_latestProgressData);
-                _inventoryManager.ResetInventory();
-                foreach (var item in _latestProgressData._item_list)
-                {
-                    _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false,item._amount) ;
-                }
-                _levelManager.LoadNewLevel(_latestProgressData._level);
+                _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false,item._amount) ;
             }
+            _levelManager.LoadNewLevel(_latestProgressData._level);
         }
     }
 }

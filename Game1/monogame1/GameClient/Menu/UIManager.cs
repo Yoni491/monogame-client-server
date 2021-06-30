@@ -67,6 +67,7 @@ namespace GameClient
                 if(_exitToMain.Update(gameTime))
                 {
                     Game_Client._inMenu = true;
+                    _showSettings = false;
                     AudioManager.PlaySong(menu: true);
                 }
                 if (_muteSoundButton.Update(gameTime))

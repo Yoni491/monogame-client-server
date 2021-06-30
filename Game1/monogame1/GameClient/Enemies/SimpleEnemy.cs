@@ -6,7 +6,7 @@ using System.Linq;
 namespace GameClient
 {
     public enum Direction { Up = 0, Down, Left, Right };
-    public class Simple_Enemy
+    public class SimpleEnemy
     {
         int _enemyId;
         static int _s_enemyNum=0;
@@ -42,7 +42,7 @@ namespace GameClient
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public Simple_Enemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder, BulletReach bulletReach, int enemyNum = -1)
+        public SimpleEnemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder, BulletReach bulletReach, int enemyNum = -1)
         {
             _enemyId = enemyId;
             _animationManager = animationManager;
@@ -243,7 +243,7 @@ namespace GameClient
                 }
             }
         }
-        public Simple_Enemy Copy(bool useAstar, bool waitForDestroyedWall)
+        public SimpleEnemy Copy(bool useAstar, bool waitForDestroyedWall)
         {
             int enemyNum = -1;
             if (!Game_Client._IsMultiplayer)
@@ -257,7 +257,7 @@ namespace GameClient
             MeleeWeapon meleeWeapon = null;
             if (_meleeWeapon != null)
                 meleeWeapon = _meleeWeapon.Copy(true, true, null);
-            return new Simple_Enemy(_animationManager.Copy(), _enemyId, _position, _speed,
+            return new SimpleEnemy(_animationManager.Copy(), _enemyId, _position, _speed,
                 _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall), bulletReach, enemyNum);
         }
         public void UpdatePacketDmg(Packet packet)

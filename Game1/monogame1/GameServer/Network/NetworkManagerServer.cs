@@ -15,7 +15,7 @@ namespace GameServer
         float _timer_long = 0;
         static List<Socket> _socket_list;
         private List<NetworkPlayer> _players;
-        private List<Simple_Enemy> _enemies;
+        private List<SimpleEnemy> _enemies;
         Socket _socketServer;
         private List<byte> _bufferList;
         int packetType;
@@ -25,7 +25,7 @@ namespace GameServer
         List<Socket> _socketToAdd;
         Packet _packet;
         static bool _everyClientGotCurrentLevel;
-        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<Simple_Enemy> enemies)
+        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies)
         {
             _socket_list = socket_list;
             _players = players;

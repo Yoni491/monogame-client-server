@@ -18,11 +18,11 @@ namespace GameServer
         private bool handle = false;
         private int usingResource = 0;
         private NetworkPlayer _player;
-        private readonly List<Simple_Enemy> _enemies;
+        private readonly List<SimpleEnemy> _enemies;
         public int _playerCurrentLevel;
         private Vector2 _playerPreviousPosition;
 
-        public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<Simple_Enemy> enemies)
+        public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<SimpleEnemy> enemies)
         {
             _players = players;
             _packet = new Packet();
@@ -94,7 +94,7 @@ namespace GameServer
             for (int i = 0; i < numOfEnemies; i++)
             {
                 enemyNum = _packet.ReadInt();
-                Simple_Enemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
+                SimpleEnemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
                 int dmg = _packet.ReadInt();
                 if (simple_Enemy != null)
                 {

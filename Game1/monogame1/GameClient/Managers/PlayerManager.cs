@@ -28,11 +28,12 @@ namespace GameClient
             _players.Add(networkPlayer);
             return networkPlayer;
         }
-        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, GraphicsDevice graphicsDevice, UIManager uIManager)
+        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, UIManager uIManager)
         {
             _UImanager = uIManager;
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
+            
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
@@ -42,11 +43,18 @@ namespace GameClient
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
         }
+        public void ResetPlayer(int animationNum)
+        {
+            _player._animationManager = CollectionManager.GetAnimationManagerCopy(animationNum, 1.5f);
+            _player._animationNum = animationNum;
+            _inventoryManager.ResetInventory();
+            _player._health._health_left = _playerStartingHealth;
+            _player._health._total_health = _playerStartingHealth;
+            _inventoryManager.EquippedGun = _collectionManager.GetItem(7).Drop(true);
+            _player.EquipGun(_inventoryManager.EquippedGun._gun);
+        }
         public void AddPlayerFromData(ProgressData progressData)
         {
-            Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
-            Vector2 position = _player._position;
-            int animationNum = progressData._animationNum;
             _player._animationNum = progressData._animationNum;
             _player._health._health_left = progressData._Health._health_left;
             _player._health._total_health = progressData._Health._total_health;

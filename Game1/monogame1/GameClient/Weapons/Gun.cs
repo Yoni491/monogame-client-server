@@ -13,7 +13,7 @@ namespace GameClient
         private Texture2D _texture;
         public List<Bullet> _bullets = new List<Bullet>();
         private Vector2 _direction;
-        private List<Simple_Enemy> _enemies;
+        private List<SimpleEnemy> _enemies;
         public Bullet _bullet;
         public Vector2 Position { get => _position; set => _position = value; }
         public bool _isSniper;
@@ -50,7 +50,7 @@ namespace GameClient
             }
         }
 
-        public Gun(int id, Texture2D texture, Vector2 position, List<Simple_Enemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
+        public Gun(int id, Texture2D texture, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
         {
             _id = id;
             _texture = texture;

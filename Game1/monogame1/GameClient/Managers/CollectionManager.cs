@@ -9,7 +9,7 @@ namespace GameClient
 {
     public class CollectionManager
     {
-        List<Simple_Enemy> _enemies;
+        List<SimpleEnemy> _enemies;
         ContentManager _contentManager;
         public static List<Gun> _guns;
         public static string[,] _massagesArray;
@@ -17,7 +17,7 @@ namespace GameClient
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
         static List<Item> _items;
-        static List<Simple_Enemy> _simple_enemies;
+        static List<SimpleEnemy> _simple_enemies;
         public static List<AnimationManager> _playerAnimationManager;
         PlayerManager _playerManager;
         ItemManager _itemManager;
@@ -30,7 +30,7 @@ namespace GameClient
         {
             
         }
-        public void Initialize(List<Simple_Enemy> enemies, ContentManager contentManager ,PlayerManager playerManager, ItemManager itemManager)
+        public void Initialize(List<SimpleEnemy> enemies, ContentManager contentManager ,PlayerManager playerManager, ItemManager itemManager)
         {
             _enemies = enemies;
             _contentManager = contentManager;
@@ -59,19 +59,19 @@ namespace GameClient
         private void InitializeSimpleEnemies()
         {
             int id = 0;
-            _simple_enemies = new List<Simple_Enemy>();
+            _simple_enemies = new List<SimpleEnemy>();
 
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 30, basicDrops, null, _guns[0], null,null));//M16 GID=137
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
                 _itemManager, 10, basicDrops, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[2], null, null));//RIFLE GID=139
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[1], null, null));//sniper GID=140
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[3], null, null));//machine-gun GID=141
-            _simple_enemies.Add(new Simple_Enemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[4], null, null));//UZI GID=142
 
 
@@ -217,7 +217,7 @@ namespace GameClient
             }
             return _meleeWeapons[id].Copy(hitPlayers, dealDmg, inventoryManager);
         }
-        public Simple_Enemy GetSimpleEnemyCopy(int id,bool useAstar,bool waitForDestroyedWall)
+        public SimpleEnemy GetSimpleEnemyCopy(int id,bool useAstar,bool waitForDestroyedWall)
         {
             return _simple_enemies[id].Copy(useAstar, waitForDestroyedWall);
         }

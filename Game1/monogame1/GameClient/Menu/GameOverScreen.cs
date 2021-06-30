@@ -38,7 +38,7 @@ namespace GameClient
                 if (_restartLevel.Update(gameTime))
                 {
                     _showScreen = false;
-                     _progressManager.LoadData(true);
+                     _progressManager.LoadData();
                 }
 
                 if (_exitToMain.Update(gameTime))

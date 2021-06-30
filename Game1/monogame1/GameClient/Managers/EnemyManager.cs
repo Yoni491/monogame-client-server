@@ -10,9 +10,9 @@ namespace GameClient
     {
         private GraphicsDevice _graphicsDevice;
         static private CollectionManager _collectionManager;
-        static private List<Simple_Enemy> _enemies;
+        static private List<SimpleEnemy> _enemies;
         
-        public EnemyManager( GraphicsDevice graphicsDevice, List<Simple_Enemy> enemies, CollectionManager collectionManager)
+        public EnemyManager( GraphicsDevice graphicsDevice, List<SimpleEnemy> enemies, CollectionManager collectionManager)
         {
             _enemies = enemies;
             _graphicsDevice = graphicsDevice;
@@ -43,13 +43,13 @@ namespace GameClient
         }
         public static void AddEnemyAtPosition(int EnemyID,Vector2 position,bool useAstar,bool waitForDestroyedWall)
         {
-            Simple_Enemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID, useAstar, waitForDestroyedWall);
+            SimpleEnemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID, useAstar, waitForDestroyedWall);
             enemy.PositionFeetAt(position);
             _enemies.Add(enemy);
         }
-        public Simple_Enemy AddEnemyFromServer(int enemyNum,int enemyId)
+        public SimpleEnemy AddEnemyFromServer(int enemyNum,int enemyId)
         {
-            Simple_Enemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId,true,false);
+            SimpleEnemy simple_Enemy = _collectionManager.GetSimpleEnemyCopy(enemyId,true,false);
             simple_Enemy._enemyNum = enemyNum;
             _enemies.Add(simple_Enemy);
             return simple_Enemy;

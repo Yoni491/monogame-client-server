@@ -181,7 +181,7 @@ namespace GameClient
             packet.WriteInt(_gun._bullets.FindAll(x=>x._bulletSent==false).Count());
             _gun.UpdatePacketShort(packet);
         }
-        public void UpdatePacketLong(PacketLong_Client packet)
+        public void UpdatePacketLong(PacketLongClient packet)
         {
             packet.WriteInt(_playerNum);
             packet.WriteInt(_gun._id);

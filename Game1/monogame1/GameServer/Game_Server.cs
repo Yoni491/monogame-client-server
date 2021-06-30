@@ -10,7 +10,7 @@ namespace GameServer
     {
         public static GraphicsDeviceManager _graphics;
         private List<NetworkPlayer> _networkPlayers;
-        private List<Simple_Enemy> _enemies;
+        private List<SimpleEnemy> _enemies;
         private EnemyManager _enemyManager;
         private TileManager _tileManager;
         public PlayerManager _playerManager;
@@ -53,7 +53,7 @@ namespace GameServer
             _levelManager = new LevelManager(_tileManager);
             
             _networkPlayers = new List<NetworkPlayer>();
-            _enemies = new List<Simple_Enemy>();
+            _enemies = new List<SimpleEnemy>();
             _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
 

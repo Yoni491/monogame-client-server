@@ -1,9 +1,9 @@
 ﻿namespace GameClient
 {
-    public class PacketLong_Client : Packet
+    public class PacketLongClient : Packet
     {
         Player _player;
-        public PacketLong_Client(Player player) : base()
+        public PacketLongClient(Player player) : base()
         {
             UpdateType(4);
             _player = player;

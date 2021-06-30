@@ -11,12 +11,12 @@ namespace GameClient
     {
         static private List<NetworkPlayer> _networkPlayers;
         static private Player _player;
-        static private List<Simple_Enemy> _enemies;
+        static private List<SimpleEnemy> _enemies;
 
         public CollisionManager()
         {
         }
-        public void Initialize(List<NetworkPlayer> other_players, Player player, List<Simple_Enemy> enemies)
+        public void Initialize(List<NetworkPlayer> other_players, Player player, List<SimpleEnemy> enemies)
         {
             _networkPlayers = other_players;
             _player = player;

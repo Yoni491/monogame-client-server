@@ -31,39 +31,35 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if (!UIManager._showSettings)
+            if (_nextCharacter.Update(gameTime))
             {
-                if (_nextCharacter.Update(gameTime))
+                index++;
+                if (characterNumbers.Length <= index)
                 {
-                    index++;
-                    if (characterNumbers.Length <= index)
-                    {
-                        index = 0;
-                    }
+                    index = 0;
                 }
-                if (_previousCharacter.Update(gameTime))
+            }
+            if (_previousCharacter.Update(gameTime))
+            {
+                index--;
+                if (index < 0)
                 {
-                    index--;
-                    if (index < 0)
-                    {
-                        index = characterNumbers.Length - 1;
-                    }
+                    index = characterNumbers.Length - 1;
                 }
-                if (_startGame.Update(gameTime))
-                {
-                    Game_Client._inMenu = false;
-                    _game_Client._playerManager._player._animationManager = CollectionManager.GetAnimationManagerCopy(characterNumbers[index], 1.5f);
-                    _game_Client._playerManager._player._animationNum = characterNumbers[index];
-                    _menuManager._showChooseCharacterMenu = false;
-                    if (!Game_Client._IsMultiplayer)
-                        _game_Client._levelManager.LoadNewLevel(11);
-                }
-                if (_returnToMain.Update(gameTime))
-                {
-                    _menuManager._showMultiplayerMenu = false;
-                    _menuManager._showChooseCharacterMenu = false;
-                    _game_Client._networkManager.CloseConnection();
-                }
+            }
+            if (_startGame.Update(gameTime))
+            {
+                Game_Client._inMenu = false;
+                _menuManager._showChooseCharacterMenu = false;
+                _game_Client._playerManager.ResetPlayer(characterNumbers[index]);
+                if (!Game_Client._IsMultiplayer)
+                    _game_Client._levelManager.LoadNewLevel(11);
+            }
+            if (_returnToMain.Update(gameTime))
+            {
+                _menuManager._showMultiplayerMenu = false;
+                _menuManager._showChooseCharacterMenu = false;
+                _game_Client._networkManager.CloseConnection();
             }
         }
         public void Draw(SpriteBatch spriteBatch)

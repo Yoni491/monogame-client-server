@@ -18,12 +18,12 @@ namespace GameClient
         PlayerManager _playerManager;
         Player _player;
         Packet _packet;
-        List<Simple_Enemy> _enemies;
+        List<SimpleEnemy> _enemies;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
         {
             _enemies = enemies;
             _playerManager = playerManager;

@@ -13,7 +13,7 @@ namespace GameClient
         private List<NetworkPlayer> _networkPlayers;
         private GameOverScreen _gameOverScreen;
         private Player _player;
-        private List<Simple_Enemy> _enemies;
+        private List<SimpleEnemy> _enemies;
         private EnemyManager _enemyManager;
         private TileManager _tileManager;
         public PlayerManager _playerManager;
@@ -62,7 +62,7 @@ namespace GameClient
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             //menu and ui
-            _menuManager = new MainMenuManager(this, GraphicsDevice);
+            _menuManager = new MainMenuManager();
             _UIManager = new UIManager();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();
@@ -76,7 +76,7 @@ namespace GameClient
             _progressManager = new ProgressManager();
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
-            _enemies = new List<Simple_Enemy>();
+            _enemies = new List<SimpleEnemy>();
             _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             //calculations
@@ -87,7 +87,7 @@ namespace GameClient
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content,_playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, GraphicsDevice, _UIManager);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _UIManager);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player,_progressManager);
@@ -97,6 +97,7 @@ namespace GameClient
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
             _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
             _gameOverScreen.Initialize(Content, GraphicsDevice, _progressManager);
+            _menuManager.Initialize(this, GraphicsDevice, _progressManager);
         }
 
         protected override void Update(GameTime gameTime)
@@ -104,7 +105,7 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _UIManager.Update(gameTime);
-            if (_inMenu)
+            if (_inMenu && !UIManager._showSettings)
             {
                 _menuManager.Update(gameTime);
             }

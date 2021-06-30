@@ -15,13 +15,13 @@ namespace GameClient
         private EnemyManager _enemyManager;
         private InventoryManager _inventoryManager;
         private LevelManager _levelManager;
-        private  List<Simple_Enemy> _enemies;
+        private  List<SimpleEnemy> _enemies;
         Packet _packet;
         ushort packetLength;
         ushort packetType;
 
         int usingResource = 0;
-        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager, List<Simple_Enemy> enemies, EnemyManager enemyManager, InventoryManager inventoryManager, LevelManager levelManager)
+        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager, InventoryManager inventoryManager, LevelManager levelManager)
         {
             _players = players;
             _player = player;
@@ -101,7 +101,7 @@ namespace GameClient
             for (int i = 0; i < numOfEnemies; i++)
             {
                 enemyNum = _packet.ReadInt();
-                Simple_Enemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
+                SimpleEnemy simple_Enemy = _enemies.Find(x => x._enemyNum == enemyNum);
                 int enemyId = _packet.ReadInt();
                 if (simple_Enemy == null)
                 {

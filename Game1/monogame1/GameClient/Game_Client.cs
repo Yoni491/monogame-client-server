@@ -27,7 +27,7 @@ namespace GameClient
         private AudioManager _audioManager;
         static private InventoryManager _inventoryManager;
         static private MainMenuManager _menuManager;
-        static private UIManager _UIManager;
+        static private SettingsScreen _UIManager;
         private ProgressManager _progressManager;
         private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
@@ -63,7 +63,7 @@ namespace GameClient
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             //menu and ui
             _menuManager = new MainMenuManager();
-            _UIManager = new UIManager();
+            _UIManager = new SettingsScreen();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();
             //game content
@@ -93,7 +93,7 @@ namespace GameClient
             _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice);
+            _UIManager.Initialize(Content, _inventoryManager, GraphicsDevice,_progressManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
             _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
             _gameOverScreen.Initialize(Content, GraphicsDevice, _progressManager);
@@ -105,7 +105,7 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _UIManager.Update(gameTime);
-            if (_inMenu && !UIManager._showSettings)
+            if (_inMenu && !SettingsScreen._showSettings)
             {
                 _menuManager.Update(gameTime);
             }

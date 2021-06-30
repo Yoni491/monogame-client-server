@@ -14,7 +14,7 @@ namespace GameClient
         ItemManager _itemManager;
         CollectionManager _collectionManager;
         InventoryManager _inventoryManager;
-        UIManager _UImanager;
+        SettingsScreen _UImanager;
         int _playerStartingHealth = 200;
         public PlayerManager(List<NetworkPlayer> players, CollectionManager collectionManager)
         {
@@ -28,7 +28,7 @@ namespace GameClient
             _players.Add(networkPlayer);
             return networkPlayer;
         }
-        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, UIManager uIManager)
+        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
         {
             _UImanager = uIManager;
             _itemManager = itemManager;

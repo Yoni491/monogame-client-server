@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class UIManager
+    public class SettingsScreen
     {
         InventoryManager _InventoryManager;
-        //Rectangle settingsRectangle;
-        Button _settingButton, _fullScreenButton,_returnToGame,_exitToMain,_muteSoundButton,_muteMusicButton;
+        ProgressManager _progressManager;
+        Button _settingButton, _fullScreenButton,_returnToGame,_exitToMain,_muteSoundButton,_muteMusicButton,_restartLevel;
         GraphicsDevice _graphicsDevice;
         bool _fullScreen,_soundMuted,_musicMuted;
         public static bool _showSettings;
@@ -18,21 +18,23 @@ namespace GameClient
         int _buttonHeight = 50 , _buttonWeight = 200;
         Vector2 _buttonPosition;
 
-        public UIManager()
+        public SettingsScreen()
         {
 
         }
-        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics)
+        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager)
         {
             _graphicsDevice = graphics;
+            _progressManager = progressManager;
             _InventoryManager = InventoryManager;
             _settingButton = new Button(content.Load<Texture2D>("etc/settings"), null, new Vector2(0, 0), Color.White, Color.Gray, null);
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
             _returnToGame = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Blue, Color.Gray, "Return to game");
-            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0,_buttonHeight + 2), Color.Green, Color.Gray, "Full screen");
-            _muteMusicButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*2 + 4), Color.DarkRed, Color.Gray, "Mute music");
-            _muteSoundButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*3 + 6), Color.DarkRed, Color.Gray, "Mute sound");
-            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight * 4 + 8), Color.DarkRed, Color.Gray, "Exit To Menu");
+            _restartLevel = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Blue, Color.Gray, "Restart Level");
+            _fullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight * 2 + 4), Color.Green, Color.Gray, "Full screen");
+            _muteMusicButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*3 + 6), Color.DarkRed, Color.Gray, "Mute music");
+            _muteSoundButton = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight*4 +8), Color.DarkRed, Color.Gray, "Mute sound");
+            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(0, _buttonHeight * 5 + 10), Color.DarkRed, Color.Gray, "Exit To Menu");
             _settingsBackground = GraphicManager._contentManager.Load<Texture2D>("Images/settings_background");
             AudioManager.PlaySong(menu: true);
             //_exitFullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Green, Color.Gray, "Exit full Screen");
@@ -60,9 +62,17 @@ namespace GameClient
                 {
                     _showSettings = false;
                 }
-                if(_returnToGame.Update(gameTime))
+                if (!Game_Client._inMenu)
                 {
-                    _showSettings = false;
+                    if (_restartLevel.Update(gameTime))
+                    {
+                        _showSettings = false;
+                        _progressManager.LoadData();
+                    }
+                    if (_returnToGame.Update(gameTime))
+                    {
+                        _showSettings = false;
+                    }
                 }
                 if(_exitToMain.Update(gameTime))
                 {
@@ -118,7 +128,11 @@ namespace GameClient
                 int width = GraphicManager.screenWidth / 2;
                 spriteBatch.Draw(_settingsBackground,new Rectangle(GraphicManager.screenWidth/4, GraphicManager.screenHeight/4, width, height),null,Color.White,0,Vector2.Zero,SpriteEffects.None,0.1f);
                 _fullScreenButton.Draw(spriteBatch);
-                _returnToGame.Draw(spriteBatch);
+                if (!Game_Client._inMenu)
+                {
+                    _restartLevel.Draw(spriteBatch);
+                    _returnToGame.Draw(spriteBatch);
+                }
                 _exitToMain.Draw(spriteBatch);
                 _muteMusicButton.Draw(spriteBatch);
                 _muteSoundButton.Draw(spriteBatch);
@@ -128,10 +142,11 @@ namespace GameClient
         {
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
             _returnToGame.ResetGraphics(_buttonPosition);
-            _fullScreenButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
-            _muteMusicButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 2 + 4));
-            _muteSoundButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 3 + 6));
-            _exitToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 4 + 8));
+            _restartLevel.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
+            _fullScreenButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight*2 + 4));
+            _muteMusicButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 3 + 6));
+            _muteSoundButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 4 + 8));
+            _exitToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 5 + 10));
         }    
         public bool MouseClick()
         {    

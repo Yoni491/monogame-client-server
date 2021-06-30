@@ -89,6 +89,7 @@ namespace GameClient
             _graves.Clear();
             _chests.Clear();
             _boxes.Clear();
+            _doors.Clear();
             _boxesToSend.Clear();
             _chestsToSend.Clear();
         }

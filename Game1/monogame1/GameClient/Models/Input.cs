@@ -66,7 +66,8 @@ namespace GameClient
                 }
                 if (capabilities.HasYButton)
                 {
-                    _buttonY = state.IsButtonDown(Buttons.Y);
+                    if (!_prevState.IsButtonDown(Buttons.Y))
+                        _buttonY = state.IsButtonDown(Buttons.Y);
                 }
                 if (capabilities.HasRightShoulderButton)
                 {
@@ -196,6 +197,16 @@ namespace GameClient
             {
                 _isGamePad = true;
                 _buttonB = false;
+                return true;
+            }
+            return false;
+        }
+        public bool DropInventoryItemGamePad()
+        {
+            if (_buttonY)
+            {
+                _isGamePad = true;
+                _buttonY = false;
                 return true;
             }
             return false;

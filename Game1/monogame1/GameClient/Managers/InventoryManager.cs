@@ -13,7 +13,6 @@ namespace GameClient
         Texture2D _inventoryBlockNormal, _inventoryBlockSelected;
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
-        //public List<ItemStock> _item_list;
         public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
@@ -167,7 +166,6 @@ namespace GameClient
                     _itemManager.RemoveItemFromFloor(itemToAdd);
                     itemToAdd.MakeInventoryItem(new Vector2(tuple.Item1.X, tuple.Item1.Y));
                     ItemStock itemStock = new ItemStock(amount, itemToAdd);
-                    //_item_list.Add(itemStock);
                     _inventory_rectangles[index] = (tuple.Item1, itemStock);
                     if (sound)
                     {

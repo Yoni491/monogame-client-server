@@ -237,7 +237,10 @@ namespace GameClient
                     {
                         bullet._dmg = 0;
                     }
-                    AudioManager.PlaySound("Rifle");
+                    if(_bullet._shootingTimer < 0.1f)
+                        AudioManager.PlaySound("Rifle", 0.2f);
+                    else
+                        AudioManager.PlaySound("Rifle");
                     _bullets.Add(bullet);
                 }
             }

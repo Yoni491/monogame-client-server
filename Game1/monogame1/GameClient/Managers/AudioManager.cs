@@ -20,7 +20,7 @@ namespace GameClient
         {
             _contentManager = contentManager;
         }
-        static public void PlaySound(string text)
+        static public void PlaySound(string text,float volume = 1)
         {
             if(!_muteSound)
             {
@@ -29,7 +29,7 @@ namespace GameClient
                     _soundEffect.Play(0.05f, 0, 0);
                 else
                 {
-                    _soundEffect.Play();
+                    _soundEffect.Play(volume, 0, 0);
                 }
             }
             

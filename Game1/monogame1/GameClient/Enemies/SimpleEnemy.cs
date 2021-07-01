@@ -35,14 +35,18 @@ namespace GameClient
         private float _sniperStopTime = 1f;
         private float _movingBetweenShotsTime = 1f;
         private float _movingToPlayerMaxDistance = 1;
+        private float _summonTimer = 0;
         public int _dmgDoneForServer=0;
+        private int _summonEnemyID;
+        private List<SimpleEnemy> _summonedEnemies;
         
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
-        public SimpleEnemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager, int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun, PathFinder pathFinder, BulletReach bulletReach, int enemyNum = -1)
+        public SimpleEnemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager,
+            int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun = null, PathFinder pathFinder = null, BulletReach bulletReach = null, int enemyNum = -1, int summonEnemyID = -1)
         {
             _enemyId = enemyId;
             _animationManager = animationManager;
@@ -75,6 +79,8 @@ namespace GameClient
                 _enemyNum = _s_enemyNum++;
             else
                 _enemyNum = enemyNum;
+            _summonEnemyID = summonEnemyID;
+            _summonedEnemies = new List<SimpleEnemy>();
         }
         public void Update(GameTime gameTime)
         {
@@ -87,6 +93,21 @@ namespace GameClient
             MeleeCombatAlgorithm(gameTime);
 
             ShootingAlgorithm(gameTime);
+
+            SummonEnemies(gameTime);
+        }
+        public void SummonEnemies(GameTime gameTime)
+        {
+            if(_summonEnemyID!=-1)
+            {
+                _summonedEnemies.RemoveAll(enemy => enemy._destroy == true);
+                _summonTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
+                if (_summonTimer >= 2000 && _summonedEnemies.Count < 5)
+                {
+                    _summonTimer = 0;
+                    _summonedEnemies.Add(EnemyManager.AddEnemyAtPosition(_summonEnemyID, Position_Feet, true, false));
+                }
+            }
         }
         public void MeleeCombatAlgorithm(GameTime gameTime)
         {
@@ -239,6 +260,10 @@ namespace GameClient
                     {
                         PathFindingManager.RemovePathFinder(_pathFinder);
                         ItemManager.DropItemFromList(_items_drop_list, Position_Feet);
+                        foreach (var item in _summonedEnemies)
+                        {
+                            item.DealDamage(1000);
+                        }
                     }
                 }
             }
@@ -258,7 +283,8 @@ namespace GameClient
             if (_meleeWeapon != null)
                 meleeWeapon = _meleeWeapon.Copy(true, true, null);
             return new SimpleEnemy(_animationManager.Copy(), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall), bulletReach, enemyNum);
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall),
+                bulletReach, enemyNum,_summonEnemyID);
         }
         public void UpdatePacketDmg(Packet packet)
         {

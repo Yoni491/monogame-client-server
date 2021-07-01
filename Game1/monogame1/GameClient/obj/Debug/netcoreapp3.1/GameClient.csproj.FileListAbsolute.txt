@@ -322,3 +322,5 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClien
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Owin.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map14.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map15.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map16.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map17.tmx

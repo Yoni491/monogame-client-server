@@ -118,6 +118,12 @@
 #begin maps/map15.tmx
 /copy:maps/map15.tmx
 
+#begin maps/map16.tmx
+/copy:maps/map16.tmx
+
+#begin maps/map17.tmx
+/copy:maps/map17.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 

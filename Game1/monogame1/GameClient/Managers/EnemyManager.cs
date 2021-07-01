@@ -26,9 +26,9 @@ namespace GameClient
             //    _random_enemies_circle_timer = -200;
             //    //AddEnemiesRandomCircle();
             //}
-            foreach (var enemy in _enemies)
+            for (int i = 0; i < _enemies.Count; i++)
             {
-                 enemy.Update(gameTime);
+                _enemies[i].Update(gameTime);
             }
             if (!Game_Client._IsMultiplayer && !Game_Client._isServer)
                 _enemies.RemoveAll(enemy => enemy._destroy == true);
@@ -41,11 +41,12 @@ namespace GameClient
             }
 
         }
-        public static void AddEnemyAtPosition(int EnemyID,Vector2 position,bool useAstar,bool waitForDestroyedWall)
+        public static SimpleEnemy AddEnemyAtPosition(int EnemyID,Vector2 position,bool useAstar,bool waitForDestroyedWall)
         {
             SimpleEnemy enemy = _collectionManager.GetSimpleEnemyCopy(EnemyID, useAstar, waitForDestroyedWall);
             enemy.PositionFeetAt(position);
             _enemies.Add(enemy);
+            return enemy;
         }
         public SimpleEnemy AddEnemyFromServer(int enemyNum,int enemyId)
         {

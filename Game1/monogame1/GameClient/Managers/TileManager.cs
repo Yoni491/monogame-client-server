@@ -252,7 +252,10 @@ namespace GameClient
 
         static public float GetLayerDepth(float y)
         {
-            return (y / _graphicDevice.Viewport.Height * GraphicManager.ScreenScale.Y) + 0.1f;
+            float layer = (y / _graphicDevice.Viewport.Height * GraphicManager.ScreenScale.Y) + 0.1f;
+            if (layer > 1)
+                layer = 1;
+            return layer;
         }
         static public Coord GetCoordTile(Vector2 _position)
         {

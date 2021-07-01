@@ -53,7 +53,7 @@ namespace GameClient
                 _menuManager._showChooseCharacterMenu = false;
                 _game_Client._playerManager.ResetPlayer(characterNumbers[index]);
                 if (!Game_Client._IsMultiplayer)
-                    _game_Client._levelManager.LoadNewLevel(11);
+                    _game_Client._levelManager.LoadNewLevel(1);
             }
             if (_returnToMain.Update(gameTime))
             {

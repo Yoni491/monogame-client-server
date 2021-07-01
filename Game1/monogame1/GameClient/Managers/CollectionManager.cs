@@ -63,19 +63,19 @@ namespace GameClient
             _simple_enemies = new List<SimpleEnemy>();
 
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
-                _itemManager, 30, basicDrops, null, _guns[0], null,null));//M16 GID=137
+                _itemManager, 30, basicDrops, null, _guns[0]));//M16 GID=137
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
-                _itemManager, 10, basicDrops, GetMeleeWeaponCopy(0,true,true,null), null, null, null));//runner KNIFE GID=138
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 3, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[2], null, null));//RIFLE GID=139
+                _itemManager, 10, basicDrops, GetMeleeWeaponCopy(0,true,true,null), null));//runner KNIFE GID=138
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+                _itemManager, 20, basicDrops, null, _guns[2]));//RIFLE GID=139
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[1], null, null));//sniper GID=140
+                _itemManager, 20, basicDrops, null, _guns[1]));//sniper GID=140
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[3], null, null));//machine-gun GID=141
+                _itemManager, 20, basicDrops, null, _guns[3]));//machine-gun GID=141
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[4], null, null));//UZI GID=142
+                _itemManager, 20, basicDrops, null, _guns[4]));//UZI GID=142
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 3), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 400, keyDrop, null, _guns[1], null, null));//sniper Boss GID=143
+                _itemManager, 400, keyDrop, null, _guns[1],summonEnemyID:1));//sniper Boss GID=143
 
 
         }
@@ -109,7 +109,7 @@ namespace GameClient
             _items.Add(new Item(_contentManager.Load<Texture2D>("Weapons/5"), null,
                 id++, 0.7f, "Uzi", 0.05f, 1, false, false, false, _guns[4], 1));//rating 2
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 8, 6), null,//10,11 gold,key
-                id++, 1.5f, "Gold", 0.006f, 1, false, false, false, null, 1000));
+                id++, 1.5f, "Gold", 0.02f, 1, false, false, false, null, 1000));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 9), null,
                 id++, 2f, "Key", 1, 1, false, false, false, null, 1000));
 
@@ -123,7 +123,7 @@ namespace GameClient
             _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 5, 600));//Rifle
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 4, 400));//MachineGun
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 2, 400));//Uzi
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.015f, 1, 300));//Uzi
 
         }
         private void InitializeGuns()
@@ -188,11 +188,13 @@ namespace GameClient
 
             _massagesArray[12, 0] = "if you can't kill them, join them - Isaac Newton";
 
+            _massagesArray[16, 0] = "I think you deserve it";
         }
         private void InitializeChestArray()
         {
             _chestsArray[8, 0] = 6;
             _chestsArray[11, 0] = 9;
+            _chestsArray[16, 0] = 5;
         }
         private void InitializePlayerTextures()
         {

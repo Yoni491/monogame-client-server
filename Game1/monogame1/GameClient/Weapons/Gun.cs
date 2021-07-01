@@ -173,6 +173,8 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch,  float layer)
         {
+            if (layer > 1)
+                layer = 1;
             //GraphicManager.DrawRectangle(spriteBatch, Rectangle, layer);
             if (_swing_weapon)
                 DrawSwing(spriteBatch, layer);

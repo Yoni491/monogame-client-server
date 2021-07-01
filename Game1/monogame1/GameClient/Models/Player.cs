@@ -11,7 +11,7 @@ namespace GameClient
     {
         public Gun _gun;
         private MeleeWeapon _meleeWeapon;
-        private Input _input;
+        public Input _input;
         private Vector2 _velocity;
         public AnimationManager _animationManager;
         public HealthManager _health;
@@ -146,6 +146,18 @@ namespace GameClient
                         ItemManager._itemsToSend.Add(item._itemNum);
                     }
                 }
+            }
+            if(_input.MoveInventoryPointerRight())
+            {
+                _inventoryManager.MoveInventoryPointerRight();
+            }
+            if (_input.MoveInventoryPointerLeft())
+            {
+                _inventoryManager.MoveInventoryPointerLeft();
+            }
+            if (_input.ClickInventoryItemGamePad())
+            {
+                _inventoryManager.ClickInventoryItemGamePad();
             }
             _mouseIntersectsUI = false;
 

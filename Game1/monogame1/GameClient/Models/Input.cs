@@ -5,6 +5,7 @@ namespace GameClient
 {
     public class Input
     {
+        GamePadState _prevState;
         public Keys _down;
         public Keys _left;
         public Keys _right;
@@ -14,7 +15,7 @@ namespace GameClient
         public Vector2 _right_joystick_direction;
         public float _right_trigger;
         public float _left_trigger;
-        private bool _buttonA, _buttonB,_buttonX,_buttonY;
+        private bool _buttonA, _buttonB,_buttonX,_buttonY, _buttonRightShoulder, _buttonLeftShoulder;
 
         public bool _isGamePad;
 
@@ -56,7 +57,8 @@ namespace GameClient
                 }
                 if (capabilities.HasBButton)
                 {
-                    _buttonB = state.IsButtonDown(Buttons.B);
+                    if (!_prevState.IsButtonDown(Buttons.B))
+                        _buttonB = state.IsButtonDown(Buttons.B);
                 }
                 if (capabilities.HasXButton)
                 {
@@ -66,6 +68,17 @@ namespace GameClient
                 {
                     _buttonY = state.IsButtonDown(Buttons.Y);
                 }
+                if (capabilities.HasRightShoulderButton)
+                {
+                    if (!_prevState.IsButtonDown(Buttons.RightShoulder))
+                        _buttonRightShoulder = state.IsButtonDown(Buttons.RightShoulder);
+                }
+                if (capabilities.HasLeftShoulderButton)
+                {
+                    if (!_prevState.IsButtonDown(Buttons.LeftShoulder))
+                        _buttonLeftShoulder = state.IsButtonDown(Buttons.LeftShoulder);
+                }
+                _prevState = state;
             }
         }
         public void GetVelocity(ref Vector2 _velocity,float _speed)
@@ -153,6 +166,36 @@ namespace GameClient
             else if (_buttonX)
             {
                 _isGamePad = true;
+                return true;
+            }
+            return false;
+        }
+        public bool MoveInventoryPointerRight()
+        {
+            if (_buttonRightShoulder)
+            {
+                _isGamePad = true;
+                _buttonRightShoulder = false;
+                return true;
+            }
+            return false;
+        }
+        public bool MoveInventoryPointerLeft()
+        {
+            if (_buttonLeftShoulder)
+            {
+                _isGamePad = true;
+                _buttonLeftShoulder = false;
+                return true;
+            }
+            return false;
+        }
+        public bool ClickInventoryItemGamePad()
+        {
+            if (_buttonB)
+            {
+                _isGamePad = true;
+                _buttonB = false;
                 return true;
             }
             return false;

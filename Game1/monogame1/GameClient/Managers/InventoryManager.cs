@@ -10,7 +10,7 @@ namespace GameClient
     {
         ItemManager _itemManager;
         Player _player;
-        Texture2D _inventoryBlock;
+        Texture2D _inventoryBlockNormal, _inventoryBlockSelected;
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
         //public List<ItemStock> _item_list;
@@ -20,20 +20,11 @@ namespace GameClient
         int _itemBlockAmount = 8;
         MouseState _previousMouse, _currentMouse;
         public Item EquippedGun = null;
+        int _gamePadPointer = 0;
         public InventoryManager(GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
-            _inventoryBlock = new Texture2D(graphicsDevice, width, height);
-            Color[] data2 = new Color[width * height];
-            for (int i = 0; i < data2.Length; ++i)
-            {
-                if (i >= data2.Length - width || i <= width || i % width == 0 || (i + 1) % width == 0)
-                    data2[i] = Color.White;
-                else
-                    data2[i] = Color.SaddleBrown;
-            }
-            _inventoryBlock.SetData(data2);
-            //_item_list = new List<ItemStock>();
+            SetInventoryTextures();
             Vector2 fixedPosition = GetInventoryPosition();
             Rectangle Dest_rectangle;
             _inventory_rectangles = new (Rectangle, ItemStock)[_itemBlockAmount];
@@ -42,6 +33,30 @@ namespace GameClient
                 Dest_rectangle = new Rectangle((int)fixedPosition.X + width * i + i, (int)fixedPosition.Y, width, height);
                 _inventory_rectangles[i] = ((Dest_rectangle, null));
             }
+        }
+        public void SetInventoryTextures()
+        {
+            _inventoryBlockSelected = new Texture2D(_graphicsDevice, width, height);
+            Color[] data1 = new Color[width * height];
+            for (int i = 0; i < data1.Length; ++i)
+            {
+                if (i >= data1.Length - width || i <= width || i % width == 0 || (i + 1) % width == 0)
+                    data1[i] = Color.AntiqueWhite;
+                else
+                    data1[i] = Color.GreenYellow;
+            }
+            _inventoryBlockSelected.SetData(data1);
+
+            _inventoryBlockNormal = new Texture2D(_graphicsDevice, width, height);
+            Color[] data2 = new Color[width * height];
+            for (int i = 0; i < data2.Length; ++i)
+            {
+                if (i >= data2.Length - width || i <= width || i % width == 0 || (i + 1) % width == 0)
+                    data2[i] = Color.White;
+                else
+                    data2[i] = Color.SaddleBrown;
+            }
+            _inventoryBlockNormal.SetData(data2);
         }
         public Vector2 GetInventoryPosition()
         {
@@ -60,7 +75,14 @@ namespace GameClient
             Vector2 text_pos;
             for (int i = 0; i < 8; i++)
             {
-                spriteBatch.Draw(_inventoryBlock, _inventory_rectangles[i].Item1, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.98f);
+                if (_player._input._isGamePad && i == _gamePadPointer)
+                {
+                    spriteBatch.Draw(_inventoryBlockSelected, _inventory_rectangles[i].Item1, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.98f);
+                }
+                else
+                {
+                    spriteBatch.Draw(_inventoryBlockNormal, _inventory_rectangles[i].Item1, null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, 0.98f);
+                }
             }
             foreach (var tuple in _inventory_rectangles)
             {
@@ -239,6 +261,51 @@ namespace GameClient
                 }
             }
             return false;
+        }
+        public void MoveInventoryPointerRight()
+        {
+            _gamePadPointer++;
+            if(_gamePadPointer>=_itemBlockAmount)
+            {
+                _gamePadPointer = 0;
+            }
+        }
+        public void MoveInventoryPointerLeft()
+        {
+            _gamePadPointer--;
+            if (_gamePadPointer < 0)
+            {
+                _gamePadPointer = _itemBlockAmount - 1;
+            }
+        }
+        public void ClickInventoryItemGamePad()
+        {
+            if (_inventory_rectangles[_gamePadPointer].Item2 != null)
+            {
+                Gun gun = _inventory_rectangles[_gamePadPointer].Item2._item._gun;
+                if (gun != null)
+                {
+                    if (_player._gun != null)
+                        _player._gun._bullets.Clear();
+                    _player.EquipGun(gun);
+                    Item EquippedGunTemp = _inventory_rectangles[_gamePadPointer].Item2._item;
+                    _inventory_rectangles[_gamePadPointer].Item2 = null;
+                    if (EquippedGun != null)
+                        AddItemToInventory(EquippedGun, false);
+                    AudioManager.PlaySound("SwitchingWeapon");
+                    EquippedGun = EquippedGunTemp;
+                }
+                else if (_inventory_rectangles[_gamePadPointer].Item2._item._itemHealing > 0)
+                {
+                    AudioManager.PlaySound("UsingPotion");
+                    _player._health._health_left += _inventory_rectangles[_gamePadPointer].Item2._item._itemHealing;
+                    if (--_inventory_rectangles[_gamePadPointer].Item2._amount == 0)
+                    {
+                        _inventory_rectangles[_gamePadPointer].Item2 = null;
+                    }
+                }
+
+            }
         }
     }
 }

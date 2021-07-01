@@ -116,7 +116,7 @@ namespace GameClient
             _velocity = Vector2.Zero;
             _input.GetVelocity(ref _velocity, _speed);
             _input.GetLookingDirection(ref _looking_direction, _gun, _meleeWeapon);
-            if(_input.MeleeAttack())
+            if(_input.Shot())
             {
                 if (!_mouseIntersectsUI)
                 {
@@ -124,7 +124,7 @@ namespace GameClient
                         _gun.Shot();
                 }
             }
-            if(_input.Shot())
+            if(_input.MeleeAttack())
             {
                 if (_gun != null)
                     _gun.SwingWeapon();

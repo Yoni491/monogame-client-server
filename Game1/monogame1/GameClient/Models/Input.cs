@@ -13,6 +13,9 @@ namespace GameClient
         public Vector2 _left_joystick_direction;
         public Vector2 _right_joystick_direction;
         public float _right_trigger;
+        public float _left_trigger;
+        private bool _buttonA, _buttonB,_buttonX,_buttonY;
+
         public bool _isGamePad;
 
         GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
@@ -43,10 +46,25 @@ namespace GameClient
                 {
                     _right_trigger = state.Triggers.Right;
                 }
-
+                if (capabilities.HasLeftTrigger)
+                {
+                    _left_trigger = state.Triggers.Left;
+                }
                 if (capabilities.HasAButton)
                 {
-                    state.IsButtonDown(Buttons.A);
+                    _buttonA = state.IsButtonDown(Buttons.A);
+                }
+                if (capabilities.HasBButton)
+                {
+                    _buttonB = state.IsButtonDown(Buttons.B);
+                }
+                if (capabilities.HasXButton)
+                {
+                    _buttonX = state.IsButtonDown(Buttons.X);
+                }
+                if (capabilities.HasYButton)
+                {
+                    _buttonY = state.IsButtonDown(Buttons.Y);
                 }
             }
         }
@@ -100,23 +118,28 @@ namespace GameClient
         }
         public bool MeleeAttack()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
+                return true;
+            }
+            else if (_buttonA)
+            {
+                _isGamePad = true;
                 return true;
             }
             return false;
         }
         public bool Shot()
         {
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 _isGamePad = false;
                 return true;
             }
             else if(_right_trigger > 0)
             {
-                _isGamePad = false;
+                _isGamePad = true;
                 return true;
             }
             return false;
@@ -125,6 +148,11 @@ namespace GameClient
         {
             if (Keyboard.GetState().IsKeyDown(_pick))
             {
+                return true;
+            }
+            else if (_buttonX)
+            {
+                _isGamePad = true;
                 return true;
             }
             return false;

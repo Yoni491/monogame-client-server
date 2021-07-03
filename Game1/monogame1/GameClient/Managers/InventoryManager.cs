@@ -276,6 +276,23 @@ namespace GameClient
                 _gamePadPointer = _itemBlockAmount - 1;
             }
         }
+        public void DropInventoryItemGamePad()
+        {
+            if (_inventory_rectangles[_gamePadPointer].Item2 != null)
+            {
+
+                if (_inventory_rectangles[_gamePadPointer].Item2._amount > 0)
+                {
+                    AudioManager.PlaySound("DroppingItem");
+                    ItemManager.DropItem(_inventory_rectangles[_gamePadPointer].Item2._item._itemId, _player.Position_Feet, true);
+                    if (--_inventory_rectangles[_gamePadPointer].Item2._amount == 0)
+                    {
+                        _inventory_rectangles[_gamePadPointer].Item2 = null;
+                    }
+                }
+
+            }
+        }
         public void ClickInventoryItemGamePad()
         {
             if (_inventory_rectangles[_gamePadPointer].Item2 != null)

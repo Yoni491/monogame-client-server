@@ -159,7 +159,10 @@ namespace GameClient
             {
                 _inventoryManager.ClickInventoryItemGamePad();
             }
-
+            if (_input.DropInventoryItemGamePad())
+            {
+                _inventoryManager.DropInventoryItemGamePad();
+            }
             _mouseIntersectsUI = false;
 
         }

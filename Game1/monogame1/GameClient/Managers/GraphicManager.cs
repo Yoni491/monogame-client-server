@@ -52,7 +52,7 @@ namespace GameClient
         }
         static public SpriteFont GetBasicFont()
         {
-            SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/basic");
+            SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/basic3");
             return font;
         }
         static public void ChangeToFullScreen(bool fullScreen)

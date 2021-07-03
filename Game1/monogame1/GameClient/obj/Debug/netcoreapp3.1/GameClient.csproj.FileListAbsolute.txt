@@ -321,3 +321,7 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClien
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map15.tmx
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map16.tmx
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map17.tmx
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\ComicSans.xnb
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comicSans_size_20.xnb
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic2.xnb
+C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic3.xnb

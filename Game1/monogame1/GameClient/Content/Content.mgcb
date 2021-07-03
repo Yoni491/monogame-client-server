@@ -58,6 +58,27 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic.spritefont
 
+#begin Fonts/basic.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/basic.spritefont
+
+#begin Fonts/basic2.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/basic2.spritefont
+
+#begin Fonts/basic3.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/basic3.spritefont
+
 #begin Images/backgroundUnboxingrave.png
 /importer:TextureImporter
 /processor:TextureProcessor

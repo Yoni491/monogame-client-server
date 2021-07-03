@@ -8,6 +8,8 @@
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/etc/lineSprite.png</File>
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/etc/settings.png</File>
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic2.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic3.spritefont</File>
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/backgroundUnboxingrave.png</File>
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/settings_background.jpg</File>
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/maps/Dungeon_Tileset.png</File>
@@ -63,6 +65,8 @@
     <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/swords-sheet.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

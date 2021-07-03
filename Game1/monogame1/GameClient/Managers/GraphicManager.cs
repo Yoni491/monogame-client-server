@@ -21,12 +21,18 @@ namespace GameClient
         public static int screenWidth;
         public static Vector2 _ScreenMiddle;
         public static Texture2D _deadPlayerTexture;
+        public static int _maxScreenHeight;
+        public static int _maxScreenWidth;
+
         public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, GraphicsDeviceManager graphics)
         {
             _graphicsDevice = graphicsDevice;
             _contentManager = contentManager;
             _font = contentManager.Load<SpriteFont>("Fonts/basic");
             _graphics = graphics;
+            _maxScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _maxScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
             ScreenScale = new Vector2((float)1280 / 1920, (float)720 / 1080);
             screenHeight = 720;
             screenWidth = 1280;
@@ -53,9 +59,9 @@ namespace GameClient
         {
             if (fullScreen)
             {
-                ChangeScreenSize(1920, 1080);
-                _graphics.PreferredBackBufferWidth = 1920;  // set this value to the desired width of your window
-                _graphics.PreferredBackBufferHeight = 1080;   // set this value to the desired height of your window
+                ChangeScreenSize(_maxScreenWidth, _maxScreenHeight);
+                _graphics.PreferredBackBufferWidth = _maxScreenWidth;  // set this value to the desired width of your window
+                _graphics.PreferredBackBufferHeight = _maxScreenHeight;   // set this value to the desired height of your window
                 _graphics.ApplyChanges();
                 _graphics.IsFullScreen = true;
                 _graphics.ApplyChanges();

@@ -13,6 +13,7 @@ namespace GameClient
         ContentManager _contentManager;
         public static List<Gun> _guns;
         public static string[,] _massagesArray;
+        public static string[,] _massagesArrayGamePad;
         public static int[,] _chestsArray;
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
@@ -38,6 +39,7 @@ namespace GameClient
             _playerManager = playerManager;
             _itemManager = itemManager;
             _massagesArray = new string[30, 10];
+            _massagesArrayGamePad = new string[30, 10];
             _chestsArray = new int[30, 10];
             InitializeBullets();
             InitializeGuns();
@@ -144,11 +146,17 @@ namespace GameClient
         private void InitializeMassagesArray()
         {
             _massagesArray[1, 0] = "Welcome to UNBOXINGRAVE\nUse 'W' 'A' 'S' 'D' keys to move around";
-            _massagesArray[1, 1] = "Use left mouse button to shot";
-            _massagesArray[1, 2] = "Use right mouse button to melee attack";
-            _massagesArray[1, 3] = "Use spacebar to pick items near you";
+            _massagesArray[1, 1] = "Press left mouse button to shot";
+            _massagesArray[1, 2] = "Press right mouse button to melee attack";
+            _massagesArray[1, 3] = "Press spacebar to pick items near you";
             _massagesArray[1, 4] = "Your inventory is at the bottom of the screen, click on inventory items to use them";
             _massagesArray[1, 5] = "Move to the right side of the map to progress";
+
+            _massagesArrayGamePad[1,0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
+            _massagesArrayGamePad[1, 1] = "Press R2 to shot";
+            _massagesArrayGamePad[1, 2] = "Press [] to melee attack";
+            _massagesArrayGamePad[1, 3] = "Press O to pick items near you";
+            _massagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen, press R1 / L1 to choose an item and press X to use it";
 
             _massagesArray[2, 0] = "use melee attack or shooting to destroy the boxes";
             _massagesArray[2, 1] = "boxes may drop items for you to use";
@@ -234,9 +242,10 @@ namespace GameClient
         {
             return _playerAnimationManager[id - 1].Copy();
         }
-        static public string GetMassageFromMassageArray(int level, int massageNum)
+        static public Tuple<string,string> GetMassageFromMassageArray(int level, int massageNum)
         {
-            return _massagesArray[level, massageNum];
+            
+            return new Tuple<string,string>(_massagesArray[level, massageNum], _massagesArrayGamePad[level, massageNum]);
         }
         static public int GetItemIDFromChestArray(int level, int chestNum)
         {

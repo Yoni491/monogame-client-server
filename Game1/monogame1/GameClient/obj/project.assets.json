@@ -411,26 +411,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yoni2\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\yonin\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
+      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
       "projectName": "GameClient",
-      "projectPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
-      "packagesPath": "C:\\Users\\yoni2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\GameClient\\obj\\",
+      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
+      "packagesPath": "C:\\Users\\yonin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\GameClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\yoni2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\yonin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -445,8 +444,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj": {
-              "projectPath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj"
+            "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj": {
+              "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\TiledSharp\\TiledSharp.csproj"
             }
           }
         }
@@ -492,12 +491,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.11, 3.1.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

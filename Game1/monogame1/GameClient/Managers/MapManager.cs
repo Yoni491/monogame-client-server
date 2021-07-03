@@ -80,7 +80,7 @@ namespace GameClient
         {
             foreach (var item in _massageBoards)
             {
-                item.Draw(spriteBatch);
+                item.Draw(spriteBatch,_player._input._isGamePad);
             }
         }
         public static void ResetMap()

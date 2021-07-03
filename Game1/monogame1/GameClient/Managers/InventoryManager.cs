@@ -42,7 +42,7 @@ namespace GameClient
                 if (i >= data1.Length - width || i <= width || i % width == 0 || (i + 1) % width == 0)
                     data1[i] = Color.AntiqueWhite;
                 else
-                    data1[i] = Color.GreenYellow;
+                    data1[i] = Color.Blue;
             }
             _inventoryBlockSelected.SetData(data1);
 

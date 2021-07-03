@@ -150,15 +150,15 @@ namespace GameClient
             _massagesArray[1, 4] = "Your inventory is at the bottom of the screen, click on inventory items to use them";
             _massagesArray[1, 5] = "Move to the right side of the map to progress";
 
-            _massagesArray[2, 0] = "use melee attack or shooting to destroy the boxes";
-            _massagesArray[2, 1] = "boxes may drop items for you to use";
-            _massagesArray[2, 2] = "pick up the key using spacebar";
-            _massagesArray[2, 3] = "open the door with melee attack";
-            _massagesArray[2, 4] = "good job";
+            _massagesArray[2, 0] = "Use melee attack or shooting to destroy the boxes";
+            _massagesArray[2, 1] = "Boxes may drop items for you to use";
+            _massagesArray[2, 2] = "Pick up the key using spacebar";
+            _massagesArray[2, 3] = "Open the door with melee attack";
+            _massagesArray[2, 4] = "Good job";
 
             _massagesArray[3, 0] = "WARNING!!\nenemies attack when they can reach you";
-            _massagesArray[3, 1] = "once your destroy the boxes prepare to fight!";
-            _massagesArray[3, 2] = "well done";
+            _massagesArray[3, 1] = "Once you destroy the boxes, prepare to fight!";
+            _massagesArray[3, 2] = "Well done";
 
             _massagesArray[4, 0] = "Warning! graves spawn enemies when you are getting closer to them!";
             _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
@@ -167,7 +167,7 @@ namespace GameClient
             _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
             _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
 
-            _massagesArray[6, 0] = "Watch out from the sniper";
+            _massagesArray[6, 0] = "Beware of the sniper";
 
             _massagesArray[7, 0] = "This guys looks scary.. watch out";
 
@@ -184,11 +184,11 @@ namespace GameClient
             _massagesArray[10, 5] = "YOU ARE SPEED!!!";
 
             _massagesArray[11, 0] = "It's christmas again? your present is in the chest!";
-            _massagesArray[11, 1] = "say this out loud: 'say hello to my little friend'";
+            _massagesArray[11, 1] = "Say this out loud: 'say hello to my little friend'";
 
-            _massagesArray[12, 0] = "if you can't kill them, join them - Isaac Newton";
+            _massagesArray[12, 0] = "If you can't kill them, join them - Isaac Newton";
 
-            _massagesArray[16, 0] = "I think you deserve it";
+            _massagesArray[16, 0] = "You won't believe what this chest has! (Not a click bait)";
         }
         private void InitializeChestArray()
         {

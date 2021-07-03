@@ -42,7 +42,7 @@ namespace GameClient
                 if (i >= data1.Length - width || i <= width || i % width == 0 || (i + 1) % width == 0)
                     data1[i] = Color.AntiqueWhite;
                 else
-                    data1[i] = Color.GreenYellow;
+                    data1[i] = Color.Blue;
             }
             _inventoryBlockSelected.SetData(data1);
 
@@ -274,6 +274,23 @@ namespace GameClient
             if (_gamePadPointer < 0)
             {
                 _gamePadPointer = _itemBlockAmount - 1;
+            }
+        }
+        public void DropInventoryItemGamePad()
+        {
+            if (_inventory_rectangles[_gamePadPointer].Item2 != null)
+            {
+
+                if (_inventory_rectangles[_gamePadPointer].Item2._amount > 0)
+                {
+                    AudioManager.PlaySound("DroppingItem");
+                    ItemManager.DropItem(_inventory_rectangles[_gamePadPointer].Item2._item._itemId, _player.Position_Feet, true);
+                    if (--_inventory_rectangles[_gamePadPointer].Item2._amount == 0)
+                    {
+                        _inventory_rectangles[_gamePadPointer].Item2 = null;
+                    }
+                }
+
             }
         }
         public void ClickInventoryItemGamePad()

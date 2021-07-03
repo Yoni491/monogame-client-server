@@ -53,7 +53,8 @@ namespace GameClient
                 }
                 if (capabilities.HasAButton)
                 {
-                    _buttonA = state.IsButtonDown(Buttons.A);
+                    if (!_prevState.IsButtonDown(Buttons.A))
+                        _buttonA = state.IsButtonDown(Buttons.A);
                 }
                 if (capabilities.HasBButton)
                 {
@@ -137,7 +138,7 @@ namespace GameClient
                 _isGamePad = false;
                 return true;
             }
-            else if (_buttonA)
+            else if (_buttonX)
             {
                 _isGamePad = true;
                 return true;
@@ -193,10 +194,10 @@ namespace GameClient
         }
         public bool ClickInventoryItemGamePad()
         {
-            if (_buttonB)
+            if (_buttonA)
             {
                 _isGamePad = true;
-                _buttonB = false;
+                _buttonA = false;
                 return true;
             }
             return false;

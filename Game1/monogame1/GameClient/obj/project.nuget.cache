@@ -1,16 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "Tb495DGDFPEGHcst+uyGQm4mjf4v1E9heupEmOTePVr8jJANBgJi0NFcvykywoExUuLXtr2Ou+rbfLEFBhf+hw==",
+  "dgSpecHash": "fo/OBRCaLu1h+SmDK5GNBn7ePBSr9ea3k2QsBCh65j3gPHX1aphtfBStXg2zQ7voFTV1bHp3TjPV0Pyux6x1wg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
+  "projectFilePath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\monogame1\\GameClient\\GameClient.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.graphics\\3.8.0\\monogame.extended.graphics.3.8.0.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.tiled\\3.8.0\\monogame.extended.tiled.3.8.0.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
-    "C:\\Users\\yoni2\\.nuget\\packages\\nez.pipelineimporter\\0.9.5\\nez.pipelineimporter.0.9.5.nupkg.sha512"
+    "C:\\Users\\yonin\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\monogame.extended.graphics\\3.8.0\\monogame.extended.graphics.3.8.0.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\monogame.extended.tiled\\3.8.0\\monogame.extended.tiled.3.8.0.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\nez.pipelineimporter\\0.9.5\\nez.pipelineimporter.0.9.5.nupkg.sha512",
+    "C:\\Users\\yonin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.11\\microsoft.netcore.app.host.win-x64.3.1.11.nupkg.sha512"
   ],
   "logs": []
 }

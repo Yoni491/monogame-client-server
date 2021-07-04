@@ -4,69 +4,69 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/etc/bullet.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/etc/lineSprite.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/etc/settings.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_12.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_16.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_22.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/comic_16.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/comic_22.spritefont</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Images/backgroundUnboxingrave.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Images/GamePadKeys.jpg</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Images/‏‏‫KeyboardMouseKeys.jpg</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Images/settings_background.jpg</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/maps/Dungeon_Tileset.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/maps/tf_A5_ashlands_1.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/maps/tf_B_ashlands_1.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/1.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/10.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/11.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/12.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/13.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/14.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/15.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/16.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/17.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/18.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/19.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/2.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/20.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/21.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/22.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/23.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/24.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/25.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/3.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/4.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/5.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/6.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/7.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/8.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/9.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/resources/Dungeon_Tileset.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_basic.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_outlined.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DestroyBox.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DroppingItem.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/GettingHit.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/PickingItem.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Rifle.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Sniper.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/1.mp3</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/2.mp3</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/3.mp3</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwingWeapon.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwitchingWeapon.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/UsingPotion.wav</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/tiles/tf_A2_ashlands_1.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Towers/AttackTower.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/1.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/2.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/3.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/4.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/5.png</File>
-    <File>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/swords-sheet.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/etc/bullet.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/etc/lineSprite.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/etc/settings.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_12.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_16.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic_22.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/comic_16.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/comic_22.spritefont</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/backgroundUnboxingrave.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/GamePadKeys.jpg</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/‏‏‫KeyboardMouseKeys.jpg</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Images/settings_background.jpg</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/maps/Dungeon_Tileset.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/maps/tf_A5_ashlands_1.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/maps/tf_B_ashlands_1.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/1.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/10.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/11.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/12.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/13.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/14.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/15.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/16.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/17.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/18.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/19.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/2.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/20.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/21.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/22.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/23.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/24.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/25.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/3.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/4.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/5.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/6.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/7.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/8.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Patreon sprites 1/9.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/resources/Dungeon_Tileset.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_basic.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/resources/resources_outlined.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DestroyBox.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/DroppingItem.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/GettingHit.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/PickingItem.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Rifle.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Sniper.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/1.mp3</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/2.mp3</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/Songs/3.mp3</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwingWeapon.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/SwitchingWeapon.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Sound/UsingPotion.wav</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/tiles/tf_A2_ashlands_1.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Towers/AttackTower.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/1.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/2.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/3.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/4.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/5.png</File>
+    <File>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Weapons/swords-sheet.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

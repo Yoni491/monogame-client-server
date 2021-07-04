@@ -325,3 +325,13 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClien
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comicSans_size_20.xnb
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic2.xnb
 C:\Users\yonin\Documents\GitHub\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic3.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\ComicSans.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comicSans_size_20.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic2.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic3.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic1.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic_16.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic_22.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comic_16.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comic_22.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic_12.xnb

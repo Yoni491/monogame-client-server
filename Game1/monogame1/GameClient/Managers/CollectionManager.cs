@@ -154,19 +154,19 @@ namespace GameClient
 
             _massagesArrayGamePad[1, 0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
             _massagesArrayGamePad[1, 1] = "Press R2 to shot, Use the right jotstick to aim";
-            _massagesArrayGamePad[1, 2] = "Press square to melee attack";
+            _massagesArrayGamePad[1, 2] = "Press square to use melee attack";
             _massagesArrayGamePad[1, 3] = "Press O to pick items near you";
-            _massagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen, press R1 / L1 to choose an item and press X to use it";
+            _massagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen,\npress R1 / L1 to choose an item and press X to use it";
 
-            _massagesArray[2, 0] = "use melee attack or shooting to destroy the boxes";
-            _massagesArray[2, 1] = "boxes may drop items for you to use";
-            _massagesArray[2, 2] = "pick up the key using spacebar";
-            _massagesArray[2, 3] = "open the door with melee attack";
-            _massagesArray[2, 4] = "good job";
+            _massagesArray[2, 0] = "Use melee attack or shooting to destroy the boxes";
+            _massagesArray[2, 1] = "Boxes may drop items for you to use";
+            _massagesArray[2, 2] = "Pick up the key using spacebar";
+            _massagesArray[2, 3] = "Open the door with melee attack";
+            _massagesArray[2, 4] = "Good job";
 
-            _massagesArray[3, 0] = "WARNING!!\nenemies attack when they can reach you";
-            _massagesArray[3, 1] = "once your destroy the boxes prepare to fight!";
-            _massagesArray[3, 2] = "well done";
+            _massagesArray[3, 0] = "WARNING!!\nEnemies attack when they can reach you";
+            _massagesArray[3, 1] = "Once your destroy the boxes prepare to fight!";
+            _massagesArray[3, 2] = "Well done";
 
             _massagesArray[4, 0] = "Warning! graves spawn enemies when you are getting closer to them!";
             _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
@@ -175,14 +175,14 @@ namespace GameClient
             _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
             _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
 
-            _massagesArray[6, 0] = "Watch out from the sniper";
+            _massagesArray[6, 0] = "Beware of the sniper";
 
             _massagesArray[7, 0] = "This guys looks scary.. watch out";
 
             _massagesArray[8, 0] = "It's christmas! your present is in the chest!";
             _massagesArray[8, 1] = "This weapon is basically cheating, use it wisely";
 
-            _massagesArray[9, 0] = "The sniper is probably not so good here";
+            _massagesArray[9, 0] = "Those enemies are coming to you fast, be ready";
 
             _massagesArray[10, 0] = "It's better to avoid some fights";
             _massagesArray[10, 1] = "RUN!!";
@@ -192,11 +192,11 @@ namespace GameClient
             _massagesArray[10, 5] = "YOU ARE SPEED!!!";
 
             _massagesArray[11, 0] = "It's christmas again? your present is in the chest!";
-            _massagesArray[11, 1] = "say this out loud: 'say hello to my little friend'";
+            _massagesArray[11, 1] = "Spread the love";
 
-            _massagesArray[12, 0] = "if you can't kill them, join them - Isaac Newton";
+            _massagesArray[12, 0] = "I shot a man with a paintball gun... just to watch him dye.";
 
-            _massagesArray[16, 0] = "I think you deserve it";
+            _massagesArray[16, 0] = "You were made for this!";
         }
         private void InitializeChestArray()
         {

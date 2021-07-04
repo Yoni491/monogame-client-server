@@ -40,6 +40,8 @@ namespace GameClient
             screenWidthScaled = ScreenScale.X * graphicsDevice.Viewport.Width;
             _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
             _deadPlayerTexture = GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 3);
+            Button._font = GetBasicFont("basic_16");
+            InventoryManager._font = GetBasicFont("basic_12");
         }
         public void Update(GameTime gameTime)
         {
@@ -50,9 +52,9 @@ namespace GameClient
                 Game_Client.ResetGraphics();
             }
         }
-        static public SpriteFont GetBasicFont()
+        static public SpriteFont GetBasicFont(string fontName)
         {
-            SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/basic3");
+            SpriteFont font = _contentManager.Load<SpriteFont>("Fonts/" + fontName);
             return font;
         }
         static public void ChangeToFullScreen(bool fullScreen)

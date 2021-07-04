@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic3.spritefont</SourceFile>
-  <SourceTime>2021-07-03T23:20:51.3507188+03:00</SourceTime>
-  <DestFile>C:/Users/yonin/Documents/GitHub/monogame-client-server/Game1/monogame1/GameClient/Content/bin/DesktopGL/Content/Fonts/basic3.xnb</DestFile>
-  <DestTime>2021-07-03T23:20:54.879731+03:00</DestTime>
+  <SourceFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/Fonts/basic3.spritefont</SourceFile>
+  <SourceTime>2021-07-04T15:27:06.672211+03:00</SourceTime>
+  <DestFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/Game1/monogame1/GameClient/Content/bin/DesktopGL/Content/Fonts/basic3.xnb</DestFile>
+  <DestTime>2021-07-04T15:29:11.0096164+03:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

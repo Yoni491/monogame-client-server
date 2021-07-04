@@ -13,6 +13,7 @@ namespace GameClient
         Texture2D _inventoryBlockNormal, _inventoryBlockSelected;
         GraphicsDevice _graphicsDevice;
         Vector2 _position;
+        public static SpriteFont _font;
         public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
@@ -94,7 +95,7 @@ namespace GameClient
                             text_pos = new Vector2(tuple.Item1.X, tuple.Item1.Y) + new Vector2(width - 19, height - 17);
                         else
                             text_pos = new Vector2(tuple.Item1.X, tuple.Item1.Y) + new Vector2(width - 9, height - 17);
-                        spriteBatch.DrawString(GraphicManager._font, tuple.Item2._amount.ToString(), text_pos, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.991f);
+                        spriteBatch.DrawString(_font, tuple.Item2._amount.ToString(), text_pos, Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, 0.991f);
                     }
                 }
             }

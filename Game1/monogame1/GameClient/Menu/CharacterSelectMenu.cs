@@ -21,10 +21,10 @@ namespace GameClient
         {
 
             _buttonPosition = new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);
-            _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(115,90), Color.Green, Color.Gray, ">");
-            _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), GraphicManager.GetBasicFont(), _buttonPosition +new Vector2(-5,90), Color.Green, Color.Gray, "<");
-            _startGame = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(-70,200), Color.Green, Color.Gray, "StartGame");
-            _returnToMain = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), GraphicManager.GetBasicFont(), _buttonPosition + new Vector2(-70, 300), Color.Green, Color.Gray, "Return to main menu");
+            _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition + new Vector2(115,90), Color.Green, Color.Gray, ">");
+            _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition +new Vector2(-5,90), Color.Green, Color.Gray, "<");
+            _startGame = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), _buttonPosition + new Vector2(-70,200), Color.Green, Color.Gray, "StartGame");
+            _returnToMain = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), _buttonPosition + new Vector2(-70, 300), Color.Green, Color.Gray, "Return to main menu");
             _graphicsDevice = graphicsDevice;
             _game_Client = game_Client;
             _menuManager = menuManager;

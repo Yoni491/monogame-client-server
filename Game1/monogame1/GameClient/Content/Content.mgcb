@@ -51,33 +51,40 @@
 /processorParam:TextureFormat=Color
 /build:etc/settings.png
 
-#begin Fonts/basic.spritefont
+#begin Fonts/basic_12.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/basic.spritefont
+/build:Fonts/basic_12.spritefont
 
-#begin Fonts/basic.spritefont
+#begin Fonts/basic_16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/basic.spritefont
+/build:Fonts/basic_16.spritefont
 
-#begin Fonts/basic2.spritefont
+#begin Fonts/basic_22.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/basic2.spritefont
+/build:Fonts/basic_22.spritefont
 
-#begin Fonts/basic3.spritefont
+#begin Fonts/comic_16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/basic3.spritefont
+/build:Fonts/comic_16.spritefont
+
+#begin Fonts/comic_22.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/comic_22.spritefont
 
 #begin Images/backgroundUnboxingrave.png
 /importer:TextureImporter

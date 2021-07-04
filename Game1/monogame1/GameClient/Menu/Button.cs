@@ -12,7 +12,7 @@ namespace GameClient
     public class Button
     {
         Texture2D _texture;
-        SpriteFont _font;
+        public static SpriteFont _font;
         Rectangle _rectangle;
         Vector2 _position;
         string _text;
@@ -22,10 +22,9 @@ namespace GameClient
 
         public void Text(string text) { _text = text; }
 
-        public Button(Texture2D texture, SpriteFont font,Vector2 position,Color normal,Color hover,string text)
+        public Button(Texture2D texture,Vector2 position,Color normal,Color hover,string text)
         {
             _texture = texture;
-            _font = font;
             _position = position;
             _normal = normal;
             _hover = hover;

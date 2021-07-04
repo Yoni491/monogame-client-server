@@ -105,7 +105,7 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch)
         {
             if(_destroyIn3 != 0)
-                spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
+                spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1.7f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void UpdatePacketShort(Packet packet)
         {

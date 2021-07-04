@@ -17,7 +17,7 @@ namespace GameClient
         CharacterSelectMenu _characterSelectMenu;
         MultiplayerMenu _multiplayerMenu;
         SelectSaveFileScreen _SelectSaveFileScreen;
-        public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu;
+        public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu,_showHowToPlay;
         public static bool _connected;
         public MainMenuManager()
         {
@@ -57,7 +57,6 @@ namespace GameClient
             {
                 if (_singlePlayer.Update(gameTime))
                 {
-                    //_game_client._inMenu = false;
                     _showSelectSaveFileMenu = true;
                 }
                 if (_multiPlayerButton.Update(gameTime))
@@ -66,15 +65,15 @@ namespace GameClient
                 }
                 if (_howToPlay.Update(gameTime))
                 {
-                    //Game_Client._inMenu = false;
+                    _showHowToPlay = true;
                 }
                 if (_highScores.Update(gameTime))
                 {
-                    //Game_Client._inMenu = false;
+
                 }
                 if (_exit.Update(gameTime))
                 {
-                    //Game_Client._inMenu = false;
+
                 }
             }
         }

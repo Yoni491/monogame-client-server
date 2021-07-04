@@ -98,6 +98,30 @@
 /processorParam:TextureFormat=Color
 /build:Images/backgroundUnboxingrave.png
 
+#begin Images/GamePadKeys.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/GamePadKeys.jpg
+
+#begin Images/‏‏‫KeyboardMouseKeys.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/‏‏‫KeyboardMouseKeys.jpg
+
 #begin Images/settings_background.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

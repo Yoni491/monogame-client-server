@@ -170,7 +170,10 @@ namespace GameClient
 
             _massagesArray[4, 0] = "Warning! graves spawn enemies when you are getting closer to them!";
             _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
-            _massagesArray[4, 2] = "Watch out from those boxes.. something could be behind them";
+            _massagesArray[4, 2] = "Click on an item from the inventory to use";
+            _massagesArray[4, 3] = "Watch out from those boxes.. something could be behind them";
+
+            _massagesArrayGamePad[4, 2] = "To use an item press R1 and L1 to select it,\npress X to use it";
 
             _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
             _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
@@ -180,9 +183,12 @@ namespace GameClient
             _massagesArray[7, 0] = "This guys looks scary.. watch out";
 
             _massagesArray[8, 0] = "It's christmas! your present is in the chest!";
-            _massagesArray[8, 1] = "This weapon is basically cheating, use it wisely";
+            _massagesArray[8, 1] = "To equip a weapon click on it on the inventory";
+            _massagesArray[8, 2] = "This weapon is basically cheating, use it wisely";
 
-            _massagesArray[9, 0] = "Those enemies are coming to you fast, be ready";
+            _massagesArrayGamePad[8, 1] = "To equip a weapon press R1 and L1 to select it,\npress X to equip it";
+
+            _massagesArray[9, 0] = "Those enemies are coming fast, be ready.";
 
             _massagesArray[10, 0] = "It's better to avoid some fights";
             _massagesArray[10, 1] = "RUN!!";

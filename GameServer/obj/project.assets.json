@@ -383,11 +383,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameServer\\GameServer.csproj",
+      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameServer\\GameServer.csproj",
       "projectName": "GameServer",
-      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameServer\\GameServer.csproj",
+      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameServer\\GameServer.csproj",
       "packagesPath": "C:\\Users\\yonin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameServer\\obj\\",
+      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -409,8 +409,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\GameClient.csproj": {
-              "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\GameClient.csproj"
+            "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\GameClient.csproj": {
+              "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\GameClient.csproj"
             }
           }
         }

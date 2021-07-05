@@ -17,6 +17,7 @@ namespace GameClient
         CharacterSelectMenu _characterSelectMenu;
         MultiplayerMenu _multiplayerMenu;
         SelectSaveFileScreen _SelectSaveFileScreen;
+        HowToPlayScreen _howToPlayScreen;
         public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu,_showHowToPlay;
         public static bool _connected;
         public MainMenuManager()
@@ -28,6 +29,7 @@ namespace GameClient
             _multiplayerMenu = new MultiplayerMenu(graphicsDevice, game_client, this);
             _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client, this);
             _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager,game_client);
+            _howToPlayScreen = new HowToPlayScreen(graphicsDevice, this, progressManager, game_client);
             _graphicsDevice = graphicsDevice;
             _game_client = game_client;
             _menuBackgroundImage = GraphicManager.getImage("backgroundUnboxingrave");
@@ -52,6 +54,10 @@ namespace GameClient
             else if(_showSelectSaveFileMenu)
             {
                 _SelectSaveFileScreen.Update(gameTime);
+            }
+            else if(_showHowToPlay)
+            {
+                _howToPlayScreen.Update(gameTime);
             }
             else
             {
@@ -93,6 +99,10 @@ namespace GameClient
             {
                 _SelectSaveFileScreen.Draw(spriteBatch);
             }
+            else if (_showHowToPlay)
+            {
+                _howToPlayScreen.Draw(spriteBatch);
+            }
             else
             {
                 _singlePlayer.Draw(spriteBatch);
@@ -107,6 +117,7 @@ namespace GameClient
             _characterSelectMenu.ResetGraphics();
             _multiplayerMenu.ResetGraphics();
             _SelectSaveFileScreen.ResetGraphics();
+            _howToPlayScreen.ResetGraphics();
             _buttonPosition = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2 - 120), _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
             _singlePlayer.ResetGraphics(_buttonPosition);
             _multiPlayerButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));

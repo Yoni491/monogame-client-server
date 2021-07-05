@@ -13,40 +13,60 @@ namespace GameClient
         private GraphicsDevice _graphicsDevice;
         private MainMenuManager _menuManager;
         int _buttonHeight = 60;
-        int _buttonWeight = 250;
+        int _buttonWeight = 300;
         Game_Client _gameClient;
         ProgressManager _progressManager;
+        Texture2D _keyboardMouse, _gamePad;
+        bool _showKeyBoardKeys = true;
+        Rectangle _keysRectangle;
 
         public HowToPlayScreen(GraphicsDevice graphicsDevice, MainMenuManager menuManager, ProgressManager progressManager, Game_Client gameClient)
         {
             _gameClient = gameClient;
             _graphicsDevice = graphicsDevice;
             _progressManager = progressManager;
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
             _keyBoardControllerKeys = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition, Color.Green, Color.Gray, "Show controller keys");
             _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Return to main menu");
             _menuManager = menuManager;
+            _keyboardMouse = GraphicManager.getImage("‏‏‫KeyboardMouseKeys");
+            _gamePad = GraphicManager.getImage("GamePadKeys");
+            _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height /4f), 800, 500);
         }
         public void Update(GameTime gameTime)
         {
             if (_keyBoardControllerKeys.Update(gameTime))
             {
-                _menuManager._showChooseCharacterMenu = true;
-                _menuManager._showSelectSaveFileMenu = false;
+                _showKeyBoardKeys = !_showKeyBoardKeys;
+                if(_showKeyBoardKeys)
+                {
+                    _keyBoardControllerKeys.ChangeText("controller keys");
+                }
+                else
+                {
+                    _keyBoardControllerKeys.ChangeText("keyboard and mouse keys");
+                }
             }
             if (_returnToMain.Update(gameTime))
             {
-                _menuManager._showSelectSaveFileMenu = false;
+                _menuManager._showHowToPlay = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            
+            if (_showKeyBoardKeys)
+                spriteBatch.Draw(_keyboardMouse, _keysRectangle, Color.White);
+            else
+                spriteBatch.Draw(_gamePad, _keysRectangle, Color.White);
+
             _keyBoardControllerKeys.Draw(spriteBatch);
             _returnToMain.Draw(spriteBatch);
         }
         public void ResetGraphics()
         {
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height / 4f), 800, 500);
+            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
             _keyBoardControllerKeys.ResetGraphics(_buttonPosition );
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
         }

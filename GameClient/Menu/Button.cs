@@ -16,7 +16,7 @@ namespace GameClient
         Rectangle _rectangle;
         Vector2 _position;
         string _text;
-        bool _isHovering;
+        bool _isHovering,_clickedButton,_currentlyPressed;
         MouseState _previousMouse, _currentMouse;
         Color _normal, _hover;
 
@@ -38,7 +38,17 @@ namespace GameClient
             var mouseRectangle = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
 
             _isHovering = false;
-
+            if(_currentMouse.LeftButton == ButtonState.Pressed && !_currentlyPressed)
+            {
+                _clickedButton = mouseRectangle.Intersects(_rectangle);
+                _currentlyPressed = true;
+            }
+            else
+            {
+                _currentlyPressed = false;
+            }
+            if(!_clickedButton)
+                Console.WriteLine("ha");
             if (mouseRectangle.Intersects(_rectangle))
             {
                 Player._mouseIntersectsUI = true;
@@ -46,7 +56,8 @@ namespace GameClient
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
-                    return true;
+                    if(_clickedButton)
+                        return true;
                 }
             }
             return false;

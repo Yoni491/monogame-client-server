@@ -418,11 +418,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\GameClient.csproj",
+      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\GameClient.csproj",
       "projectName": "GameClient",
-      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\GameClient.csproj",
+      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\GameClient.csproj",
       "packagesPath": "C:\\Users\\yonin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\obj\\",
+      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -444,8 +444,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\TiledSharp\\TiledSharp.csproj": {
-              "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\TiledSharp\\TiledSharp.csproj"
+            "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\TiledSharp\\TiledSharp.csproj": {
+              "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\TiledSharp\\TiledSharp.csproj"
             }
           }
         }

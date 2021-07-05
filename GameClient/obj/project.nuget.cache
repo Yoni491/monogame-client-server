@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Hz3GmxOJ9nvjNrAvlF4tESwrC4TtyRmP6+gxiGBZF7hzLK1PW33KBwRoqZjSE1nLq/GMh9TMcLCVGwywFAqA+A==",
+  "dgSpecHash": "eJZqlAk72gXwfXr3WW/MA3Qg7kMlb7X13Ut6XIvYuNYKi+f1Xox6WgyUHsHzlCGAUxSCjRLaqXmSZtO6a7BOOQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\GameClient\\GameClient.csproj",
+  "projectFilePath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\GameClient\\GameClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yonin\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
     "C:\\Users\\yonin\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",

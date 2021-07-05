@@ -193,11 +193,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\TiledSharp\\TiledSharp.csproj",
+      "projectUniqueName": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\TiledSharp\\TiledSharp.csproj",
       "projectName": "TiledSharp",
-      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\TiledSharp\\TiledSharp.csproj",
+      "projectPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\TiledSharp\\TiledSharp.csproj",
       "packagesPath": "C:\\Users\\yonin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\Game1\\TiledSharp\\obj\\",
+      "outputPath": "C:\\Users\\yonin\\Documents\\GitHub\\monogame-client-server\\TiledSharp\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

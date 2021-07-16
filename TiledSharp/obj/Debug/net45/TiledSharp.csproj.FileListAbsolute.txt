@@ -22,3 +22,9 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\TiledSharp\obj\Debug\net4
 C:\Users\yonin\Documents\GitHub\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.csproj.CoreCompileInputs.cache
 C:\Users\yonin\Documents\GitHub\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.dll
 C:\Users\yonin\Documents\GitHub\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.pdb
+C:\projects\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.dll
+C:\projects\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.pdb
+C:\projects\monogame-client-server\TiledSharp\bin\Debug\net45\TiledSharp.dll
+C:\projects\monogame-client-server\TiledSharp\bin\Debug\net45\TiledSharp.pdb
+C:\projects\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.csproj.AssemblyReference.cache
+C:\projects\monogame-client-server\TiledSharp\obj\Debug\net45\TiledSharp.csproj.CoreCompileInputs.cache

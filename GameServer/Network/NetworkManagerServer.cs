@@ -21,17 +21,20 @@ namespace GameServer
         int packetType;
         List<PacketHandlerServer> _packetHandlers;
         int numOfPlayer = 0;
-        int addPlayers = 0;
-        List<Socket> _socketToAdd;
+        int addPlayers = 0, removePlayers = 0;
+        List<Socket> _socketToAdd,_socketToRemove;
         Packet _packet;
         static bool _everyClientGotCurrentLevel;
-        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies)
+        LevelManager _levelManager;
+        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
+            _levelManager = levelManager;
             _socket_list = socket_list;
             _players = players;
             _enemies = enemies;
             _packetHandlers = new List<PacketHandlerServer>();
             _socketToAdd = new List<Socket>();
+            _socketToRemove = new List<Socket>();
             _bufferList = new List<Byte>();
             _packet = new Packet();
             
@@ -46,6 +49,7 @@ namespace GameServer
         public void Update(GameTime gameTime)
         {
             AddPlayerSocket();
+            RemovePlayerSocket();
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_short >= 0.1f)
             {
@@ -62,12 +66,28 @@ namespace GameServer
             if (_everyClientGotCurrentLevel)
                 LevelManager._sendNewLevel = false;
         }
+        public void RemovePlayerSocket()
+        {
+            int tempPlayers = removePlayers;
+            for (int i = 0; i < tempPlayers; i++)
+            {
+                removePlayers--;
+                Socket socket = _socketToRemove[0];
+                _socket_list.Remove(socket);
+                if (_socket_list.Count == 0)
+                {
+                    _levelManager.LoadNewLevel(3);
+                }
+                socket.Close();
+                _socketToRemove.RemoveAt(0);
+            }
+        }
         public void AddPlayerSocket()
         {
             int tempPlayers = addPlayers;
             for (int i = 0; i < tempPlayers; i++)
             {
-                addPlayers -= tempPlayers;
+                addPlayers--;
                 Socket socket = _socketToAdd[0];
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
@@ -78,7 +98,6 @@ namespace GameServer
                 _packetHandlers.Add(packetHandler);
                 numOfPlayer++;
                 SendPacket(3, true, player._playerNum);
-                
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
@@ -168,10 +187,10 @@ namespace GameServer
             _packet.WriteInt(LevelManager._currentLevel);
             _packet.WriteVector2(LevelManager._spawnPoint);
         }
-        public void SendPacket(int type,bool sendEverything ,int playerNum = 0)
+        public void SendPacket(int type, bool sendEverything, int playerNum = 0)
         {
             _packet.UpdateType((ushort)type);
-            if(type == 3)
+            if (type == 3)
                 _packet.WriteInt(playerNum);
             WriteLevel();
             WritePlayers();
@@ -187,10 +206,18 @@ namespace GameServer
             ItemManager._itemsToSend.Clear();
             WriteItemsPickedUp();
             ItemManager._itemsPickedUpToSend.Clear();
-            foreach (var socket in _socket_list)
+            try
             {
-                byte[] buffer = _packet.Data();
-                socket.Send(buffer);
+                foreach (var socket in _socket_list)
+                {
+
+                    byte[] buffer = _packet.Data();
+                    socket.Send(buffer);
+                }
+            }
+            catch
+            {
+                return;
             }
         }
 
@@ -213,11 +240,24 @@ namespace GameServer
         }
         private void ReceivedCallBack(IAsyncResult result)
         {
+            int buffer_size;
             Tuple<Socket, PacketHandlerServer, byte[]> state = (Tuple<Socket, PacketHandlerServer, byte[]>)result.AsyncState;
             Socket client_socket = state.Item1;
             PacketHandlerServer packetHandlerServer = state.Item2;
             byte[] buffer = state.Item3;
-            int buffer_size = client_socket.EndReceive(result);
+            try
+            {
+                buffer_size = client_socket.EndReceive(result);
+            }
+            catch
+            {
+                _socketToRemove.Add(client_socket);
+                _players.Remove(packetHandlerServer._player);
+                numOfPlayer--;
+                removePlayers++;
+                _packetHandlers.Remove(packetHandlerServer);
+                return;
+            }
             packetHandlerServer.Handle(buffer);
             Receive(client_socket, packetHandlerServer, buffer);
         }

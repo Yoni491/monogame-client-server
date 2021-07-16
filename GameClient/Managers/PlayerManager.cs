@@ -64,12 +64,14 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if(_player._dead)
-            {
-                GameOverScreen._showScreen = true;
-            }
             if(_player!=null)
+            {
+                if(_player._dead)
+                {
+                    GameOverScreen._showScreen = true;
+                }
                 _player.Update(gameTime);
+            }
             foreach (var player in _players)
                     player.Update(gameTime);
         }

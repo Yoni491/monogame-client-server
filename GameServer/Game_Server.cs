@@ -24,6 +24,7 @@ namespace GameServer
         private PathFindingManager _pathFindingManager;
         static List<Socket> _socket_list = new List<Socket>();
         private BulletReachManager _bulletReachManager;
+        private ProgressManager _progressManager;
 
 
         #region Important Functions
@@ -56,20 +57,22 @@ namespace GameServer
             _enemies = new List<SimpleEnemy>();
             _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
+            _progressManager = new ProgressManager();
+
 
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
             _bulletReachManager = new BulletReachManager();
 
-            _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies);
+            _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies,_levelManager);
 
             _bulletReachManager.Initialize(null, _networkPlayers);
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
             _collisionManager.Initialize(_networkPlayers, null, _enemies);
-            _levelManager.Initialize(_networkPlayers);
+            _levelManager.Initialize(_networkPlayers,_progressManager);
             _mapManager.Initialize(_networkPlayers);
             _networkManager.Initialize_connection();
-            _levelManager.LoadNewLevel();
+            _levelManager.LoadNewLevel(3);
         }
 
         protected override void Update(GameTime gameTime)

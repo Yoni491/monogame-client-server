@@ -47,8 +47,6 @@ namespace GameClient
             {
                 _currentlyPressed = false;
             }
-            if(!_clickedButton)
-                Console.WriteLine("ha");
             if (mouseRectangle.Intersects(_rectangle))
             {
                 Player._mouseIntersectsUI = true;

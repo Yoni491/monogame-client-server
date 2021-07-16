@@ -23,14 +23,15 @@ namespace GameClient
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
+        public void Initialize(List<NetworkPlayer> _network_players, Player player, 
+            PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
         {
             _enemies = enemies;
             _playerManager = playerManager;
             _player = player;
             _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager,inventoryManager, levelManager);
             _packet = new Packet();
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            
         }
         public void Update(GameTime gameTime)
         {
@@ -122,7 +123,8 @@ namespace GameClient
         #region NetworkMethods
         public void Initialize_connection()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("77.124.1.95"), 1994);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1994);
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
         }
@@ -145,14 +147,25 @@ namespace GameClient
         }
         private void ReceivedCallBack(IAsyncResult result)
         {
-            int buffer_size = _socket.EndReceive(result);
+            try
+            {
+                int buffer_size = _socket.EndReceive(result);
+            }
+            catch 
+            {
+                return;
+            }
             _packetHandler.Handle(_buffer);
             Receive();
         }
         public void CloseConnection()
         {
-            if(_socket.Connected)
+            if (_socket.Connected)
+            {
                 _socket.Close();
+                MainMenuManager._connected = false;
+                Game_Client._IsMultiplayer = false;
+            }
         }
         #endregion
     }

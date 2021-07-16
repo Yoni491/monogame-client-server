@@ -17,7 +17,7 @@ namespace GameServer
         int playerNum;
         private bool handle = false;
         private int usingResource = 0;
-        private NetworkPlayer _player;
+        public NetworkPlayer _player;
         private readonly List<SimpleEnemy> _enemies;
         public int _playerCurrentLevel;
         private Vector2 _playerPreviousPosition;

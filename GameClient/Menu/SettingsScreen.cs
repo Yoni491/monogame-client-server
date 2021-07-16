@@ -8,6 +8,7 @@ namespace GameClient
 {
     public class SettingsScreen
     {
+        Game_Client _game_client;
         InventoryManager _InventoryManager;
         ProgressManager _progressManager;
         Button _settingButton, _fullScreenButton,_returnToGame,_exitToMain,_muteSoundButton,_muteMusicButton,_restartLevel;
@@ -22,8 +23,9 @@ namespace GameClient
         {
 
         }
-        public void Initialize(ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager)
+        public void Initialize(Game_Client game_client, ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager)
         {
+            _game_client = game_client;
             _graphicsDevice = graphics;
             _progressManager = progressManager;
             _InventoryManager = InventoryManager;
@@ -79,6 +81,7 @@ namespace GameClient
                     Game_Client._inMenu = true;
                     _showSettings = false;
                     AudioManager.PlaySong(menu: true);
+                    _game_client._networkManager.CloseConnection();
                 }
                 if (_muteSoundButton.Update(gameTime))
                 {

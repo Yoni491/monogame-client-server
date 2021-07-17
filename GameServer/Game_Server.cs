@@ -72,7 +72,6 @@ namespace GameServer
             _levelManager.Initialize(_networkPlayers,_progressManager);
             _mapManager.Initialize(_networkPlayers);
             _networkManager.Initialize_connection();
-            _levelManager.LoadNewLevel(8);
         }
 
         protected override void Update(GameTime gameTime)

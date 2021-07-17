@@ -74,10 +74,6 @@ namespace GameServer
                 removePlayers--;
                 Socket socket = _socketToRemove[0];
                 _socket_list.Remove(socket);
-                if (_socket_list.Count == 0)
-                {
-                    _levelManager.LoadNewLevel(3);
-                }
                 socket.Close();
                 _socketToRemove.RemoveAt(0);
             }
@@ -87,6 +83,7 @@ namespace GameServer
             int tempPlayers = addPlayers;
             for (int i = 0; i < tempPlayers; i++)
             {
+                
                 addPlayers--;
                 Socket socket = _socketToAdd[0];
                 _socket_list.Add(socket);
@@ -96,11 +93,15 @@ namespace GameServer
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
-                numOfPlayer++;
                 SendPacket(3, true, player._playerNum);
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
+                if (numOfPlayer == 0)
+                {
+                    _levelManager.LoadNewLevel(3);
+                }
+                numOfPlayer++;
             }
         }
         public void WritePlayers()

@@ -133,7 +133,7 @@ namespace GameClient
             if (_socket.Connected)
             {
                 MainMenuManager._connected = true;
-                Game_Client._IsMultiplayer = true;
+                Game_Client._isMultiplayer = true;
                 Receive();
             }
             else
@@ -160,11 +160,11 @@ namespace GameClient
         }
         public void CloseConnection()
         {
-            if (_socket.Connected)
+            if (_socket!=null && _socket.Connected)
             {
                 _socket.Close();
                 MainMenuManager._connected = false;
-                Game_Client._IsMultiplayer = false;
+                Game_Client._isMultiplayer = false;
             }
         }
         #endregion

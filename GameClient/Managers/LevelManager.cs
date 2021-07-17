@@ -59,7 +59,7 @@ namespace GameClient
         }
         public void Update()
         {
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 if (_player != null)
                 {

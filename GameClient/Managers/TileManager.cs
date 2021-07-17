@@ -72,13 +72,13 @@ namespace GameClient
                 if (gid == 325)//grave normal
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                         MapManager._graves.Add(new Grave(rectangle, false));
                 }
                 else if (gid == 326)//grave broken
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                         MapManager._graves.Add(new Grave(rectangle, true));
                 }
                 else if (gid == 134)//spawn point
@@ -100,16 +100,16 @@ namespace GameClient
                 else if (gid == 468 || gid == 465)//box
                 {
                     MapManager._boxes.Add(i, new Box(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
-                    AddWall(i, true, 1.5f);
+                    AddWall(i, true);
                 }
                 else if (gid == 451)//door
                 {
                     MapManager._doors.Add(i, new Door(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 1.5f), i, tilesetIndex));
-                    AddWall(i, false, 2);
+                    AddWall(i, false, 1);
                 }
                 else if (gid == 484)//key
                 {
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                         ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), true);
                     _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
                 }
@@ -121,7 +121,7 @@ namespace GameClient
                         waitForDestroyedWall = true;
                     else if (_map.TileLayers[tilesetIndex].Tiles[i].VerticalFlip)
                         useAstar = false;
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                         EnemyManager.AddEnemyAtPosition(gid - 137, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), useAstar, waitForDestroyedWall);
                     _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
                 }
@@ -132,8 +132,11 @@ namespace GameClient
                 else if(gid>=130 && gid <= 133)//MessageBoards
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    Tuple<string,string> massageBoardText = CollectionManager.GetMassageFromMassageArray(_mapNum, _massageNum++);
-                    MapManager._massageBoards.Add(new MassageBoard(rectangle, massageBoardText.Item1, massageBoardText.Item2));
+                    if (!Game_Client._isMultiplayer)
+                    {
+                        Tuple<string, string> massageBoardText = CollectionManager.GetMassageFromMassageArray(_mapNum, _massageNum++);
+                        MapManager._massageBoards.Add(new MassageBoard(rectangle, massageBoardText.Item1, massageBoardText.Item2));
+                    }
                 }
                 else//normal walls
                 {
@@ -201,10 +204,10 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var item in _destroyableWalls)
-            {
-                GraphicManager.DrawRectangle(spriteBatch, item.Value._rectangle, 0.8f);
-            }
+            //foreach (var item in _destroyableWalls) // for testing
+            //{
+            //    GraphicManager.DrawRectangle(spriteBatch, item.Value._rectangle, 0.8f);
+            //}
             for (int tileLayer = 0; tileLayer < 3; tileLayer++)
             {
                 for (int i = 0; i < _map.TileLayers[tileLayer].Tiles.Count; i++)

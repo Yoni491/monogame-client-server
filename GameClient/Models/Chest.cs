@@ -33,7 +33,7 @@ namespace GameClient
         }
         public void Open()
         {
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 if(_itemToDrop != -1)
                 {

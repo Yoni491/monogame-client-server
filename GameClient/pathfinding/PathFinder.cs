@@ -39,6 +39,8 @@ namespace GameClient
         {
             if (_startNewSearch && _first_position!=Vector2.Zero)
             {
+                try
+                {
                 if (_path.Count > 20)
                 {
                     lastCoord = _path[20];
@@ -51,6 +53,11 @@ namespace GameClient
                     _start = TileManager.GetPositionFromCoord(_path[_path.Count - 1]);
                 }
                 else
+                {
+                    _start = _position;
+                }
+                }
+                catch
                 {
                     _start = _position;
                 }

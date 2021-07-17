@@ -89,7 +89,7 @@ namespace GameClient
         {
             float closest_object_distance = float.MaxValue;
             Vector2 player_position = position;
-            if (_players != null)
+            if (_players != null && Game_Client._isServer)
                 foreach (var player in _players)
                 {
                     if (Vector2.Distance(position, player.Position_Feet) < closest_object_distance)
@@ -97,11 +97,11 @@ namespace GameClient
                         closest_object_distance = Vector2.Distance(position, player.Position_Feet);
                         player_position = player.Position_Feet;
                     }
-                    if (Vector2.Distance(position, player._position) < closest_object_distance)
-                    {
-                        closest_object_distance = Vector2.Distance(position, player._position);
-                        player_position = player._position;
-                    }
+                    //if (Vector2.Distance(position, player._position) < closest_object_distance)
+                    //{
+                    //    closest_object_distance = Vector2.Distance(position, player._position);
+                    //    player_position = player._position;
+                    //}
                 }
             if (_player != null)
             {
@@ -110,11 +110,11 @@ namespace GameClient
                     closest_object_distance = Vector2.Distance(position, _player.Position_Feet);
                     player_position = _player.Position_Feet;
                 }
-                if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)
-                {
-                    closest_object_distance = Vector2.Distance(position, _player._position);
-                    player_position = _player.Position_Feet;
-                }
+                //if (Vector2.Distance(position, _player._position) < closest_object_distance)
+                //{
+                //    closest_object_distance = Vector2.Distance(position, _player._position);
+                //    player_position = _player._position;
+                //}
             }
             return player_position;
         }

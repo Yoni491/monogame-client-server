@@ -36,7 +36,7 @@ namespace GameClient
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6));}
-        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 1, 1); }
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 7, 7); }
         public Player(AnimationManager animationManager,int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,SettingsScreen uIManager)
         {
             _animationManager = animationManager;
@@ -136,7 +136,7 @@ namespace GameClient
                 Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPosition()));
                 if (item != null)
                 {
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                     {
                         _inventoryManager.AddItemToInventory(item);
                     }

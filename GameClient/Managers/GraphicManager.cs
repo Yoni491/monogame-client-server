@@ -11,7 +11,6 @@ namespace GameClient
     {
         public static GraphicsDevice _graphicsDevice;
         public static ContentManager _contentManager;
-        public static SpriteFont _font;
         private float _timer_update_grpahics;
         public static GraphicsDeviceManager _graphics;
         public static Vector2 ScreenScale;
@@ -28,7 +27,6 @@ namespace GameClient
         {
             _graphicsDevice = graphicsDevice;
             _contentManager = contentManager;
-            _font = contentManager.Load<SpriteFont>("Fonts/basic");
             _graphics = graphics;
             _maxScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _maxScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;

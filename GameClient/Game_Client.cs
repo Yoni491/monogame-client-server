@@ -31,7 +31,7 @@ namespace GameClient
         private ProgressManager _progressManager;
         private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
-        static public bool _IsMultiplayer = false;
+        static public bool _isMultiplayer = false;
         static public bool _isServer = true;
 
         #region Important Functions
@@ -129,7 +129,7 @@ namespace GameClient
                         _pathFindingManager.Update();
                     }
                 }
-                if (_IsMultiplayer)
+                if (_isMultiplayer)
                     _networkManager.Update(gameTime);
             }
             base.Update(gameTime);

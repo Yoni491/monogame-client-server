@@ -30,7 +30,7 @@ namespace GameClient
         }
         public void Destroy()
         {
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 ItemManager.DropGold(1, _position);
                 ItemManager.DropItemFromList(CollectionManager.allConsumables,_position);

@@ -44,7 +44,7 @@ namespace GameClient
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
-        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), (int)(_width * _scale * 0.1), (int)(_height * _scale * 0.1)); }
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), 7,7); }
         public SimpleEnemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager,
             int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun = null, PathFinder pathFinder = null, BulletReach bulletReach = null, int enemyNum = -1, int summonEnemyID = -1)
         {
@@ -86,7 +86,7 @@ namespace GameClient
         {
             Move(gameTime);
 
-            if(!Game_Client._isServer && Game_Client._IsMultiplayer)
+            if(!Game_Client._isServer && Game_Client._isMultiplayer)
                 UpdateFromServer();
 
             _animationManager.Update(gameTime, _position);
@@ -133,7 +133,7 @@ namespace GameClient
         {
             if (_gun != null)
             {
-                if (!Game_Client._IsMultiplayer)
+                if (!Game_Client._isMultiplayer)
                 {
                     _sniperTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (_gun._isSniper)
@@ -177,7 +177,7 @@ namespace GameClient
         private void Move(GameTime gameTime)
         {
             Vector2 target_player;
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 if (_gun != null)
                 {
@@ -253,14 +253,14 @@ namespace GameClient
         public void DealDamage(int dmg)
         {
             _dmgDoneForServer += dmg;
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 _health._health_left -= dmg;
 
                 if (_health._health_left <= 0 && _destroy == false)
                 {
                     _destroy = true;
-                    if (!Game_Client._IsMultiplayer)
+                    if (!Game_Client._isMultiplayer)
                     {
                         PathFindingManager.RemovePathFinder(_pathFinder);
                         ItemManager.DropItemFromList(_items_drop_list, Position_Feet);
@@ -275,7 +275,7 @@ namespace GameClient
         public SimpleEnemy Copy(bool useAstar, bool waitForDestroyedWall)
         {
             int enemyNum = -1;
-            if (!Game_Client._IsMultiplayer)
+            if (!Game_Client._isMultiplayer)
                 enemyNum = _s_enemyNum++;
             Gun gun = null;
             if (_gun != null)

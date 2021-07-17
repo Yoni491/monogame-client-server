@@ -201,10 +201,10 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //for (int i = 0; i < _walls.Count; i++)
-            //{
-            //    GraphicManager.DrawRectangle(spriteBatch,_walls[i],0.8f);
-            //}
+            foreach (var item in _destroyableWalls)
+            {
+                GraphicManager.DrawRectangle(spriteBatch, item.Value._rectangle, 0.8f);
+            }
             for (int tileLayer = 0; tileLayer < 3; tileLayer++)
             {
                 for (int i = 0; i < _map.TileLayers[tileLayer].Tiles.Count; i++)

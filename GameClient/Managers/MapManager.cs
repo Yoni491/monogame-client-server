@@ -38,10 +38,13 @@ namespace GameClient
         }
         public void Update()
         {
-            foreach (var item in _massageBoards)
+            if (!Game_Client._isServer)
             {
-                if (_player != null)
-                    item.Update(_player.RectangleMovement);
+                foreach (var item in _massageBoards)
+                {
+                    if (_player != null)
+                        item.Update(_player.RectangleMovement);
+                }
             }
             foreach (var grave in _graves)
             {

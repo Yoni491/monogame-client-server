@@ -71,36 +71,43 @@ namespace GameClient
         {
             return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);
         }
-        public void SetAnimations(Vector2 _velocity, ref bool _hide_weapon,ref int _moving_direction)
+        public void SetAnimations(Vector2 velocity, ref bool hide_weapon,ref int moving_direction)
         {
-            if (_velocity == Vector2.Zero)
+            if (velocity == Vector2.Zero)
                 Stop();
             else
             {
-                _hide_weapon = false;
-                _moving_direction = -1;
-                if (_velocity.X >= Math.Abs(_velocity.Y))
+                hide_weapon = false;
+                moving_direction = -1;
+                if (velocity.X >= Math.Abs(velocity.Y))
                 {
-                    _moving_direction = (int)Direction.Right;
+                    moving_direction = (int)Direction.Right;
 
                 }
-                else if (-_velocity.X >= Math.Abs(_velocity.Y))
+                else if (-velocity.X >= Math.Abs(velocity.Y))
                 {
-                    _moving_direction = (int)Direction.Left;
+                    moving_direction = (int)Direction.Left;
                 }
-                else if (_velocity.Y > 0)
+                else if (velocity.Y > 0)
                 {
-                    _moving_direction = (int)Direction.Down;
+                    moving_direction = (int)Direction.Down;
                 }
-                else if (_velocity.Y < 0)
+                else if (velocity.Y < 0)
                 {
-                    _moving_direction = (int)Direction.Up;
-                    _hide_weapon = true;
+                    moving_direction = (int)Direction.Up;
+                    hide_weapon = true;
                 }
                 else Stop();
-                if (_moving_direction != -1)
-                    Play(_moving_direction);
+                if (moving_direction != -1)
+                    Play(moving_direction);
             }
+        }
+        public void SetAnimationsFromServer(int moving_direction)
+        {
+            if (moving_direction != -1)
+                Play(moving_direction);
+            else
+                Stop();
         }
     }
 }

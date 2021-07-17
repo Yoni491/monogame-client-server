@@ -86,6 +86,9 @@ namespace GameClient
         {
             Move(gameTime);
 
+            if(!Game_Client._isServer && Game_Client._IsMultiplayer)
+                UpdateFromServer();
+
             _animationManager.Update(gameTime, _position);
 
             _health.Update(_position);
@@ -96,7 +99,11 @@ namespace GameClient
 
             SummonEnemies(gameTime);
         }
-        public void SummonEnemies(GameTime gameTime)
+        private void UpdateFromServer()
+        {
+            _animationManager.SetAnimationsFromServer(_moving_direction);
+        }
+        private void SummonEnemies(GameTime gameTime)
         {
             if(_summonEnemyID!=-1)
             {
@@ -109,23 +116,20 @@ namespace GameClient
                 }
             }
         }
-        public void MeleeCombatAlgorithm(GameTime gameTime)
+        private void MeleeCombatAlgorithm(GameTime gameTime)
         {
             if (_meleeWeapon != null)
             {
-                if (!Game_Client._IsMultiplayer)
+                _meleeWeapon.Update(_moving_direction, gameTime, _position);
+                if (!_meleeWeapon._swing_weapon)
+                    _position += _velocity;
+                if (_isStopingToShotOrMeleeAttack)
                 {
-                    _meleeWeapon.Update(_moving_direction, gameTime, _position);
-                    if (!_meleeWeapon._swing_weapon)
-                        _position += _velocity;
-                    if (_isStopingToShotOrMeleeAttack)
-                    {
-                        _meleeWeapon.SwingWeapon();
-                    }
+                    _meleeWeapon.SwingWeapon();
                 }
             }
         }
-        public void ShootingAlgorithm(GameTime gameTime)
+        private void ShootingAlgorithm(GameTime gameTime)
         {
             if (_gun != null)
             {
@@ -170,7 +174,7 @@ namespace GameClient
             }
         }
 
-        public void Move(GameTime gameTime)
+        private void Move(GameTime gameTime)
         {
             Vector2 target_player;
             if (!Game_Client._IsMultiplayer)

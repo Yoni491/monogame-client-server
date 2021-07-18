@@ -132,7 +132,7 @@ namespace GameClient
                 else if(gid>=130 && gid <= 133)//MessageBoards
                 {
                     Rectangle rectangle = AddWall(i, false);
-                    if (!Game_Client._isMultiplayer)
+                    if (!Game_Client._isServer)
                     {
                         Tuple<string, string> massageBoardText = CollectionManager.GetMassageFromMassageArray(_mapNum, _massageNum++);
                         MapManager._massageBoards.Add(new MassageBoard(rectangle, massageBoardText.Item1, massageBoardText.Item2));

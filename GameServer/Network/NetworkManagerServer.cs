@@ -21,6 +21,7 @@ namespace GameServer
         int packetType;
         List<PacketHandlerServer> _packetHandlers;
         int numOfPlayer = 0;
+        static int _playerIDNumber=0;
         int addPlayers = 0, removePlayers = 0;
         List<Socket> _socketToAdd,_socketToRemove;
         Packet _packet;
@@ -89,11 +90,11 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, numOfPlayer, null);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, _playerIDNumber++, null);
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
-                SendPacket(3, true, player._playerNum);
+                SendPacket(3, true, player._playerNum,socket);
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
@@ -188,7 +189,7 @@ namespace GameServer
             _packet.WriteInt(LevelManager._currentLevel);
             _packet.WriteVector2(LevelManager._spawnPoint);
         }
-        public void SendPacket(int type, bool sendEverything, int playerNum = 0)
+        public void SendPacket(int type, bool sendEverything, int playerNum = 0,Socket clientSocket = null)
         {
             _packet.UpdateType((ushort)type);
             if (type == 3)
@@ -209,11 +210,19 @@ namespace GameServer
             ItemManager._itemsPickedUpToSend.Clear();
             try
             {
-                foreach (var socket in _socket_list)
+                if (clientSocket != null)
                 {
-
                     byte[] buffer = _packet.Data();
-                    socket.Send(buffer);
+                    clientSocket.Send(buffer);
+                }
+                else
+                {
+                    foreach (var socket in _socket_list)
+                    {
+
+                        byte[] buffer = _packet.Data();
+                        socket.Send(buffer);
+                    }
                 }
             }
             catch

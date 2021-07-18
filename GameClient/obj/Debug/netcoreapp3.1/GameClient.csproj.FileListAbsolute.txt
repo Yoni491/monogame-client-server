@@ -475,15 +475,6 @@ C:\Users\yonin\Documents\GitHub\monogame-client-server\GameClient\obj\Debug\netc
 C:\Users\yonin\Documents\GitHub\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.genruntimeconfig.cache
 C:\projects\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.dll
 C:\projects\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.pdb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic1.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic2.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\basic3.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\ComicSans.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Fonts\comicSans_size_20.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\MenuBackground.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\man.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\Dungeon_Tileset.png
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\Dungeon_Tileset.tsx
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map1.tmx
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map10.tmx
@@ -504,12 +495,6 @@ C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\ma
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map9.tmx
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.tsx
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\tf_B_ashlands_1.tsx
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\‏‏map13.tmx
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\‏‏map6.tmx
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Sound\ShootingSound.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\sprite.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\walk.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Weapons\sword swing.xnb
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\etc\bullet.xnb
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\etc\lineSprite.xnb
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\etc\settings.xnb

@@ -66,10 +66,13 @@ namespace GameClient
                 }
                 if (!Game_Client._inMenu)
                 {
-                    if (_restartLevel.Update(gameTime))
+                    if (!Game_Client._isMultiplayer)
                     {
-                        _showSettings = false;
-                        _progressManager.LoadData();
+                        if (_restartLevel.Update(gameTime))
+                        {
+                            _showSettings = false;
+                            _progressManager.LoadData();
+                        }
                     }
                     if (_returnToGame.Update(gameTime))
                     {
@@ -82,6 +85,7 @@ namespace GameClient
                     _showSettings = false;
                     AudioManager.PlaySong(menu: true);
                     _game_client._networkManager.CloseConnection();
+                    LevelManager._currentLevel = -1;
                 }
                 if (_muteSoundButton.Update(gameTime))
                 {
@@ -133,6 +137,10 @@ namespace GameClient
                 _fullScreenButton.Draw(spriteBatch);
                 if (!Game_Client._inMenu)
                 {
+                    if (!Game_Client._isMultiplayer)
+                        _restartLevel.ChangeColor(Color.Green);
+                    else
+                        _restartLevel.ChangeColor(Color.Gray);
                     _restartLevel.Draw(spriteBatch);
                     _returnToGame.Draw(spriteBatch);
                 }

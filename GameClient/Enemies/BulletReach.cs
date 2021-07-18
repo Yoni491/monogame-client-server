@@ -26,12 +26,19 @@ namespace GameClient
         {
             if (_networkPlayers != null)
             {
-                foreach (var player in _networkPlayers)
+                try //try because if the server drops a player and bullet reach runs on another thread
                 {
-                    if(CheckIfReachable(player.Position_Feet))
-                        _reachablePlayerPos = player.Position_Feet;
-                    if(CheckIfReachable(player.Position_Head))
-                        _reachablePlayerPos = player.Position_Feet;
+                    foreach (var player in _networkPlayers)
+                    {
+                        if (CheckIfReachable(player.Position_Feet))
+                            _reachablePlayerPos = player.Position_Feet;
+                        if (CheckIfReachable(player.Position_Head))
+                            _reachablePlayerPos = player.Position_Feet;
+                    }
+                }
+                catch
+                {
+                    return false;
                 }
             }
             if(_player!=null)

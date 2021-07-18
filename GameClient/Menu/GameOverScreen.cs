@@ -17,13 +17,15 @@ namespace GameClient
         Vector2 _buttonPosition;
         static public bool _showScreen;
         ProgressManager _progressManager;
+        Game_Client _game_Client;
 
         public GameOverScreen()
         {
 
         }
-        public void Initialize(ContentManager content, GraphicsDevice graphics, ProgressManager progressManager)
+        public void Initialize(Game_Client game_Client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager)
         {
+            _game_Client = game_Client;
             _progressManager = progressManager;
             _graphicsDevice = graphics;
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
@@ -35,21 +37,29 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
+            if (!Game_Client._isMultiplayer)
+            {
                 if (_restartLevel.Update(gameTime))
                 {
                     _showScreen = false;
-                     _progressManager.LoadData();
+                    _progressManager.LoadData();
                 }
-
-                if (_exitToMain.Update(gameTime))
-                {
-                    Game_Client._inMenu = true;
-                    AudioManager.PlaySong(menu: true);
-                }
+            }
+            if (_exitToMain.Update(gameTime))
+            {
+                Game_Client._inMenu = true;
+                _showScreen = false;
+                AudioManager.PlaySong(menu: true);
+                _game_Client._networkManager.CloseConnection();
+                LevelManager._currentLevel = -1;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            if (!Game_Client._isMultiplayer)
+                _restartLevel.ChangeColor(Color.Green);
+            else
+                _restartLevel.ChangeColor(Color.Gray);
             int height = GraphicManager.screenHeight / 2;
             int width = GraphicManager.screenWidth / 2;
             spriteBatch.Draw(_gameOverBackground, new Rectangle(GraphicManager.screenWidth / 4, GraphicManager.screenHeight / 4, width, height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);

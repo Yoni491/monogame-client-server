@@ -100,7 +100,7 @@ namespace GameServer
                 Receive(socket, packetHandler, buffer);
                 if (numOfPlayer == 0)
                 {
-                    _levelManager.LoadNewLevel(3);
+                    _levelManager.LoadNewLevel(LevelManager.startingLevel);
                 }
                 numOfPlayer++;
             }

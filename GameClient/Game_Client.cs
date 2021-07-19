@@ -27,7 +27,7 @@ namespace GameClient
         private AudioManager _audioManager;
         static private InventoryManager _inventoryManager;
         static private MainMenuManager _menuManager;
-        static private SettingsScreen _UIManager;
+        static private SettingsScreen _settingsScreen;
         private ProgressManager _progressManager;
         private BulletReachManager _bulletReachManager;
         static public bool _inMenu = true;
@@ -63,7 +63,7 @@ namespace GameClient
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             //menu and ui
             _menuManager = new MainMenuManager();
-            _UIManager = new SettingsScreen();
+            _settingsScreen = new SettingsScreen();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();
             //game content
@@ -87,13 +87,13 @@ namespace GameClient
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content,_playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _UIManager);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _settingsScreen);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _UIManager.Initialize(this, Content, _inventoryManager, GraphicsDevice,_progressManager);
+            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice,_progressManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
             _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
             _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
@@ -104,7 +104,7 @@ namespace GameClient
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _UIManager.Update(gameTime);
+            _settingsScreen.Update(gameTime);
             if (_inMenu && !SettingsScreen._showSettings)
             {
                 _menuManager.Update(gameTime);
@@ -144,7 +144,7 @@ namespace GameClient
             if (_inMenu)
             {
                 _menuManager.Draw(_UIbatch);
-                _UIManager.Draw(_settingsBatch);
+                _settingsScreen.Draw(_settingsBatch);
             }
             else
             {
@@ -152,7 +152,7 @@ namespace GameClient
                 {
                     _gameOverScreen.Draw(_UIbatch);
                 }
-                _UIManager.Draw(_settingsBatch);
+                _settingsScreen.Draw(_settingsBatch);
                 if (_tileManager._levelLoaded)
                 {
                     _tileManager.Draw(_spriteBatch);
@@ -168,11 +168,27 @@ namespace GameClient
             _settingsBatch.End();
             base.Draw(gameTime);
         }
+        public void ResetGame()
+        {
+            ItemManager.Reset();
+            EnemyManager.Reset();
+            _playerManager.Reset();
+
+            Game_Client._inMenu = true;
+            SettingsScreen._showSettings = false;
+            GameOverScreen._showScreen = false;
+            if (!_isServer)
+            {
+                AudioManager.PlaySong(menu: true);
+            }
+            _networkManager.CloseConnection();
+            LevelManager._currentLevel = -1;
+        }
 
         static public void ResetGraphics()
         {
             _inventoryManager.ResetGraphics();
-            _UIManager.ResetGraphics();
+            _settingsScreen.ResetGraphics();
             _menuManager.ResetGraphics();
         }
         #endregion

@@ -126,14 +126,8 @@ namespace GameClient
         }
         public static void Reset()
         {
-            if (!Game_Client._isServer && !Game_Client._isServer)
-            {
-                _itemsOnTheGround.Clear();
-            }
-            foreach (var item in _itemsOnTheGround)
-            {
-                _itemsPickedUpToSend.Add((-1, item.Key));
-            }
+            _itemsOnTheGround.Clear();
+            _itemsToSend.Clear();
         }
     }
 }

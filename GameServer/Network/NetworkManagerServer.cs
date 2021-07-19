@@ -230,7 +230,14 @@ namespace GameServer
                 return;
             }
         }
-
+        public void RemoveSocket(Socket client_socket,PacketHandlerServer packetHandlerServer)
+        {
+            _socketToRemove.Add(client_socket);
+            _players.Remove(packetHandlerServer._player);
+            numOfPlayer--;
+            removePlayers++;
+            _packetHandlers.Remove(packetHandlerServer);
+        }
         #region socketMethods
         private void Accept()
         {
@@ -261,12 +268,12 @@ namespace GameServer
             }
             catch
             {
-                _socketToRemove.Add(client_socket);
-                _players.Remove(packetHandlerServer._player);
-                numOfPlayer--;
-                removePlayers++;
-                _packetHandlers.Remove(packetHandlerServer);
+                RemoveSocket(client_socket, packetHandlerServer);
                 return;
+            }
+            if(!client_socket.Connected)
+            {
+                RemoveSocket(client_socket, packetHandlerServer);
             }
             packetHandlerServer.Handle(buffer);
             Receive(client_socket, packetHandlerServer, buffer);

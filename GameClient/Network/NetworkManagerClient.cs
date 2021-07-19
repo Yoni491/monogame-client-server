@@ -165,10 +165,10 @@ namespace GameClient
             if (_socket!=null && _socket.Connected)
             {
                 _socket.Close();
-                MainMenuManager._connected = false;
-                Game_Client._isMultiplayer = false;
-                _network_players.Clear();
             }
+            MainMenuManager._connected = false;
+            Game_Client._isMultiplayer = false;
+            _network_players.Clear();
         }
         #endregion
     }

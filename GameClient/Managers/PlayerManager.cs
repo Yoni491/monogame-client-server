@@ -43,6 +43,11 @@ namespace GameClient
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
         }
+        public void Reset()
+        {
+            _players.Clear();
+            ResetPlayer(3);
+        }
         public void ResetPlayer(int animationNum)
         {
             _player._animationManager = CollectionManager.GetAnimationManagerCopy(animationNum, 1.5f);

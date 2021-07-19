@@ -47,11 +47,7 @@ namespace GameClient
             }
             if (_exitToMain.Update(gameTime))
             {
-                Game_Client._inMenu = true;
-                _showScreen = false;
-                AudioManager.PlaySong(menu: true);
-                _game_Client._networkManager.CloseConnection();
-                LevelManager._currentLevel = -1;
+                _game_Client.ResetGame();
             }
         }
         public void Draw(SpriteBatch spriteBatch)

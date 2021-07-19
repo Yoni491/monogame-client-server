@@ -17,15 +17,17 @@ namespace GameClient
         bool _connect_again = false;
         PlayerManager _playerManager;
         Player _player;
+        List<NetworkPlayer> _network_players;
         Packet _packet;
         List<SimpleEnemy> _enemies;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> _network_players, Player player, 
+        public void Initialize(List<NetworkPlayer> network_players, Player player, 
             PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
         {
+            _network_players = network_players;
             _enemies = enemies;
             _playerManager = playerManager;
             _player = player;
@@ -165,6 +167,7 @@ namespace GameClient
                 _socket.Close();
                 MainMenuManager._connected = false;
                 Game_Client._isMultiplayer = false;
+                _network_players.Clear();
             }
         }
         #endregion

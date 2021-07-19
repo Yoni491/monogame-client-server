@@ -70,7 +70,7 @@ namespace GameClient
             _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
-            _levelManager = new LevelManager(_tileManager);
+            _levelManager = new LevelManager(this,_tileManager);
             _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
             _progressManager = new ProgressManager();
@@ -168,21 +168,28 @@ namespace GameClient
             _settingsBatch.End();
             base.Draw(gameTime);
         }
-        public void ResetGame()
+        public void ResetGame(bool resetWholeGame = true)
         {
+            if(resetWholeGame)
+            {
+                Game_Client._inMenu = true;
+                SettingsScreen._showSettings = false;
+                GameOverScreen._showScreen = false;
+                _playerManager.Reset(true);
+                if (!_isServer)
+                {
+                    AudioManager.PlaySong(menu: true);
+                }
+                _networkManager.CloseConnection();
+                LevelManager._currentLevel = -1;
+            }
+            else
+            {
+                _playerManager.Reset(false);
+            }
             ItemManager.Reset();
             EnemyManager.Reset();
-            _playerManager.Reset();
-
-            Game_Client._inMenu = true;
-            SettingsScreen._showSettings = false;
-            GameOverScreen._showScreen = false;
-            if (!_isServer)
-            {
-                AudioManager.PlaySong(menu: true);
-            }
-            _networkManager.CloseConnection();
-            LevelManager._currentLevel = -1;
+            MapManager.ResetMap();
         }
 
         static public void ResetGraphics()

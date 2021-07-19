@@ -51,7 +51,7 @@ namespace GameServer
             _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
-            _levelManager = new LevelManager(_tileManager);
+            _levelManager = new LevelManager(null, _tileManager);
             
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
@@ -64,7 +64,7 @@ namespace GameServer
             _pathFindingManager = new PathFindingManager();
             _bulletReachManager = new BulletReachManager();
 
-            _networkManager = new NetworkManagerServer(_socket_list, _networkPlayers, _enemies,_levelManager);
+            _networkManager = new NetworkManagerServer(this, _socket_list, _networkPlayers, _enemies,_levelManager);
 
             _bulletReachManager.Initialize(null, _networkPlayers);
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
@@ -88,6 +88,14 @@ namespace GameServer
             _pathFindingManager.Update();
             base.Update(gameTime);
 
+        }
+        public void ResetGame()
+        {
+            MapManager.ResetMap();
+            ItemManager.Reset();
+            EnemyManager.Reset();
+            _playerManager.Reset(true);
+            LevelManager._currentLevel = -2;
         }
         #endregion
     }

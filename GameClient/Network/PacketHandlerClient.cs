@@ -195,7 +195,7 @@ namespace GameClient
         {
             int levelNum = _packet.ReadInt();
             Vector2 position = _packet.ReadVector2();
-            if (levelNum != LevelManager._currentLevel)
+            if (levelNum != LevelManager._currentLevel && levelNum > 0)
             {
                 _levelManager.LoadNewLevel(levelNum);
                 _player.PositionPlayerFeetAt(position);

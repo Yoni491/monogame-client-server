@@ -20,7 +20,6 @@ namespace GameServer
         public NetworkPlayer _player;
         private readonly List<SimpleEnemy> _enemies;
         public int _playerCurrentLevel;
-        private Vector2 _playerPreviousPosition;
 
         public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<SimpleEnemy> enemies)
         {

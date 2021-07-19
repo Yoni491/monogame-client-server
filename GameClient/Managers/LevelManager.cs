@@ -17,14 +17,18 @@ namespace GameClient
         static public int startingLevel=13;
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
-        public LevelManager( TileManager tileManager)
+        Game_Client _game_client;
+        public LevelManager(Game_Client game_client, TileManager tileManager)
         {
+            _game_client = game_client;
             _tileManager = tileManager;
         }
         public void LoadNewLevel(int num=0)
         {
-            EnemyManager.Reset();
-            ItemManager.Reset();
+            if (!Game_Client._isServer)
+            {
+                _game_client.ResetGame(false);
+            }
             if (num != 0)
             {
                 _currentLevel = num;

@@ -43,10 +43,11 @@ namespace GameClient
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
         }
-        public void Reset()
+        public void Reset(bool resetPlayer)
         {
             _players.Clear();
-            ResetPlayer(3);
+            if(_player!=null && resetPlayer)
+                ResetPlayer(3);
         }
         public void ResetPlayer(int animationNum)
         {
@@ -57,6 +58,7 @@ namespace GameClient
             _player._health._total_health = _playerStartingHealth;
             _inventoryManager.EquippedGun = _collectionManager.GetItem(7).Drop(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
+            _player._dead = false;
         }
         public void AddPlayerFromData(ProgressData progressData)
         {

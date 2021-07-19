@@ -12,13 +12,11 @@ namespace GameServer
     public class NetworkManagerServer
     {
         float _timer_short = 0;
-        float _timer_long = 0;
         static List<Socket> _socket_list;
         private List<NetworkPlayer> _players;
         private List<SimpleEnemy> _enemies;
         Socket _socketServer;
         private List<byte> _bufferList;
-        int packetType;
         List<PacketHandlerServer> _packetHandlers;
         int numOfPlayer = 0;
         static int _playerIDNumber=0;
@@ -27,8 +25,10 @@ namespace GameServer
         Packet _packet;
         static bool _everyClientGotCurrentLevel;
         LevelManager _levelManager;
-        public NetworkManagerServer(List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
+        Game_Server _gameServer;
+        public NetworkManagerServer(Game_Server gameServer, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
+            _gameServer = gameServer;
             _levelManager = levelManager;
             _socket_list = socket_list;
             _players = players;
@@ -51,6 +51,10 @@ namespace GameServer
         {
             AddPlayerSocket();
             RemovePlayerSocket();
+            if(numOfPlayer==0)
+            {
+                _gameServer.ResetGame();
+            }
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_short >= 0.1f)
             {

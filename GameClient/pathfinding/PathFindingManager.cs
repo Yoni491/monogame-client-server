@@ -80,7 +80,6 @@ namespace GameClient
         static public void FindPaths(bool UseAstar, ref bool continueSearch)
         {
             int index = 0;
-            int timer = 0;
             while (true)
             {
                 if (continueSearch)

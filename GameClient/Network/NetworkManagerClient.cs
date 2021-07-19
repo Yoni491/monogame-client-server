@@ -13,7 +13,6 @@ namespace GameClient
         byte[] _buffer = new byte[10000];
         PacketHandlerClient _packetHandler;
         float _timer_short = 0;
-        float _timer_long = 0;
         bool _connect_again = false;
         PlayerManager _playerManager;
         Player _player;

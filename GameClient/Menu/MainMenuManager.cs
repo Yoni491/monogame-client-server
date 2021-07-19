@@ -7,7 +7,7 @@ namespace GameClient
 {
     public class MainMenuManager
     {
-        Button _singlePlayer, _multiPlayerButton, _exit, _howToPlay,_highScores, _continueGameButton;
+        Button _singlePlayer, _multiPlayerButton, _exit, _howToPlay,_highScores;
         int _buttonHeight = 60;
         int _buttonWidth = 250;
         Vector2 _buttonPosition;

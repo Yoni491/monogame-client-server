@@ -96,6 +96,7 @@ namespace GameServer
             EnemyManager.Reset();
             _playerManager.Reset(true);
             LevelManager._currentLevel = -2;
+            _networkManager.Reset();
         }
         #endregion
     }

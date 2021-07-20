@@ -39,6 +39,7 @@ namespace GameClient
         public int _dmgDoneForServer=0;
         private int _summonEnemyID;
         private List<SimpleEnemy> _summonedEnemies;
+        public bool _serverUpdated;
         
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }

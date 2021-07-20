@@ -91,11 +91,11 @@ namespace GameClient
                 {
                     networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                 }
-                networkPlayer.serverUpdated = true;
+                networkPlayer._serverUpdated = true;
                 networkPlayer.ReadPacketShort(_packet);
             }
-            _players.RemoveAll(x => x.serverUpdated == false);
-            _players.ForEach(x => x.serverUpdated = false);
+            _players.RemoveAll(x => x._serverUpdated == false);
+            _players.ForEach(x => x._serverUpdated = false);
         }
         public void ReadEnemies()
         {
@@ -111,9 +111,12 @@ namespace GameClient
                     simple_Enemy = _enemyManager.AddEnemyFromServer(enemyNum, enemyId);
                 }
                 simple_Enemy.ReadPacketShort(_packet);
+                simple_Enemy._serverUpdated = true;
                 if (simple_Enemy._health._health_left <= 0)
                     _enemies.Remove(simple_Enemy);
             }
+            _enemies.RemoveAll(x => x._serverUpdated == false);
+            _enemies.ForEach(x => x._serverUpdated = false);
         }
         public void ReadBoxes()
         {

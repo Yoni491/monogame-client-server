@@ -17,7 +17,7 @@ namespace GameServer
         private List<SimpleEnemy> _enemies;
         Socket _socketServer;
         private List<byte> _bufferList;
-        List<PacketHandlerServer> _packetHandlers;
+        List<PacketHandlerServer> _packetHandlers, _packetHandlersToRemove;
         int numOfPlayer = 0;
         static int _playerIDNumber=0;
         int addPlayers = 0, removePlayers = 0;
@@ -26,6 +26,7 @@ namespace GameServer
         static bool _everyClientGotCurrentLevel;
         LevelManager _levelManager;
         Game_Server _gameServer;
+        bool justResetted;
         public NetworkManagerServer(Game_Server gameServer, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
             _gameServer = gameServer;
@@ -34,6 +35,7 @@ namespace GameServer
             _players = players;
             _enemies = enemies;
             _packetHandlers = new List<PacketHandlerServer>();
+            _packetHandlersToRemove = new List<PacketHandlerServer>();
             _socketToAdd = new List<Socket>();
             _socketToRemove = new List<Socket>();
             _bufferList = new List<Byte>();
@@ -47,13 +49,20 @@ namespace GameServer
             _socketServer.Listen(0);
             Accept();
         }
+        public void Reset()
+        {
+            _packetHandlers.Clear();
+            _socket_list.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
             AddPlayerSocket();
             RemovePlayerSocket();
-            if(numOfPlayer==0)
+            if(numOfPlayer==0 && !justResetted)
             {
                 _gameServer.ResetGame();
+                justResetted = true;
             }
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_timer_short >= 0.1f)
@@ -71,11 +80,21 @@ namespace GameServer
             if (_everyClientGotCurrentLevel)
                 LevelManager._sendNewLevel = false;
         }
+        public void RemoveSocket(Socket client_socket, PacketHandlerServer packetHandlerServer)
+        {
+            _socketToRemove.Add(client_socket);
+            _packetHandlersToRemove.Add(packetHandlerServer);
+            removePlayers++;
+        }
         public void RemovePlayerSocket()
         {
             int tempPlayers = removePlayers;
             for (int i = 0; i < tempPlayers; i++)
             {
+                PacketHandlerServer packetHandlerServer = _packetHandlersToRemove[0];
+                _players.Remove(packetHandlerServer._player);
+                numOfPlayer--;
+                _packetHandlers.Remove(packetHandlerServer);
                 removePlayers--;
                 Socket socket = _socketToRemove[0];
                 _socket_list.Remove(socket);
@@ -107,6 +126,7 @@ namespace GameServer
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
                 numOfPlayer++;
+                justResetted = false;
             }
         }
         public void WritePlayers()
@@ -234,14 +254,7 @@ namespace GameServer
                 return;
             }
         }
-        public void RemoveSocket(Socket client_socket,PacketHandlerServer packetHandlerServer)
-        {
-            _socketToRemove.Add(client_socket);
-            _players.Remove(packetHandlerServer._player);
-            numOfPlayer--;
-            removePlayers++;
-            _packetHandlers.Remove(packetHandlerServer);
-        }
+
         #region socketMethods
         private void Accept()
         {

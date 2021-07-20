@@ -91,8 +91,11 @@ namespace GameClient
                 {
                     networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                 }
+                networkPlayer.serverUpdated = true;
                 networkPlayer.ReadPacketShort(_packet);
             }
+            _players.RemoveAll(x => x.serverUpdated == false);
+            _players.ForEach(x => x.serverUpdated = false);
         }
         public void ReadEnemies()
         {

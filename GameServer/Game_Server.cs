@@ -26,7 +26,7 @@ namespace GameServer
         private BulletReachManager _bulletReachManager;
         private ProgressManager _progressManager;
         SpriteBatch _spriteBatch;
-
+        private ServerScreen _serverScreen;
 
         #region Important Functions
         public Game_Server()
@@ -47,6 +47,8 @@ namespace GameServer
         protected override void LoadContent()
         {
             _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _serverScreen = new ServerScreen(GraphicsDevice);
 
             _mapManager = new MapManager();
             _collectionManager = new CollectionManager();
@@ -65,7 +67,7 @@ namespace GameServer
             _pathFindingManager = new PathFindingManager();
             _bulletReachManager = new BulletReachManager();
 
-            _networkManager = new NetworkManagerServer(this, _socket_list, _networkPlayers, _enemies,_levelManager);
+            _networkManager = new NetworkManagerServer(this, _serverScreen, _socket_list, _networkPlayers, _enemies,_levelManager);
 
             _bulletReachManager.Initialize(null, _networkPlayers);
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
@@ -93,6 +95,7 @@ namespace GameServer
         protected override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            _serverScreen.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -104,6 +107,7 @@ namespace GameServer
             _playerManager.Reset(true);
             LevelManager._currentLevel = -2;
             _networkManager.Reset();
+            _serverScreen.UpdateMassage("waiting for connection...");
         }
         #endregion
     }

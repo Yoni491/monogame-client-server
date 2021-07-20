@@ -14,7 +14,7 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int startingLevel=13;
+        static public int startingLevel=1;
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
         Game_Client _game_client;
@@ -68,7 +68,7 @@ namespace GameClient
                 if (_player != null)
                 {
                     _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
-                    if (_coord_Player.X + 2 >= TileManager._map.Width)
+                    if (_coord_Player.X + 1>= TileManager._map.Width)
                     {
                         LoadNewLevel();
                         return;
@@ -81,7 +81,7 @@ namespace GameClient
                         foreach (var player in _networkPlayers)
                         {
                             _coord_Player = TileManager.GetCoordTile(player.Position_Feet);
-                            if (_coord_Player.X + 2 >= TileManager._map.Width)
+                            if (_coord_Player.X + 1>= TileManager._map.Width)
                             {
                                 LoadNewLevel();
                                 return;

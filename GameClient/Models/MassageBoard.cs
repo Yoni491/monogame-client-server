@@ -11,17 +11,19 @@ namespace GameClient
         private readonly Vector2 _position;
         private readonly Rectangle _rectangle;
         private int _showMassageDistance = 50;
-        public bool _destroy;
+        public bool _destroy, _displayMassage, _displayMassageGamePad;
         ScreenMassage _screenMassage,_screenMassageGamePad;
+        GraphicsDevice _graphicsDevice;
 
-        public MassageBoard(Rectangle rectangle, string text,string textGamePad = null, bool triggerByHitting = false)
+        public MassageBoard(GraphicsDevice graphicDevice, Rectangle rectangle, string text,string textGamePad = null, bool triggerByHitting = false)
         {
+            _graphicsDevice = graphicDevice;
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
             _rectangle = rectangle;
-            _screenMassage = new ScreenMassage(text);
+            _screenMassage = new ScreenMassage(_graphicsDevice,text);
             if(textGamePad!=null)
             {
-                _screenMassageGamePad = new ScreenMassage(textGamePad);
+                _screenMassageGamePad = new ScreenMassage(_graphicsDevice,textGamePad);
             }
         }
         public void Update(Rectangle player_position_rectangle)
@@ -29,23 +31,38 @@ namespace GameClient
             Vector2 player_position = new Vector2(player_position_rectangle.X, player_position_rectangle.Y);
             if (Vector2.Distance(player_position, _position) <= _showMassageDistance)
             {
-                _screenMassage._displayMassage = true;
+                _displayMassage = true;
                 if(_screenMassageGamePad!= null)
-                    _screenMassageGamePad._displayMassage = true;
+                    _displayMassageGamePad = true;
             }
             else
             {
-                _screenMassage._displayMassage = false;
+                _displayMassage = false;
                 if (_screenMassageGamePad != null)
-                    _screenMassageGamePad._displayMassage = false;
+                    _displayMassageGamePad = false;
             }
         }
-        public void Draw(SpriteBatch spriteBatch,bool UsingGamePad)
+        public void Draw(SpriteBatch spriteBatch, bool UsingGamePad)
         {
-            if(UsingGamePad && _screenMassageGamePad != null)
-                _screenMassageGamePad.Draw(spriteBatch);
+
+            if (UsingGamePad && _screenMassageGamePad != null)
+            {
+                if (_displayMassageGamePad)
+                {
+                    _screenMassageGamePad.Draw(spriteBatch);
+                }
+            }
             else
-                _screenMassage.Draw(spriteBatch);
+            {
+                if (_displayMassage)
+                {
+                    _screenMassage.Draw(spriteBatch);
+                }
+            }
+        }
+        public void ResetGraphics()
+        {
+            _screenMassage.ResetGraphics();
         }
     }
 }

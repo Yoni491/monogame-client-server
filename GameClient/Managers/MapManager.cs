@@ -96,5 +96,9 @@ namespace GameClient
             _boxesToSend.Clear();
             _chestsToSend.Clear();
         }
+        public void ResetGraphics()
+        {
+            _massageBoards.ForEach(x => x.ResetGraphics());
+        }
     }
 }

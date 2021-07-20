@@ -26,10 +26,12 @@ namespace GameServer
         static bool _everyClientGotCurrentLevel;
         LevelManager _levelManager;
         Game_Server _gameServer;
+        ServerScreen _serverScreen;
         bool justResetted;
-        public NetworkManagerServer(Game_Server gameServer, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
+        public NetworkManagerServer(Game_Server gameServer, ServerScreen serverScreen, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
             _gameServer = gameServer;
+            _serverScreen = serverScreen;
             _levelManager = levelManager;
             _socket_list = socket_list;
             _players = players;
@@ -127,6 +129,7 @@ namespace GameServer
                 Receive(socket, packetHandler, buffer);
                 numOfPlayer++;
                 justResetted = false;
+                _serverScreen.UpdateMassage("Connected!");
             }
         }
         public void WritePlayers()

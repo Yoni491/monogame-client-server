@@ -74,7 +74,7 @@ namespace GameClient
                 }
                 if (_exitGame.Update(gameTime))
                 {
-                    
+                    _game_client.Exit();
                 }
             }
         }

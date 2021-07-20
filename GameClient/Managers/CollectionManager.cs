@@ -64,22 +64,20 @@ namespace GameClient
             int id = 0;
             _simple_enemies = new List<SimpleEnemy>();
 
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.5f), id++, Vector2.Zero, 1f, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.7f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 30, basicDrops, null, _guns[0]));//M16 GID=137
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.5f), id++, Vector2.Zero, 8, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.2f), id++, Vector2.Zero, 8, _playerManager,
                 _itemManager, 10, basicDrops, GetMeleeWeaponCopy(0, true, true, null), null));//runner KNIFE GID=138
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(10, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[2]));//RIFLE GID=139
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.4f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[1]));//sniper GID=140
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.5f), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.7f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[3]));//machine-gun GID=141
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[4]));//UZI GID=142
-            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 3), id++, Vector2.Zero, 1, _playerManager,
+            _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(11, 3), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 400, keyDrop, null, _guns[1], summonEnemyID: 1));//sniper Boss GID=143
-
-
         }
         private void InitializeItems()
         {
@@ -149,7 +147,7 @@ namespace GameClient
             _massagesArray[1, 1] = "Press left mouse button to shot";
             _massagesArray[1, 2] = "Press right mouse button to melee attack";
             _massagesArray[1, 3] = "Press spacebar to pick items near you";
-            _massagesArray[1, 4] = "Your inventory is at the bottom of the screen, click on inventory items to use them";
+            _massagesArray[1, 4] = "Your inventory is at the bottom of the screen,\nclick on inventory items to use them";
             _massagesArray[1, 5] = "Move to the right side of the map to progress";
 
             _massagesArrayGamePad[1, 0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
@@ -168,14 +166,14 @@ namespace GameClient
             _massagesArray[3, 1] = "Once your destroy the boxes prepare to fight!";
             _massagesArray[3, 2] = "Well done";
 
-            _massagesArray[4, 0] = "Warning! graves spawn enemies when you are getting closer to them!";
+            _massagesArray[4, 0] = "Warning! graves spawn enemies when\nyou are getting closer to them!";
             _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
             _massagesArray[4, 2] = "Click on an item from the inventory to use";
             _massagesArray[4, 3] = "Watch out from those boxes.. something could be behind them";
 
-            _massagesArrayGamePad[4, 2] = "To use an item press R1 and L1 to select it,\npress X to use it";
+            _massagesArrayGamePad[4, 2] = "To use an item\npress R1 and L1 to select it,\npress X to use it";
 
-            _massagesArray[5, 0] = "You need a key to open the door.. I wonder where you could find one";
+            _massagesArray[5, 0] = "You need a key to open the door..\nI wonder where you could find one";
             _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
 
             _massagesArray[6, 0] = "Beware of the sniper";
@@ -197,10 +195,10 @@ namespace GameClient
             _massagesArray[10, 4] = "WHO IS SPEED?";
             _massagesArray[10, 5] = "YOU ARE SPEED!!!";
 
-            _massagesArray[11, 0] = "It's christmas again? your present is in the chest!";
+            _massagesArray[11, 0] = "It's christmas again?\nyour present is in the chest!";
             _massagesArray[11, 1] = "Spread the love";
 
-            _massagesArray[12, 0] = "I shot a man with a paintball gun... just to watch him dye.";
+            _massagesArray[12, 0] = "I shot a man with a paintball gun...\njust to watch him dye.";
 
             _massagesArray[16, 0] = "You were made for this!";
         }

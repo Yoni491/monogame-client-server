@@ -98,14 +98,14 @@ namespace GameServer
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
-                if (numOfPlayer == 0)
-                {
-                    _levelManager.LoadNewLevel(LevelManager.startingLevel);
-                }
                 SendPacket(3, true, player._playerNum,socket);
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
+                if (numOfPlayer == 0)
+                {
+                    _levelManager.LoadNewLevel(LevelManager.startingLevel);
+                }
                 numOfPlayer++;
             }
         }

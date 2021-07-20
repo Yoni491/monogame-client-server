@@ -7,7 +7,7 @@ namespace GameClient
 {
     public class MainMenuManager
     {
-        Button _singlePlayer, _multiPlayerButton, _exit, _howToPlay,_highScores;
+        Button _singlePlayer, _multiPlayerButton, _exitGame, _howToPlay;
         int _buttonHeight = 60;
         int _buttonWidth = 250;
         Vector2 _buttonPosition;
@@ -37,8 +37,7 @@ namespace GameClient
             _singlePlayer = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), _buttonPosition, Color.Green, Color.Gray, "Single player");
             _multiPlayerButton = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Multiplayer");
             _howToPlay = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight * 2 + 4), Color.Green, Color.Gray, "How to play");
-            _highScores = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight * 3 + 6), Color.Green, Color.Gray, "Scores");
-            _exit = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight * 4 + 8), Color.Green, Color.Gray, "Exit game");
+            _exitGame = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight * 3 + 6), Color.Green, Color.Gray, "Exit game");
         }
         public void Update(GameTime gameTime)
         {
@@ -73,13 +72,9 @@ namespace GameClient
                 {
                     _showHowToPlay = true;
                 }
-                if (_highScores.Update(gameTime))
+                if (_exitGame.Update(gameTime))
                 {
-
-                }
-                if (_exit.Update(gameTime))
-                {
-
+                    
                 }
             }
         }
@@ -108,8 +103,7 @@ namespace GameClient
                 _singlePlayer.Draw(spriteBatch);
                 _multiPlayerButton.Draw(spriteBatch);
                 _howToPlay.Draw(spriteBatch);
-                _highScores.Draw(spriteBatch);
-                _exit.Draw(spriteBatch);
+                _exitGame.Draw(spriteBatch);
             }
         }
         public void ResetGraphics()
@@ -122,8 +116,7 @@ namespace GameClient
             _singlePlayer.ResetGraphics(_buttonPosition);
             _multiPlayerButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
             _howToPlay.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 2 + 4));
-            _highScores.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 3 + 6));
-            _exit.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 4 + 8));
+            _exitGame.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 3 + 6));
         }
     }
 }

@@ -36,7 +36,10 @@ namespace GameClient
                             return;
                         }
                         if (CheckIfReachable(player.Position_Feet))
+                        {
                             _reachablePlayerPos = player.Position_Feet;
+                            return;
+                        }
                     }
                 }
                 catch
@@ -79,7 +82,7 @@ namespace GameClient
                     if (CollisionManager.isCollidingWalls(tempRec, direction * _bullet._speed))
                     {
 
-                        _gun._MaxPointBulletReach = tempPos;
+                        //_gun._MaxPointBulletReach = tempPos;
                         return false;
                     }
                     tempPos += direction * _bullet._speed;

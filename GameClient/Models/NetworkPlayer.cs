@@ -82,8 +82,8 @@ namespace GameClient
                 _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_gun != null && !_hide_gun)
                 _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-            if (_hide_gun && _gun != null)
-                _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+
         }
         public void UpdatePacketShort(Packet packet)
         {

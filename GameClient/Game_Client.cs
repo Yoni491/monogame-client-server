@@ -11,7 +11,7 @@ namespace GameClient
         private SpriteBatch _UIbatch;
         private SpriteBatch _settingsBatch;
         private List<NetworkPlayer> _networkPlayers;
-        private GameOverScreen _gameOverScreen;
+        static private GameOverScreen _gameOverScreen;
         private Player _player;
         private List<SimpleEnemy> _enemies;
         private EnemyManager _enemyManager;
@@ -197,6 +197,7 @@ namespace GameClient
             _inventoryManager.ResetGraphics();
             _settingsScreen.ResetGraphics();
             _menuManager.ResetGraphics();
+            _gameOverScreen.ResetGraphics();
         }
         #endregion
     }

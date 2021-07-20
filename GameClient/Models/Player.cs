@@ -142,8 +142,11 @@ namespace GameClient
                     }
                     else
                     {
-                        item._aboutToBeSent = true;
-                        ItemManager._itemsToSend.Add(item._itemNum);
+                        if (_inventoryManager.HasSpaceForItem(item))
+                        {
+                            item._aboutToBeSent = true;
+                            ItemManager._itemsToSend.Add(item._itemNum);
+                        }
                     }
                 }
             }

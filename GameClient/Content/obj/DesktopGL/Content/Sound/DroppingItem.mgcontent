@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/Sound/DroppingItem.wav</SourceFile>
   <SourceTime>2021-07-09T19:53:42.4061981+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Content/Sound/DroppingItem.xnb</DestFile>
-  <DestTime>2021-07-20T16:50:20.4600545+03:00</DestTime>
+  <DestTime>2021-07-20T20:55:26.167776+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

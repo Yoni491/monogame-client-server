@@ -45,7 +45,7 @@ namespace GameClient
         {
             int[] items = { 2, 2, 2, 4, 10, 7};
             Random x = new Random();
-            int y = (int)x.NextDouble() * items.Length;
+            int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]).Drop(true);
             item._position = position;
             _itemsToSend.Add(item._itemNum);
@@ -55,7 +55,7 @@ namespace GameClient
         {
             int[] items = { 4, 5, 6, 7, 8, 9, 10};
             Random x = new Random();
-            int y = (int)x.NextDouble() * items.Length;
+            int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]).Drop(true);
             item._position = position;
             _itemsToSend.Add(item._itemNum);

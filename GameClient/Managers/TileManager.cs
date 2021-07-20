@@ -95,7 +95,7 @@ namespace GameClient
                 }
                 else if (gid == 470 || gid == 466)//small chest
                 {
-                    MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex));
+                    MapManager._chests.Add(i, new Chest(GetRectangleFromCoord(i % _map.Width, i / _map.Width, 2), i, tilesetIndex,smallChest:true));
                 }
                 else if (gid == 468 || gid == 465)//box
                 {

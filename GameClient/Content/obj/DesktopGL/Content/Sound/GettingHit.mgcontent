@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/Sound/GettingHit.wav</SourceFile>
   <SourceTime>2021-07-09T19:53:42.4071751+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Content/Sound/GettingHit.xnb</DestFile>
-  <DestTime>2021-07-20T16:50:23.4853216+03:00</DestTime>
+  <DestTime>2021-07-20T20:55:28.4464712+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

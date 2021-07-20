@@ -294,6 +294,31 @@ namespace GameClient
 
             }
         }
+        public bool HasSpaceForItem(Item itemToAdd)
+        {
+            foreach (var tuple in _inventory_rectangles)
+            {
+                ItemStock itemStock = tuple.Item2;
+                if (itemStock != null)
+                {
+                    if (itemStock._item._itemId == itemToAdd._itemId)
+                    {
+                        if (itemStock._amount < tuple.Item2._item._invenotryAmountAllowed)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            foreach (var tuple in _inventory_rectangles)
+            {
+                if (tuple.Item2 == null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public void ClickInventoryItemGamePad()
         {
             if (_inventory_rectangles[_gamePadPointer].Item2 != null)

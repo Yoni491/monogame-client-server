@@ -131,7 +131,6 @@ C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Fo
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Fonts\comic_22.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\backgroundUnboxingrave.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\GamePadKeys.xnb
-C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settings_background.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\‏‏‫KeyboardMouseKeys.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\Dungeon_Tileset.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map14.tmx
@@ -344,3 +343,6 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\obj\Debug\netcoreapp3.1\GameServer.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\obj\Debug\netcoreapp3.1\GameServer.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\obj\Debug\netcoreapp3.1\GameServer.genruntimeconfig.cache
+C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
+C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
+C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx

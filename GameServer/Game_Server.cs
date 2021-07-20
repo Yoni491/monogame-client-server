@@ -25,6 +25,7 @@ namespace GameServer
         static List<Socket> _socket_list = new List<Socket>();
         private BulletReachManager _bulletReachManager;
         private ProgressManager _progressManager;
+        SpriteBatch _spriteBatch;
 
 
         #region Important Functions
@@ -88,6 +89,12 @@ namespace GameServer
             _pathFindingManager.Update();
             base.Update(gameTime);
 
+        }
+        protected override void Draw(GameTime gameTime)
+        {
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            _spriteBatch.End();
+            base.Draw(gameTime);
         }
         public void ResetGame()
         {

@@ -22,7 +22,7 @@ namespace GameClient
             _gun = gun;
             _bullet = _gun._bullet;
         }
-        public bool FindReachablePlayer()
+        public void FindReachablePlayer()
         {
             if (_networkPlayers != null)
             {
@@ -30,25 +30,30 @@ namespace GameClient
                 {
                     foreach (var player in _networkPlayers)
                     {
-                        if (CheckIfReachable(player.Position_Feet))
-                            _reachablePlayerPos = player.Position_Feet;
                         if (CheckIfReachable(player.Position_Head))
+                        {
+                            _reachablePlayerPos = player.Position_Head;
+                            return;
+                        }
+                        if (CheckIfReachable(player.Position_Feet))
                             _reachablePlayerPos = player.Position_Feet;
                     }
                 }
                 catch
                 {
-                    return false;
+                    return;
                 }
             }
             if(_player!=null)
             {
+                if (CheckIfReachable(_player.Position_Head))
+                {
+                    _reachablePlayerPos = _player.Position_Head;
+                    return;
+                }
                 if (CheckIfReachable(_player.Position_Feet))
                     _reachablePlayerPos = _player.Position_Feet;
-                if(CheckIfReachable(_player.Position_Head))
-                    _reachablePlayerPos = _player.Position_Feet;
             }
-            return false;
         }
         public bool CheckIfReachable(Vector2 _direction)
         {

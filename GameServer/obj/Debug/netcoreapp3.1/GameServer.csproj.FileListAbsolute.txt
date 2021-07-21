@@ -255,7 +255,6 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Fonts\comic_22.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\backgroundUnboxingrave.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\GamePadKeys.xnb
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settings_background.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\‏‏‫KeyboardMouseKeys.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\Dungeon_Tileset.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.xnb
@@ -346,3 +345,6 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
 C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb

@@ -94,10 +94,10 @@ namespace GameClient
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
             _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice,_progressManager);
-            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager);
             _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
             _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager);
+            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager,_menuManager._multiplayerMenu);
         }
 
         protected override void Update(GameTime gameTime)

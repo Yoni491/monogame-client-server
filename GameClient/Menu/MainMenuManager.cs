@@ -15,7 +15,7 @@ namespace GameClient
         Texture2D _menuBackgroundImage;
         GraphicsDevice _graphicsDevice;
         CharacterSelectMenu _characterSelectMenu;
-        MultiplayerMenu _multiplayerMenu;
+        public MultiplayerMenu _multiplayerMenu;
         SelectSaveFileScreen _SelectSaveFileScreen;
         HowToPlayScreen _howToPlayScreen;
         public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu,_showHowToPlay;

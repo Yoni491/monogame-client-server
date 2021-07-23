@@ -19,13 +19,16 @@ namespace GameClient
         List<NetworkPlayer> _network_players;
         Packet _packet;
         List<SimpleEnemy> _enemies;
+        MultiplayerMenu _multiplayerMenu;
         public NetworkManagerClient()
         {
             
         }
-        public void Initialize(List<NetworkPlayer> network_players, Player player, 
-            PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,InventoryManager inventoryManager,LevelManager levelManager)
+        public void Initialize(List<NetworkPlayer> network_players, Player player,
+            PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,
+            InventoryManager inventoryManager,LevelManager levelManager,MultiplayerMenu multiplayerMenu)
         {
+            _multiplayerMenu = multiplayerMenu;
             _network_players = network_players;
             _enemies = enemies;
             _playerManager = playerManager;
@@ -40,11 +43,6 @@ namespace GameClient
             {
                 SendPacket(gameTime);
                 _packetHandler.Update();
-            }
-            else if (_connect_again)
-            {
-                _connect_again = false;
-                Initialize_connection();
             }
         }
         public void WriteLevel()
@@ -122,9 +120,28 @@ namespace GameClient
             }
         }
         #region NetworkMethods
-        public void Initialize_connection()
+        public void CheckIfIpValid(string ip, out IPAddress iPAddress)
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1994);
+            if (string.IsNullOrEmpty(ip))
+            {
+                iPAddress = null;
+                return;
+            }
+            IPAddress.TryParse(ip,out iPAddress);
+        }
+        public void Initialize_connection(string ip)
+        {
+            IPAddress iPAddress;
+            IPEndPoint endPoint;
+            CheckIfIpValid(ip, out iPAddress);
+            if (iPAddress!=null)
+            {
+                endPoint = new IPEndPoint(iPAddress, 1994);
+            }
+            else
+            {
+                endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1994);
+            }
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
 
@@ -139,6 +156,7 @@ namespace GameClient
             }
             else
             {
+                _multiplayerMenu._connecting = false;
                 _connect_again = true;
             }
         }

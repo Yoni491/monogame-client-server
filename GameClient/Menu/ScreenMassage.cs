@@ -15,12 +15,19 @@ namespace GameClient
         Color _background;
         GraphicsDevice _graphicsDevice;
         
-        public ScreenMassage(GraphicsDevice graphicDevice, string text,int position = 0)
+        public ScreenMassage(GraphicsDevice graphicDevice, string text,Vector2? positon = null,int positionOffsetY = 0)
         {
             _graphicsDevice = graphicDevice;
             _texture = GraphicManager.getRectangleTexture(450, 50, Color.Black);
             _font = GraphicManager.GetBasicFont("basic_22");
-            _position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 4, _graphicsDevice.Viewport.Bounds.Height / 4 + position);
+            if (positon != null)
+            {
+                _position = (Vector2)positon;
+            }
+            else
+            {
+                _position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 4, _graphicsDevice.Viewport.Bounds.Height / 4 + positionOffsetY);
+            }
             _text = text;
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, ((int)_font.MeasureString(_text).X + 20), ((int)_font.MeasureString(_text).Y + 20) );
             _background = new Color(Color.Black, 0.1f);

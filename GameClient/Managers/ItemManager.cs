@@ -43,7 +43,7 @@ namespace GameClient
         }
         static public void DropItemSmallChest(Vector2 position)
         {
-            int[] items = { 2, 2, 2, 4, 10, 7};
+            int[] items = { 2, 2, 2, 4, 10};
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]).Drop(true);

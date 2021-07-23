@@ -165,7 +165,7 @@ namespace GameClient
             {
                 return true;
             }
-            else if (_buttonX)
+            else if (_buttonB)
             {
                 _isGamePad = true;
                 return true;

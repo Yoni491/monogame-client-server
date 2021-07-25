@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/maps/tf_B_ashlands_1.png</SourceFile>
   <SourceTime>2021-07-09T19:53:43.4112526+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/maps/tf_B_ashlands_1.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:29.7099154+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:38.9321141+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

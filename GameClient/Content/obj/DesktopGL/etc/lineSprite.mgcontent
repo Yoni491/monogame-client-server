@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/etc/lineSprite.png</SourceFile>
   <SourceTime>2021-07-09T19:53:43.3897849+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/etc/lineSprite.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:25.9610639+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:35.4591044+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

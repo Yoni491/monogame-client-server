@@ -191,6 +191,9 @@
 #begin maps/map18.tmx
 /copy:maps/map18.tmx
 
+#begin maps/map19.tmx
+/copy:maps/map19.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 

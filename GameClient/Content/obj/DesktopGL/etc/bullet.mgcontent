@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/etc/bullet.png</SourceFile>
   <SourceTime>2021-07-09T19:53:43.3887858+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/etc/bullet.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:25.8691156+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:35.4191267+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

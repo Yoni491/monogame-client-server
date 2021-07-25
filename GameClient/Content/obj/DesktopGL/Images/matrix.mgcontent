@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/Images/matrix.jpeg</SourceFile>
   <SourceTime>2021-07-20T19:03:14.4535004+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Images/matrix.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:28.23876+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:37.5119286+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

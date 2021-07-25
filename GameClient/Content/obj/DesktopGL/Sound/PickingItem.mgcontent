@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/Sound/PickingItem.wav</SourceFile>
   <SourceTime>2021-07-09T19:53:42.4081743+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Sound/PickingItem.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:47.6446363+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:53.0720991+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

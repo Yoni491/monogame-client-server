@@ -3,7 +3,7 @@
   <SourceFile>C:/projects/monogame-client-server/GameClient/Content/Sound/DestroyBox.wav</SourceFile>
   <SourceTime>2021-07-09T19:53:42.4051775+03:00</SourceTime>
   <DestFile>C:/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Sound/DestroyBox.xnb</DestFile>
-  <DestTime>2021-07-20T19:09:37.2785791+03:00</DestTime>
+  <DestTime>2021-07-25T17:05:43.3406759+03:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -348,3 +348,4 @@ C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\ma
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
+C:\projects\monogame-client-server\GameServer\bin\Debug\netcoreapp3.1\Content\maps\map19.tmx

@@ -115,7 +115,7 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, _playerIDNumber++, null);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, _playerIDNumber++, null, null);
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);

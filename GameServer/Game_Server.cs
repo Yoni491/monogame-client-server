@@ -58,7 +58,7 @@ namespace GameServer
             
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
-            _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
+            _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _progressManager = new ProgressManager();
 

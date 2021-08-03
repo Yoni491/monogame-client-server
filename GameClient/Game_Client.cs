@@ -77,7 +77,7 @@ namespace GameClient
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
-            _playerManager = new PlayerManager(_networkPlayers, _collectionManager);
+            _playerManager = new PlayerManager(GraphicsDevice,_networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             //calculations
             _collisionManager = new CollisionManager();
@@ -87,7 +87,7 @@ namespace GameClient
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(GraphicsDevice, _itemManager, _inventoryManager, _settingsScreen);
+            _player = _playerManager.AddPlayer( _itemManager, _inventoryManager, _settingsScreen);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player,_progressManager);

@@ -16,19 +16,22 @@ namespace GameClient
         InventoryManager _inventoryManager;
         SettingsScreen _UImanager;
         int _playerStartingHealth = 200;
-        public PlayerManager(List<NetworkPlayer> players, CollectionManager collectionManager)
+        GraphicsDevice _graphicsDevice;
+        public PlayerManager(GraphicsDevice graphicsDevice, List<NetworkPlayer> players, CollectionManager collectionManager)
         {
+            _graphicsDevice = graphicsDevice;
             _players = players;
             _collectionManager = collectionManager;
             
         }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3,false,false, null));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), 
+                _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3,false,false, null),new NameDisplay(_graphicsDevice, ""));
             _players.Add(networkPlayer);
             return networkPlayer;
         }
-        public Player AddPlayer(GraphicsDevice graphicsDevice, ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
+        public Player AddPlayer( ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
         {
             _UImanager = uIManager;
             _itemManager = itemManager;
@@ -37,7 +40,7 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
-            NameDisplay nameDisplay = new NameDisplay(graphicsDevice, "");
+            NameDisplay nameDisplay = new NameDisplay(_graphicsDevice, "");
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f),
                 animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager,nameDisplay);
             _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).Drop(true);

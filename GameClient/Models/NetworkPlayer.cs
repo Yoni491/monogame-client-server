@@ -33,14 +33,17 @@ namespace GameClient
         private int _height=0;
         int _movingDirection = 0;
         public bool _serverUpdated;
+        public NameDisplay _nameDisplay;
+
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6));}
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 7, 7); }
 
 
-        public NetworkPlayer(Vector2 position,AnimationManager animationManager, int health, int playerNum, Gun gun)
+        public NetworkPlayer(Vector2 position,AnimationManager animationManager, int health, int playerNum, Gun gun, NameDisplay nameDisplay)
         {
+            _nameDisplay = nameDisplay;
             _animationManager = animationManager;
             _scale = _animationManager._scale;
             _position = position;
@@ -59,6 +62,8 @@ namespace GameClient
         {
             if (!Game_Client._isServer)
             {
+                _nameDisplay.Update(Position_Feet + new Vector2(5, 20));
+
                 _animationManager.Update(gameTime, _position);
 
                 _animationManager.SetAnimations(_velocity,ref _hide_gun,ref _movingDirection);
@@ -83,6 +88,7 @@ namespace GameClient
             if (_gun != null && !_hide_gun)
                 _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _nameDisplay.Draw(spriteBatch);
 
         }
         public void UpdatePacketShort(Packet packet)

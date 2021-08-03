@@ -16,11 +16,13 @@ namespace GameClient
         private GraphicsDevice _graphicsDevice;
         private Game_Client _game_Client;
         private  MainMenuManager _menuManager;
+        private TextInputBox _textInputBox;
+
 
         public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client,MainMenuManager menuManager)
         {
-
             _buttonPosition = new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);
+            _textInputBox = new TextInputBox(_buttonPosition + new Vector2(-47,0), false);
             _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition + new Vector2(115,90), Color.Green, Color.Gray, ">");
             _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition +new Vector2(-5,90), Color.Green, Color.Gray, "<");
             _startGame = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), _buttonPosition + new Vector2(-70,200), Color.Green, Color.Gray, "StartGame");
@@ -31,6 +33,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
+            _textInputBox.Update();
             if (_nextCharacter.Update(gameTime))
             {
                 index++;
@@ -51,7 +54,7 @@ namespace GameClient
             {
                 Game_Client._inMenu = false;
                 _menuManager._showChooseCharacterMenu = false;
-                _game_Client._playerManager.ResetPlayer(characterNumbers[index]);
+                _game_Client._playerManager.ResetPlayer(characterNumbers[index], _textInputBox._text);
                 if (!Game_Client._isMultiplayer)
                     _game_Client._levelManager.LoadNewLevel(LevelManager.startingLevel);
             }
@@ -64,6 +67,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            _textInputBox.Draw(spriteBatch);
             _nextCharacter.Draw(spriteBatch);
             _previousCharacter.Draw(spriteBatch);
             _startGame.Draw(spriteBatch);
@@ -78,6 +82,8 @@ namespace GameClient
             _previousCharacter.ResetGraphics(_buttonPosition + new Vector2(-5, 90));
             _startGame.ResetGraphics(_buttonPosition + new Vector2(-70, 200));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(-70, 300));
+            _textInputBox.ResetGraphics(_buttonPosition + new Vector2(-47,0));
+
         }
     }
 }

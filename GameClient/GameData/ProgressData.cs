@@ -14,12 +14,15 @@ namespace GameClient
         public int _gunNum { get; set; }
         public List<ProgressDataItem> _item_list { get; set; }
 
+        public String _playerName { get; set; }
+
 
         private ProgressData()
         {
 
         }
-        public ProgressData(int playerID, int level, int animationNum, HealthManager health, int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles)
+        public ProgressData(int playerID, int level, int animationNum, HealthManager health,
+            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles,string playerName)
         {
             _playerID = playerID;
             _level = level;
@@ -27,6 +30,8 @@ namespace GameClient
             _Health = health;
             _gunNum = gunNum;
             _item_list = new List<ProgressDataItem>();
+            _playerName = playerName;
+
             foreach (var item in _inventory_rectangles)
             {
                 if(item.Item2!=null)

@@ -28,7 +28,7 @@ namespace GameClient
             _players.Add(networkPlayer);
             return networkPlayer;
         }
-        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
+        public Player AddPlayer(GraphicsDevice graphicsDevice, ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
         {
             _UImanager = uIManager;
             _itemManager = itemManager;
@@ -37,7 +37,9 @@ namespace GameClient
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
-            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f), animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager);
+            NameDisplay nameDisplay = new NameDisplay(graphicsDevice, "");
+            _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f),
+                animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager,nameDisplay);
             _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).Drop(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
@@ -47,9 +49,9 @@ namespace GameClient
         {
             _players.Clear();
             if(_player!=null && resetPlayer)
-                ResetPlayer(3);
+                ResetPlayer(3,"");
         }
-        public void ResetPlayer(int animationNum)
+        public void ResetPlayer(int animationNum,string playerName)
         {
             _player._animationManager = CollectionManager.GetAnimationManagerCopy(animationNum, 1.5f);
             _player._animationNum = animationNum;
@@ -59,15 +61,18 @@ namespace GameClient
             _inventoryManager.EquippedGun = _collectionManager.GetItem(7).Drop(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             _player._dead = false;
+            _player._nameDisplay._text = playerName;
         }
         public void AddPlayerFromData(ProgressData progressData)
         {
+            _player._animationManager = CollectionManager.GetAnimationManagerCopy(progressData._animationNum, 1.5f);
             _player._animationNum = progressData._animationNum;
             _player._health._health_left = progressData._Health._health_left;
             _player._health._total_health = progressData._Health._total_health;
             _inventoryManager.EquippedGun = _collectionManager.GetItem(progressData._gunNum + 5).Drop(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             _player._dead = false;
+            _player._nameDisplay._text = progressData._playerName;
         }
         public void Update(GameTime gameTime)
         {

@@ -27,6 +27,7 @@ namespace GameClient
         private int _moving_direction;
         public int _animationNum;
         public bool _dead;
+        public NameDisplay _nameDisplay;
 
         private PlayerManager _playerManager;
         private ItemManager _itemManager;
@@ -37,7 +38,7 @@ namespace GameClient
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6));}
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 7, 7); }
-        public Player(AnimationManager animationManager,int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,SettingsScreen uIManager)
+        public Player(AnimationManager animationManager,int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,SettingsScreen uIManager,NameDisplay nameDisplay)
         {
             _animationManager = animationManager;
             _animationNum = animationNum;
@@ -52,10 +53,13 @@ namespace GameClient
             _health = new HealthManager(health, position,_scale);
             _width = _animationManager.Animation._frameWidth;
             _height = _animationManager.Animation._frameHeight;
+            _nameDisplay = nameDisplay;
         }
         public void Update(GameTime gameTime)
         {
             InputReader(gameTime);
+
+            _nameDisplay.Update(Position_Feet + new Vector2(5,20));
 
             _animationManager.Update(gameTime, _position);
 
@@ -106,7 +110,7 @@ namespace GameClient
                 if (_meleeWeapon != null)
                     _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-
+            _nameDisplay.Draw(spriteBatch);
             _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
             
         }

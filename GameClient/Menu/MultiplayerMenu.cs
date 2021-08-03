@@ -23,7 +23,7 @@ namespace GameClient
         {
             _graphicsDevice = graphicsDevice;
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
-            _textInputBox = new TextInputBox(_buttonPosition);
+            _textInputBox = new TextInputBox(_buttonPosition, true);
             _enterIPMassage = new ScreenMassage(graphicsDevice,"Enter IP:",_buttonPosition + new Vector2(-130, -10));
             _connectButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Connect to server");
             _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight*2 + 4), Color.Green, Color.Gray, "Return to main menu");

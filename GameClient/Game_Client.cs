@@ -86,18 +86,18 @@ namespace GameClient
             //network
             _networkManager = new NetworkManagerClient();
             //initializers
-            _collectionManager.Initialize(_enemies, Content,_playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _settingsScreen);
+            _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
+            _player = _playerManager.AddPlayer(GraphicsDevice, _itemManager, _inventoryManager, _settingsScreen);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
             _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice,_progressManager);
-            _progressManager.Initialize(_player,_inventoryManager,_playerManager,_levelManager,_collectionManager);
+            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice, _progressManager);
+            _progressManager.Initialize(_player,_inventoryManager, _playerManager, _levelManager, _collectionManager);
             _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager);
-            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager,_inventoryManager, _levelManager,_menuManager._multiplayerMenu);
+            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
         }
 
         protected override void Update(GameTime gameTime)

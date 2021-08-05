@@ -28,6 +28,7 @@ namespace GameServer
         Game_Server _gameServer;
         ServerScreen _serverScreen;
         bool justResetted;
+        public static bool _sendNames;
         public NetworkManagerServer(Game_Server gameServer, ServerScreen serverScreen, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
             _gameServer = gameServer;
@@ -70,7 +71,15 @@ namespace GameServer
             if (_timer_short >= 0.1f)
             {
                 _timer_short = 0;
-                SendPacket(1,false);
+                if(_sendNames)
+                {
+                    SendPacket(3, true);
+                    _sendNames = false;
+                }
+                else
+                {
+                    SendPacket(1,false);
+                }
             }
             _everyClientGotCurrentLevel = true;
             for (int i = 0; i < numOfPlayer; i++)
@@ -115,7 +124,8 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1], 100, _playerIDNumber++, null, null);
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1],
+                    100, _playerIDNumber++, null, new NameDisplay(null,""));
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
@@ -123,7 +133,7 @@ namespace GameServer
                 {
                     _levelManager.LoadNewLevel(LevelManager.startingLevel);
                 }
-                SendPacket(3, true, player._playerNum,socket);
+                SendPacket(2, true, player._playerNum,socket);
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
@@ -132,12 +142,12 @@ namespace GameServer
                 _serverScreen.UpdateMassage("Connected!");
             }
         }
-        public void WritePlayers()
+        public void WritePlayers(bool writeNames = false)
         {
             _packet.WriteInt(_players.Count);
             foreach (var player in _players)
             {
-                player.UpdatePacketShort(_packet);
+                player.UpdatePacketShort(_packet,writeNames);
                 if (player._gun != null)
                     player._gun._bullets.Clear();
             }
@@ -219,10 +229,10 @@ namespace GameServer
         public void SendPacket(int type, bool sendEverything, int playerNum = 0,Socket clientSocket = null)
         {
             _packet.UpdateType((ushort)type);
-            if (type == 3)
+            if (type == 2)
                 _packet.WriteInt(playerNum);
             WriteLevel();
-            WritePlayers();
+            WritePlayers(type == 3 || type == 2);
             WriteEnemies();
             _enemies.RemoveAll(enemy => enemy._destroy == true);
             WriteBoxes(sendEverything);

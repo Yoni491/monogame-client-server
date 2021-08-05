@@ -91,7 +91,7 @@ namespace GameClient
             _nameDisplay.Draw(spriteBatch);
 
         }
-        public void UpdatePacketShort(Packet packet)
+        public void UpdatePacketShort(Packet packet,bool writeName)
         {
             packet.WriteInt(_playerNum);
             packet.WriteVector2(_position);
@@ -104,9 +104,13 @@ namespace GameClient
             packet.WriteInt(_gunNum);
             packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
             _gun.UpdatePacketShort(packet);
+            if(writeName)
+            {
+                packet.WriteString(_nameDisplay._text);
+            }
         }
 
-        public void ReadPacketShort(Packet packet)
+        public void ReadPacketShort(Packet packet,bool readName = false)
         {
             _position = packet.ReadVector2();
             _movingDirection = packet.ReadInt();
@@ -136,6 +140,10 @@ namespace GameClient
                 _gun._holderScale = _scale;
             }
             _gun.ReadPacketShort(packet);
+            if(readName)
+            {
+                _nameDisplay._text = packet.ReadString();
+            }
         }
 
     }

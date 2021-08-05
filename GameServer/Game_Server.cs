@@ -86,7 +86,10 @@ namespace GameServer
             _networkManager.Update(gameTime);
             _playerManager.Update(gameTime);
             _mapManager.Update();
-            _levelManager.Update();
+            if(_levelManager.Update())
+            {
+                NetworkManagerServer._sendNames = true;
+            }
             _bulletReachManager.Update();
             _pathFindingManager.Update();
             base.Update(gameTime);

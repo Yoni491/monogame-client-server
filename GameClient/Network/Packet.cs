@@ -38,6 +38,24 @@ namespace GameClient
             Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 4);
             _offset += 4;
         }
+        public void WriteChar(char value)
+        {
+            Buffer.BlockCopy(BitConverter.GetBytes(value), 0, _buffer, _offset, 2);
+            _offset += 2;
+        }
+        public void WriteString(string text)
+        {
+            if(string.IsNullOrEmpty(text))
+            {
+                WriteInt(0);
+                return;
+            }
+            WriteInt(text.Length);
+            for (int i = 0; i < text.Length; i++)
+            {
+                WriteChar(text[i]);
+            }
+        }
         public void WriteBool(bool value)
         {
             if (value)
@@ -77,13 +95,31 @@ namespace GameClient
             _offset += 4;
             return BitConverter.ToInt32(_buffer, _offset - 4);
         }
+        public char ReadChar()
+        {
+            if (_offset >= _buffer.Length)
+                return (char)0;
+            _offset += 2;
+            char res = BitConverter.ToChar(_buffer, _offset - 2);
+            Console.WriteLine(res);
+            return res;
+        }
         public bool ReadBool()
         {
             return ReadInt() == 1;
         }
-        public string ReadString(int count)
+        public string ReadString()
         {
-            return Encoding.UTF8.GetString(_buffer, _offset, count);
+            if (_offset >= _buffer.Length)
+                return "";
+            int length = ReadInt();
+            char[] res = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                res[i] = ReadChar();
+            }
+            Console.WriteLine("string" + new string(res));
+            return new string(res);
         }
         public void RewriteHeader(ushort length, ushort type)
         {

@@ -40,7 +40,12 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
-                SendPacket(gameTime);
+                _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_timer_short >= 0.1f)//doesnt work if it is too fastss
+                {
+                    _timer_short = 0;
+                    SendPacket(gameTime);
+                }
                 _packetHandler.Update();
             }
         }
@@ -96,12 +101,10 @@ namespace GameClient
                 ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
             }
         }
-        public void SendPacket(GameTime gameTime)
+        public void SendPacket(GameTime gameTime, int packetType = 1)
         {
-            _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timer_short >= 0.1f)//doesnt work if it is too fastss
+            if (packetType == 1)
             {
-                _timer_short = 0;
                 _packet.UpdateType(1);//packet type
                 WriteLevel();
                 WritePlayers();
@@ -114,9 +117,14 @@ namespace GameClient
                 MapManager._chestsToSend.Clear();
                 WriteItems();
                 ItemManager._itemsToSend.Clear();
-                byte[] buffer = _packet.Data();
-                _socket.Send(buffer);
             }
+            else if( packetType == 2)
+            {
+                _packet.UpdateType(2);//packet type
+                _packet.WriteString(_player._nameDisplay._text);
+            }
+            byte[] buffer = _packet.Data();
+            _socket.Send(buffer);
         }
         #region NetworkMethods
         public void CheckIfIpValid(string ip, out IPAddress iPAddress)

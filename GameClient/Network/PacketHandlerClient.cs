@@ -57,10 +57,12 @@ namespace GameClient
                     case 1:
                         ReadPacket();
                         break;
-                    case 3:
-                        //first packet from the server containing player num.
+                    case 2:
                         _player._playerNum = _packet.ReadInt();
-                        ReadPacket();
+                        ReadPacket(true);
+                        break;
+                    case 3:
+                        ReadPacket(true);
                         break;
                 }
                 _packet._offset = 0;
@@ -68,10 +70,10 @@ namespace GameClient
                 Interlocked.Exchange(ref usingResource, 0);
             }
         }
-        public void ReadPacket()
+        public void ReadPacket(bool readNames = false)
         {
             ReadLevel();
-            ReadPlayers();
+            ReadPlayers(readNames);
             ReadEnemies();
             ReadBoxes();
             ReadDoors();
@@ -79,7 +81,7 @@ namespace GameClient
             ReadItems();
             ReadItemsPickedUp();
         }
-        public void ReadPlayers()
+        public void ReadPlayers(bool readNames)
         {
             int numOfPlayers = _packet.ReadInt();
             int playerNum;
@@ -92,7 +94,7 @@ namespace GameClient
                     networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                 }
                 networkPlayer._serverUpdated = true;
-                networkPlayer.ReadPacketShort(_packet);
+                networkPlayer.ReadPacketShort(_packet,readNames);
             }
             _players.RemoveAll(x => x._serverUpdated == false);
             _players.ForEach(x => x._serverUpdated = false);

@@ -55,8 +55,14 @@ namespace GameClient
                 Game_Client._inMenu = false;
                 _menuManager._showChooseCharacterMenu = false;
                 _game_Client._playerManager.ResetPlayer(characterNumbers[index], _textInputBox._text);
-                if (!Game_Client._isMultiplayer)
+                if (Game_Client._isMultiplayer)
+                {
+                    _game_Client._networkManager.SendPacket(gameTime,2);
+                }
+                else
+                {
                     _game_Client._levelManager.LoadNewLevel(LevelManager.startingLevel);
+                }
             }
             if (_returnToMain.Update(gameTime))
             {

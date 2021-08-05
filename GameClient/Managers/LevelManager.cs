@@ -61,7 +61,7 @@ namespace GameClient
             _networkPlayers = networkPlayers;
             _progressManager = progressManager;
         }
-        public void Update()
+        public bool Update()
         {
             if (!Game_Client._isMultiplayer)
             {
@@ -71,7 +71,7 @@ namespace GameClient
                     if (_coord_Player.X + 1>= TileManager._map.Width)
                     {
                         LoadNewLevel();
-                        return;
+                        return true;
                     }
                 }
                 if (!_sendNewLevel)
@@ -84,12 +84,13 @@ namespace GameClient
                             if (_coord_Player.X + 1>= TileManager._map.Width)
                             {
                                 LoadNewLevel();
-                                return;
+                                return true;
                             }
                         }
                     }
                 }
             }
+            return false;
         }
 
     }

@@ -61,10 +61,10 @@ namespace GameServer
                         ReadItems();
                         
                         break;
-                    case 4:
+                    case 2:
                         //long packet from client to server
-                        playerNum = _packet.ReadInt();
-                        _player._gun._id = _packet.ReadInt();
+                        _player._nameDisplay._text = _packet.ReadString();
+                        NetworkManagerServer._sendNames = true;
                         break;
 
                 }

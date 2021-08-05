@@ -24,7 +24,7 @@ namespace GameClient
         {
             _buttonPosition = new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);
             _textInputBox = new TextInputBox(_buttonPosition + new Vector2(-47,0), false);
-            _enterNameMassage = new ScreenMassage(graphicsDevice, "Enter name:", _buttonPosition + new Vector2(-220, -10));
+            _enterNameMassage = new ScreenMassage(graphicsDevice, "Enter name:", _buttonPosition + new Vector2(-230, -10));
             _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition + new Vector2(115,90), Color.Green, Color.Gray, ">");
             _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition +new Vector2(-5,90), Color.Green, Color.Gray, "<");
             _startGame = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), _buttonPosition + new Vector2(-70,200), Color.Green, Color.Gray, "StartGame");
@@ -92,7 +92,7 @@ namespace GameClient
             _startGame.ResetGraphics(_buttonPosition + new Vector2(-70, 200));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(-70, 300));
             _textInputBox.ResetGraphics(_buttonPosition + new Vector2(-47,0));
-            _enterNameMassage.ResetGraphics(_buttonPosition + new Vector2(-220, -10));
+            _enterNameMassage.ResetGraphics(_buttonPosition + new Vector2(-230, -10));
         }
     }
 }

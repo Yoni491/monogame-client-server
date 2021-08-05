@@ -101,7 +101,6 @@ namespace GameClient
                 return (char)0;
             _offset += 2;
             char res = BitConverter.ToChar(_buffer, _offset - 2);
-            Console.WriteLine(res);
             return res;
         }
         public bool ReadBool()
@@ -118,7 +117,6 @@ namespace GameClient
             {
                 res[i] = ReadChar();
             }
-            Console.WriteLine("string" + new string(res));
             return new string(res);
         }
         public void RewriteHeader(ushort length, ushort type)

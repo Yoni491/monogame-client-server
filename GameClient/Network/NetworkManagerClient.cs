@@ -71,7 +71,8 @@ namespace GameClient
             _packet.WriteInt(MapManager._boxesToSend.Count);
             foreach (var item in MapManager._boxesToSend)
             {
-                MapManager._boxes[item].UpdatePacket(_packet);
+                if (MapManager._boxes.ContainsKey(item))
+                    MapManager._boxes[item].UpdatePacket(_packet);
                 MapManager._boxes.Remove(item);
             }
         }
@@ -80,7 +81,8 @@ namespace GameClient
             _packet.WriteInt(MapManager._doorsToSend.Count);
             foreach (var item in MapManager._doorsToSend)
             {
-                MapManager._doors[item].UpdatePacket(_packet);
+                if (MapManager._doors.ContainsKey(item))
+                    MapManager._doors[item].UpdatePacket(_packet);
                 MapManager._doors.Remove(item);
             }
         }
@@ -89,7 +91,8 @@ namespace GameClient
             _packet.WriteInt(MapManager._chestsToSend.Count);
             foreach (var item in MapManager._chestsToSend)
             {
-                MapManager._chests[item].UpdatePacket(_packet);
+                if(MapManager._chests.ContainsKey(item))
+                    MapManager._chests[item].UpdatePacket(_packet);
                 MapManager._chests.Remove(item);
             }
         }
@@ -98,7 +101,8 @@ namespace GameClient
             _packet.WriteInt(ItemManager._itemsToSend.Count);
             foreach (var item in ItemManager._itemsToSend)
             {
-                ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
+                if (ItemManager._itemsOnTheGround.ContainsKey(item))
+                    ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
             }
         }
         public void SendPacket(GameTime gameTime, int packetType = 1)

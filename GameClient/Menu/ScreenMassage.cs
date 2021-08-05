@@ -51,10 +51,17 @@ namespace GameClient
             _text = text;
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, ((int)_font.MeasureString(_text).X + 20), ((int)_font.MeasureString(_text).Y + 20));
         }
-        public void ResetGraphics()
+        public void ResetGraphics(Vector2? position = null)
         {
+            if(position!=null)
+            {
+                _position = (Vector2)position;
+            }
+            else
+            {
             _position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 4, _graphicsDevice.Viewport.Bounds.Height / 4); ;
-            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
+            }
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, ((int)_font.MeasureString(_text).X + 20), ((int)_font.MeasureString(_text).Y + 20));
         }
     }
 }

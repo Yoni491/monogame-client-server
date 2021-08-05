@@ -73,6 +73,7 @@ namespace GameClient
             _textInputBox.ResetGraphics(_buttonPosition);
             _connectButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight*2 + 4));
+            _enterIPMassage.ResetGraphics( _buttonPosition + new Vector2(-130, -10));
         }
     }
 }

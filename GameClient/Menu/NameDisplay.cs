@@ -19,7 +19,7 @@ namespace GameClient
         {
             _graphicsDevice = graphicDevice;
             //_texture = GraphicManager.getRectangleTexture(50, 20, Color.Black);
-            _font = GraphicManager.GetBasicFont("basic_12");
+            _font = GraphicManager.GetBasicFont("basic_16");
             if (positon != null)
             {
                 _position = (Vector2)positon;
@@ -31,7 +31,7 @@ namespace GameClient
         }
        public void Update(Vector2 position)
         {
-            _position = position;
+            _position = new Vector2((int)position.X, (int)position.Y);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -39,8 +39,8 @@ namespace GameClient
 
             if (!string.IsNullOrEmpty(_text))
             {
-                int x = (int)(_font.MeasureString(_text).X)/2;
-                spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.99f);
+                int x = (int)(_font.MeasureString(_text).X * 0.7f)/2;
+                spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0.99f);
             }
         }
         public void ResetGraphics()

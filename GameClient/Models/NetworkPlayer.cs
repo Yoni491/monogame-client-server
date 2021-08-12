@@ -134,10 +134,18 @@ namespace GameClient
             }
             else if (animationNum != _animationNum)
             {
-                _animationNum = animationNum;
-                _animationManager = GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f);
-                _width = _animationManager.Animation._frameWidth;
-                _height = _animationManager.Animation._frameHeight;
+                try
+                {
+                    _animationManager = GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f);
+                    _animationNum = animationNum;
+                    _width = _animationManager.Animation._frameWidth;
+                    _height = _animationManager.Animation._frameHeight;
+                }
+                catch
+                {
+                    Console.WriteLine("Animation Num not valid:" + _animationNum);
+                }
+                
             }
             int gunNum = packet.ReadInt();
             if (gunNum != _gunNum)

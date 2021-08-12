@@ -169,7 +169,6 @@ namespace GameServer
             {
                 MapManager._boxes[box].UpdatePacket(_packet);
                 MapManager._boxes.Remove(box);
-                
             }
         }
         public void WriteDoors(bool sendAll)
@@ -256,7 +255,6 @@ namespace GameServer
                 {
                     foreach (var socket in _socket_list)
                     {
-
                         byte[] buffer = _packet.Data();
                         socket.Send(buffer);
                     }
@@ -264,6 +262,7 @@ namespace GameServer
             }
             catch
             {
+                Console.WriteLine("Error: packet not sent");
                 return;
             }
         }

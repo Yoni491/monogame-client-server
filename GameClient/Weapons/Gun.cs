@@ -346,6 +346,10 @@ namespace GameClient
                 if(!Game_Client._isServer)
                     bullet._bulletSent = true;
                 _bullets.Add(bullet);
+                if (_bullet._shootingTimer < 0.1f)
+                    AudioManager.PlaySound("Rifle", 0.2f);
+                else
+                    AudioManager.PlaySound("Rifle");
             }
         }
 

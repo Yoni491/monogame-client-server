@@ -60,8 +60,8 @@ namespace GameServer
 
         public void Update(GameTime gameTime)
         {
-            AddPlayerSocket();
             RemovePlayerSocket();
+            AddPlayerSocket();
             if(numOfPlayer==0 && !justResetted)
             {
                 _gameServer.ResetGame(true);
@@ -111,6 +111,7 @@ namespace GameServer
                 _socket_list.Remove(socket);
                 socket.Close();
                 _socketToRemove.RemoveAt(0);
+                _packetHandlersToRemove.RemoveAt(0);
             }
         }
         public void AddPlayerSocket()
@@ -118,7 +119,6 @@ namespace GameServer
             int tempPlayers = addPlayers;
             for (int i = 0; i < tempPlayers; i++)
             {
-                
                 addPlayers--;
                 Socket socket = _socketToAdd[0];
                 _socket_list.Add(socket);

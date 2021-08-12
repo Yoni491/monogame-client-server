@@ -189,6 +189,8 @@ namespace GameClient
             }
             ItemManager.Reset();
             EnemyManager.Reset();
+            PathFindingManager.Reset();
+            BulletReachManager.Reset();
             MapManager.ResetMap();
         }
 

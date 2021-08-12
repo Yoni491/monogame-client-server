@@ -89,9 +89,14 @@ namespace GameServer
             if(_levelManager.Update())
             {
                 NetworkManagerServer._sendNames = true;
+                ResetGame(false);
+                _levelManager.LoadNewLevel();
             }
-            _bulletReachManager.Update();
-            _pathFindingManager.Update();
+            if (!LevelManager._sendNewLevel)
+            {
+                _bulletReachManager.Update();
+                _pathFindingManager.Update();
+            }
             base.Update(gameTime);
 
         }
@@ -102,15 +107,20 @@ namespace GameServer
             _spriteBatch.End();
             base.Draw(gameTime);
         }
-        public void ResetGame()
+        public void ResetGame(bool resetEverything)
         {
             MapManager.ResetMap();
             ItemManager.Reset();
             EnemyManager.Reset();
-            _playerManager.Reset(true);
-            LevelManager._currentLevel = -2;
-            _networkManager.Reset();
-            _serverScreen.UpdateMassage("waiting for connection...");
+            PathFindingManager.Reset();
+            BulletReachManager.Reset();
+            if (resetEverything)
+            {
+                _playerManager.Reset(true);
+                LevelManager._currentLevel = -2;
+                _networkManager.Reset();
+                _serverScreen.UpdateMassage("waiting for connection...");
+            }
         }
         #endregion
     }

@@ -64,7 +64,7 @@ namespace GameServer
             RemovePlayerSocket();
             if(numOfPlayer==0 && !justResetted)
             {
-                _gameServer.ResetGame();
+                _gameServer.ResetGame(true);
                 justResetted = true;
             }
             _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -14,6 +14,7 @@ namespace GameClient
         static private bool _continueSearch, _continueSearchBFS;
         static int id = 0;
         static public bool _continueSearchingBlockedPaths;
+        static public bool _reset;
         public PathFindingManager()
         {
             AstarThread = new Thread(new ThreadStart(()=>FindPaths(true,ref _continueSearch)));
@@ -38,6 +39,11 @@ namespace GameClient
                         }
                         _continueSearchingBlockedPaths = false;
                     }
+                    if(_reset)
+                    {
+                        _pathFinderList.Clear();
+                        _reset = false;
+                    }
                     AddPaths();
                     RemovePaths();
                     _continueSearch = true;
@@ -55,6 +61,10 @@ namespace GameClient
             PathFinder pathFinder = new PathFinder(id++,useAstar,waitForDestroyedWall);
             _pathsToAdd.Add(pathFinder);
             return pathFinder;
+        }
+        static public void Reset()
+        {
+            _reset = true;
         }
         static public void RemovePathFinder(PathFinder pathFinder)
         {

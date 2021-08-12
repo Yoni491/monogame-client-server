@@ -95,6 +95,7 @@ namespace GameClient
             _doors.Clear();
             _boxesToSend.Clear();
             _chestsToSend.Clear();
+            _doorsToSend.Clear();
         }
         public void ResetGraphics()
         {

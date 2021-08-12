@@ -16,6 +16,7 @@ namespace GameClient
         static int id = 0;
         static private Player _player;
         static private List<NetworkPlayer> _networkPlayers;
+        static bool _reset;
 
         public BulletReachManager()
         {
@@ -35,6 +36,11 @@ namespace GameClient
         {
             if (!_continueSearch)
             {
+                if(_reset)
+                {
+                    _bulletReaches.Clear();
+                    _reset = false;
+                }
                 AddPaths();
                 RemovePaths();
                 _continueSearch = true;
@@ -45,6 +51,10 @@ namespace GameClient
             BulletReach bulletReach = new BulletReach(id++,_player,_networkPlayers,gun);
             _bulletReachesToAdd.Add(bulletReach);
             return bulletReach;
+        }
+        static public void Reset()
+        {
+            _reset = true;
         }
         static public void RemovePathFinder(PathFinder pathFinder)
         {

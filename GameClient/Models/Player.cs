@@ -95,23 +95,27 @@ namespace GameClient
             {
                 spriteBatch.Draw(GraphicManager._deadPlayerTexture, Position_Feet, null, Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y));
             }
-            if (_hide_weapon)
+            else
             {
-                if(_gun!=null)
-                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-                if(_meleeWeapon!=null)
-                    _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-            }
-            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-            if (!_hide_weapon)
-            {
-                if (_gun != null)
-                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-                if (_meleeWeapon != null)
-                    _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                if (_hide_weapon)
+                {
+                    if (_gun != null)
+                        _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                    if (_meleeWeapon != null)
+                        _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                }
+                _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                if (!_hide_weapon)
+                {
+                    if (_gun != null)
+                        _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                    if (_meleeWeapon != null)
+                        _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                }
+                _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             }
             _nameDisplay.Draw(spriteBatch);
-            _health.Draw(spriteBatch,TileManager.GetLayerDepth(_position.Y));
+            
             
         }
 

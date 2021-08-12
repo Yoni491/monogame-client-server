@@ -81,13 +81,20 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_hide_gun && _gun != null)
-                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
-            if (_animationManager != null)
-                _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
-            if (_gun != null && !_hide_gun)
-                _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
-            _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            if(_health._health_left<=0)
+            {
+                spriteBatch.Draw(GraphicManager._deadPlayerTexture, Position_Feet, null, Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y));
+            }
+            else
+            {
+                if (_hide_gun && _gun != null)
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
+                if (_animationManager != null)
+                    _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                if (_gun != null && !_hide_gun)
+                    _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
+                _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            }
             _nameDisplay.Draw(spriteBatch);
 
         }

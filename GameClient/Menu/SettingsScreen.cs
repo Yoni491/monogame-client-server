@@ -11,9 +11,11 @@ namespace GameClient
         Game_Client _game_Client;
         InventoryManager _InventoryManager;
         ProgressManager _progressManager;
-        Button _settingButton, _fullScreenButton,_returnToGame,_exitToMain,_muteSoundButton,_muteMusicButton,_restartLevel;
+        SettingsDataManager _settingsDataManager;
+        Button _settingButton, _returnToGame, _exitToMain, _restartLevel;
+        public Button _muteSoundButton, _muteMusicButton, _fullScreenButton;
         GraphicsDevice _graphicsDevice;
-        bool _fullScreen,_soundMuted,_musicMuted;
+        public bool _fullScreenOFF,_soundOFF,_musicOFF;
         public static bool _showSettings;
         private Texture2D _settingsBackground;
         int _buttonHeight = 50 , _buttonWeight = 200;
@@ -23,11 +25,12 @@ namespace GameClient
         {
 
         }
-        public void Initialize(Game_Client game_client, ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager)
+        public void Initialize(Game_Client game_client, ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager,SettingsDataManager settingsDataManager)
         {
             _game_Client = game_client;
             _graphicsDevice = graphics;
             _progressManager = progressManager;
+            _settingsDataManager = settingsDataManager;
             _InventoryManager = InventoryManager;
             _settingButton = new Button(content.Load<Texture2D>("etc/settings"), new Vector2(0, 0), Color.White, Color.Gray, null);
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
@@ -48,8 +51,8 @@ namespace GameClient
             {
                 if (_fullScreenButton.Update(gameTime))
                 {
-                    _fullScreen = !_fullScreen;
-                    if (_fullScreen)
+                    _fullScreenOFF = !_fullScreenOFF;
+                    if (_fullScreenOFF)
                     {
                         _fullScreenButton.ChangeText("Exit full Screen");
                     }
@@ -57,8 +60,9 @@ namespace GameClient
                     {
                         _fullScreenButton.ChangeText("Full screen");
                     }
-                    GraphicManager.ChangeToFullScreen(_fullScreen);
+                    GraphicManager.ChangeToFullScreen(_fullScreenOFF);
                     Game_Client.ResetGraphics();
+                    _settingsDataManager.CreateSettingsData();
                 }                
                 if (_settingButton.Update(gameTime))
                 {
@@ -85,7 +89,7 @@ namespace GameClient
                 }
                 if (_muteSoundButton.Update(gameTime))
                 {
-                    if(_soundMuted)
+                    if(_soundOFF)
                     {
                         _muteSoundButton.ChangeText("Mute sound");
                         AudioManager.MuteSound(false);
@@ -95,11 +99,12 @@ namespace GameClient
                         _muteSoundButton.ChangeText("Unmute sound");
                         AudioManager.MuteSound(true);
                     }
-                    _soundMuted = !_soundMuted;
+                    _soundOFF = !_soundOFF;
+                    _settingsDataManager.CreateSettingsData();
                 }
                 if (_muteMusicButton.Update(gameTime))
                 {
-                    if (_musicMuted)
+                    if (_musicOFF)
                     {
                         _muteMusicButton.ChangeText("Mute music");
                         AudioManager.MuteMusic(false);
@@ -109,7 +114,8 @@ namespace GameClient
                         _muteMusicButton.ChangeText("Unmute music");
                         AudioManager.MuteMusic(true);
                     }
-                    _musicMuted = !_musicMuted;
+                    _musicOFF = !_musicOFF;
+                    _settingsDataManager.CreateSettingsData();
                 }
             }
             else

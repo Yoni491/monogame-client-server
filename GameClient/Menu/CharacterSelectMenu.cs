@@ -16,14 +16,15 @@ namespace GameClient
         private GraphicsDevice _graphicsDevice;
         private Game_Client _game_Client;
         private  MainMenuManager _menuManager;
-        private TextInputBox _textInputBox;
+        public TextInputBox _NameInputTextBox;
         private ScreenMassage _enterNameMassage;
+        SettingsDataManager _settingsDataManager;
 
-
-        public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client,MainMenuManager menuManager)
+        public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client,MainMenuManager menuManager,SettingsDataManager settingsDataManager)
         {
+            _settingsDataManager = settingsDataManager;
             _buttonPosition = new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);
-            _textInputBox = new TextInputBox(_buttonPosition + new Vector2(-47,0), false);
+            _NameInputTextBox = new TextInputBox(_buttonPosition + new Vector2(-47,0), false);
             _enterNameMassage = new ScreenMassage(graphicsDevice, "Enter name:", _buttonPosition + new Vector2(-230, -10));
             _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition + new Vector2(115,90), Color.Green, Color.Gray, ">");
             _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), _buttonPosition +new Vector2(-5,90), Color.Green, Color.Gray, "<");
@@ -35,7 +36,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            _textInputBox.Update();
+            _NameInputTextBox.Update();
             if (_nextCharacter.Update(gameTime))
             {
                 index++;
@@ -54,9 +55,10 @@ namespace GameClient
             }
             if (_startGame.Update(gameTime))
             {
+                _settingsDataManager.CreateSettingsData();
                 Game_Client._inMenu = false;
                 _menuManager._showChooseCharacterMenu = false;
-                _game_Client._playerManager.ResetPlayer(characterNumbers[index], _textInputBox._text);
+                _game_Client._playerManager.ResetPlayer(characterNumbers[index], _NameInputTextBox._text);
                 if (Game_Client._isMultiplayer)
                 {
                     _game_Client._networkManager.SendPacket(gameTime,2);
@@ -75,7 +77,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _textInputBox.Draw(spriteBatch);
+            _NameInputTextBox.Draw(spriteBatch);
             _enterNameMassage.Draw(spriteBatch);
             _nextCharacter.Draw(spriteBatch);
             _previousCharacter.Draw(spriteBatch);
@@ -91,7 +93,7 @@ namespace GameClient
             _previousCharacter.ResetGraphics(_buttonPosition + new Vector2(-5, 90));
             _startGame.ResetGraphics(_buttonPosition + new Vector2(-70, 200));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(-70, 300));
-            _textInputBox.ResetGraphics(_buttonPosition + new Vector2(-47,0));
+            _NameInputTextBox.ResetGraphics(_buttonPosition + new Vector2(-47,0));
             _enterNameMassage.ResetGraphics(_buttonPosition + new Vector2(-230, -10));
         }
     }

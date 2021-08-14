@@ -28,8 +28,11 @@ namespace GameClient
         static private InventoryManager _inventoryManager;
         static private MainMenuManager _menuManager;
         static private SettingsScreen _settingsScreen;
+        private InGameUI _inGameUI;
         private ProgressManager _progressManager;
+        private SettingsDataManager _settingsDataManager;
         private BulletReachManager _bulletReachManager;
+
         static public bool _inMenu = true;
         static public bool _isMultiplayer = false;
         static public bool _isServer = true;
@@ -66,6 +69,7 @@ namespace GameClient
             _settingsScreen = new SettingsScreen();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();
+            _inGameUI = new InGameUI(GraphicsDevice);
             //game content
             _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
@@ -73,6 +77,8 @@ namespace GameClient
             _levelManager = new LevelManager(this,_tileManager);
             _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
+            //data from files
+            _settingsDataManager = new SettingsDataManager();
             _progressManager = new ProgressManager();
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
@@ -93,11 +99,12 @@ namespace GameClient
             _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice, _progressManager);
+            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice, _progressManager,_settingsDataManager);
             _progressManager.Initialize(_player,_inventoryManager, _playerManager, _levelManager, _collectionManager);
             _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
-            _menuManager.Initialize(this, GraphicsDevice, _progressManager);
+            _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
+            _settingsDataManager.Initialize(_menuManager._characterSelectMenu, _menuManager._multiplayerMenu, _settingsScreen);
         }
 
         protected override void Update(GameTime gameTime)
@@ -127,6 +134,7 @@ namespace GameClient
                         _levelManager.Update();
                         _bulletReachManager.Update();
                         _pathFindingManager.Update();
+                        _inGameUI.Update();
                     }
                 }
                 if (_isMultiplayer)
@@ -161,6 +169,7 @@ namespace GameClient
                     _itemManager.Draw(_spriteBatch);
                     _inventoryManager.Draw(_UIbatch);
                     _mapManager.Draw(_UIbatch);
+                    _inGameUI.Draw(_UIbatch);
                 }
             }           
             _spriteBatch.End();

@@ -15,7 +15,7 @@ namespace GameClient
         private static SoundEffect _soundEffect;
         private static Song _song;
         private static string _currentSong = "";
-        static bool _muteSound;
+        static bool _muteSound,_muteMusic;
         public AudioManager(ContentManager contentManager)
         {
             _contentManager = contentManager;
@@ -58,7 +58,7 @@ namespace GameClient
                     _song = _contentManager.Load<Song>("Sound/Songs/" + songName);
                     MediaPlayer.Play(_song);
                     MediaPlayer.IsRepeating = true;
-                    //MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+                    MediaPlayer.IsMuted = _muteMusic;
                     _currentSong = songName;
                 }
             }
@@ -69,7 +69,9 @@ namespace GameClient
         }
         static public void MuteMusic(bool muteMusic)
         {
+            _muteMusic = muteMusic;
             MediaPlayer.IsMuted = muteMusic;
+
         }
     }
 

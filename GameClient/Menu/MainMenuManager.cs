@@ -14,7 +14,7 @@ namespace GameClient
         Game_Client _game_client;
         Texture2D _menuBackgroundImage;
         GraphicsDevice _graphicsDevice;
-        CharacterSelectMenu _characterSelectMenu;
+        public CharacterSelectMenu _characterSelectMenu;
         public MultiplayerMenu _multiplayerMenu;
         SelectSaveFileScreen _SelectSaveFileScreen;
         HowToPlayScreen _howToPlayScreen;
@@ -24,10 +24,10 @@ namespace GameClient
         {
             
         }
-        public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager)
+        public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager, SettingsDataManager settingsDataManager)
         {
-            _multiplayerMenu = new MultiplayerMenu(graphicsDevice, game_client, this);
-            _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client, this);
+            _multiplayerMenu = new MultiplayerMenu(graphicsDevice, game_client, this, settingsDataManager);
+            _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client, this, settingsDataManager);
             _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager,game_client);
             _howToPlayScreen = new HowToPlayScreen(graphicsDevice, this, progressManager, game_client);
             _graphicsDevice = graphicsDevice;

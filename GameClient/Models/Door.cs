@@ -30,15 +30,18 @@ namespace GameClient
         }
         public void Destroy()
         {
-            TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
-            if (TileManager._walls.ContainsKey(_numberInTileset))
+            if (!_destroy)
             {
-                PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
-                PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
-                TileManager._walls.Remove(_numberInTileset);
+                TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
+                if (TileManager._walls.ContainsKey(_numberInTileset))
+                {
+                    PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                    PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                    TileManager._walls.Remove(_numberInTileset);
+                }
+                MapManager._doorsToSend.Add(_numberInTileset);
+                _destroy = true;
             }
-            MapManager._doorsToSend.Add(_numberInTileset);
-            _destroy = true;
 
         }
         public void UpdatePacket(Packet packet)

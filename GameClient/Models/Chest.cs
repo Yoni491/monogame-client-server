@@ -33,24 +33,27 @@ namespace GameClient
         }
         public void Open()
         {
-            if (!Game_Client._isMultiplayer)
+            if (!_destroy)
             {
-                if(_itemToDrop != -1)
+                if (!Game_Client._isMultiplayer)
                 {
-                    ItemManager.DropItem(_itemToDrop, _position, true);
+                    if (_itemToDrop != -1)
+                    {
+                        ItemManager.DropItem(_itemToDrop, _position, true);
+                    }
+                    else if (_smallChest)
+                    {
+                        ItemManager.DropItemSmallChest(_position);
+                    }
+                    else
+                    {
+                        ItemManager.DropItemNormalChest(_position);
+                    }
                 }
-                else if(_smallChest)
-                {
-                    ItemManager.DropItemSmallChest(_position);
-                }
-                else
-                {
-                    ItemManager.DropItemNormalChest(_position);
-                }
+                MapManager._chestsToSend.Add(_numberInTileset);
+                _destroy = true;
+                TileManager._map.TileLayers[tilesetIndex].Tiles[_numberInTileset].Gid = 0;
             }
-            MapManager._chestsToSend.Add(_numberInTileset);
-            _destroy = true;
-            TileManager._map.TileLayers[tilesetIndex].Tiles[_numberInTileset].Gid = 0;
         }
         public void UpdatePacket(Packet packet)
         {

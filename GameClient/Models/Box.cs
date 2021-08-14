@@ -30,21 +30,24 @@ namespace GameClient
         }
         public void Destroy()
         {
-            if (!Game_Client._isMultiplayer)
+            if (!_destroy)
             {
-                ItemManager.DropGold(1, _position);
-                ItemManager.DropItemFromList(CollectionManager.allConsumables,_position);
+                if (!Game_Client._isMultiplayer)
+                {
+                    ItemManager.DropGold(1, _position);
+                    ItemManager.DropItemFromList(CollectionManager.allConsumables, _position);
+                }
+                TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
+                TileManager._destroyableWalls.Remove(_numberInTileset);
+                if (!TileManager._walls.ContainsKey(_numberInTileset))
+                {
+                    PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                    PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
+                }
+                MapManager._boxesToSend.Add(_numberInTileset);
+                _destroy = true;
+                PathFindingManager._continueSearchingBlockedPaths = true;
             }
-            TileManager._map.TileLayers[_tilesetIndex].Tiles[_numberInTileset].Gid = 0;
-            TileManager._destroyableWalls.Remove(_numberInTileset);
-            if (!TileManager._walls.ContainsKey(_numberInTileset))
-            {
-                PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
-                PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
-            }
-            MapManager._boxesToSend.Add(_numberInTileset);
-            _destroy = true;
-            PathFindingManager._continueSearchingBlockedPaths = true;
         }
         public void UpdatePacket(Packet packet)
         {

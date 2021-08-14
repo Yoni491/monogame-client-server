@@ -17,6 +17,9 @@ namespace GameClient
         static public List<int> _boxesToSend;
         static public List<int> _doorsToSend;
         static public List<int> _chestsToSend;
+        static public List<int> _boxesDestroyed;
+        static public List<int> _doorsDestroyed;
+        static public List<int> _chestsDestroyed;
         public MapManager()
         {
             _graves = new List<Grave>();
@@ -27,6 +30,9 @@ namespace GameClient
             _boxesToSend = new List<int>();
             _chestsToSend = new List<int>();
             _doorsToSend = new List<int>();
+            _boxesDestroyed = new List<int>();
+            _doorsDestroyed = new List<int>();
+            _chestsDestroyed = new List<int>();
         }
         public void Initialize(Player player)
         {

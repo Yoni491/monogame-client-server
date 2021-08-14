@@ -97,7 +97,8 @@ namespace GameServer
                 int dmg = _packet.ReadInt();
                 if (simple_Enemy != null)
                 {
-                    simple_Enemy.DealDamage(dmg);
+                    if (!simple_Enemy._destroy)
+                        simple_Enemy.DealDamage(dmg);
                 }
             }
         }
@@ -110,7 +111,9 @@ namespace GameServer
                 if (MapManager._boxes.ContainsKey(boxNum))
                 {
                     Box box = MapManager._boxes[boxNum];
-                    box.Destroy();
+                    if(!box._destroy)
+                        box.Destroy();
+                    MapManager._boxesDestroyed.Add(boxNum);
                 }
             }
         }
@@ -123,7 +126,10 @@ namespace GameServer
                 if (MapManager._doors.ContainsKey(doorNum))
                 {
                     Door door = MapManager._doors[doorNum];
-                    door.Destroy();
+                    if (!door._destroy)
+                        door.Destroy();
+                    MapManager._doorsDestroyed.Add(doorNum);
+
                 }
             }
         }
@@ -135,7 +141,10 @@ namespace GameServer
                 int chestNum = _packet.ReadInt();
                 if (MapManager._chests.ContainsKey(chestNum))
                 {
-                    MapManager._chests[chestNum].Open();
+                    if (!MapManager._chests[chestNum]._destroy)
+                        MapManager._chests[chestNum].Open();
+                    MapManager._chestsDestroyed.Add(chestNum);
+
                 }
             }
         }

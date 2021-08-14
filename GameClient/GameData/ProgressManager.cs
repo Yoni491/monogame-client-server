@@ -53,14 +53,17 @@ namespace GameClient
         }
         public void LoadData()
         {
-            _latestProgressData = JsonSerializer.Deserialize<ProgressData>(_progressDataJson);
-            _playerManager.AddPlayerFromData(_latestProgressData);
-            _inventoryManager.ResetInventory();
-            foreach (var item in _latestProgressData._item_list)
+            if (_progressDataJson != null)
             {
-                _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false,item._amount) ;
+                _latestProgressData = JsonSerializer.Deserialize<ProgressData>(_progressDataJson);
+                _playerManager.AddPlayerFromData(_latestProgressData);
+                _inventoryManager.ResetInventory();
+                foreach (var item in _latestProgressData._item_list)
+                {
+                    _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false, item._amount);
+                }
+                _levelManager.LoadNewLevel(_latestProgressData._level);
             }
-            _levelManager.LoadNewLevel(_latestProgressData._level);
         }
     }
 }

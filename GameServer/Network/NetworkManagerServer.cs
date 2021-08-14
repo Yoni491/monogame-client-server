@@ -164,31 +164,66 @@ namespace GameServer
         }
         public void WriteBoxes(bool sendAll)
         {
-            _packet.WriteInt(MapManager._boxesToSend.Count);
-            foreach (var box in MapManager._boxesToSend)
+            if(sendAll)
             {
-                MapManager._boxes[box].UpdatePacket(_packet);
-                MapManager._boxes.Remove(box);
+                _packet.WriteInt(MapManager._boxesDestroyed.Count);
+                foreach (var box in MapManager._boxesDestroyed)
+                {
+                    _packet.WriteInt(box);
+                }
+            }
+            else
+            {
+                _packet.WriteInt(MapManager._boxesToSend.Count);
+                foreach (var box in MapManager._boxesToSend)
+                {
+                    if (MapManager._boxes.ContainsKey(box))
+                        MapManager._boxes[box].UpdatePacket(_packet);
+                    MapManager._boxes.Remove(box);
+                }
             }
         }
         public void WriteDoors(bool sendAll)
         {
-            _packet.WriteInt(MapManager._doorsToSend.Count);
-            foreach (var door in MapManager._doorsToSend)
+            if (sendAll)
             {
-                MapManager._doors[door].UpdatePacket(_packet);
-                MapManager._doors.Remove(door);
+                _packet.WriteInt(MapManager._doorsDestroyed.Count);
+                foreach (var door in MapManager._doorsDestroyed)
+                {
+                    _packet.WriteInt(door);
+                }
+            }
+            else
+            {
+                _packet.WriteInt(MapManager._doorsToSend.Count);
+                foreach (var door in MapManager._doorsToSend)
+                {
+                    if (MapManager._doors.ContainsKey(door))
+                        MapManager._doors[door].UpdatePacket(_packet);
+                    MapManager._doors.Remove(door);
 
+                }
             }
         }
         public void WriteChests(bool sendAll)
         {
-            _packet.WriteInt(MapManager._chestsToSend.Count);
-            foreach (var chest in MapManager._chestsToSend)
+            if(sendAll)
             {
-                MapManager._chests[chest].UpdatePacket(_packet);
-                MapManager._chests.Remove(chest);
-
+                _packet.WriteInt(MapManager._chestsDestroyed.Count);
+                foreach (var chest in MapManager._chestsDestroyed)
+                {
+                    _packet.WriteInt(chest);
+                }
+            }
+            else
+            {
+                _packet.WriteInt(MapManager._chestsToSend.Count);
+                foreach (var chest in MapManager._chestsToSend)
+                {
+                    if (MapManager._chests.ContainsKey(chest))
+                        MapManager._chests[chest].UpdatePacket(_packet);
+                    MapManager._chests.Remove(chest);
+                }
             }
         }
         public void WriteItems(bool sendAll)
@@ -206,7 +241,8 @@ namespace GameServer
                 _packet.WriteInt(ItemManager._itemsToSend.Count);
                 foreach (var item in ItemManager._itemsToSend)
                 {
-                    ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
+                    if(ItemManager._itemsOnTheGround.ContainsKey(item))
+                        ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
                 }
             }
         }

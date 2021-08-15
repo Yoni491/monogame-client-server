@@ -24,7 +24,7 @@ namespace GameClient
         public int _playerNum;
         private int _width;
         private int _height;
-        private int _moving_direction;
+        private int _moving_direction = 1;
         public int _animationNum;
         public bool _dead;
         public NameDisplay _nameDisplay;
@@ -207,7 +207,7 @@ namespace GameClient
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
             packet.WriteInt(_gun._id);
-            packet.WriteInt(_gun._bullets.FindAll(x=>x._bulletSent==false).Count());
+            
             _gun.UpdatePacketShort(packet);
         }
 

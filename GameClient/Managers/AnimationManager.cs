@@ -102,12 +102,43 @@ namespace GameClient
                     Play(moving_direction);
             }
         }
-        public void SetAnimationsFromServer(int moving_direction)
+        public void SetAnimationsFromServer(Vector2 velocity, ref bool hide_weapon,ref int moving_direction)
         {
-            if (moving_direction != -1)
+            if (velocity == Vector2.Zero)
+            {
                 Play(moving_direction);
-            else
+                if(moving_direction== (int)Direction.Up)
+                    hide_weapon = true;
+                else
+                    hide_weapon = false;
                 Stop();
+            }
+            else
+            {
+                hide_weapon = false;
+                moving_direction = -1;
+                if (velocity.X >= Math.Abs(velocity.Y))
+                {
+                    moving_direction = (int)Direction.Right;
+
+                }
+                else if (-velocity.X >= Math.Abs(velocity.Y))
+                {
+                    moving_direction = (int)Direction.Left;
+                }
+                else if (velocity.Y > 0)
+                {
+                    moving_direction = (int)Direction.Down;
+                }
+                else if (velocity.Y < 0)
+                {
+                    moving_direction = (int)Direction.Up;
+                    hide_weapon = true;
+                }
+                else Stop();
+                if (moving_direction != -1)
+                    Play(moving_direction);
+            }
         }
     }
 }

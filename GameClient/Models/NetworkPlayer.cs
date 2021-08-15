@@ -23,7 +23,7 @@ namespace GameClient
 
         public Vector2 _position;
 
-        private HealthManager _health;
+        public HealthManager _health;
 
         private Vector2 _looking_direction;
         private int _animationNum = -1;
@@ -66,13 +66,13 @@ namespace GameClient
 
                 _animationManager.Update(gameTime, _position);
 
-                _animationManager.SetAnimations(_velocity,ref _hide_gun,ref _movingDirection);
+                _animationManager.SetAnimationsFromServer(_velocity,ref _hide_gun,ref _movingDirection);
 
                 _position += _velocity;
 
                 if (_gun != null)
                 {
-                    _gun.Update(gameTime, _looking_direction,0, false,false, _position);
+                    _gun.Update(gameTime, _looking_direction, _movingDirection, false,false, _position);
                 }
 
                 _health.Update(_position);
@@ -109,7 +109,6 @@ namespace GameClient
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
             packet.WriteInt(_gunNum);
-            packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
             _gun.UpdatePacketShort(packet);
             if(writeName)
             {

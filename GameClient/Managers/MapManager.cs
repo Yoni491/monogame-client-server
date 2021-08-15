@@ -102,6 +102,9 @@ namespace GameClient
             _boxesToSend.Clear();
             _chestsToSend.Clear();
             _doorsToSend.Clear();
+            _boxesDestroyed.Clear();
+            _doorsDestroyed.Clear();
+            _chestsDestroyed.Clear();
         }
         public void ResetGraphics()
         {

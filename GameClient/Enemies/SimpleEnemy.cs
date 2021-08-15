@@ -102,7 +102,7 @@ namespace GameClient
         }
         private void UpdateFromServer()
         {
-            _animationManager.SetAnimationsFromServer(_moving_direction);
+            _animationManager.SetAnimationsFromServer(_velocity,ref _hide_weapon,ref _moving_direction);
         }
         private void SummonEnemies(GameTime gameTime)
         {

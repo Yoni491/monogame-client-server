@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameClient
 {
@@ -28,8 +29,10 @@ namespace GameClient
         private bool _dealDmg;
         public InventoryManager _inventoryManager;
 
+
         #region meleeAttackVariables
         private int _moving_direction_int;
+        private int _swingWeaponDmg = 5;
         private float _between_attacks_timer;
         private float _swing_timer;
         private float _between_attacks_timer_window = 0.2f;
@@ -37,8 +40,9 @@ namespace GameClient
         private float _swing_frame_timer = 0;
         private float swingSpeed = 14;
         private bool _isColided = false,_isColidedBox;
-        private Chest _colidedChest;
         public bool _swing_weapon;
+        private bool _swingWeapon_send;
+        private Chest _colidedChest;
         #endregion
 
 
@@ -64,8 +68,10 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, Vector2 direction,int moving_direction, bool isGamePad,bool showLine, Vector2 position)
         {
-            MelleAttackUpdate(gameTime, position);
             _moving_direction_int = moving_direction;
+
+            MelleAttackUpdate(gameTime, position);
+
             _direction = Vector2.Normalize(direction);
             foreach (var bullet in _bullets)
             {
@@ -85,36 +91,35 @@ namespace GameClient
             _showLine = showLine;
             _tipOfTheGun =_position + Vector2.Normalize(_direction) * _texture.Width / 2 +new Vector2(0, 5);
         }
-        public void MelleAttackUpdate(GameTime gameTime, Vector2 position)
+        private void MelleAttackCollision(GameTime gameTime, Vector2 position)
         {
             if (_swing_weapon)
             {
-                SwingUpdate(gameTime);
                 Rectangle swingRectangle;
                 if (_moving_direction_int == (int)Direction.Right || _moving_direction_int == (int)Direction.Left)
-                    swingRectangle = new Rectangle((int)_position.X, (int)_position.Y-16, 16, 48);
+                    swingRectangle = new Rectangle((int)_position.X, (int)_position.Y - 16, 16, 48);
                 else
-                    swingRectangle = new Rectangle((int)_position.X - 16, (int)_position.Y+16, 48, 16);
-                _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    swingRectangle = new Rectangle((int)_position.X - 16, (int)_position.Y + 16, 48, 16);
+
                 if (_hitPlayers)
                 {
-                    if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
+                    if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColided = true;
                     }
                 }
                 else
                 {
-                    if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, 5))
+                    if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColided = true;
                     }
-                    else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
+                    else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColidedBox = true;
-                        while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
+                        while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                         {
-                            
+
                         }
                     }
                     else if (!_isColidedBox && !_isColided)
@@ -125,9 +130,9 @@ namespace GameClient
                             _isColided = true;
                         }
                         Door _colidedDoor = CollisionManager.IsCollidingDoors(swingRectangle, Vector2.Zero);
-                        if(_colidedDoor!=null)
+                        if (_colidedDoor != null)
                         {
-                            if(_inventoryManager.RemoveItemFromInventory(11))
+                            if (_inventoryManager.RemoveItemFromInventory(11))
                             {
                                 _colidedDoor.Destroy();
                             }
@@ -135,23 +140,35 @@ namespace GameClient
                     }
                 }
             }
+        }
+        private void MelleAttackUpdate(GameTime gameTime, Vector2 position)
+        {
+            if (_swing_weapon)
+            {
+                SwingPositionUpdate(gameTime);
+                if (_dealDmg)
+                    MelleAttackCollision(gameTime, position);
+                _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_swing_timer >= 0.1f)
+                {
+                    if (_colidedChest != null && !_isColidedBox)
+                        _colidedChest.Open();
+                    _swing_timer = 0;
+                    _swing_weapon = false;
+                    _position = position + new Vector2(23, 44) * _holderScale;
+                    _isColided = false;
+                    _isColidedBox = false;
+                    _between_attacks_timer = 0;
+                }
+            }
             else
             {
                 _position = position + new Vector2(23, 40) * _holderScale;
                 _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            if (_swing_timer >= 0.1f)
-            {
-                if (_colidedChest != null && !_isColidedBox)
-                    _colidedChest.Open();
-                _swing_timer = 0;
-                _swing_weapon = false;
-                _position = position + new Vector2(23, 44) * _holderScale;
-                _isColided = false;
-                _isColidedBox = false;
-                _between_attacks_timer = 0;
-            }
+            
         }
+        
         public void DrawSwing(SpriteBatch spriteBatch, float layer)
         {
             if (_moving_direction_int == (int)Direction.Up)
@@ -246,7 +263,7 @@ namespace GameClient
             }
         }
 
-        private void SwingUpdate(GameTime gameTime)
+        private void SwingPositionUpdate(GameTime gameTime)
         {
             _swing_frame_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_swing_frame_timer > _swing_frame_window)
@@ -276,6 +293,7 @@ namespace GameClient
             {
                 AudioManager.PlaySound("SwingWeapon");
                 _swing_weapon = true;
+                _swingWeapon_send = true;
             }
         }
         public bool BulletReach()
@@ -326,6 +344,10 @@ namespace GameClient
         }
         public void UpdatePacketShort(Packet packet)
         {
+            packet.WriteBool(_swingWeapon_send);
+            if (_swingWeapon_send)
+                _swingWeapon_send = false;
+            packet.WriteInt(_bullets.FindAll(x => x._bulletSent == false).Count());
             foreach (var bullet in _bullets)
             {
                 if (!bullet._bulletSent)
@@ -335,6 +357,12 @@ namespace GameClient
         }
         public void ReadPacketShort(Packet packet)
         {
+            _swing_weapon = packet.ReadBool();
+            _swingWeapon_send = _swing_weapon;
+            if (!Game_Client._isServer && _swing_weapon)
+            {
+                AudioManager.PlaySound("SwingWeapon");
+            }
             int bulletAmount = packet.ReadInt();
             for (int i = 0; i < bulletAmount; i++)
             {

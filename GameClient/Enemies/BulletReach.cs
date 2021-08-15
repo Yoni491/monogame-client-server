@@ -30,15 +30,18 @@ namespace GameClient
                 {
                     foreach (var player in _networkPlayers)
                     {
-                        if (CheckIfReachable(player.Position_Head))
+                        if (player._health._health_left >= 0)
                         {
-                            _reachablePlayerPos = player.Position_Head;
-                            return;
-                        }
-                        if (CheckIfReachable(player.Position_Feet))
-                        {
-                            _reachablePlayerPos = player.Position_Feet;
-                            return;
+                            if (CheckIfReachable(player.Position_Head))
+                            {
+                                _reachablePlayerPos = player.Position_Head;
+                                return;
+                            }
+                            if (CheckIfReachable(player.Position_Feet))
+                            {
+                                _reachablePlayerPos = player.Position_Feet;
+                                return;
+                            }
                         }
                     }
                 }

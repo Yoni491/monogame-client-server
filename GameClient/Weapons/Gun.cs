@@ -68,7 +68,8 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, Vector2 direction,int moving_direction, bool isGamePad,bool showLine, Vector2 position)
         {
-            _moving_direction_int = moving_direction;
+            if(!_swing_weapon)
+                _moving_direction_int = moving_direction;
 
             MelleAttackUpdate(gameTime, position);
 

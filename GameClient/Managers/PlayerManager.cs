@@ -105,9 +105,10 @@ namespace GameClient
             float closest_object_distance = float.MaxValue;
             Vector2 player_position = position;
             if (_players != null && Game_Client._isServer)
+            {
                 foreach (var player in _players)
                 {
-                    if (player._health._health_left >= 0)
+                    if (player._health._health_left > 0)
                     {
                         if (Vector2.Distance(position, player.Position_Feet) < closest_object_distance)
                         {
@@ -122,6 +123,7 @@ namespace GameClient
                     }
 
                 }
+            }
             if (_player != null)
             {
                 if (Vector2.Distance(position, _player.Position_Feet) < closest_object_distance)

@@ -30,7 +30,7 @@ namespace GameClient
                 {
                     foreach (var player in _networkPlayers)
                     {
-                        if (player._health._health_left >= 0)
+                        if (player._health._health_left > 0)
                         {
                             if (CheckIfReachable(player.Position_Head))
                             {

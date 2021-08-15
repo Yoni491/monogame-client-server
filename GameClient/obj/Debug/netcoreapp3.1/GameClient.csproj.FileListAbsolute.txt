@@ -672,12 +672,29 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Weapons\4.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Weapons\5.xnb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Weapons\swords-sheet.xnb
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.exe
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.deps.json
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.json
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.dev.json
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\TiledSharp.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\TiledSharp.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.AssemblyInfoInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.AssemblyInfo.cs
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csproj.CopyComplete
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.pdb
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map19.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map19.tmx
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.exe
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.json
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\GameClient.runtimeconfig.dev.json
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\MonoGame.Extended.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\MonoGame.Extended.Graphics.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\MonoGame.Extended.Tiled.dll
@@ -691,21 +708,4 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\TiledSharp.dll
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\TiledSharp.pdb
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csprojAssemblyReference.cache
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.AssemblyInfoInputs.cache
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.AssemblyInfo.cs
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csproj.CoreCompileInputs.cache
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.csproj.CopyComplete
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.dll
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.genruntimeconfig.cache
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map18.tmx
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\matrix.xnb
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\Images\settingBackground.xnb
-C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map19.tmx
-C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map19.tmx

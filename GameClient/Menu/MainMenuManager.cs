@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace GameClient
@@ -75,6 +76,7 @@ namespace GameClient
                 if (_exitGame.Update(gameTime))
                 {
                     _game_client.Exit();
+                    Environment.Exit(0);
                 }
             }
         }

@@ -248,8 +248,8 @@ namespace GameServer
         }
         public void WriteItemsPickedUp()
         {
-            _packet.WriteInt(ItemManager._itemsPickedUpToSend.Count);
-            foreach (var item in ItemManager._itemsPickedUpToSend)
+            _packet.WriteInt(ItemManager._itemsPickedUpToSend_Server.Count);
+            foreach (var item in ItemManager._itemsPickedUpToSend_Server)
             {
                 _packet.WriteInt(item.Item1);//player num
                 _packet.WriteInt(item.Item2);//item num
@@ -279,7 +279,7 @@ namespace GameServer
             WriteItems(sendEverything);
             ItemManager._itemsToSend.Clear();
             WriteItemsPickedUp();
-            ItemManager._itemsPickedUpToSend.Clear();
+            ItemManager._itemsPickedUpToSend_Server.Clear();
             try
             {
                 if (clientSocket != null)

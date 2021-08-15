@@ -12,13 +12,15 @@ namespace GameClient
         static public Dictionary<int,Item> _itemsOnTheGround;
         static public int itemNumber = 0;
         static public List<int> _itemsToSend;
-        static public List<(int,int)> _itemsPickedUpToSend;
+        static public List<int> _itemsToSendDropped;
+        static public List<(int,int)> _itemsPickedUpToSend_Server;
         public ItemManager(CollectionManager collectionManager)
         {
             _collectionManager = collectionManager;
             _itemsOnTheGround = new Dictionary<int, Item>();
-            _itemsPickedUpToSend = new List<(int, int)>();
+            _itemsPickedUpToSend_Server = new List<(int, int)>();
             _itemsToSend = new List<int>();
+            _itemsToSendDropped = new List<int>();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -128,6 +130,7 @@ namespace GameClient
         {
             _itemsOnTheGround.Clear();
             _itemsToSend.Clear();
+            _itemsToSendDropped.Clear();
         }
     }
 }

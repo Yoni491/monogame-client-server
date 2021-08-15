@@ -96,13 +96,25 @@ namespace GameClient
                 MapManager._chests.Remove(item);
             }
         }
-        public void WriteItems()
+        public void WriteItemsPickedFromGround()
         {
             _packet.WriteInt(ItemManager._itemsToSend.Count);
             foreach (var item in ItemManager._itemsToSend)
             {
                 if (ItemManager._itemsOnTheGround.ContainsKey(item))
                     ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
+            }
+        }
+        public void WriteItemDroppedToGround()
+        {
+            _packet.WriteInt(ItemManager._itemsToSendDropped.Count);
+            foreach (var item in ItemManager._itemsToSendDropped)
+            {
+                if (ItemManager._itemsOnTheGround.ContainsKey(item))
+                {
+                    ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
+
+                }
             }
         }
         public void SendPacket(GameTime gameTime, int packetType = 1)
@@ -119,8 +131,10 @@ namespace GameClient
                 MapManager._doorsToSend.Clear();
                 WriteChests();
                 MapManager._chestsToSend.Clear();
-                WriteItems();
+                WriteItemsPickedFromGround();
                 ItemManager._itemsToSend.Clear();
+                WriteItemDroppedToGround();
+
             }
             else if( packetType == 2)
             {

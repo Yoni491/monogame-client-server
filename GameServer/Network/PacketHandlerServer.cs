@@ -58,8 +58,9 @@ namespace GameServer
                         ReadBoxes();
                         ReadDoors();
                         ReadChests();
-                        ReadItems();
-                        
+                        ReadItemsPickedFromGround();
+                        ReadItemsDroppedToGround();
+
                         break;
                     case 2:
                         //long packet from client to server
@@ -148,7 +149,7 @@ namespace GameServer
                 }
             }
         }
-        public void ReadItems()
+        public void ReadItemsPickedFromGround()
         {
             int numOfItems = _packet.ReadInt();
             for (int i = 0; i < numOfItems; i++)
@@ -156,9 +157,19 @@ namespace GameServer
                 int itemNum = _packet.ReadInt();
                 if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
-                    ItemManager._itemsPickedUpToSend.Add((_player._playerNum,itemNum));
+                    ItemManager._itemsPickedUpToSend_Server.Add((_player._playerNum,itemNum));
                     ItemManager._itemsOnTheGround.Remove(itemNum);
                 }
+            }
+        }
+        public void ReadItemsDroppedToGround()
+        {
+            int numOfItems = _packet.ReadInt();
+            for (int i = 0; i < numOfItems; i++)
+            {
+                int itemID = _packet.ReadInt();
+                Vector2 itemPosition = _packet.ReadVector2();
+                ItemManager.DropItem(itemID, itemPosition, true);
             }
         }
     }

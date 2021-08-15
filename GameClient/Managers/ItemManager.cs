@@ -11,16 +11,16 @@ namespace GameClient
         static CollectionManager _collectionManager;
         static public Dictionary<int,Item> _itemsOnTheGround;
         static public int itemNumber = 0;
-        static public List<int> _itemsToSend;
-        static public List<int> _itemsToSendDropped;
+        static public List<int> _itemsToSendPicked;
+        static public List<(int,Vector2)> _itemsToSendDropped;
         static public List<(int,int)> _itemsPickedUpToSend_Server;
         public ItemManager(CollectionManager collectionManager)
         {
             _collectionManager = collectionManager;
             _itemsOnTheGround = new Dictionary<int, Item>();
             _itemsPickedUpToSend_Server = new List<(int, int)>();
-            _itemsToSend = new List<int>();
-            _itemsToSendDropped = new List<int>();
+            _itemsToSendPicked = new List<int>();
+            _itemsToSendDropped = new List<(int, Vector2)>();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -37,7 +37,7 @@ namespace GameClient
                 if(item!=null)
                 {
                     item._position = position;
-                    _itemsToSend.Add(item._itemNum);
+                    _itemsToSendPicked.Add(item._itemNum);
                     _itemsOnTheGround.Add(item._itemNum,item);
                     return;
                 }
@@ -50,7 +50,7 @@ namespace GameClient
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]).Drop(true);
             item._position = position;
-            _itemsToSend.Add(item._itemNum);
+            _itemsToSendPicked.Add(item._itemNum);
             _itemsOnTheGround.Add(item._itemNum, item);
         }
         static public void DropItemNormalChest(Vector2 position)
@@ -60,20 +60,26 @@ namespace GameClient
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]).Drop(true);
             item._position = position;
-            _itemsToSend.Add(item._itemNum);
+            _itemsToSendPicked.Add(item._itemNum);
             _itemsOnTheGround.Add(item._itemNum, item);
         }
         static public void DropItem(int itemId, Vector2 position, bool alwaysDrop = false)
         {
-
+            if (!Game_Client._isServer)
+            {
+                _itemsToSendDropped.Add((itemId, position));
+            }
+            if(!Game_Client._isMultiplayer)
+            {
                 Item item = _collectionManager.GetItem(itemId).Drop(alwaysDrop);
                 if (item != null)
                 {
                     item._position = position;
-                    _itemsToSend.Add(item._itemNum);
+                    _itemsToSendPicked.Add(item._itemNum);
                     _itemsOnTheGround.Add(item._itemNum, item);
                     return;
                 }
+            }
         }
         //Client function to drop item that server sends
         static public void DropItemFromServer(int num, int id, Vector2 position)
@@ -95,7 +101,7 @@ namespace GameClient
                 if (item != null)
                 {
                     item._position = position;
-                    _itemsToSend.Add(item._itemNum);
+                    _itemsToSendPicked.Add(item._itemNum);
                     _itemsOnTheGround.Add(item._itemNum,item);
                 }
             }
@@ -129,8 +135,9 @@ namespace GameClient
         public static void Reset()
         {
             _itemsOnTheGround.Clear();
-            _itemsToSend.Clear();
+            _itemsToSendPicked.Clear();
             _itemsToSendDropped.Clear();
+            _itemsPickedUpToSend_Server.Clear();
         }
     }
 }

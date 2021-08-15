@@ -99,11 +99,11 @@ namespace GameClient
             _levelManager.Initialize(_player,_progressManager);
             _inventoryManager.Initialize(_player,_itemManager);
             _mapManager.Initialize(_player);
-            _settingsScreen.Initialize(this, Content, _inventoryManager, GraphicsDevice, _progressManager,_settingsDataManager);
             _progressManager.Initialize(_player,_inventoryManager, _playerManager, _levelManager, _collectionManager);
             _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
+            _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager,_settingsDataManager);
             _settingsDataManager.Initialize(_menuManager._characterSelectMenu, _menuManager._multiplayerMenu, _settingsScreen);
         }
 
@@ -112,6 +112,8 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _settingsScreen.Update(gameTime);
+            if (_isMultiplayer)
+                _networkManager.Update(gameTime);
             if (_inMenu && !SettingsScreen._showSettings)
             {
                 _menuManager.Update(gameTime);
@@ -126,10 +128,11 @@ namespace GameClient
                 }
                 else
                 {
-                    if (_tileManager._levelLoaded)
+                    if (_tileManager._levelLoaded && !SettingsScreen._showSettings)
                     {
                         _enemyManager.Update(gameTime);
                         _playerManager.Update(gameTime);
+                        _inventoryManager.Update();
                         _mapManager.Update();
                         _levelManager.Update();
                         _bulletReachManager.Update();
@@ -137,8 +140,6 @@ namespace GameClient
                         _inGameUI.Update();
                     }
                 }
-                if (_isMultiplayer)
-                    _networkManager.Update(gameTime);
             }
             base.Update(gameTime);
 

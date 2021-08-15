@@ -20,7 +20,6 @@ namespace GameClient
         private bool _isCraftable;
         public Gun _gun;
         public Vector2 _position;
-        private bool _inInventory;
         public int _invenotryAmountAllowed;
         public int _itemHealing;
         public bool _aboutToBeSent;
@@ -74,7 +73,6 @@ namespace GameClient
         public void MakeInventoryItem(Vector2 position)
         {
             _position = position;
-            _inInventory = true;
         }
         public void UpdatePacket(Packet packet)
         {

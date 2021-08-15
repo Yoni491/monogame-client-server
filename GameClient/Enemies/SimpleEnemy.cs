@@ -314,7 +314,6 @@ namespace GameClient
             if (_gun != null)
             {
                 packet.WriteInt(0);//gun is 0
-                packet.WriteInt(_gun._bullets.FindAll(x => x._bulletSent == false).Count());
                 _gun.UpdatePacketShort(packet);
             }
             else if (_meleeWeapon != null)

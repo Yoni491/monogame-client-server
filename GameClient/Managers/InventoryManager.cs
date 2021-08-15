@@ -17,7 +17,7 @@ namespace GameClient
         public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
-        int _itemBlockAmount = 8;
+        int _itemBlockAmount = 3;
         MouseState _previousMouse, _currentMouse;
         public Item EquippedGun = null;
         int _gamePadPointer = 0;
@@ -69,11 +69,15 @@ namespace GameClient
             _itemManager = itemManager;
             _player = player;
         }
+        public void Update()
+        {
+            MouseClick();
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
 
             Vector2 text_pos;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < _itemBlockAmount; i++)
             {
                 if (_player._input._isGamePad && i == _gamePadPointer)
                 {
@@ -193,7 +197,7 @@ namespace GameClient
         }
         public bool MouseLeftClick()
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < _itemBlockAmount; i++)
             {
                 if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
                 {
@@ -234,7 +238,7 @@ namespace GameClient
         }
         public bool MouseRightClick()
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < _itemBlockAmount; i++)
             {
                 if (CollisionManager.isMouseCollidingRectangle(_inventory_rectangles[i].Item1))
                 {

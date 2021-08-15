@@ -238,8 +238,8 @@ namespace GameServer
             }
             else
             {
-                _packet.WriteInt(ItemManager._itemsToSend.Count);
-                foreach (var item in ItemManager._itemsToSend)
+                _packet.WriteInt(ItemManager._itemsToSendPicked.Count);
+                foreach (var item in ItemManager._itemsToSendPicked)
                 {
                     if(ItemManager._itemsOnTheGround.ContainsKey(item))
                         ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
@@ -277,7 +277,7 @@ namespace GameServer
             WriteChests(sendEverything);
             MapManager._chestsToSend.Clear();
             WriteItems(sendEverything);
-            ItemManager._itemsToSend.Clear();
+            ItemManager._itemsToSendPicked.Clear();
             WriteItemsPickedUp();
             ItemManager._itemsPickedUpToSend_Server.Clear();
             try

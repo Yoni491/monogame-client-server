@@ -134,10 +134,13 @@ namespace GameClient
             }
             if(_input.MeleeAttack())
             {
-                if (_gun != null)
-                    _gun.SwingWeapon();
-                else
-                    _meleeWeapon.SwingWeapon();
+                if (!_mouseIntersectsUI && !_input._isGamePad)
+                {
+                    if (_gun != null)
+                        _gun.SwingWeapon();
+                    else
+                        _meleeWeapon.SwingWeapon();
+                }
             }
             if (_input.Pick())
             {
@@ -153,7 +156,7 @@ namespace GameClient
                         if (_inventoryManager.HasSpaceForItem(item))
                         {
                             item._aboutToBeSent = true;
-                            ItemManager._itemsToSend.Add(item._itemNum);
+                            ItemManager._itemsToSendPicked.Add(item._itemNum);
                         }
                     }
                 }

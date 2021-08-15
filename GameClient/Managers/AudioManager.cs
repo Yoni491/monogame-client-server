@@ -56,9 +56,9 @@ namespace GameClient
                 if (_currentSong != songName)
                 {
                     _song = _contentManager.Load<Song>("Sound/Songs/" + songName);
-                    MediaPlayer.Play(_song);
+                    if(!_muteMusic)
+                        MediaPlayer.Play(_song);
                     MediaPlayer.IsRepeating = true;
-                    MediaPlayer.IsMuted = _muteMusic;
                     _currentSong = songName;
                 }
             }
@@ -71,7 +71,8 @@ namespace GameClient
         {
             _muteMusic = muteMusic;
             MediaPlayer.IsMuted = muteMusic;
-
+            if (!_muteMusic)
+                MediaPlayer.Play(_song);
         }
     }
 

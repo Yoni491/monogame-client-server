@@ -9,7 +9,6 @@ namespace GameClient
     public class SettingsScreen
     {
         Game_Client _game_Client;
-        InventoryManager _InventoryManager;
         ProgressManager _progressManager;
         SettingsDataManager _settingsDataManager;
         Button _settingButton, _returnToGame, _exitToMain, _restartLevel;
@@ -25,13 +24,12 @@ namespace GameClient
         {
 
         }
-        public void Initialize(Game_Client game_client, ContentManager content, InventoryManager InventoryManager, GraphicsDevice graphics,ProgressManager progressManager,SettingsDataManager settingsDataManager)
+        public void Initialize(Game_Client game_client, ContentManager content, GraphicsDevice graphics,ProgressManager progressManager,SettingsDataManager settingsDataManager)
         {
             _game_Client = game_client;
             _graphicsDevice = graphics;
             _progressManager = progressManager;
             _settingsDataManager = settingsDataManager;
-            _InventoryManager = InventoryManager;
             _settingButton = new Button(content.Load<Texture2D>("etc/settings"), new Vector2(0, 0), Color.White, Color.Gray, null);
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
             _returnToGame = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition, Color.Blue, Color.Gray, "Return to game");
@@ -46,7 +44,6 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-
             if (_showSettings)
             {
                 if (_fullScreenButton.Update(gameTime))
@@ -124,8 +121,6 @@ namespace GameClient
                 {
                     _showSettings = true;
                 }
-                _InventoryManager.MouseClick();
-                _InventoryManager.MouseRightClick();
             }
         }
         public void Draw(SpriteBatch spriteBatch)

@@ -38,6 +38,7 @@ namespace GameClient
                     PathFinder.Astar_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
                     PathFinder.Bfs_Grid.SetCell(_numberInTileset % TileManager._map.Width, _numberInTileset / TileManager._map.Width, Enums.CellType.Empty);
                     TileManager._walls.Remove(_numberInTileset);
+                    TileManager.RemoveWallsAroundTile(_numberInTileset);
                 }
                 MapManager._doorsToSend.Add(_numberInTileset);
                 _destroy = true;

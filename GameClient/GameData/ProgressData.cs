@@ -13,6 +13,7 @@ namespace GameClient
         public HealthManager _Health { get; set; }
         public int _gunNum { get; set; }
         public List<ProgressDataItem> _item_list { get; set; }
+        public int _gold { get; set; }
 
         public String _playerName { get; set; }
 
@@ -22,7 +23,7 @@ namespace GameClient
 
         }
         public ProgressData(int playerID, int level, int animationNum, HealthManager health,
-            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles,string playerName)
+            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles,string playerName,int gold)
         {
             _playerID = playerID;
             _level = level;
@@ -31,7 +32,7 @@ namespace GameClient
             _gunNum = gunNum;
             _item_list = new List<ProgressDataItem>();
             _playerName = playerName;
-
+            _gold = gold;
             foreach (var item in _inventory_rectangles)
             {
                 if(item.Item2!=null)

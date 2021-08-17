@@ -17,10 +17,11 @@ namespace GameClient
         public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
-        int _itemBlockAmount = 3;
+        int _itemBlockAmount = 6;
         MouseState _previousMouse, _currentMouse;
         public Item EquippedGun = null;
         int _gamePadPointer = 0;
+        public int _gold = 0;
         public InventoryManager(GraphicsDevice graphicsDevice)
         {
             _graphicsDevice = graphicsDevice;
@@ -142,7 +143,16 @@ namespace GameClient
         }
         public void AddItemToInventory(Item itemToAdd,bool sound = true,int amount = 1)
         {
-
+            if(itemToAdd._itemId == 10)
+            {
+                _gold+=amount;
+                _itemManager.RemoveItemFromFloor(itemToAdd);
+                if (sound)
+                {
+                    AudioManager.PlaySound("PickingItem");
+                }
+                return;
+            }
             int index = 0;
                 foreach (var tuple in _inventory_rectangles)
                 {

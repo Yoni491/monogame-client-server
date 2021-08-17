@@ -252,8 +252,28 @@ namespace GameClient
             Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, (int)(tileset._tileWidth), (int)(tileset._tileHeight));
             spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, (int)(tileset._tileWidth * scale),(int)( tileset._tileHeight * scale)), tilesetRec, Color.White, rotation, Vector2.Zero, SpriteEffects.None, layer);
         }
-
-
+        static public void RemoveWallsAroundTile(int tileNumber)
+        {
+            RemoveWall(tileNumber);
+            RemoveWall(tileNumber + _map.Width);
+            RemoveWall(tileNumber - _map.Width);
+            for (int i = 0; i < 3; i++)
+            {
+                RemoveWall(tileNumber - i);
+                RemoveWall(tileNumber + i);
+                RemoveWall(tileNumber + _map.Width + i);
+                RemoveWall(tileNumber + _map.Width - i);
+                RemoveWall(tileNumber - _map.Width + i);
+                RemoveWall(tileNumber - _map.Width - i);
+            }
+            
+        }
+        static public void RemoveWall(int tileNumber)
+        {
+            _walls.Remove(tileNumber);
+            _map.TileLayers[1].Tiles[tileNumber].Gid = 0;
+            _map.TileLayers[2].Tiles[tileNumber].Gid = 0;
+        }
         static public float GetLayerDepth(float y)
         {
             float layer = (y / _graphicDevice.Viewport.Height * GraphicManager.ScreenScale.Y) + 0.1f;

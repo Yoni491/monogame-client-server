@@ -18,14 +18,14 @@ namespace GameClient
         List<NetworkPlayer> _network_players;
         Packet _packet;
         List<SimpleEnemy> _enemies;
-        MultiplayerMenu _multiplayerMenu;
+        MultiplayerScreen _multiplayerMenu;
         public NetworkManagerClient()
         {
             
         }
         public void Initialize(List<NetworkPlayer> network_players, Player player,
             PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,
-            InventoryManager inventoryManager,LevelManager levelManager,MultiplayerMenu multiplayerMenu)
+            InventoryManager inventoryManager,LevelManager levelManager,MultiplayerScreen multiplayerMenu)
         {
             _multiplayerMenu = multiplayerMenu;
             _network_players = network_players;
@@ -173,7 +173,7 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
-                MainMenuManager._connected = true;
+                MainMenuScreen._connected = true;
                 Game_Client._isMultiplayer = true;
                 Receive();
             }
@@ -205,7 +205,7 @@ namespace GameClient
             {
                 _socket.Close();
             }
-            MainMenuManager._connected = false;
+            MainMenuScreen._connected = false;
             Game_Client._isMultiplayer = false;
             _network_players.Clear();
         }

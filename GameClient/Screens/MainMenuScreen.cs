@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class MainMenuManager
+    public class MainMenuScreen
     {
         Button _singlePlayer, _multiPlayerButton, _exitGame, _howToPlay;
         int _buttonHeight = 60;
@@ -15,20 +15,20 @@ namespace GameClient
         Game_Client _game_client;
         Texture2D _menuBackgroundImage;
         GraphicsDevice _graphicsDevice;
-        public CharacterSelectMenu _characterSelectMenu;
-        public MultiplayerMenu _multiplayerMenu;
+        public CharacterSelectScreen _characterSelectMenu;
+        public MultiplayerScreen _multiplayerMenu;
         SelectSaveFileScreen _SelectSaveFileScreen;
         HowToPlayScreen _howToPlayScreen;
         public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu,_showHowToPlay;
         public static bool _connected;
-        public MainMenuManager()
+        public MainMenuScreen()
         {
             
         }
         public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager, SettingsDataManager settingsDataManager)
         {
-            _multiplayerMenu = new MultiplayerMenu(graphicsDevice, game_client, this, settingsDataManager);
-            _characterSelectMenu = new CharacterSelectMenu(graphicsDevice, game_client, this, settingsDataManager);
+            _multiplayerMenu = new MultiplayerScreen(graphicsDevice, game_client, this, settingsDataManager);
+            _characterSelectMenu = new CharacterSelectScreen(graphicsDevice, game_client, this, settingsDataManager);
             _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager,game_client);
             _howToPlayScreen = new HowToPlayScreen(graphicsDevice, this, progressManager, game_client);
             _graphicsDevice = graphicsDevice;

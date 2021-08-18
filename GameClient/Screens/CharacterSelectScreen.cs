@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class CharacterSelectMenu
+    public class CharacterSelectScreen
     {
         int index = 0;
         int[] characterNumbers = { 2,3,12,13,14,15,18,19,20};
@@ -15,12 +15,12 @@ namespace GameClient
         Vector2 _buttonPosition;
         private GraphicsDevice _graphicsDevice;
         private Game_Client _game_Client;
-        private  MainMenuManager _menuManager;
+        private  MainMenuScreen _menuManager;
         public TextInputBox _NameInputTextBox;
         private ScreenMessage _enterNameMessage;
         SettingsDataManager _settingsDataManager;
 
-        public CharacterSelectMenu(GraphicsDevice graphicsDevice,Game_Client game_Client,MainMenuManager menuManager,SettingsDataManager settingsDataManager)
+        public CharacterSelectScreen(GraphicsDevice graphicsDevice,Game_Client game_Client,MainMenuScreen menuManager,SettingsDataManager settingsDataManager)
         {
             _settingsDataManager = settingsDataManager;
             _buttonPosition = new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);

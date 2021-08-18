@@ -5,21 +5,21 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class MultiplayerMenu
+    public class MultiplayerScreen
     {
         SettingsDataManager _settingsDataManager;
         Button _returnToMain, _connectButton;
         Vector2 _buttonPosition;
         private GraphicsDevice _graphicsDevice;
         private Game_Client _game_Client;
-        private MainMenuManager _menuManager;
+        private MainMenuScreen _menuManager;
         public TextInputBox _IPtextBox;
         private ScreenMessage _enterIPMessage;
         public bool _connecting;
         int _buttonHeight = 60;
         int _buttonWeight = 250;
         
-        public MultiplayerMenu(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuManager menuManager, SettingsDataManager settingsDataManager)
+        public MultiplayerScreen(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuScreen menuManager, SettingsDataManager settingsDataManager)
         {
             _settingsDataManager = settingsDataManager;
             _graphicsDevice = graphicsDevice;
@@ -46,7 +46,7 @@ namespace GameClient
                 _connecting = true;
                 _game_Client._networkManager.Initialize_connection(_IPtextBox._text);
             }
-            if (MainMenuManager._connected)
+            if (MainMenuScreen._connected)
             {
                 _connecting = false;
                 _menuManager._showMultiplayerMenu = false;

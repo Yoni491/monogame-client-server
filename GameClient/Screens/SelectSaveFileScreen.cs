@@ -11,13 +11,13 @@ namespace GameClient
         Button _newGame, _continueGame, _returnToMain;
         Vector2 _buttonPosition;
         private GraphicsDevice _graphicsDevice;
-        private MainMenuManager _menuManager;
+        private MainMenuScreen _menuManager;
         int _buttonHeight = 60;
         int _buttonWeight = 250;
         Game_Client _gameClient;
         ProgressManager _progressManager;
 
-        public SelectSaveFileScreen(GraphicsDevice graphicsDevice, MainMenuManager menuManager, ProgressManager progressManager,Game_Client gameClient)
+        public SelectSaveFileScreen(GraphicsDevice graphicsDevice, MainMenuScreen menuManager, ProgressManager progressManager,Game_Client gameClient)
         {
             _gameClient = gameClient;
             _graphicsDevice = graphicsDevice;

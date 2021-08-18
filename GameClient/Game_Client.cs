@@ -26,7 +26,7 @@ namespace GameClient
         private PathFindingManager _pathFindingManager;
         private AudioManager _audioManager;
         static private InventoryManager _inventoryManager;
-        static private MainMenuManager _menuManager;
+        static private MainMenuScreen _menuManager;
         static private SettingsScreen _settingsScreen;
         private InGameUI _inGameUI;
         private ProgressManager _progressManager;
@@ -65,7 +65,7 @@ namespace GameClient
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
             //menu and ui
-            _menuManager = new MainMenuManager();
+            _menuManager = new MainMenuScreen();
             _settingsScreen = new SettingsScreen();
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();

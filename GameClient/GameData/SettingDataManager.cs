@@ -14,13 +14,13 @@ namespace GameClient
         string _settingsDataJson;
         string _fileName = "SettingsData.json";
         static public bool _saveFileAvailable;
-        CharacterSelectMenu _characterSelectMenu;
-        MultiplayerMenu _multiplayerMenu; 
+        CharacterSelectScreen _characterSelectMenu;
+        MultiplayerScreen _multiplayerMenu; 
         SettingsScreen _settingsScreen;
         public SettingsDataManager()
         {
         }
-        public void Initialize(CharacterSelectMenu characterSelectMenu, MultiplayerMenu multiplayerMenu,SettingsScreen settingsScreen)
+        public void Initialize(CharacterSelectScreen characterSelectMenu, MultiplayerScreen multiplayerMenu,SettingsScreen settingsScreen)
         {
             _characterSelectMenu = characterSelectMenu;
             _multiplayerMenu = multiplayerMenu;

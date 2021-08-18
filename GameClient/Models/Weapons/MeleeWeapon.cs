@@ -72,6 +72,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple);
                     }
                 }
                 else
@@ -79,6 +80,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Orange);
                     }
                     else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
                     {

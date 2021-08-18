@@ -10,36 +10,43 @@ namespace GameClient
         SpriteFont _font;
         Vector2 _position;
         public string _text { get; set; }
-        Color _background;
+        Color _color;
         GraphicsDevice _graphicsDevice;
-        
-        public DmgMessage(GraphicsDevice graphicDevice, string text,Vector2? positon = null,int positionOffsetY = 0)
+        float _timeDisplayed,_timer=0,_scale = 0.7f;
+        public bool _destroy;
+
+        public DmgMessage(GraphicsDevice graphicDevice, int dmg, Vector2 positon, float timeDisplayed, Color color, float scale)
         {
             _graphicsDevice = graphicDevice;
             _font = GraphicManager.GetBasicFont("basic_16");
-            if (positon != null)
+            _scale = scale;
+            if (Color.Gold == color)
             {
-                _position = (Vector2)positon;
+                _text = "+" + dmg.ToString();
             }
-            _text = text;
-            _background = new Color(Color.Black, 0.1f);
-
+            else
+            {
+                _text = dmg.ToString();
+            }
+            _position = positon;
+            _timeDisplayed = timeDisplayed;
+            _color = color;
         }
-       public void Update(Vector2 position)
+       public void Update(GameTime gameTime)
         {
-            _position = new Vector2((int)position.X, (int)position.Y);
+            _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timer >= _timeDisplayed)
+            {
+                _destroy = true;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!string.IsNullOrEmpty(_text))
             {
                 int x = (int)(_font.MeasureString(_text).X * 0.7f)/2;
-                spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0.99f);
+                spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), _color, 0, Vector2.Zero, _scale, SpriteEffects.None, 0.99f);
             }
-        }
-        public void ResetGraphics()
-        {
-            _position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 4, _graphicsDevice.Viewport.Bounds.Height / 4);
         }
     }
 }

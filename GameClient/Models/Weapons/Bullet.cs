@@ -20,7 +20,6 @@ namespace GameClient
         private Vector2 _startPosition;
         public int _destroyIn3 = -1;
         public bool _bulletSent;
-
         public Rectangle Rectangle
         {
             get
@@ -60,13 +59,17 @@ namespace GameClient
                 if (_hitPlayers)
                 {
                     if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
+                    {
                         _destroy = true;
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position + _velocity,Color.Purple);
+                    }
                 }
                 else
                 {
                     if (CollisionManager.isColidedWithEnemies(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position +_velocity, Color.Orange);
                     }
                     else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,_dmg))
                     {

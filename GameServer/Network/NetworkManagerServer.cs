@@ -269,7 +269,7 @@ namespace GameServer
             WriteLevel();
             WritePlayers(type == 3 || type == 2);
             WriteEnemies();
-            _enemies.RemoveAll(enemy => enemy._destroy == true);
+            _enemies.RemoveAll(enemy => enemy._destroy);
             WriteBoxes(sendEverything);
             MapManager._boxesToSend.Clear();
             WriteDoors(sendEverything);

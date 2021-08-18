@@ -31,7 +31,7 @@ namespace GameClient
                 _enemies[i].Update(gameTime);
             }
             if (!Game_Client._isMultiplayer && !Game_Client._isServer)
-                _enemies.RemoveAll(enemy => enemy._destroy == true);
+                _enemies.RemoveAll(enemy => enemy._destroy);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

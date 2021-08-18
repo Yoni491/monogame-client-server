@@ -146,6 +146,7 @@ namespace GameClient
             if(itemToAdd._itemId == 10)
             {
                 _gold+=amount;
+                DmgMassageManager.CreateDmgMessage(amount, itemToAdd._position, Color.Gold);
                 _itemManager.RemoveItemFromFloor(itemToAdd);
                 if (sound)
                 {
@@ -197,6 +198,7 @@ namespace GameClient
             {
                 _inventory_rectangles[i].Item2 = null;
             }
+            _gold = 0;
         }
         public void MouseClick()
         {
@@ -232,7 +234,9 @@ namespace GameClient
                             else if (_inventory_rectangles[i].Item2._item._itemHealing > 0)
                             {
                                 AudioManager.PlaySound("UsingPotion");
-                                _player._health._health_left += _inventory_rectangles[i].Item2._item._itemHealing;
+                                int heal = _inventory_rectangles[i].Item2._item._itemHealing;
+                                DmgMassageManager.CreateDmgMessage(heal,_player.Position_Head + new Vector2(5,0),Color.LightGreen);
+                                _player._health._health_left += heal;
                                 if (--_inventory_rectangles[i].Item2._amount == 0)
                                 {
                                     _inventory_rectangles[i].Item2 = null;
@@ -352,8 +356,10 @@ namespace GameClient
                 }
                 else if (_inventory_rectangles[_gamePadPointer].Item2._item._itemHealing > 0)
                 {
+                    int heal = _inventory_rectangles[_gamePadPointer].Item2._item._itemHealing;
+                    DmgMassageManager.CreateDmgMessage(heal, _player.Position_Head + new Vector2(5, 0), Color.LightGreen);
+                    _player._health._health_left += heal;
                     AudioManager.PlaySound("UsingPotion");
-                    _player._health._health_left += _inventory_rectangles[_gamePadPointer].Item2._item._itemHealing;
                     if (--_inventory_rectangles[_gamePadPointer].Item2._amount == 0)
                     {
                         _inventory_rectangles[_gamePadPointer].Item2 = null;

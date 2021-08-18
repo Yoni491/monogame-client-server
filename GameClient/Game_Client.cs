@@ -32,6 +32,7 @@ namespace GameClient
         private ProgressManager _progressManager;
         private SettingsDataManager _settingsDataManager;
         private BulletReachManager _bulletReachManager;
+        private DmgMassageManager _dmgMassageManager;
 
         static public bool _inMenu = true;
         static public bool _isMultiplayer = false;
@@ -70,6 +71,7 @@ namespace GameClient
             _inventoryManager = new InventoryManager(GraphicsDevice);
             _gameOverScreen = new GameOverScreen();
             _inGameUI = new InGameUI();
+            _dmgMassageManager = new DmgMassageManager(GraphicsDevice);
             //game content
             _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
@@ -139,6 +141,7 @@ namespace GameClient
                         _bulletReachManager.Update();
                         _pathFindingManager.Update();
                         _inGameUI.Update();
+                        _dmgMassageManager.Update(gameTime);
                     }
                 }
             }
@@ -172,6 +175,7 @@ namespace GameClient
                     _inventoryManager.Draw(_UIbatch);
                     _mapManager.Draw(_UIbatch);
                     _inGameUI.Draw(_UIbatch);
+                    _dmgMassageManager.Draw(_spriteBatch);
                 }
             }           
             _spriteBatch.End();
@@ -203,6 +207,7 @@ namespace GameClient
             PathFindingManager.Reset();
             BulletReachManager.Reset();
             MapManager.ResetMap();
+            DmgMassageManager.Reset();
         }
 
         static public void ResetGraphics()

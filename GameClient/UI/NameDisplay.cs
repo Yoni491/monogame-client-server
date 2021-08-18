@@ -37,9 +37,5 @@ namespace GameClient
                 spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0.99f);
             }
         }
-        public void ResetGraphics()
-        {
-            _position = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 4, _graphicsDevice.Viewport.Bounds.Height / 4);
-        }
     }
 }

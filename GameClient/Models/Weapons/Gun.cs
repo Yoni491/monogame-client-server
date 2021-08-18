@@ -80,11 +80,11 @@ namespace GameClient
             }
             if (Game_Client._isServer)
             {
-                _bullets.RemoveAll(bullet => bullet._destroy == true && bullet._bulletSent == true);
+                _bullets.RemoveAll(bullet => bullet._destroy&& bullet._bulletSent);
             }
             else
             {
-                _bullets.RemoveAll(bullet => bullet._destroy == true);
+                _bullets.RemoveAll(bullet => bullet._destroy);
             }
             
             _isGamePad = isGamePad;
@@ -107,12 +107,15 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColided = true;
+                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Purple);
+
                     }
                 }
                 else
                 {
                     if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
+                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Orange);
                         _isColided = true;
                     }
                     else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, _swingWeaponDmg))

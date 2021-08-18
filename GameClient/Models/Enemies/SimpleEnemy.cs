@@ -108,7 +108,7 @@ namespace GameClient
         {
             if(_summonEnemyID!=-1)
             {
-                _summonedEnemies.RemoveAll(enemy => enemy._destroy == true);
+                _summonedEnemies.RemoveAll(enemy => enemy._destroy);
                 _summonTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
                 if (_summonTimer >= 2000 && _summonedEnemies.Count < 5)
                 {

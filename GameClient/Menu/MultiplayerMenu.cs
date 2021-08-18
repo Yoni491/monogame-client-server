@@ -14,7 +14,7 @@ namespace GameClient
         private Game_Client _game_Client;
         private MainMenuManager _menuManager;
         public TextInputBox _IPtextBox;
-        private ScreenMassage _enterIPMassage;
+        private ScreenMessage _enterIPMessage;
         public bool _connecting;
         int _buttonHeight = 60;
         int _buttonWeight = 250;
@@ -25,7 +25,7 @@ namespace GameClient
             _graphicsDevice = graphicsDevice;
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
             _IPtextBox = new TextInputBox(_buttonPosition, true);
-            _enterIPMassage = new ScreenMassage(graphicsDevice,"Enter IP:",_buttonPosition + new Vector2(-130, -10));
+            _enterIPMessage = new ScreenMessage(graphicsDevice,"Enter IP:",_buttonPosition + new Vector2(-130, -10));
             _connectButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Connect to server");
             _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight*2 + 4), Color.Green, Color.Gray, "Return to main menu");
             _game_Client = game_Client;
@@ -65,7 +65,7 @@ namespace GameClient
                 _connectButton.ChangeText("Connect to server");
                 _connectButton.ChangeColor(Color.Green);
             }
-            _enterIPMassage.Draw(spriteBatch);
+            _enterIPMessage.Draw(spriteBatch);
             _IPtextBox.Draw(spriteBatch);
             _connectButton.Draw(spriteBatch);
             _returnToMain.Draw(spriteBatch);
@@ -76,7 +76,7 @@ namespace GameClient
             _IPtextBox.ResetGraphics(_buttonPosition);
             _connectButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight*2 + 4));
-            _enterIPMassage.ResetGraphics( _buttonPosition + new Vector2(-130, -10));
+            _enterIPMessage.ResetGraphics( _buttonPosition + new Vector2(-130, -10));
         }
     }
 }

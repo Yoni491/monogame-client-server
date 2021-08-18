@@ -56,9 +56,9 @@ namespace GameClient
             }
             
         }
-        static public PathFinder GetPathFinder(bool useAstar,bool waitForDestroyedWall)
+        static public PathFinder GetPathFinder(bool useAstar,bool waitForDestroyedWall,float speed)
         {
-            PathFinder pathFinder = new PathFinder(id++,useAstar,waitForDestroyedWall);
+            PathFinder pathFinder = new PathFinder(id++,useAstar,waitForDestroyedWall,speed);
             _pathsToAdd.Add(pathFinder);
             return pathFinder;
         }

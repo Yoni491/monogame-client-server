@@ -19,7 +19,7 @@ namespace GameClient
         public Grid _grid;
         public bool _levelLoaded;
         int _mapNum;
-        int _massageNum = 0;
+        int _messageNum = 0;
         int _chestNum = 0;
         public TileManager(GraphicsDevice graphicDevice, ContentManager contentManager, MapManager mapManager)
         {
@@ -58,7 +58,7 @@ namespace GameClient
             }
             PathFinder.UpdateGrid(_grid);
             _levelLoaded = true;
-            _massageNum = 0;
+            _messageNum = 0;
             _chestNum = 0;
             return spawnPoint;
 
@@ -134,8 +134,8 @@ namespace GameClient
                     Rectangle rectangle = AddWall(i, false);
                     if (!Game_Client._isServer)
                     {
-                        Tuple<string, string> massageBoardText = CollectionManager.GetMassageFromMassageArray(_mapNum, _massageNum++);
-                        MapManager._massageBoards.Add(new MassageBoard(_graphicDevice,rectangle, massageBoardText.Item1, massageBoardText.Item2));
+                        Tuple<string, string> messageBoardText = CollectionManager.GetMessageFromMessageArray(_mapNum, _messageNum++);
+                        MapManager._messageBoards.Add(new MessageBoard(_graphicDevice,rectangle, messageBoardText.Item1, messageBoardText.Item2));
                     }
                 }
                 else//normal walls

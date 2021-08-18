@@ -8,7 +8,7 @@ namespace GameClient
     public class MapManager
     {
         static public List<Grave> _graves;
-        static public List<MassageBoard> _massageBoards;
+        static public List<MessageBoard> _messageBoards;
         Player _player;
         static public Dictionary<int, Chest> _chests;
         List<NetworkPlayer> _networkPlayers;
@@ -23,7 +23,7 @@ namespace GameClient
         public MapManager()
         {
             _graves = new List<Grave>();
-            _massageBoards = new List<MassageBoard>();
+            _messageBoards = new List<MessageBoard>();
             _chests = new Dictionary<int, Chest>();
             _boxes = new Dictionary<int, Box>();
             _doors = new Dictionary<int, Door>();
@@ -46,7 +46,7 @@ namespace GameClient
         {
             if (!Game_Client._isServer)
             {
-                foreach (var item in _massageBoards)
+                foreach (var item in _messageBoards)
                 {
                     if (_player != null)
                         item.Update(_player.RectangleMovement);
@@ -87,14 +87,14 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var item in _massageBoards)
+            foreach (var item in _messageBoards)
             {
                 item.Draw(spriteBatch,_player._input._isGamePad);
             }
         }
         public static void ResetMap()
         {
-            _massageBoards.Clear();
+            _messageBoards.Clear();
             _graves.Clear();
             _chests.Clear();
             _boxes.Clear();
@@ -108,7 +108,7 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-            _massageBoards.ForEach(x => x.ResetGraphics());
+            _messageBoards.ForEach(x => x.ResetGraphics());
         }
     }
 }

@@ -288,7 +288,7 @@ namespace GameClient
             if (_meleeWeapon != null)
                 meleeWeapon = _meleeWeapon.Copy(true, true, null);
             return new SimpleEnemy(_animationManager.Copy(), _enemyId, _position, _speed,
-                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall),
+                _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall, _speed),
                 bulletReach, enemyNum,_summonEnemyID);
         }
         public void UpdatePacketDmg(Packet packet)

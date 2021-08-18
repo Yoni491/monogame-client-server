@@ -23,12 +23,14 @@ namespace GameClient
         public bool _useAstar =true;
         public bool _waitForDestroyedWall;
         public bool _waitForEndPath;
-        public PathFinder(int id,bool useAstar,bool waitForDestroyedWall)
+        private float _enemySpeed;
+        public PathFinder(int id,bool useAstar,bool waitForDestroyedWall,float enemySpeed)
         {
             _path = new List<Coord>();
             _id = id;
             _useAstar = useAstar;
             _waitForDestroyedWall = waitForDestroyedWall;
+            _enemySpeed = enemySpeed;
         }
         public static void UpdateGrid(Grid grid)
         {
@@ -41,11 +43,15 @@ namespace GameClient
             {
                 try
                 {
-                if (_path.Count > 20)
+                if (_path.Count > 10 && _enemySpeed<2)
+                {
+                    lastCoord = _path[5];
+                    _start = TileManager.GetPositionFromCoord(_path[5]);
+                }
+                else if (_path.Count > 20)
                 {
                     lastCoord = _path[20];
                     _start = TileManager.GetPositionFromCoord(_path[20]);
-                    return;
                 }
                 else if (_path.Count > 0)
                 {

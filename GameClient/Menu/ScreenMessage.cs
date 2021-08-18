@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameClient
 {
-    public class ScreenMassage
+    public class ScreenMessage
     {
         Texture2D _texture;
         SpriteFont _font;
@@ -15,7 +15,7 @@ namespace GameClient
         Color _background;
         GraphicsDevice _graphicsDevice;
         
-        public ScreenMassage(GraphicsDevice graphicDevice, string text,Vector2? positon = null,int positionOffsetY = 0)
+        public ScreenMessage(GraphicsDevice graphicDevice, string text,Vector2? positon = null,int positionOffsetY = 0)
         {
             _graphicsDevice = graphicDevice;
             _texture = GraphicManager.getRectangleTexture(450, 50, Color.Black);

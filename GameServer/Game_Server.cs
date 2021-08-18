@@ -119,7 +119,7 @@ namespace GameServer
                 _playerManager.Reset(true);
                 LevelManager._currentLevel = -2;
                 _networkManager.Reset();
-                _serverScreen.UpdateMassage("waiting for connection...");
+                _serverScreen.UpdateMessage("waiting for connection...");
             }
         }
         #endregion

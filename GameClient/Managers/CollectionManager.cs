@@ -12,8 +12,8 @@ namespace GameClient
         List<SimpleEnemy> _enemies;
         ContentManager _contentManager;
         public static List<Gun> _guns;
-        public static string[,] _massagesArray;
-        public static string[,] _massagesArrayGamePad;
+        public static string[,] _messagesArray;
+        public static string[,] _messagesArrayGamePad;
         public static int[,] _chestsArray;
         static List<MeleeWeapon> _meleeWeapons;
         static List<Bullet> _bullets;
@@ -38,8 +38,8 @@ namespace GameClient
             _contentManager = contentManager;
             _playerManager = playerManager;
             _itemManager = itemManager;
-            _massagesArray = new string[30, 10];
-            _massagesArrayGamePad = new string[30, 10];
+            _messagesArray = new string[30, 10];
+            _messagesArrayGamePad = new string[30, 10];
             _chestsArray = new int[30, 10];
             InitializeBullets();
             InitializeGuns();
@@ -47,7 +47,7 @@ namespace GameClient
             InitializeItems();
             InitializeSimpleEnemies();
             InitializePlayerTextures();
-            InitializeMassagesArray();
+            InitializeMessagesArray();
             InitializeChestArray();
         }
         private void InitializeMeleeWeapons()
@@ -141,66 +141,66 @@ namespace GameClient
             _guns.Add(MachineGun);
             _guns.Add(Uzi);
         }
-        private void InitializeMassagesArray()
+        private void InitializeMessagesArray()
         {
-            _massagesArray[1, 0] = "Welcome to UNBOXINGRAVE\nUse 'W' 'A' 'S' 'D' keys to move around";
-            _massagesArray[1, 1] = "Press left mouse button to shot";
-            _massagesArray[1, 2] = "Press right mouse button to melee attack";
-            _massagesArray[1, 3] = "Press spacebar to pick items near you";
-            _massagesArray[1, 4] = "Your inventory is at the bottom of the screen,\nclick on inventory items to use them";
-            _massagesArray[1, 5] = "Move to the right side of the map to progress";
+            _messagesArray[1, 0] = "Welcome to UNBOXINGRAVE\nUse 'W' 'A' 'S' 'D' keys to move around";
+            _messagesArray[1, 1] = "Press left mouse button to shot";
+            _messagesArray[1, 2] = "Press right mouse button to melee attack";
+            _messagesArray[1, 3] = "Press spacebar to pick items near you";
+            _messagesArray[1, 4] = "Your inventory is at the bottom of the screen,\nclick on inventory items to use them";
+            _messagesArray[1, 5] = "Move to the right side of the map to progress";
 
-            _massagesArrayGamePad[1, 0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
-            _massagesArrayGamePad[1, 1] = "Press R2 to shot, Use the right jotstick to aim";
-            _massagesArrayGamePad[1, 2] = "Press square to use melee attack";
-            _massagesArrayGamePad[1, 3] = "Press O to pick items near you";
-            _massagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen,\npress R1 / L1 to choose an item and press X to use it";
+            _messagesArrayGamePad[1, 0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
+            _messagesArrayGamePad[1, 1] = "Press R2 to shot, Use the right jotstick to aim";
+            _messagesArrayGamePad[1, 2] = "Press square to use melee attack";
+            _messagesArrayGamePad[1, 3] = "Press O to pick items near you";
+            _messagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen,\npress R1 / L1 to choose an item and press X to use it";
 
-            _massagesArray[2, 0] = "Use melee attack or shooting to destroy the boxes";
-            _massagesArray[2, 1] = "Boxes may drop items for you to use";
-            _massagesArray[2, 2] = "Pick up the key using spacebar";
-            _massagesArray[2, 3] = "Open the door with melee attack";
-            _massagesArray[2, 4] = "Good job";
+            _messagesArray[2, 0] = "Use melee attack or shooting to destroy the boxes";
+            _messagesArray[2, 1] = "Boxes may drop items for you to use";
+            _messagesArray[2, 2] = "Pick up the key using spacebar";
+            _messagesArray[2, 3] = "Open the door with melee attack";
+            _messagesArray[2, 4] = "Good job";
 
-            _massagesArray[3, 0] = "WARNING!!\nEnemies attack when they can reach you";
-            _massagesArray[3, 1] = "Once your destroy the boxes prepare to fight!";
-            _massagesArray[3, 2] = "Well done";
+            _messagesArray[3, 0] = "WARNING!!\nEnemies attack when they can reach you";
+            _messagesArray[3, 1] = "Once your destroy the boxes prepare to fight!";
+            _messagesArray[3, 2] = "Well done";
 
-            _massagesArray[4, 0] = "Warning! graves spawn enemies when\nyou are getting closer to them!";
-            _massagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
-            _massagesArray[4, 2] = "Click on an item from the inventory to use";
-            _massagesArray[4, 3] = "Watch out from those boxes.. something could be behind them";
+            _messagesArray[4, 0] = "Warning! graves spawn enemies when\nyou are getting closer to them!";
+            _messagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
+            _messagesArray[4, 2] = "Click on an item from the inventory to use";
+            _messagesArray[4, 3] = "Watch out from those boxes.. something could be behind them";
 
-            _massagesArrayGamePad[4, 2] = "To use an item\npress R1 and L1 to select it,\npress X to use it";
+            _messagesArrayGamePad[4, 2] = "To use an item\npress R1 and L1 to select it,\npress X to use it";
 
-            _massagesArray[5, 0] = "You need a key to open the door..\nI wonder where you could find one";
-            _massagesArray[5, 1] = "Hit the chest with melee attack to open it";
+            _messagesArray[5, 0] = "You need a key to open the door..\nI wonder where you could find one";
+            _messagesArray[5, 1] = "Hit the chest with melee attack to open it";
 
-            _massagesArray[6, 0] = "Beware of the sniper";
+            _messagesArray[6, 0] = "Beware of the sniper";
 
-            _massagesArray[7, 0] = "This guys looks scary.. watch out";
+            _messagesArray[7, 0] = "This guys looks scary.. watch out";
 
-            _massagesArray[8, 0] = "It's christmas! your present is in the chest!";
-            _massagesArray[8, 1] = "To equip a weapon click on it on the inventory";
-            _massagesArray[8, 2] = "This weapon is basically cheating, use it wisely";
+            _messagesArray[8, 0] = "It's christmas! your present is in the chest!";
+            _messagesArray[8, 1] = "To equip a weapon click on it on the inventory";
+            _messagesArray[8, 2] = "This weapon is basically cheating, use it wisely";
 
-            _massagesArrayGamePad[8, 1] = "To equip a weapon press R1 and L1 to select it,\npress X to equip it";
+            _messagesArrayGamePad[8, 1] = "To equip a weapon press R1 and L1 to select it,\npress X to equip it";
 
-            _massagesArray[9, 0] = "Those enemies are coming fast, be ready.";
+            _messagesArray[9, 0] = "Those enemies are coming fast, be ready.";
 
-            _massagesArray[10, 0] = "It's better to avoid some fights";
-            _massagesArray[10, 1] = "RUN!!";
-            _massagesArray[10, 2] = "Slow down";
-            _massagesArray[10, 3] = "Just kidding, run faster";
-            _massagesArray[10, 4] = "WHO IS SPEED?";
-            _massagesArray[10, 5] = "YOU ARE SPEED!!!";
+            _messagesArray[10, 0] = "It's better to avoid some fights";
+            _messagesArray[10, 1] = "RUN!!";
+            _messagesArray[10, 2] = "Slow down";
+            _messagesArray[10, 3] = "Just kidding, run faster";
+            _messagesArray[10, 4] = "WHO IS SPEED?";
+            _messagesArray[10, 5] = "YOU ARE SPEED!!!";
 
-            _massagesArray[11, 0] = "It's christmas again?\nyour present is in the chest!";
-            _massagesArray[11, 1] = "Spread the love";
+            _messagesArray[11, 0] = "It's christmas again?\nyour present is in the chest!";
+            _messagesArray[11, 1] = "Spread the love";
 
-            _massagesArray[12, 0] = "I shot a man with a paintball gun...\njust to watch him dye.";
+            _messagesArray[12, 0] = "I shot a man with a paintball gun...\njust to watch him dye.";
 
-            _massagesArray[16, 0] = "You were made for this!";
+            _messagesArray[16, 0] = "You were made for this!";
         }
         private void InitializeChestArray()
         {
@@ -246,10 +246,10 @@ namespace GameClient
         {
             return _playerAnimationManager[id - 1].Copy();
         }
-        static public Tuple<string, string> GetMassageFromMassageArray(int level, int massageNum)
+        static public Tuple<string, string> GetMessageFromMessageArray(int level, int messageNum)
         {
 
-            return new Tuple<string, string>(_massagesArray[level, massageNum], _massagesArrayGamePad[level, massageNum]);
+            return new Tuple<string, string>(_messagesArray[level, messageNum], _messagesArrayGamePad[level, messageNum]);
         }
         static public int GetItemIDFromChestArray(int level, int chestNum)
         {

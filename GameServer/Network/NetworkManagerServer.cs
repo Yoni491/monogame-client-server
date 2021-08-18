@@ -139,7 +139,7 @@ namespace GameServer
                 Receive(socket, packetHandler, buffer);
                 numOfPlayer++;
                 justResetted = false;
-                _serverScreen.UpdateMassage("Connected!");
+                _serverScreen.UpdateMessage("Connected!");
             }
         }
         public void WritePlayers(bool writeNames = false)

@@ -42,7 +42,7 @@ namespace GameClient
         public Game_Client()
         {
             _graphics = new GraphicsDeviceManager(this);
-            
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             //Window.AllowUserResizing = true;
@@ -61,7 +61,7 @@ namespace GameClient
         protected override void LoadContent()
         {
             //graphics
-            new GraphicManager(GraphicsDevice, Content,_graphics);
+            new GraphicManager(GraphicsDevice, Content, _graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _UIbatch = new SpriteBatch(GraphicsDevice);
             _settingsBatch = new SpriteBatch(GraphicsDevice);
@@ -76,7 +76,7 @@ namespace GameClient
             _audioManager = new AudioManager(Content);
             _mapManager = new MapManager();
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
-            _levelManager = new LevelManager(this,_tileManager);
+            _levelManager = new LevelManager(this, _tileManager);
             _collectionManager = new CollectionManager();
             _itemManager = new ItemManager(_collectionManager);
             //data from files
@@ -85,7 +85,7 @@ namespace GameClient
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
-            _playerManager = new PlayerManager(GraphicsDevice,_networkPlayers, _collectionManager);
+            _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             //calculations
             _collisionManager = new CollisionManager();
@@ -95,19 +95,19 @@ namespace GameClient
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
-            _player = _playerManager.AddPlayer( _itemManager, _inventoryManager, _settingsScreen);
+            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _settingsScreen);
             _bulletReachManager.Initialize(_player, _networkPlayers);
             _collisionManager.Initialize(_networkPlayers, _player, _enemies);
-            _levelManager.Initialize(_player,_progressManager);
-            _inventoryManager.Initialize(_player,_itemManager);
+            _levelManager.Initialize(_player, _progressManager);
+            _inventoryManager.Initialize(_player, _itemManager);
             _mapManager.Initialize(_player);
-            _progressManager.Initialize(_player,_inventoryManager, _playerManager, _levelManager, _collectionManager);
-            _gameOverScreen.Initialize(this,Content, GraphicsDevice, _progressManager);
+            _progressManager.Initialize(_player, _inventoryManager, _playerManager, _levelManager, _collectionManager);
+            _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
-            _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager,_settingsDataManager);
+            _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _settingsDataManager);
             _settingsDataManager.Initialize(_menuManager._characterSelectMenu, _menuManager._multiplayerMenu, _settingsScreen);
-            _inGameUI.Initialize(GraphicsDevice,_inventoryManager);
+            _inGameUI.Initialize(GraphicsDevice, _inventoryManager);
         }
 
         protected override void Update(GameTime gameTime)
@@ -150,9 +150,9 @@ namespace GameClient
         }
         protected override void Draw(GameTime gameTime)
         {
-            
+
             _UIbatch.Begin(SpriteSortMode.FrontToBack);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack,transformMatrix: GraphicManager.GetSpriteBatchMatrix());
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: GraphicManager.GetSpriteBatchMatrix());
             _settingsBatch.Begin(SpriteSortMode.FrontToBack);
             if (_inMenu)
             {
@@ -177,7 +177,7 @@ namespace GameClient
                     _inGameUI.Draw(_UIbatch);
                     _dmgMassageManager.Draw(_spriteBatch);
                 }
-            }           
+            }
             _spriteBatch.End();
             _UIbatch.End();
             _settingsBatch.End();
@@ -185,7 +185,7 @@ namespace GameClient
         }
         public void ResetGame(bool resetWholeGame = true)
         {
-            if(resetWholeGame)
+            if (resetWholeGame)
             {
                 Game_Client._inMenu = true;
                 SettingsScreen._showSettings = false;

@@ -191,3 +191,121 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\obj\Release\netcoreapp3.1\GameClient.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\obj\Release\netcoreapp3.1\GameClient.genruntimeconfig.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\GameClient\bin\Release\netcoreapp3.1\Content\maps\map4.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\etc\bullet.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\etc\lineSprite.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\etc\settings.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Fonts\basic_12.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Fonts\basic_16.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Fonts\basic_22.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Fonts\comic_16.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Fonts\comic_22.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Images\backgroundUnboxingrave.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Images\GamePadKeys.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Images\matrix.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Images\settingBackground.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Images\‏‏‫KeyboardMouseKeys.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\Dungeon_Tileset.tsx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\Dungeon_Tileset.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map1.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map10.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map11.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map12.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map13.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map14.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map15.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map16.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map17.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map18.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map19.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map2.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map3.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map4.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map5.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map6.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map7.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map8.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\map9.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.tsx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\tf_A5_ashlands_1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\tf_B_ashlands_1.tsx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\maps\tf_B_ashlands_1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\10.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\11.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\12.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\13.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\14.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\15.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\16.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\17.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\18.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\19.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\2.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\20.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\21.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\22.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\23.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\24.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\25.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\3.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\4.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\5.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\6.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\7.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\8.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Patreon sprites 1\9.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\resources\Dungeon_Tileset.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\resources\resources_basic.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\resources\resources_outlined.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\DestroyBox.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\DroppingItem.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\GettingHit.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\PickingItem.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Rifle.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Sniper.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\1.ogg
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\2.ogg
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\2.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\3.ogg
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\Songs\3.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\SwingWeapon.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\SwitchingWeapon.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Sound\UsingPotion.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\tiles\tf_A2_ashlands_1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Towers\AttackTower.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\1.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\2.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\3.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\4.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\5.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\Weapons\swords-sheet.xnb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.exe
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.deps.json
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.runtimeconfig.json
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.runtimeconfig.dev.json
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\GameClient.pdb
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\MonoGame.Extended.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\MonoGame.Extended.Graphics.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\MonoGame.Extended.Tiled.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\MonoGame.Framework.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\osx\native\libSDL2-2.0.0.dylib
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\osx\native\libopenal.1.dylib
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\win-x64\native\SDL2.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\TiledSharp.dll
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\TiledSharp.pdb
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.csproj.AssemblyReference.cache
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.AssemblyInfoInputs.cache
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.AssemblyInfo.cs
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.csproj.CoreCompileInputs.cache
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.csproj.CopyComplete
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.dll
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.pdb
+C:\projects\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.genruntimeconfig.cache

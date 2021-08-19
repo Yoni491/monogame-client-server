@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 
 namespace GameClient
 {
@@ -102,7 +101,10 @@ namespace GameClient
             foreach (var item in ItemManager._itemsToSendPicked)
             {
                 if (ItemManager._itemsOnTheGround.ContainsKey(item))
+                {
                     ItemManager._itemsOnTheGround[item].UpdatePacketNum(_packet);
+                    ItemManager._itemsOnTheGround[item]._aboutToBeSent = false;
+                }
             }
         }
         public void WriteItemDroppedToGround()

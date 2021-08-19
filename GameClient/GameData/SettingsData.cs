@@ -7,6 +7,7 @@ namespace GameClient
 {
     public class SettingsData
     {
+
         public string _IP { get; set; }
         public string _nameInGame { get; set; }
         public bool _soundOFF { get; set; }

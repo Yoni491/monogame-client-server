@@ -17,7 +17,7 @@ namespace GameClient
         public (Rectangle, ItemStock)[] _inventory_rectangles;
         int width = 55;
         int height = 35;
-        int _itemBlockAmount = 6;
+        int _itemBlockAmount = 8;
         MouseState _previousMouse, _currentMouse;
         public Item EquippedGun = null;
         int _gamePadPointer = 0;
@@ -314,6 +314,7 @@ namespace GameClient
         }
         public bool HasSpaceForItem(Item itemToAdd)
         {
+            return true;
             foreach (var tuple in _inventory_rectangles)
             {
                 ItemStock itemStock = tuple.Item2;

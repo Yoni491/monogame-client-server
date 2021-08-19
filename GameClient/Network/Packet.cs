@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Text;
 
 namespace GameClient
 {

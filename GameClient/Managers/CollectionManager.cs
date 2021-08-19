@@ -223,7 +223,14 @@ namespace GameClient
                 Random x = new Random();
                 id = x.Next(0, 5);
             }
-            return _guns[id].Copy(hitPlayers, dealDmg, inventoryManager);
+            try
+            {
+                return _guns[id].Copy(hitPlayers, dealDmg, inventoryManager);
+            }
+            catch
+            {
+                return null;
+            }
         }
         static public MeleeWeapon GetMeleeWeaponCopy(int id, bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
         {
@@ -232,28 +239,69 @@ namespace GameClient
                 Random x = new Random();
                 id = x.Next(0, 1);
             }
-            return _meleeWeapons[id].Copy(hitPlayers, dealDmg, inventoryManager);
+            try
+            {
+                return _meleeWeapons[id].Copy(hitPlayers, dealDmg, inventoryManager);
+            }
+            catch
+            {
+                return null;
+            }
         }
         public SimpleEnemy GetSimpleEnemyCopy(int id, bool useAstar, bool waitForDestroyedWall)
         {
-            return _simple_enemies[id].Copy(useAstar, waitForDestroyedWall);
+            try
+            {
+                return _simple_enemies[id].Copy(useAstar, waitForDestroyedWall);
+            }
+            catch
+            {
+                return null;
+            }
         }
         public Item GetItem(int id)
         {
-            return _items[id];
+            try
+            {
+                return _items[id];
+            }
+            catch
+            {
+                return null;
+            }
         }
         static public AnimationManager GetAnimationManagerCopy(int id, float scale)
         {
-            return _playerAnimationManager[id - 1].Copy();
+            try
+            {
+                return _playerAnimationManager[id - 1].Copy();
+            }
+            catch
+            {
+                return null;
+            }
         }
         static public Tuple<string, string> GetMessageFromMessageArray(int level, int messageNum)
         {
-
-            return new Tuple<string, string>(_messagesArray[level, messageNum], _messagesArrayGamePad[level, messageNum]);
+            try
+            {
+                return new Tuple<string, string>(_messagesArray[level, messageNum], _messagesArrayGamePad[level, messageNum]);
+            }
+            catch
+            {
+                return null;
+            }
         }
         static public int GetItemIDFromChestArray(int level, int chestNum)
         {
-            return _chestsArray[level, chestNum];
+            try
+            {
+                return _chestsArray[level, chestNum];
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

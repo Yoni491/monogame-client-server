@@ -34,18 +34,18 @@ namespace GameClient
         {
             keyboard = Keyboard.GetState();
             bool back;
-            if(_numbersOnly)
-                ConvertKeyboardInputNumbers(keyboard, oldKeyboard,out key,out back);
+            if (_numbersOnly)
+                ConvertKeyboardInputNumbers(keyboard, oldKeyboard, out key, out back);
             else
                 ConvertKeyboardInput(keyboard, oldKeyboard, out key, out back);
             oldKeyboard = keyboard;
-            if(key!= (char)0 && !back)
+            if (key != (char)0 && !back)
             {
                 _text = _text + key;
             }
-            else if(back && _text.Length > 0)
+            else if (back && _text.Length > 0)
             {
-                _text = _text.Remove(_text.Length-1,1);
+                _text = _text.Remove(_text.Length - 1, 1);
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -54,7 +54,7 @@ namespace GameClient
 
             if (!string.IsNullOrEmpty(_text))
             {
-                spriteBatch.DrawString(_font, _text, _position + new Vector2(3,0), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 0.6f);
+                spriteBatch.DrawString(_font, _text, _position + new Vector2(3, 0), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 0.6f);
             }
         }
         public static bool ConvertKeyboardInput(KeyboardState keyboard, KeyboardState oldKeyboard, out char key, out bool back)
@@ -137,7 +137,7 @@ namespace GameClient
 
             return false;
         }
-        public static bool ConvertKeyboardInputNumbers(KeyboardState keyboard, KeyboardState oldKeyboard, out char key,out bool back)
+        public static bool ConvertKeyboardInputNumbers(KeyboardState keyboard, KeyboardState oldKeyboard, out char key, out bool back)
         {
             back = false;
             Keys[] keys = keyboard.GetPressedKeys();

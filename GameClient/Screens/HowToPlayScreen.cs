@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace GameClient
 {
@@ -31,14 +29,14 @@ namespace GameClient
             _menuManager = menuManager;
             _keyboardMouse = GraphicManager.getImage("‏‏‫KeyboardMouseKeys");
             _gamePad = GraphicManager.getImage("GamePadKeys");
-            _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height /4f), 800, 500);
+            _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height / 4f), 800, 500);
         }
         public void Update(GameTime gameTime)
         {
             if (_keyBoardControllerKeys.Update(gameTime))
             {
                 _showKeyBoardKeys = !_showKeyBoardKeys;
-                if(_showKeyBoardKeys)
+                if (_showKeyBoardKeys)
                 {
                     _keyBoardControllerKeys.ChangeText("controller keys");
                 }
@@ -54,7 +52,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+
             if (_showKeyBoardKeys)
                 spriteBatch.Draw(_keyboardMouse, _keysRectangle, Color.White);
             else
@@ -67,7 +65,7 @@ namespace GameClient
         {
             _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height / 4f), 800, 500);
             _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
-            _keyBoardControllerKeys.ResetGraphics(_buttonPosition );
+            _keyBoardControllerKeys.ResetGraphics(_buttonPosition);
             _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
         }
     }

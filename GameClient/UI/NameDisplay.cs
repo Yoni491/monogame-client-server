@@ -12,8 +12,8 @@ namespace GameClient
         public string _text { get; set; }
         Color _background;
         GraphicsDevice _graphicsDevice;
-        
-        public NameDisplay(GraphicsDevice graphicDevice, string text,Vector2? positon = null,int positionOffsetY = 0)
+
+        public NameDisplay(GraphicsDevice graphicDevice, string text, Vector2? positon = null, int positionOffsetY = 0)
         {
             _graphicsDevice = graphicDevice;
             _font = GraphicManager.GetBasicFont("basic_16");
@@ -25,7 +25,7 @@ namespace GameClient
             _background = new Color(Color.Black, 0.1f);
 
         }
-       public void Update(Vector2 position)
+        public void Update(Vector2 position)
         {
             _position = new Vector2((int)position.X, (int)position.Y);
         }
@@ -33,7 +33,7 @@ namespace GameClient
         {
             if (!string.IsNullOrEmpty(_text))
             {
-                int x = (int)(_font.MeasureString(_text).X * 0.7f)/2;
+                int x = (int)(_font.MeasureString(_text).X * 0.7f) / 2;
                 spriteBatch.DrawString(_font, _text, _position + new Vector2(-x, 0), Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0.99f);
             }
         }

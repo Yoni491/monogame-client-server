@@ -9,8 +9,8 @@ namespace GameClient
     class InGameUI
     {
         SpriteFont _font;
-        Vector2 _positionLevel,_positionGold;
-        int _levelShowing=-1,_goldShowing=-1;
+        Vector2 _positionLevel, _positionGold;
+        int _levelShowing = -1, _goldShowing = -1;
         public string _textLevel { get; set; }
         public string _textGold { get; set; }
         Color _background;
@@ -19,7 +19,7 @@ namespace GameClient
 
         public InGameUI()
         {
-            
+
         }
         public void Initialize(GraphicsDevice graphicDevice, InventoryManager inventoryManager)
         {

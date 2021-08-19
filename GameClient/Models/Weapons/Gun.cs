@@ -107,7 +107,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColided = true;
-                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Purple);
+                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Purple, _shooting_timer);
 
                     }
                 }
@@ -115,7 +115,7 @@ namespace GameClient
                 {
                     if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
-                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Orange);
+                        DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Orange, _shooting_timer);
                         _isColided = true;
                     }
                     else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, _swingWeaponDmg))

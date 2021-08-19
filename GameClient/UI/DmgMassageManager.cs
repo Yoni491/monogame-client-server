@@ -15,9 +15,15 @@ namespace GameClient
             _graphicsDevice = graphicsDevice;
             dmgMessageList = new List<DmgMessage>();
         }
-        static public void CreateDmgMessage(int dmg,Vector2 position, Color color,float timeDisplayed=1.5f)
+        static public void CreateDmgMessage(int dmg,Vector2 position, Color color, float shootingSpeedTimer = 0, float scale = 1.3f,float timeDisplayed=1.5f )
         {
-            dmgMessageList.Add(new DmgMessage(_graphicsDevice, dmg, position, timeDisplayed, color));
+            if (shootingSpeedTimer > 0.5f)
+                shootingSpeedTimer = 0.5f;
+            if (shootingSpeedTimer < 0.3f && shootingSpeedTimer>0)
+                shootingSpeedTimer = 0.3f;
+            if(shootingSpeedTimer!=0)
+                scale = shootingSpeedTimer * 2.5f;
+            dmgMessageList.Add(new DmgMessage(_graphicsDevice, dmg, position, timeDisplayed, color,scale));
         }
         public void Update(GameTime gameTime)
         {

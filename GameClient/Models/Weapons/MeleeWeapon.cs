@@ -72,7 +72,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple);
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple,0.5f);
                     }
                 }
                 else
@@ -80,7 +80,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithEnemies(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Orange);
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Orange, 0.5f);
                     }
                     else if (!_isColided && CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
                     {

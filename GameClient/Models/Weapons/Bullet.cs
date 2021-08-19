@@ -61,7 +61,7 @@ namespace GameClient
                     if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position + _velocity,Color.Purple);
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position + _velocity,Color.Purple,_shootingTimer);
                     }
                 }
                 else
@@ -69,7 +69,7 @@ namespace GameClient
                     if (CollisionManager.isColidedWithEnemies(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position +_velocity, Color.Orange);
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position +_velocity, Color.Orange, _shootingTimer);
                     }
                     else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,_dmg))
                     {

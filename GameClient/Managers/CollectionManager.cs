@@ -259,11 +259,11 @@ namespace GameClient
                 return null;
             }
         }
-        public Item GetItem(int id)
+        public Item GetItem(int id,bool alwaysDrop = true)
         {
             try
             {
-                return _items[id];
+                return _items[id].DropAndCopy(alwaysDrop);
             }
             catch
             {

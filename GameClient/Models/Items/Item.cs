@@ -60,7 +60,7 @@ namespace GameClient
                 gun = _gun.Copy(false,true,null);
             return new Item(_texture, _inventoryTexture, _itemId, _drawScale, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed,_itemHealing);
         }
-        public Item Drop(bool dropAlways = false)
+        public Item DropAndCopy(bool dropAlways = false)
         {
             Random x = new Random();
             if ((float)x.NextDouble() < _dropRate || dropAlways)

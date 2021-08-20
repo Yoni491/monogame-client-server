@@ -55,7 +55,7 @@ namespace GameClient
                 _inventoryManager.ResetInventory();
                 foreach (var item in _latestProgressData._item_list)
                 {
-                    _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).Drop(true), false, item._amount);
+                    _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).DropAndCopy(true), false, item._amount);
                 }
                 _inventoryManager._gold = _latestProgressData._gold;
                 _levelManager.LoadNewLevel(_latestProgressData._level); // has to be in the end of the funcion, because calling CreateProgressData

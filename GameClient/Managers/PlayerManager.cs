@@ -43,7 +43,7 @@ namespace GameClient
             NameDisplay nameDisplay = new NameDisplay(_graphicsDevice, "");
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f),
                 animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager,nameDisplay);
-            _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).Drop(true);
+            _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).DropAndCopy(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
@@ -61,7 +61,7 @@ namespace GameClient
             _inventoryManager.ResetInventory();
             _player._health._health_left = _playerStartingHealth;
             _player._health._total_health = _playerStartingHealth;
-            _inventoryManager.EquippedGun = _collectionManager.GetItem(7).Drop(true);
+            _inventoryManager.EquippedGun = _collectionManager.GetItem(7).DropAndCopy(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             _player._dead = false;
             _player._nameDisplay._text = playerName;
@@ -72,7 +72,7 @@ namespace GameClient
             _player._animationNum = progressData._animationNum;
             _player._health._health_left = progressData._Health._health_left;
             _player._health._total_health = progressData._Health._total_health;
-            _inventoryManager.EquippedGun = _collectionManager.GetItem(progressData._gunNum + 5).Drop(true);
+            _inventoryManager.EquippedGun = _collectionManager.GetItem(progressData._gunNum + 5).DropAndCopy(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             _player._dead = false;
             _player._nameDisplay._text = progressData._playerName;

@@ -34,7 +34,7 @@ namespace GameClient
             _walls = new Dictionary<int, Wall>();
             _destroyableWalls = new Dictionary<int, Wall>();
             _mapNum = mapNum;
-            string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx";
+            string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx"; // BUG mac: GetCurrentDirectory not working well?
             _map = new TmxMap(mapName);
 
             Vector2 spawnPoint = Vector2.Zero;

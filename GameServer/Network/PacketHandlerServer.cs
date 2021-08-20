@@ -46,33 +46,40 @@ namespace GameServer
         {
             if (handle)
             {
-                switch (packetType)
+                try
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        //short packet from client to server
-                        ReadLevel();
-                        ReadPlayer();
-                        ReadEnemies();
-                        ReadBoxes();
-                        ReadDoors();
-                        ReadChests();
-                        ReadItemsPickedFromGround();
-                        ReadItemsDroppedToGround();
+                    switch (packetType)
+                    {
+                        case 0:
+                            break;
+                        case 1:
 
-                        break;
-                    case 2:
-                        //long packet from client to server
-                        _player._nameDisplay._text = _packet.ReadString();
-                        NetworkManagerServer._sendNames = true;
-                        break;
+                            //short packet from client to server
+                            ReadLevel();
+                            ReadPlayer();
+                            ReadEnemies();
+                            ReadBoxes();
+                            ReadDoors();
+                            ReadChests();
+                            ReadItemsPickedFromGround();
+                            ReadItemsDroppedToGround();
+                            break;
+                        case 2:
+                            //long packet from client to server
+                            _player._nameDisplay._text = _packet.ReadString();
+                            NetworkManagerServer._sendNames = true;
+                            break;
 
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("error in packet handler");
                 }
                 _packet._offset = 0;
                 handle = false;
-                Interlocked.Exchange(ref usingResource, 0);
             }
+            Interlocked.Exchange(ref usingResource, 0);
         }
         public void ReadLevel()
         {

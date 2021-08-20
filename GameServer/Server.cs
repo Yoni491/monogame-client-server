@@ -6,9 +6,16 @@ namespace GameServer
         public static Game_Server game;
         static void Main()
         {
-            using (game = new Game_Server())
-                game.Run();
+            try
+            {
+                using (game = new Game_Server())
+                    game.Run();
 
+            }
+            catch
+            {
+                System.Console.WriteLine("Server crushed?");
+            }
 
         }
     }

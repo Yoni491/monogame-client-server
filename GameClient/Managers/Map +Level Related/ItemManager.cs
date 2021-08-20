@@ -33,7 +33,7 @@ namespace GameClient
         {
             foreach (var item_id in items)
             {
-                Item item = _collectionManager.GetItem(item_id).Drop();
+                Item item = _collectionManager.GetItem(item_id,false);
                 if(item!=null)
                 {
                     item._position = position;
@@ -48,7 +48,7 @@ namespace GameClient
             int[] items = { 2, 2, 2, 4, 10};
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
-            Item item = _collectionManager.GetItem(items[y]).Drop(true);
+            Item item = _collectionManager.GetItem(items[y]);
             item._position = position;
             _itemsToSendPicked.Add(item._itemNum);
             _itemsOnTheGround.Add(item._itemNum, item);
@@ -58,7 +58,7 @@ namespace GameClient
             int[] items = { 4, 5, 6, 7, 8, 9, 10};
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
-            Item item = _collectionManager.GetItem(items[y]).Drop(true);
+            Item item = _collectionManager.GetItem(items[y]);
             item._position = position;
             _itemsToSendPicked.Add(item._itemNum);
             _itemsOnTheGround.Add(item._itemNum, item);
@@ -71,7 +71,7 @@ namespace GameClient
             }
             if(!Game_Client._isMultiplayer)
             {
-                Item item = _collectionManager.GetItem(itemId).Drop(alwaysDrop);
+                Item item = _collectionManager.GetItem(itemId,alwaysDrop);
                 if (item != null)
                 {
                     item._position = position;
@@ -84,7 +84,7 @@ namespace GameClient
         //Client function to drop item that server sends
         static public void DropItemFromServer(int num, int id, Vector2 position)
         {
-            Item item = _collectionManager.GetItem(id).Drop(true);
+            Item item = _collectionManager.GetItem(id);
             if (item != null)
             {
                 item._itemNum = num;
@@ -97,7 +97,7 @@ namespace GameClient
         {
             for (int i = 0; i < amount; i++)
             {
-                Item item = _collectionManager.GetItem(10).Drop();
+                Item item = _collectionManager.GetItem(10,false);
                 if (item != null)
                 {
                     item._position = position;

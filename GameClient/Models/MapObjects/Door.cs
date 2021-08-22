@@ -41,6 +41,7 @@ namespace GameClient
                     TileManager.RemoveWallsAroundTile(_numberInTileset);
                 }
                 MapManager._doorsToSend.Add(_numberInTileset);
+                PathFindingManager._continueSearchingBlockedPaths = true;
                 _destroy = true;
             }
 

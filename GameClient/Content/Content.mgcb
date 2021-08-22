@@ -197,6 +197,9 @@
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
 
+#begin maps/map20.tmx
+/copy:maps/map20.tmx
+
 #begin maps/map3.tmx
 /copy:maps/map3.tmx
 

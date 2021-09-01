@@ -14,7 +14,7 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int startingLevel= 21;
+        static public int startingLevel= 1;
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
         Game_Client _game_client;

@@ -9,7 +9,7 @@ namespace GameClient
     public class BulletReach
     {
         public int _id;
-        private Player _player;
+        private Player _player; 
         private List<NetworkPlayer> _networkPlayers;
         private Gun _gun;
         private Bullet _bullet;
@@ -22,7 +22,7 @@ namespace GameClient
             _gun = gun;
             _bullet = _gun._bullet;
         }
-        public void FindReachablePlayer()
+        virtual public void FindReachablePlayer()
         {
             if (_networkPlayers != null)
             {

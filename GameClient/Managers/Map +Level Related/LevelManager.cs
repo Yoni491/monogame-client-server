@@ -18,6 +18,7 @@ namespace GameClient
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
         Game_Client _game_client;
+        static private int _maxLevel = 22;
         public LevelManager(Game_Client game_client, TileManager tileManager)
         {
             _game_client = game_client;
@@ -25,6 +26,8 @@ namespace GameClient
         }
         public void LoadNewLevel(int num=0)
         {
+            if (num > _maxLevel)
+                num = 0;
             if (!Game_Client._isServer)
             {
                 _game_client.ResetGame(false);

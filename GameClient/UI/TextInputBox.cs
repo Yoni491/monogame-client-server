@@ -19,13 +19,13 @@ namespace GameClient
         Vector2 _position;
         public string _text;
         bool _numbersOnly;
-        public TextInputBox(Vector2 position, bool numbersOnly)
+        public TextInputBox(Vector2 position, bool numbersOnly, int width = 250)
         {
             _numbersOnly = numbersOnly;
             keyboard = Keyboard.GetState();
             _position = position;
             _texture = GraphicManager.getRectangleTexture(450, 50, Color.White);
-            _rectangle = new Rectangle((int)_position.X, (int)_position.Y - 5, 250, 40);
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y - 5, width, 40);
             _background = new Color(Color.White, 1f);
             _font = GraphicManager.GetBasicFont("basic_22");
 

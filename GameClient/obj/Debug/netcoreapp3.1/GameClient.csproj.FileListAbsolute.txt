@@ -711,3 +711,5 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Debug\netcoreapp3.1\GameClient.genruntimeconfig.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map21.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map20.tmx
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map20.tmx
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map21.tmx

@@ -97,6 +97,7 @@ namespace GameServer
                 _bulletReachManager.Update();
                 _pathFindingManager.Update();
             }
+            _serverScreen.Update();
             base.Update(gameTime);
 
         }

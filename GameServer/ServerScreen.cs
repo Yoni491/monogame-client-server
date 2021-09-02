@@ -12,6 +12,10 @@ namespace GameServer
     {
         ScreenMessage _headLine,_waitingMessage,_ip;
         private Texture2D _background;
+        private ScreenMessage _startingLevelMessage;
+        public static TextInputBox _levelTextBox;
+        private Vector2 _buttonPosition;
+
 
         public ServerScreen(GraphicsDevice graphicsDevice)
         {
@@ -21,11 +25,14 @@ namespace GameServer
             string externalIpString = new WebClient().DownloadString("http://icanhazip.com").Replace("\\r\\n", "").Replace("\\n", "").Trim();
             var externalIp = IPAddress.Parse(externalIpString);
             _ip = new ScreenMessage(graphicsDevice, "IP:" + externalIp + " Port:"+"1994", positionOffsetY: 100);
-
+            _buttonPosition = new Vector2(400,300);
+            _levelTextBox = new TextInputBox(_buttonPosition, true,50);
+            _startingLevelMessage = new ScreenMessage(graphicsDevice, "Starting level:", _buttonPosition + new Vector2(-200, -10));
+            _levelTextBox._text = "1";
         }
         public void Update()
         {
-
+            _levelTextBox.Update();
         }
         public void UpdateMessage(string text)
         {
@@ -40,6 +47,9 @@ namespace GameServer
             _headLine.Draw(spriteBatch);
             _waitingMessage.Draw(spriteBatch);
             _ip.Draw(spriteBatch);
+            _startingLevelMessage.Draw(spriteBatch);
+            _levelTextBox.Draw(spriteBatch);
+
         }
     }
 }

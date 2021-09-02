@@ -5,7 +5,8 @@ namespace GameClient
 {
     public class Input
     {
-        GamePadState _prevState;
+        GamePadState _prevGamePadState;
+        KeyboardState _prevKeyboardState;
         public Keys _down;
         public Keys _left;
         public Keys _right;
@@ -16,6 +17,7 @@ namespace GameClient
         public float _right_trigger;
         public float _left_trigger;
         private bool _buttonA, _buttonB,_buttonX,_buttonY, _buttonRightShoulder, _buttonLeftShoulder;
+        private bool _buttonSpace;
 
         public bool _isGamePad;
 
@@ -53,12 +55,12 @@ namespace GameClient
                 }
                 if (capabilities.HasAButton)
                 {
-                    if (!_prevState.IsButtonDown(Buttons.A))
+                    if (!_prevGamePadState.IsButtonDown(Buttons.A))
                         _buttonA = state.IsButtonDown(Buttons.A);
                 }
                 if (capabilities.HasBButton)
                 {
-                    if (!_prevState.IsButtonDown(Buttons.B))
+                    if (!_prevGamePadState.IsButtonDown(Buttons.B))
                         _buttonB = state.IsButtonDown(Buttons.B);
                 }
                 if (capabilities.HasXButton)
@@ -67,20 +69,27 @@ namespace GameClient
                 }
                 if (capabilities.HasYButton)
                 {
-                    if (!_prevState.IsButtonDown(Buttons.Y))
+                    if (!_prevGamePadState.IsButtonDown(Buttons.Y))
                         _buttonY = state.IsButtonDown(Buttons.Y);
                 }
                 if (capabilities.HasRightShoulderButton)
                 {
-                    if (!_prevState.IsButtonDown(Buttons.RightShoulder))
+                    if (!_prevGamePadState.IsButtonDown(Buttons.RightShoulder))
                         _buttonRightShoulder = state.IsButtonDown(Buttons.RightShoulder);
                 }
                 if (capabilities.HasLeftShoulderButton)
                 {
-                    if (!_prevState.IsButtonDown(Buttons.LeftShoulder))
+                    if (!_prevGamePadState.IsButtonDown(Buttons.LeftShoulder))
                         _buttonLeftShoulder = state.IsButtonDown(Buttons.LeftShoulder);
                 }
-                _prevState = state;
+                _prevGamePadState = state;
+            }
+            else
+            {
+                KeyboardState state = Keyboard.GetState();
+                if (!_prevKeyboardState.IsKeyDown(Keys.Space))
+                    _buttonSpace = state.IsKeyDown(Keys.Space);
+                _prevKeyboardState = state;
             }
         }
         public void GetVelocity(ref Vector2 _velocity,float _speed)
@@ -161,7 +170,7 @@ namespace GameClient
         }
         public bool Pick()
         {
-            if (Keyboard.GetState().IsKeyDown(_pick))
+            if (_buttonSpace)
             {
                 return true;
             }

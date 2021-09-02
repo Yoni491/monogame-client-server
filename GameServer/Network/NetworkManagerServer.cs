@@ -131,7 +131,10 @@ namespace GameServer
                 _packetHandlers.Add(packetHandler);
                 if (numOfPlayer == 0)
                 {
-                    _levelManager.LoadNewLevel(LevelManager.startingLevel);
+                    if(string.IsNullOrEmpty( ServerScreen._levelTextBox._text))
+                        _levelManager.LoadNewLevel(LevelManager.startingLevel);
+                    else
+                        _levelManager.LoadNewLevel(Int32.Parse(ServerScreen._levelTextBox._text));
                 }
                 SendPacket(2, true, player._playerNum,socket);
                 WriteItems(true);

@@ -29,6 +29,7 @@ namespace GameServer
         ServerScreen _serverScreen;
         bool justResetted;
         public static bool _sendNames;
+        public static bool _Connected;
         public NetworkManagerServer(Game_Server gameServer, ServerScreen serverScreen, List<Socket> socket_list, List<NetworkPlayer> players, List<SimpleEnemy> enemies, LevelManager levelManager)
         {
             _gameServer = gameServer;
@@ -131,10 +132,10 @@ namespace GameServer
                 _packetHandlers.Add(packetHandler);
                 if (numOfPlayer == 0)
                 {
-                    if(string.IsNullOrEmpty( ServerScreen._levelTextBox._text))
+                    if(string.IsNullOrEmpty( ServerScreen._startingLevelTextBox._text))
                         _levelManager.LoadNewLevel(LevelManager.startingLevel);
                     else
-                        _levelManager.LoadNewLevel(Int32.Parse(ServerScreen._levelTextBox._text));
+                        _levelManager.LoadNewLevel(Int32.Parse(ServerScreen._startingLevelTextBox._text));
                 }
                 SendPacket(2, true, player._playerNum,socket);
                 WriteItems(true);
@@ -143,6 +144,7 @@ namespace GameServer
                 numOfPlayer++;
                 justResetted = false;
                 _serverScreen.UpdateMessage("Connected!");
+                _Connected = true;
             }
         }
         public void WritePlayers(bool writeNames = false)

@@ -93,7 +93,8 @@ namespace GameClient
                     networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                 }
                 networkPlayer._serverUpdated = true;
-                networkPlayer.ReadPacketShort(_packet,readNames);
+
+                networkPlayer.ReadPacketShort(_packet,readNames,playerNum != _player._playerNum);
             }
             _players.RemoveAll(x => x._serverUpdated == false);
             _players.ForEach(x => x._serverUpdated = false);

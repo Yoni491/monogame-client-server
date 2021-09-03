@@ -359,13 +359,14 @@ namespace GameClient
             }
 
         }
-        public void ReadPacketShort(Packet packet)
+        public void ReadPacketShort(Packet packet,bool playSound)
         {
             _swing_weapon = packet.ReadBool();
             _swingWeapon_send = _swing_weapon;
             if (!Game_Client._isServer && _swing_weapon)
             {
-                AudioManager.PlaySound("SwingWeapon");
+                if(playSound)
+                    AudioManager.PlaySound("SwingWeapon");
             }
             int bulletAmount = packet.ReadInt();
             for (int i = 0; i < bulletAmount; i++)
@@ -378,10 +379,13 @@ namespace GameClient
                 if(!Game_Client._isServer)
                     bullet._bulletSent = true;
                 _bullets.Add(bullet);
-                if (_bullet._shootingTimer < 0.1f)
-                    AudioManager.PlaySound("Rifle", 0.2f);
-                else
-                    AudioManager.PlaySound("Rifle");
+                if(playSound)
+                {
+                    if (_bullet._shootingTimer < 0.1f)
+                        AudioManager.PlaySound("Rifle", 0.2f);
+                    else
+                        AudioManager.PlaySound("Rifle");
+                }
             }
         }
 

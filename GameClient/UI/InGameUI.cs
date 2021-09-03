@@ -17,19 +17,20 @@ namespace GameClient
         Color _background;
         GraphicsDevice _graphicsDevice;
         InventoryManager _inventoryManager;
-        private ScreenMessage _startingLevelMessage;
+        private ScreenMessage _loadLevelMessage;
         public static TextInputBox _levelTextBox;
         private Vector2 _buttonPosition;
         KeyboardState _prevState;
         bool _showLevelBox;
-
+        LevelManager _levelManager;
 
         public InGameUI()
         {
 
         }
-        public void Initialize(GraphicsDevice graphicsDevice, InventoryManager inventoryManager)
+        public void Initialize(GraphicsDevice graphicsDevice, InventoryManager inventoryManager,LevelManager levelManager)
         {
+            _levelManager = levelManager;
             _graphicsDevice = graphicsDevice;
             _font = GraphicManager.GetBasicFont("basic_22");
             _positionLevel = new Vector2(100, 0);
@@ -37,17 +38,24 @@ namespace GameClient
             _background = new Color(Color.Black, 0.1f);
             _inventoryManager = inventoryManager;
 
-            _buttonPosition = new Vector2(400, 300);
+            _buttonPosition = new Vector2(500, 100);
             _levelTextBox = new TextInputBox(_buttonPosition, true, 50);
-            _startingLevelMessage = new ScreenMessage(graphicsDevice, "Starting level:", _buttonPosition + new Vector2(-200, -10));
-            _levelTextBox._text = "1";
+            _loadLevelMessage = new ScreenMessage(graphicsDevice, "Load level:", _buttonPosition + new Vector2(-160, -10));
         }
         public void Update()
         {
             if (!Game_Client._isMultiplayer)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Enter) && _prevState.IsKeyUp(Keys.Enter))
+                {
+                    if(_showLevelBox)
+                    {
+                        if(!string.IsNullOrEmpty(_levelTextBox._text))
+                            _levelManager.LoadNewLevel(Int32.Parse(_levelTextBox._text));
+                    }
                     _showLevelBox = !_showLevelBox;
+                    _levelTextBox._text = "";
+                }
                 _prevState = Keyboard.GetState();
                 if (_showLevelBox)
                     _levelTextBox.Update();
@@ -75,7 +83,10 @@ namespace GameClient
                 spriteBatch.DrawString(_font, _textGold, _positionGold, Color.White, 0, Vector2.Zero, 0.7f, SpriteEffects.None, 0.99f);
             }
             if (_showLevelBox)
+            {
                 _levelTextBox.Draw(spriteBatch);
+                _loadLevelMessage.Draw(spriteBatch);
+            }
         }
         public void ResetGraphics()
         {

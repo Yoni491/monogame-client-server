@@ -333,7 +333,7 @@ namespace GameClient
             int gunOrMeele = packet.ReadInt();//gun is 0
             if (gunOrMeele == 0)
             {
-                _gun.ReadPacketShort(packet);
+                _gun.ReadPacketShort(packet,true);
             }
         }
     }

@@ -19,6 +19,7 @@ namespace GameClient
         private Vector2 _startPosition;
         public int _destroyIn3 = -1;
         public bool _bulletSent;
+        public int _dmgShown;
         public Rectangle Rectangle
         {
             get
@@ -39,6 +40,7 @@ namespace GameClient
             _maxTravelDistance = travelDistance;
             _hitPlayers = hitPlayers;
             _dmg = dmg;
+            _dmgShown = dmg;
         }
         public Bullet(int id, Texture2D texture, float speed, float shootingTimer,int dmg, int travelDistance)
         {
@@ -60,7 +62,7 @@ namespace GameClient
                     if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position + _velocity,Color.Purple,_shootingTimer);
+                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position + _velocity,Color.Purple,_shootingTimer);
                     }
                 }
                 else
@@ -68,7 +70,7 @@ namespace GameClient
                     if (CollisionManager.isColidedWithEnemies(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position +_velocity, Color.Orange, _shootingTimer);
+                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position +_velocity, Color.Orange, _shootingTimer);
                     }
                     else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,_dmg))
                     {

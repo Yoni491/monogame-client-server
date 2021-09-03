@@ -36,61 +36,63 @@ namespace GameClient
 
             if (capabilities.IsConnected)
             {
-                GamePadState state = GamePad.GetState(PlayerIndex.One);
+                GamePadState statePad = GamePad.GetState(PlayerIndex.One);
                 if (capabilities.HasLeftXThumbStick)
                 {
-                    _left_joystick_direction = new Vector2(state.ThumbSticks.Left.X, -state.ThumbSticks.Left.Y);
+                    _left_joystick_direction = new Vector2(statePad.ThumbSticks.Left.X, -statePad.ThumbSticks.Left.Y);
                 }
                 if (capabilities.HasRightXThumbStick)
                 {
-                    _right_joystick_direction = new Vector2(state.ThumbSticks.Right.X, -state.ThumbSticks.Right.Y);
+                    _right_joystick_direction = new Vector2(statePad.ThumbSticks.Right.X, -statePad.ThumbSticks.Right.Y);
                 }
                 if (capabilities.HasRightTrigger)
                 {
-                    _right_trigger = state.Triggers.Right;
+                    _right_trigger = statePad.Triggers.Right;
                 }
                 if (capabilities.HasLeftTrigger)
                 {
-                    _left_trigger = state.Triggers.Left;
+                    _left_trigger = statePad.Triggers.Left;
                 }
                 if (capabilities.HasAButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.A))
-                        _buttonA = state.IsButtonDown(Buttons.A);
+                        _buttonA = statePad.IsButtonDown(Buttons.A);
                 }
                 if (capabilities.HasBButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.B))
-                        _buttonB = state.IsButtonDown(Buttons.B);
+                        _buttonB = statePad.IsButtonDown(Buttons.B);
                 }
                 if (capabilities.HasXButton)
                 {
-                    _buttonX = state.IsButtonDown(Buttons.X);
+                    _buttonX = statePad.IsButtonDown(Buttons.X);
                 }
                 if (capabilities.HasYButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.Y))
-                        _buttonY = state.IsButtonDown(Buttons.Y);
+                        _buttonY = statePad.IsButtonDown(Buttons.Y);
                 }
                 if (capabilities.HasRightShoulderButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.RightShoulder))
-                        _buttonRightShoulder = state.IsButtonDown(Buttons.RightShoulder);
+                        _buttonRightShoulder = statePad.IsButtonDown(Buttons.RightShoulder);
                 }
                 if (capabilities.HasLeftShoulderButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.LeftShoulder))
-                        _buttonLeftShoulder = state.IsButtonDown(Buttons.LeftShoulder);
+                        _buttonLeftShoulder = statePad.IsButtonDown(Buttons.LeftShoulder);
                 }
-                _prevGamePadState = state;
+                _prevGamePadState = statePad;
             }
-            else
+
+            KeyboardState stateKeyboard = Keyboard.GetState();
+            if (_prevKeyboardState.IsKeyUp(Keys.Space) && stateKeyboard.IsKeyDown(Keys.Space))
+                _buttonSpace = true;
+            if(!Game_Client._isMultiplayer)
             {
-                KeyboardState state = Keyboard.GetState();
-                if (!_prevKeyboardState.IsKeyDown(Keys.Space))
-                    _buttonSpace = state.IsKeyDown(Keys.Space);
-                _prevKeyboardState = state;
+                _buttonSpace = stateKeyboard.IsKeyDown(Keys.Space);
             }
+            _prevKeyboardState = stateKeyboard;
         }
         public void GetVelocity(ref Vector2 _velocity,float _speed)
         {
@@ -150,6 +152,7 @@ namespace GameClient
             else if (_buttonX)
             {
                 _isGamePad = true;
+                _buttonX = false;
                 return true;
             }
             return false;
@@ -172,6 +175,8 @@ namespace GameClient
         {
             if (_buttonSpace)
             {
+                _buttonSpace = false;
+                _isGamePad = false;
                 return true;
             }
             else if (_buttonB)

@@ -107,7 +107,7 @@ namespace GameClient
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
             _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _settingsDataManager);
             _settingsDataManager.Initialize(_menuManager._characterSelectMenu, _menuManager._multiplayerMenu, _settingsScreen);
-            _inGameUI.Initialize(GraphicsDevice, _inventoryManager);
+            _inGameUI.Initialize(GraphicsDevice, _inventoryManager,_levelManager);
         }
 
         protected override void Update(GameTime gameTime)

@@ -27,7 +27,7 @@ namespace GameClient
         public void LoadNewLevel(int num=0)
         {
             if (num > _maxLevel)
-                num = 0;
+                num = 1;
             if (!Game_Client._isServer)
             {
                 _game_client.ResetGame(false);
@@ -41,17 +41,17 @@ namespace GameClient
             }
             else
             {
-                if (_currentLevel == 100)
+                if (_currentLevel == _maxLevel)
                     _currentLevel = 0;
-                _spawnPoint = _tileManager.LoadMap(_currentLevel+1);
-                _currentLevel++;
+                _spawnPoint = _tileManager.LoadMap(++_currentLevel);
                 if (_player != null)
                     _player.PositionPlayerFeetAt(_spawnPoint);
             }
             if (!Game_Client._isServer)
             {
                 AudioManager.PlaySong(_currentLevel);
-                _progressManager.CreateProgressData();
+                if(!Game_Client._isMultiplayer)
+                    _progressManager.CreateProgressData();
             }
             _sendNewLevel = true;
         }

@@ -116,7 +116,7 @@ namespace GameClient
             }
         }
 
-        public void ReadPacketShort(Packet packet,bool readName = false)
+        public void ReadPacketShort(Packet packet,bool readName = false,bool playSound = true)
         {
             _position = packet.ReadVector2();
             _movingDirection = packet.ReadInt();
@@ -153,7 +153,7 @@ namespace GameClient
                 _gun = CollectionManager.GetGunCopy(gunNum, false,false,null);
                 _gun._holderScale = _scale;
             }
-            _gun.ReadPacketShort(packet);
+            _gun.ReadPacketShort(packet,playSound);
             if(readName)
             {
                 _nameDisplay._text = packet.ReadString();

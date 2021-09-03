@@ -48,7 +48,6 @@ namespace GameServer
         {
             _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _serverScreen = new ServerScreen(GraphicsDevice);
 
             _mapManager = new MapManager();
             _collectionManager = new CollectionManager();
@@ -62,6 +61,7 @@ namespace GameServer
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _progressManager = new ProgressManager();
 
+            _serverScreen = new ServerScreen(GraphicsDevice, _levelManager,this);
 
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
@@ -121,6 +121,7 @@ namespace GameServer
                 LevelManager._currentLevel = -2;
                 _networkManager.Reset();
                 _serverScreen.UpdateMessage("waiting for connection...");
+                NetworkManagerServer._Connected = false;
             }
         }
         #endregion

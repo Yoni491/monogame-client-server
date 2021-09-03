@@ -141,6 +141,13 @@ namespace GameClient
                     else
                         _meleeWeapon.SwingWeapon();
                 }
+                else if(_input._isGamePad)
+                {
+                    if (_gun != null)
+                        _gun.SwingWeapon();
+                    else
+                        _meleeWeapon.SwingWeapon();
+                }
             }
             if (_input.Pick())
             {

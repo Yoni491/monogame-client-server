@@ -16,3 +16,9 @@ C:\projects\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.cspro
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.csproj.CoreCompileInputs.cache
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.dll
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\bin\Release\net45\TiledSharp.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\bin\Release\net45\TiledSharp.pdb
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.csprojAssemblyReference.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.csproj.CoreCompileInputs.cache
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.dll
+C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net45\TiledSharp.pdb

@@ -58,8 +58,13 @@ namespace GameClient
                     return;
                 }
                 if (CheckIfReachable(_player.Position_Feet))
+                {
                     _reachablePlayerPos = _player.Position_Feet;
+                    return;
+                }
             }
+            _reachablePlayerPos = Vector2.Zero;
+
         }
         public bool CheckIfReachable(Vector2 _direction)
         {

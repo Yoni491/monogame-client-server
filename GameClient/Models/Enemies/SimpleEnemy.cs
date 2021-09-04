@@ -35,6 +35,7 @@ namespace GameClient
         private float _sniperStopTime = 1f;
         private float _movingBetweenShotsTime = 1f;
         private float _movingToPlayerMaxDistance = 1;
+        private int _ShootingMinimumDistance = 1;
         private float _summonTimer = 0;
         public int _dmgDoneForServer=0;
         private int _summonEnemyID;
@@ -67,7 +68,16 @@ namespace GameClient
             _gun = gun;
             if (gun != null)
             {
-                _movingToPlayerMaxDistance = Math.Min(_gun._bullet._maxTravelDistance - 30, 1500);
+                if(_gun._bullet._maxTravelDistance < 1000)
+                {
+                    _movingToPlayerMaxDistance = 200;
+                    _ShootingMinimumDistance = _gun._bullet._maxTravelDistance - 40;
+                }
+                else
+                {
+                    _movingToPlayerMaxDistance = 500;
+                    _ShootingMinimumDistance = _gun._bullet._maxTravelDistance;
+                }
                 _gun._holderScale = _scale;
             }
             if(_meleeWeapon!=null)
@@ -210,11 +220,21 @@ namespace GameClient
                     _velocity = Vector2.Normalize(coordPosition - Position_Feet);
                     _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
                 }
+
                 if (Vector2.Distance(target_player, Position_Feet) < _movingToPlayerMaxDistance)
                 {
-                    if(_meleeWeapon!=null)
+                    if (_meleeWeapon != null)
+                    {
                         _isStopingToShotOrMeleeAttack = true;
-                    _velocity = Vector2.Zero;
+                        _velocity = Vector2.Zero;
+                    }
+                    if(_gun!=null)
+                    {
+                        if (_bulletReach._reachablePlayerPos != Vector2.Zero)
+                        {
+                            _velocity = Vector2.Zero;
+                        }
+                    }
                 }
                 else
                 {

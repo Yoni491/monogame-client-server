@@ -1,19 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "jnqKYCr2TA/xruPXLJmnOMjuUO318jbB2XLAsCJxZWIoKFjwqa+Jb9aXoZNTprJR28lqEYs+r6n7CtPcN59czg==",
+  "dgSpecHash": "w8yaJNvLQwGpcC55LwY2fHN/1WpHbYZdVLcf+/cssTTHE2x0c0ESNknSJM+jDZPBhHYzmjiDzoij5hg0yOL5rA==",
   "success": true,
-  "projectFilePath": "C:\\projects\\monogame-client-server\\GameClient\\GameClient.csproj",
+  "projectFilePath": "C:\\Users\\yoni2\\source\\repos\\monogame -survival\\monogame-client-server\\GameClient\\GameClient.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\yonie\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\monogame.extended.graphics\\3.8.0\\monogame.extended.graphics.3.8.0.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\monogame.extended.tiled\\3.8.0\\monogame.extended.tiled.3.8.0.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\nez.pipelineimporter\\0.9.5\\nez.pipelineimporter.0.9.5.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\3.1.16\\microsoft.netcore.app.runtime.win-x86.3.1.16.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\3.1.16\\microsoft.windowsdesktop.app.runtime.win-x86.3.1.16.nupkg.sha512",
-    "C:\\Users\\yonie\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\3.1.16\\microsoft.aspnetcore.app.runtime.win-x86.3.1.16.nupkg.sha512"
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.content.builder.task\\3.8.0.1641\\monogame.content.builder.task.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended\\3.8.0\\monogame.extended.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.graphics\\3.8.0\\monogame.extended.graphics.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.extended.tiled\\3.8.0\\monogame.extended.tiled.3.8.0.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.0.1641\\monogame.framework.desktopgl.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\nez.pipelineimporter\\0.9.5\\nez.pipelineimporter.0.9.5.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\3.1.13\\microsoft.netcore.app.runtime.win-x86.3.1.13.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\3.1.13\\microsoft.windowsdesktop.app.runtime.win-x86.3.1.13.nupkg.sha512",
+    "C:\\Users\\yoni2\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\3.1.13\\microsoft.aspnetcore.app.runtime.win-x86.3.1.13.nupkg.sha512"
   ],
   "logs": []
 }

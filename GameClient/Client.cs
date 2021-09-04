@@ -15,8 +15,17 @@ namespace GameClient
             //    process.StartInfo.Arguments = "1";
             //    process.Start();
             //}
-            using (game = new Game_Client())
-                game.Run();
+            try
+            {
+                using (game = new Game_Client())
+                    game.Run();
+
+            }
+            catch
+            {
+                System.Console.WriteLine("Client crushed");
+            }
+            
 
         }
     }

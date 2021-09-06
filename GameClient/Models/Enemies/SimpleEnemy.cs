@@ -70,7 +70,7 @@ namespace GameClient
             {
                 if(_gun._bullet._maxTravelDistance < 1000)
                 {
-                    _movingToPlayerMaxDistance = 200;
+                    _movingToPlayerMaxDistance = 300;
                     _ShootingMinimumDistance = _gun._bullet._maxTravelDistance - 40;
                 }
                 else

@@ -80,6 +80,8 @@ namespace GameClient
             _BreadthFirst.Initialize(TileManager.GetCoordTile(_start), TileManager.GetCoordTile(_end), Bfs_Grid);
             while (true)
             {
+                if (PathFindingManager._reset)
+                    return;
                 if (_useAstar && tickAmount <= 1000)
                 {
                     if (tickAmount == 1000)

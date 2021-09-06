@@ -25,12 +25,20 @@ namespace GameClient
             _pathsToAdd = new List<PathFinder>();
             _indecesToRemove = new List<int>();
         }
-        public void Update()
+        public void Update() //the order of the functions in this function is critical
         {
             if (!_continueSearchBFS)
             {
                 if (!_continueSearch)
                 {
+                    if(_reset)
+                    {
+                        _pathFinderList.Clear();
+                        _reset = false;
+                    }
+                    AddPaths();
+                    RemovePaths();
+
                     if (_continueSearchingBlockedPaths)
                     {
                         foreach (var item in _pathFinderList)
@@ -39,13 +47,6 @@ namespace GameClient
                         }
                         _continueSearchingBlockedPaths = false;
                     }
-                    if(_reset)
-                    {
-                        _pathFinderList.Clear();
-                        _reset = false;
-                    }
-                    AddPaths();
-                    RemovePaths();
                     _continueSearch = true;
                     _continueSearchBFS = true;
                 }
@@ -65,6 +66,7 @@ namespace GameClient
         static public void Reset()
         {
             _reset = true;
+            _pathsToAdd.Clear();
         }
         static public void RemovePathFinder(PathFinder pathFinder)
         {
@@ -83,6 +85,7 @@ namespace GameClient
         {
             for (int i = 0; i < _pathsToAdd.Count; i++)
             {
+                
                 _pathFinderList.Add(_pathsToAdd[0]);
                 _pathsToAdd.RemoveAt(0);
             }

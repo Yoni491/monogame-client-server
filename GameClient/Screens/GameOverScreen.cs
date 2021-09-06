@@ -18,13 +18,16 @@ namespace GameClient
         static public bool _showScreen;
         ProgressManager _progressManager;
         Game_Client _game_Client;
+        bool _updateButtonText;
+        Player _player;
 
         public GameOverScreen()
         {
 
         }
-        public void Initialize(Game_Client game_Client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager)
+        public void Initialize(Game_Client game_Client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager, Player player)
         {
+            _player = player;
             _game_Client = game_Client;
             _progressManager = progressManager;
             _graphicsDevice = graphics;
@@ -39,10 +42,21 @@ namespace GameClient
         {
             if (!Game_Client._isMultiplayer)
             {
+                _restartLevel.ChangeText("Restart level");
                 if (_restartLevel.Update(gameTime))
                 {
                     _showScreen = false;
                     _progressManager.LoadData();
+                }
+            }
+            else
+            {
+                _restartLevel.ChangeText("Respawn");
+                if (_restartLevel.Update(gameTime))
+                {
+                    _showScreen = false;
+                    _player._health._health_left = 200;
+                    _player._dead = false;
                 }
             }
             if (_exitToMain.Update(gameTime))

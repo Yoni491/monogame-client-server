@@ -102,7 +102,7 @@ namespace GameClient
             _inventoryManager.Initialize(_player, _itemManager);
             _mapManager.Initialize(_player);
             _progressManager.Initialize(_player, _inventoryManager, _playerManager, _levelManager, _collectionManager);
-            _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager);
+            _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager,_player);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
             _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._multiplayerMenu);
             _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _settingsDataManager);
@@ -125,9 +125,10 @@ namespace GameClient
             {
                 if (GameOverScreen._showScreen)
                 {
-                    Player player = null;
                     _gameOverScreen.Update(gameTime);
-                    _player = player;
+
+                    //Player player = null;
+                    //_player = player;
                 }
                 else
                 {

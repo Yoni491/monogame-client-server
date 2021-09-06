@@ -38,15 +38,6 @@ namespace GameClient
                     }
                     AddPaths();
                     RemovePaths();
-
-                    if (_continueSearchingBlockedPaths)
-                    {
-                        foreach (var item in _pathFinderList)
-                        {
-                            item._waitForDestroyedWall = false;
-                        }
-                        _continueSearchingBlockedPaths = false;
-                    }
                     _continueSearch = true;
                     _continueSearchBFS = true;
                 }
@@ -67,6 +58,7 @@ namespace GameClient
         {
             _reset = true;
             _pathsToAdd.Clear();
+            _continueSearchingBlockedPaths = false;
         }
         static public void RemovePathFinder(PathFinder pathFinder)
         {
@@ -103,7 +95,7 @@ namespace GameClient
                             index = 0;
                         if (UseAstar && _pathFinderList[index]._useAstar)
                         {
-                            if (!_pathFinderList[index]._waitForDestroyedWall)
+                            if (!_pathFinderList[index]._waitForDestroyedWall || _continueSearchingBlockedPaths)
                             {
                                 _pathFinderList[index].FindPaths();
                                 continueSearch = false;
@@ -111,7 +103,7 @@ namespace GameClient
                         }
                         else if (!UseAstar && !_pathFinderList[index]._useAstar)
                         {
-                            if (!_pathFinderList[index]._waitForDestroyedWall)
+                            if (!_pathFinderList[index]._waitForDestroyedWall || _continueSearchingBlockedPaths)
                             {
                                 _pathFinderList[index].FindPaths();
                                 continueSearch = false;

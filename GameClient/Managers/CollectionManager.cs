@@ -73,7 +73,7 @@ namespace GameClient
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(21, 1.4f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[1]));//sniper GID=140
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(7, 1.7f), id++, Vector2.Zero, 1, _playerManager,
-                _itemManager, 20, basicDrops, null, _guns[3]));//machine-gun GID=141
+                _itemManager, 120, basicDrops, null, _guns[3]));//machine-gun GID=141
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(9, 1.5f), id++, Vector2.Zero, 1, _playerManager,
                 _itemManager, 20, basicDrops, null, _guns[4]));//UZI GID=142
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(11, 3), id++, Vector2.Zero, 1, _playerManager,

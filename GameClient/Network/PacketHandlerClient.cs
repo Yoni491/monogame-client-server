@@ -47,22 +47,30 @@ namespace GameClient
         {
             if (handle)
             {
-                //if (packetType != 0)
-                //    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-                switch (packetType)
+                try
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        ReadPacket();
-                        break;
-                    case 2:
-                        _player._playerNum = _packet.ReadInt();
-                        ReadPacket(true);
-                        break;
-                    case 3:
-                        ReadPacket(true);
-                        break;
+                    //if (packetType != 0)
+                    //    Console.WriteLine("11Client: Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
+                    switch (packetType)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            ReadPacket();
+                            break;
+                        case 2:
+                            _player._playerNum = _packet.ReadInt();
+                            ReadPacket(true);
+                            break;
+                        case 3:
+                            ReadPacket(true);
+                            break;
+                    }
+                    
+                }
+                catch
+                {
+                    Console.WriteLine("error reading message");
                 }
                 _packet._offset = 0;
                 handle = false;

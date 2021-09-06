@@ -17,6 +17,7 @@ namespace GameClient
         List<NetworkPlayer> _network_players;
         Packet _packet;
         List<SimpleEnemy> _enemies;
+        int _sendPacketNames = 0;
         MultiplayerScreen _multiplayerMenu;
         public NetworkManagerClient()
         {
@@ -39,11 +40,20 @@ namespace GameClient
         {
             if (_socket.Connected)
             {
+                _sendPacketNames++;
                 _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_timer_short >= 0.1f)//doesnt work if it is too fastss
                 {
+                    if(_sendPacketNames >= 100)
+                    {
+                        SendPacket(gameTime,2);
+                        _sendPacketNames = 0;
+                    }
+                    else
+                    {
+                        SendPacket(gameTime);
+                    }
                     _timer_short = 0;
-                    SendPacket(gameTime);
                 }
                 _packetHandler.Update();
             }

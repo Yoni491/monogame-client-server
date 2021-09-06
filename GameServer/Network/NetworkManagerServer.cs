@@ -346,7 +346,15 @@ namespace GameServer
                 RemoveSocket(client_socket, packetHandlerServer);
             }
             packetHandlerServer.Handle(buffer);
-            Receive(client_socket, packetHandlerServer, buffer);
+            try
+            {
+                Receive(client_socket, packetHandlerServer, buffer);
+
+            }
+            catch
+            {
+                Console.WriteLine("Error in receive");
+            }
         }
         #endregion
     }

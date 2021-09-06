@@ -978,3 +978,5 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.pdb
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\win-x86\GameClient.genruntimeconfig.cache
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\win-x86\Content\maps\map21.tmx
+C:\projects\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\win-x86\Content\maps\map20.tmx

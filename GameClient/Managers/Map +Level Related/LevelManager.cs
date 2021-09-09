@@ -15,10 +15,11 @@ namespace GameClient
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
         static public int startingLevel= 1;
+        static public int startingLevelServer = 23;
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
         Game_Client _game_client;
-        static private int _maxLevel = 22;
+        static private int _maxLevel = 23;
         public LevelManager(Game_Client game_client, TileManager tileManager)
         {
             _game_client = game_client;

@@ -207,6 +207,15 @@ namespace GameClient
             _chestsArray[8, 0] = 6;
             _chestsArray[11, 0] = 9;
             _chestsArray[16, 0] = 5;
+            int x = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    _chestsArray[23, x++] = 5 + j;
+                }
+            }
+
         }
         private void InitializePlayerTextures()
         {

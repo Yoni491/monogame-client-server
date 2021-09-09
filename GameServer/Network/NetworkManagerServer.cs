@@ -133,7 +133,7 @@ namespace GameServer
                 if (numOfPlayer == 0)
                 {
                     if(string.IsNullOrEmpty( ServerScreen._startingLevelTextBox._text))
-                        _levelManager.LoadNewLevel(LevelManager.startingLevel);
+                        _levelManager.LoadNewLevel(LevelManager.startingLevelServer);
                     else
                         _levelManager.LoadNewLevel(Int32.Parse(ServerScreen._startingLevelTextBox._text));
                 }

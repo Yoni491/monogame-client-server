@@ -203,6 +203,9 @@
 #begin maps/map21.tmx
 /copy:maps/map21.tmx
 
+#begin maps/map22.tmx
+/copy:maps/map22.tmx
+
 #begin maps/map3.tmx
 /copy:maps/map3.tmx
 

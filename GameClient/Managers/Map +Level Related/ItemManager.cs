@@ -14,6 +14,8 @@ namespace GameClient
         static public List<int> _itemsToSendPicked;
         static public List<(int,Vector2)> _itemsToSendDropped;
         static public List<(int,int)> _itemsPickedUpToSend_Server;
+        static public bool _waitingForServerApprovalForItemPicked;
+        static public int _itemNumWaitingForServerApproval;
         public ItemManager(CollectionManager collectionManager)
         {
             _collectionManager = collectionManager;

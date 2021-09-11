@@ -194,6 +194,8 @@ namespace GameClient
             {
                 int playerNum = _packet.ReadInt();
                 int itemNum = _packet.ReadInt();
+                if (ItemManager._itemNumWaitingForServerApproval == itemNum)
+                    ItemManager._waitingForServerApprovalForItemPicked = false;
                 if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
                     if(playerNum == _player._playerNum)

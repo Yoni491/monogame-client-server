@@ -160,7 +160,7 @@ namespace GameClient
                     }
                     else
                     {
-                        if (_inventoryManager.HasSpaceForItem(item) && ItemManager._waitingForServerApprovalForItemPicked)
+                        if (_inventoryManager.HasSpaceForItem(item) && !ItemManager._waitingForServerApprovalForItemPicked)
                         {
                             item._aboutToBeSent = true;
                             ItemManager._waitingForServerApprovalForItemPicked = true;

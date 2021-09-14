@@ -46,7 +46,7 @@ namespace GameServer
         }
         protected override void LoadContent()
         {
-            _graphicManager = new GraphicManager(GraphicsDevice, Content,_graphics);
+            _graphicManager = new GraphicManager(GraphicsDevice, Content, _graphics);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _mapManager = new MapManager();
@@ -54,27 +54,28 @@ namespace GameServer
             _itemManager = new ItemManager(_collectionManager);
             _tileManager = new TileManager(GraphicsDevice, Content, _mapManager);
             _levelManager = new LevelManager(null, _tileManager);
-            
+
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
             _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _progressManager = new ProgressManager();
 
-            _serverScreen = new ServerScreen(GraphicsDevice, _levelManager,this);
+            _serverScreen = new ServerScreen(GraphicsDevice, _levelManager, this);
 
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();
             _bulletReachManager = new BulletReachManager();
 
-            _networkManager = new NetworkManagerServer(this, _serverScreen, _socket_list, _networkPlayers, _enemies,_levelManager);
+            _networkManager = new NetworkManagerServer(this, _serverScreen, _socket_list, _networkPlayers, _enemies, _levelManager);
 
             _bulletReachManager.Initialize(null, _networkPlayers);
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
             _collisionManager.Initialize(_networkPlayers, null, _enemies);
-            _levelManager.Initialize(_networkPlayers,_progressManager);
+            _levelManager.Initialize(_networkPlayers, _progressManager);
             _mapManager.Initialize(_networkPlayers);
             _networkManager.Initialize_connection();
+            
         }
 
         protected override void Update(GameTime gameTime)

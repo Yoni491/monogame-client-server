@@ -12,9 +12,17 @@ namespace GameServer
                     game.Run();
 
             }
-            catch
+            catch(System.Exception e)
             {
-                System.Console.WriteLine("Server crushed?");
+                if(e!=null)
+                {
+                    System.Console.WriteLine(e.Message);
+                }
+                else
+                {
+                    System.Console.WriteLine("Server crushed? ");
+
+                }
             }
 
         }

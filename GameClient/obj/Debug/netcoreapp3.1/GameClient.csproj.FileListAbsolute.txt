@@ -715,3 +715,5 @@ C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\ma
 C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map21.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map22.tmx
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map23.tmx
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map22.tmx
+C:\projects\monogame-client-server\GameClient\bin\Debug\netcoreapp3.1\Content\maps\map23.tmx

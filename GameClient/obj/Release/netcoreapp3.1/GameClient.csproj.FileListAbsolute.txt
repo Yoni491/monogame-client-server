@@ -557,3 +557,4 @@ C:\Projects\old\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\Game
 C:\Projects\old\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.dll
 C:\Projects\old\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.pdb
 C:\Projects\old\monogame-client-server\GameClient\obj\Release\netcoreapp3.1\GameClient.genruntimeconfig.cache
+C:\Projects\old\monogame-client-server\GameClient\bin\Release\netcoreapp3.1\Content\etc\names.txt

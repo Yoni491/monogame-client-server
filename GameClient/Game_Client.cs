@@ -33,6 +33,7 @@ namespace GameClient
         private SettingsDataManager _settingsDataManager;
         private BulletReachManager _bulletReachManager;
         private DmgMassageManager _dmgMassageManager;
+        private NameGenerator _nameGenerator;
 
         static public bool _inMenu = true;
         static public bool _isMultiplayer = false;
@@ -87,6 +88,7 @@ namespace GameClient
             _enemies = new List<SimpleEnemy>();
             _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
+            _nameGenerator = new NameGenerator();
             //calculations
             _collisionManager = new CollisionManager();
             _pathFindingManager = new PathFindingManager();

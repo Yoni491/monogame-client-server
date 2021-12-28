@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/GameClient/Content/etc/lineSprite.png</SourceFile>
-  <SourceTime>2021-07-05T07:37:32.367073+03:00</SourceTime>
-  <DestFile>C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/GameClient/Content/bin/DesktopGL/etc/lineSprite.xnb</DestFile>
-  <DestTime>2021-09-09T17:04:42.9850765+03:00</DestTime>
+  <SourceFile>C:/Projects/old/monogame-client-server/GameClient/Content/etc/lineSprite.png</SourceFile>
+  <SourceTime>2021-10-16T19:04:09.1888016+03:00</SourceTime>
+  <DestFile>C:/Projects/old/monogame-client-server/GameClient/Content/bin/DesktopGL/etc/lineSprite.xnb</DestFile>
+  <DestTime>2021-12-28T21:02:11.0467948+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

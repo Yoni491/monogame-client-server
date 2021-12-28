@@ -39,6 +39,9 @@
 /processorParam:TextureFormat=Color
 /build:etc/lineSprite.png
 
+#begin etc/names.txt
+/copy:etc/names.txt
+
 #begin etc/settings.png
 /importer:TextureImporter
 /processor:TextureProcessor

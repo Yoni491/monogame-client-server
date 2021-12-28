@@ -21,12 +21,11 @@ namespace GameClient
         Vector2 _refPosition, _position;
         public string _text;
         bool _numbersOnly;
-        bool _clickToType;
-        Button _typeButton;
+        Button _typeButton, _randomNameButton;
         static TextInputBox _currentBoxTyped;
-        public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250, bool clickToType = false)
+        bool _allowRandomName;
+        public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250, bool clickToType = false, bool allowRandomName = false)
         {
-            _clickToType = clickToType;
             _numbersOnly = numbersOnly;
             _keyboard = Keyboard.GetState();
             _refPosition = refPosition;
@@ -36,14 +35,18 @@ namespace GameClient
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, width, 40);
             _background = new Color(Color.White, 1f);
             _font = GraphicManager.GetBasicFont("basic_22");
-            if (_clickToType)
+            if (clickToType)
             {
                 _typeButton = new Button(GraphicManager.getRectangleTexture(width, 40, Color.DarkMagenta), refPosition + new Vector2(0, -40), refPoint, Color.Green, Color.Gray, "enter text");
+            }
+            if (allowRandomName)
+            {
+                _randomNameButton = new Button(GraphicManager.getRectangleTexture(width, 40, Color.DarkMagenta), refPosition + new Vector2(0, 40), refPoint, Color.Green, Color.Gray, "random name");
             }
         }
         public void Update(GameTime gameTime)
         {
-            if (_clickToType)
+            if (_typeButton != null)
             {
                 if (_typeButton.Update(gameTime))
                 {
@@ -58,6 +61,14 @@ namespace GameClient
             {
                 ReadText();
             }
+            if (_randomNameButton != null)
+            {
+                if (_randomNameButton.Update(gameTime))
+                {
+                    _text = NameGenerator.GenerateRandomName();
+                }
+            }
+
         }
         public void ReadText()
         {
@@ -79,9 +90,14 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_clickToType && _currentBoxTyped != this)
+            if (_typeButton != null && _currentBoxTyped != this)
             {
                 _typeButton.Draw(spriteBatch);
+            }
+            if (_randomNameButton != null)
+            {
+                _randomNameButton.Draw(spriteBatch);
+
             }
             spriteBatch.Draw(_texture, _rectangle, null, _background, 0, Vector2.Zero, SpriteEffects.None, 0.51f);
 
@@ -217,9 +233,14 @@ namespace GameClient
         {
             ResetPositionToRefrence();
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y, 250, 40);
-            if (_clickToType)
+            if (_typeButton != null)
             {
                 _typeButton.ResetGraphics();
+            }
+            if (_randomNameButton != null)
+            {
+                _randomNameButton.ResetGraphics();
+
             }
         }
         public void ResetPositionToRefrence()

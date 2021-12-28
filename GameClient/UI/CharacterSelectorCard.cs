@@ -24,9 +24,9 @@ namespace GameClient
             _refPosition = refPosition;
             ResetPositionToRefrence();
             _enterNameMessage = new ScreenMessage(graphicsDevice, "Enter name:", _localPoint, new Vector2(10, 10));
-            _NameInputTextBox = new TextInputBox(new Vector2(20, 90), _localPoint, false, clickToType: true);
-            _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(195, 180), _localPoint, Color.Green, Color.Gray, ">");
-            _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(75, 180), _localPoint, Color.Green, Color.Gray, "<");
+            _NameInputTextBox = new TextInputBox(new Vector2(20, 90), _localPoint, false, clickToType: true, allowRandomName: true);
+            _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(195, 210), _localPoint, Color.Green, Color.Gray, ">");
+            _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(75, 210), _localPoint, Color.Green, Color.Gray, "<");
 
         }
         public void Update(GameTime gameTime)
@@ -57,7 +57,7 @@ namespace GameClient
             _nextCharacter.Draw(spriteBatch);
             _previousCharacter.Draw(spriteBatch);
             spriteBatch.Draw(CollectionManager._playerAnimationManager[characterNumbers[index] - 1]._animations[1]._textures[0],
-                _localPoint.vector2 + new Vector2(80, 90), null, Color.White, 0, Vector2.Zero, 3f, SpriteEffects.None, 1);
+                _localPoint.vector2 + new Vector2(80, 120), null, Color.White, 0, Vector2.Zero, 3f, SpriteEffects.None, 1);
         }
         public void ResetGraphics()
         {

@@ -11,55 +11,48 @@ namespace GameClient
     {
         int index = 0;
         int[] characterNumbers = { 2, 3, 12, 13, 14, 15, 18, 19, 20 };
-        Button _nextCharacter, _previousCharacter, _returnToMain;
+        Button _returnToMain;
         Button _startGame;
-        ScreenPoint _buttonPosition;
+        ScreenPoint _cardsPoint;
         private GraphicsDevice _graphicsDevice;
         private Game_Client _game_Client;
         private MainMenuScreen _menuManager;
-        public TextInputBox _NameInputTextBox;
-        private ScreenMessage _enterNameMessage;
         SettingsDataManager _settingsDataManager;
+        List<CharacterSelectorCard> _cards;
+        int _cardsAmount = 4, _cardWidth = 300, _cardHeight = 350;
+        Vector2 _position;
 
         public CharacterSelectScreen(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuScreen menuManager, SettingsDataManager settingsDataManager)
         {
-            _settingsDataManager = settingsDataManager;
-            _buttonPosition = new ScreenPoint(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150);
-            _NameInputTextBox = new TextInputBox(new Vector2(-47, 0), _buttonPosition, false);
-            _enterNameMessage = new ScreenMessage(graphicsDevice, "Enter name:", _buttonPosition, new Vector2(-230, -10));
-            _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(115, 90), _buttonPosition, Color.Green, Color.Gray, ">");
-            _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(-5, 90), _buttonPosition, Color.Green, Color.Gray, "<");
-            _startGame = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), new Vector2(-70, 200), _buttonPosition, Color.Green, Color.Gray, "StartGame");
-            _returnToMain = new Button(GraphicManager.getRectangleTexture(300, 90, Color.White), new Vector2(-70, 300), _buttonPosition, Color.Green, Color.Gray, "Return to main menu");
             _graphicsDevice = graphicsDevice;
             _game_Client = game_Client;
             _menuManager = menuManager;
+            _cards = new List<CharacterSelectorCard>();
+            _settingsDataManager = settingsDataManager;
+            _cardsPoint = new ScreenPoint(_graphicsDevice.Viewport.Bounds.Width / 2, GraphicManager.screenHeight / 4);
+
+
+            int firstCardPosition = GetFirstCardsPosition();
+
+
+            for (int i = 0; i < _cardsAmount; i++)
+            {
+                _cards.Add(new CharacterSelectorCard(_graphicsDevice, _cardsPoint, new Vector2((int)firstCardPosition + _cardWidth * i + i * 10, 0)));
+            }
+
+            _startGame = new Button(GraphicManager.getRectangleTexture(300, 80, Color.White), new Vector2(-150, 360), _cardsPoint, Color.Green, Color.Gray, "StartGame");
+            _returnToMain = new Button(GraphicManager.getRectangleTexture(300, 80, Color.White), new Vector2(-150, 450), _cardsPoint, Color.Green, Color.Gray, "Return to main menu");
+
         }
         public void Update(GameTime gameTime)
         {
-            _NameInputTextBox.Update();
-            if (_nextCharacter.Update(gameTime))
-            {
-                index++;
-                if (characterNumbers.Length <= index)
-                {
-                    index = 0;
-                }
-            }
-            if (_previousCharacter.Update(gameTime))
-            {
-                index--;
-                if (index < 0)
-                {
-                    index = characterNumbers.Length - 1;
-                }
-            }
+            _cards.ForEach(x => x.Update(gameTime));
             if (_startGame.Update(gameTime))
             {
                 _settingsDataManager.CreateSettingsData();
                 Game_Client._inMenu = false;
                 _menuManager._showChooseCharacterScreen = false;
-                _game_Client._playerManager.ResetPlayer(characterNumbers[index], _NameInputTextBox._text);
+                _game_Client._playerManager.ResetPlayer(characterNumbers[index], "_NameInputTextBox._text");
                 if (Game_Client._isMultiplayer)
                 {
                     _game_Client._networkManager.SendPacket(gameTime, 2);
@@ -78,25 +71,22 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _NameInputTextBox.Draw(spriteBatch);
-            _enterNameMessage.Draw(spriteBatch);
-            _nextCharacter.Draw(spriteBatch);
-            _previousCharacter.Draw(spriteBatch);
+            _cards.ForEach(x => x.Draw(spriteBatch));
             _startGame.Draw(spriteBatch);
             _returnToMain.Draw(spriteBatch);
-            spriteBatch.Draw(CollectionManager._playerAnimationManager[characterNumbers[index] - 1]._animations[1]._textures[0],
-                new Vector2(GraphicManager.screenWidth / 2 - 100, GraphicManager.screenHeight / 2 - 150), null, Color.White, 0, Vector2.Zero, 3f, SpriteEffects.None, 1);
+
         }
         public void ResetGraphics()
         {
-            _buttonPosition.vector2.X = GraphicManager.screenWidth / 2 - 100;
-            _buttonPosition.vector2.Y = GraphicManager.screenHeight / 2 - 150;
-            _nextCharacter.ResetGraphics();
-            _previousCharacter.ResetGraphics();
+            _cardsPoint.vector2.X = (_graphicsDevice.Viewport.Bounds.Width / 2);
+            _cardsPoint.vector2.Y = GraphicManager.screenHeight / 4;
             _startGame.ResetGraphics();
             _returnToMain.ResetGraphics();
-            _NameInputTextBox.ResetGraphics();
-            _enterNameMessage.ResetGraphics();
+            _cards.ForEach(x => x.ResetGraphics());
+        }
+        public int GetFirstCardsPosition()
+        {
+            return -_cardsAmount / 2 * _cardWidth - (_cardsAmount / 2 - 1) * 10;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace GameClient
         }
         public void CreateSettingsData()
         {
-            _latestSettingsData = new SettingsData(_multiplayerMenu._IPtextBox._text, _characterSelectMenu._NameInputTextBox._text, _settingsScreen._soundOFF, _settingsScreen._musicOFF, _settingsScreen._fullScreenOFF);
+            _latestSettingsData = new SettingsData(_multiplayerMenu._IPtextBox._text, "_characterSelectMenu._NameInputTextBox._text", _settingsScreen._soundOFF, _settingsScreen._musicOFF, _settingsScreen._fullScreenOFF);
             _settingsDataJson = JsonSerializer.Serialize(_latestSettingsData);
             File.WriteAllText(_fileName, _settingsDataJson);
         }
@@ -66,7 +66,7 @@ namespace GameClient
                     Game_Client.ResetGraphics();
                 }
 
-                _characterSelectMenu._NameInputTextBox._text = _latestSettingsData._nameInGame;
+                //_characterSelectMenu._NameInputTextBox._text = _latestSettingsData._nameInGame;
                 _multiplayerMenu._IPtextBox._text = _latestSettingsData._IP;
             }
         }

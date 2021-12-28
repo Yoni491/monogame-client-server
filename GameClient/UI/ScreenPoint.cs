@@ -14,5 +14,9 @@ namespace GameClient.UI
         {
             this.vector2 = new Vector2((int)x, (int)y);
         }
+        public void ResetGraphics()
+        {
+
+        }
     }
 }

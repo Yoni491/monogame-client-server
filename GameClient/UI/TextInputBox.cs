@@ -21,8 +21,10 @@ namespace GameClient
         Vector2 _refPosition, _position;
         public string _text;
         bool _numbersOnly;
-        public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250)
+        bool _clickToType;
+        public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250, bool clickToType = false)
         {
+            _clickToType = clickToType;
             _numbersOnly = numbersOnly;
             _keyboard = Keyboard.GetState();
             _refPosition = refPosition;
@@ -36,6 +38,7 @@ namespace GameClient
         }
         public void Update()
         {
+
             _keyboard = Keyboard.GetState();
             bool back;
             if (_numbersOnly)

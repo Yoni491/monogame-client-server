@@ -141,7 +141,7 @@ namespace GameClient
                         _levelManager.Update();
                         _bulletReachManager.Update();
                         _pathFindingManager.Update();
-                        _inGameUI.Update();
+                        _inGameUI.Update(gameTime);
                         _dmgMassageManager.Update(gameTime);
                     }
                 }

@@ -77,7 +77,7 @@ namespace GameClient
             if (_isHovering)
                 _color = _hoverColor;
 
-            spriteBatch.Draw(_texture, _rectangle, null, _color, 0, Vector2.Zero, SpriteEffects.None, 0.51f);
+            spriteBatch.Draw(_texture, _rectangle, null, _color, 0, Vector2.Zero, SpriteEffects.None, 0.52f);
 
             if (!string.IsNullOrEmpty(_buttonText))
             {

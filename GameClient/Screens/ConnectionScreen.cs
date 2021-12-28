@@ -34,7 +34,7 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            _IPtextBox.Update();
+            _IPtextBox.Update(gameTime);
             if (_returnToMain.Update(gameTime))
             {
                 _settingsDataManager.CreateSettingsData();

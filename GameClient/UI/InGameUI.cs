@@ -43,7 +43,7 @@ namespace GameClient
             _levelTextBox = new TextInputBox(Vector2.Zero, _buttonPosition, true, 50);
             _loadLevelMessage = new ScreenMessage(graphicsDevice, "Load level:", _buttonPosition, new Vector2(-160, -10));
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             if (!Game_Client._isMultiplayer)
             {
@@ -59,7 +59,7 @@ namespace GameClient
                 }
                 _prevState = Keyboard.GetState();
                 if (_showLevelBox)
-                    _levelTextBox.Update();
+                    _levelTextBox.Update(gameTime);
             }
 
             if (_levelShowing != LevelManager._currentLevel)

@@ -24,14 +24,14 @@ namespace GameClient
             _refPosition = refPosition;
             ResetPositionToRefrence();
             _enterNameMessage = new ScreenMessage(graphicsDevice, "Enter name:", _localPoint, new Vector2(10, 10));
-            _NameInputTextBox = new TextInputBox(new Vector2(20, 65), _localPoint, false);
+            _NameInputTextBox = new TextInputBox(new Vector2(20, 90), _localPoint, false, clickToType: true);
             _nextCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(195, 180), _localPoint, Color.Green, Color.Gray, ">");
             _previousCharacter = new Button(GraphicManager.getRectangleTexture(30, 30, Color.White), new Vector2(75, 180), _localPoint, Color.Green, Color.Gray, "<");
 
         }
         public void Update(GameTime gameTime)
         {
-            _NameInputTextBox.Update();
+            _NameInputTextBox.Update(gameTime);
             if (_nextCharacter.Update(gameTime))
             {
                 index++;

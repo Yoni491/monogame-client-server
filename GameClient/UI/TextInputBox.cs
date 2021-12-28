@@ -22,6 +22,8 @@ namespace GameClient
         public string _text;
         bool _numbersOnly;
         bool _clickToType;
+        Button _typeButton;
+        static TextInputBox _currentBoxTyped;
         public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250, bool clickToType = false)
         {
             _clickToType = clickToType;
@@ -29,16 +31,36 @@ namespace GameClient
             _keyboard = Keyboard.GetState();
             _refPosition = refPosition;
             _refPoint = refPoint;
-            _texture = GraphicManager.getRectangleTexture(450, 50, Color.White);
+            _texture = GraphicManager.getRectangleTexture(width, 40, Color.White);
             ResetPositionToRefrence();
-            _rectangle = new Rectangle((int)_position.X, (int)_position.Y - 5, width, 40);
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, width, 40);
             _background = new Color(Color.White, 1f);
             _font = GraphicManager.GetBasicFont("basic_22");
-
+            if (_clickToType)
+            {
+                _typeButton = new Button(GraphicManager.getRectangleTexture(width, 40, Color.DarkMagenta), refPosition + new Vector2(0, -40), refPoint, Color.Green, Color.Gray, "enter text");
+            }
         }
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-
+            if (_clickToType)
+            {
+                if (_typeButton.Update(gameTime))
+                {
+                    _currentBoxTyped = this;
+                }
+                if (_currentBoxTyped == this)
+                {
+                    ReadText();
+                }
+            }
+            else
+            {
+                ReadText();
+            }
+        }
+        public void ReadText()
+        {
             _keyboard = Keyboard.GetState();
             bool back;
             if (_numbersOnly)
@@ -57,11 +79,15 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (_clickToType && _currentBoxTyped != this)
+            {
+                _typeButton.Draw(spriteBatch);
+            }
             spriteBatch.Draw(_texture, _rectangle, null, _background, 0, Vector2.Zero, SpriteEffects.None, 0.51f);
 
             if (!string.IsNullOrEmpty(_text))
             {
-                spriteBatch.DrawString(_font, _text, _position + new Vector2(3, 0), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 0.6f);
+                spriteBatch.DrawString(_font, _text, _position + new Vector2(5, 5), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 0.6f);
             }
         }
         public static bool ConvertKeyboardInput(KeyboardState keyboard, KeyboardState oldKeyboard, out char key, out bool back)
@@ -186,15 +212,15 @@ namespace GameClient
             }
             return false;
         }
-        public void ResetGraphicsOld(Vector2 position)
-        {
-            _position = position;
-            _rectangle = new Rectangle((int)_position.X - 4, (int)_position.Y - 5, 250, 40);
-        }
+
         public void ResetGraphics()
         {
             ResetPositionToRefrence();
-            _rectangle = new Rectangle((int)_position.X - 4, (int)_position.Y - 5, 250, 40);
+            _rectangle = new Rectangle((int)_position.X, (int)_position.Y, 250, 40);
+            if (_clickToType)
+            {
+                _typeButton.ResetGraphics();
+            }
         }
         public void ResetPositionToRefrence()
         {

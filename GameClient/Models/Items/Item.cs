@@ -23,8 +23,8 @@ namespace GameClient
         public int _invenotryAmountAllowed;
         public int _itemHealing;
         public bool _aboutToBeSent;
-        private float _drawScale=1;
-        public Item(Texture2D texture, Texture2D framedTexture, int item_id,float scale, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Gun gun, int invenotryAmountAllowed,int itemHealing = 0)
+        private float _drawScale = 1;
+        public Item(Texture2D texture, Texture2D framedTexture, int item_id, float scale, string name, float dropRate, int itemLvl, bool isConsumeable, bool isUseable, bool isCraftable, Gun gun, int invenotryAmountAllowed, int itemHealing = 0)
         {
             _texture = texture;
             _itemNum = ItemManager.itemNumber++;
@@ -44,9 +44,9 @@ namespace GameClient
             _invenotryAmountAllowed = invenotryAmountAllowed;
             _itemHealing = itemHealing;
         }
-        public void DrawInventory(SpriteBatch spriteBatch,Vector2 position)
+        public void DrawInventory(SpriteBatch spriteBatch, Vector2 position)
         {
-            
+
             spriteBatch.Draw(_inventoryTexture, position, null, Color.White, 0, new Vector2(0, 0), _drawScale, SpriteEffects.None, 0.99f);
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
@@ -57,8 +57,8 @@ namespace GameClient
         {
             Gun gun = null;
             if (_gun != null)
-                gun = _gun.Copy(false,true,null);
-            return new Item(_texture, _inventoryTexture, _itemId, _drawScale, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed,_itemHealing);
+                gun = _gun.Copy(false, true, null);
+            return new Item(_texture, _inventoryTexture, _itemId, _drawScale, _name, _dropRate, _itemLvl, _isConsumeable, _isUseable, _isCraftable, gun, _invenotryAmountAllowed, _itemHealing);
         }
         public Item DropAndCopy(bool dropAlways = false)
         {

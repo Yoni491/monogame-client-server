@@ -16,7 +16,7 @@ namespace GameClient
             _neighbours = new List<Coord>();
 
             // Put the _Origin on the open list
-            
+
         }
 
         public void Initialize(Coord start, Coord end, Grid Grid)

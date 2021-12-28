@@ -16,7 +16,7 @@ namespace GameClient
         public int _animationID;
         public Animation Animation { get => _animation; set => _animation = value; }
 
-        public AnimationManager(Dictionary<int, Animation> animations,int frameCount, float scale, int animationID)
+        public AnimationManager(Dictionary<int, Animation> animations, int frameCount, float scale, int animationID)
         {
             _animations = animations;
             _animation = _animations.First().Value;
@@ -24,7 +24,7 @@ namespace GameClient
             _scale = scale;
             _animationID = animationID;
         }
-        public void Update(GameTime gameTime,Vector2 position)
+        public void Update(GameTime gameTime, Vector2 position)
         {
             _position = position;
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -35,7 +35,7 @@ namespace GameClient
                 if (_animation._currentFrame >= _frameCount)
                 {
                     _animation._currentFrame = 0;
-                    if(_animation._textures!=null)
+                    if (_animation._textures != null)
                     {
                         Stop();
                     }
@@ -71,7 +71,7 @@ namespace GameClient
         {
             return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);
         }
-        public void SetAnimations(Vector2 velocity, ref bool hide_weapon,ref int moving_direction)
+        public void SetAnimations(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
         {
             if (velocity == Vector2.Zero)
                 Stop();
@@ -102,12 +102,12 @@ namespace GameClient
                     Play(moving_direction);
             }
         }
-        public void SetAnimationsFromServer(Vector2 velocity, ref bool hide_weapon,ref int moving_direction)
+        public void SetAnimationsFromServer(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
         {
             if (velocity == Vector2.Zero)
             {
                 Play(moving_direction);
-                if(moving_direction== (int)Direction.Up)
+                if (moving_direction == (int)Direction.Up)
                     hide_weapon = true;
                 else
                     hide_weapon = false;

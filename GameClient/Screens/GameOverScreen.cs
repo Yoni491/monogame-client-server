@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameClient.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,11 +15,10 @@ namespace GameClient
         GraphicsDevice _graphicsDevice;
         private Texture2D _gameOverBackground;
         int _buttonHeight = 50, _buttonWeight = 200;
-        Vector2 _buttonPosition;
+        ScreenPoint _buttonPosition;
         static public bool _showScreen;
         ProgressManager _progressManager;
         Game_Client _game_Client;
-        bool _updateButtonText;
         Player _player;
 
         public GameOverScreen()
@@ -31,9 +31,9 @@ namespace GameClient
             _game_Client = game_Client;
             _progressManager = progressManager;
             _graphicsDevice = graphics;
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
-            _restartLevel = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Restart level");
-            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight * 2 + 2), Color.DarkRed, Color.Gray, "Exit To Menu");
+            _buttonPosition = new ScreenPoint(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
+            _restartLevel = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), new Vector2(0, _buttonHeight + 2), _buttonPosition, Color.Green, Color.Gray, "Restart level");
+            _exitToMain = new Button(GraphicManager.getRectangleTexture(130, _buttonHeight, Color.White), new Vector2(0, _buttonHeight * 2 + 2), _buttonPosition, Color.DarkRed, Color.Gray, "Exit To Menu");
             _gameOverBackground = GraphicManager._contentManager.Load<Texture2D>("Images/matrix");
             AudioManager.PlaySong(menu: true);
             //_exitFullScreenButton = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), GraphicManager.GetBasicFont(), _buttonPosition, Color.Green, Color.Gray, "Exit full Screen");
@@ -78,9 +78,11 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 150);
-            _restartLevel.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
-            _exitToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 2 + 2));
+            _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
+            _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 150;
+
+            _restartLevel.ResetGraphics();
+            _exitToMain.ResetGraphics();
         }
         public bool MouseClick()
         {

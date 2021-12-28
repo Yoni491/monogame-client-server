@@ -29,19 +29,19 @@ namespace GameClient
         private int _animationNum = -1;
         private int _gunNum = -1;
         private float _scale = 1.5f;
-        private int _width=0;
-        private int _height=0;
+        private int _width = 0;
+        private int _height = 0;
         int _movingDirection = 0;
         public bool _serverUpdated;
         public NameDisplay _nameDisplay;
 
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
-        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6));}
+        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 7, 7); }
 
 
-        public NetworkPlayer(Vector2 position,AnimationManager animationManager, int health, int playerNum, Gun gun, NameDisplay nameDisplay)
+        public NetworkPlayer(Vector2 position, AnimationManager animationManager, int health, int playerNum, Gun gun, NameDisplay nameDisplay)
         {
             _nameDisplay = nameDisplay;
             _animationManager = animationManager;
@@ -56,7 +56,7 @@ namespace GameClient
             else
                 _gun = CollectionManager._guns[0];
             _gun._holderScale = _scale;
-            _health = new HealthManager(health, position + new Vector2(8, 10),_scale);
+            _health = new HealthManager(health, position + new Vector2(8, 10), _scale);
         }
         public void Update(GameTime gameTime)
         {
@@ -66,13 +66,13 @@ namespace GameClient
 
                 _animationManager.Update(gameTime, _position);
 
-                _animationManager.SetAnimationsFromServer(_velocity,ref _hide_gun,ref _movingDirection);
+                _animationManager.SetAnimationsFromServer(_velocity, ref _hide_gun, ref _movingDirection);
 
                 _position += _velocity;
 
                 if (_gun != null)
                 {
-                    _gun.Update(gameTime, _looking_direction, _movingDirection, false,false, _position);
+                    _gun.Update(gameTime, _looking_direction, _movingDirection, false, false, _position);
                 }
 
                 _health.Update(_position);
@@ -81,7 +81,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(_health._health_left<=0)
+            if (_health._health_left <= 0)
             {
                 spriteBatch.Draw(GraphicManager._deadPlayerTexture, Position_Feet, null, Color.White, 0, Vector2.Zero, 2f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y));
             }
@@ -98,7 +98,7 @@ namespace GameClient
             _nameDisplay.Draw(spriteBatch);
 
         }
-        public void UpdatePacketShort(Packet packet,bool writeName)
+        public void UpdatePacketShort(Packet packet, bool writeName)
         {
             packet.WriteInt(_playerNum);
             packet.WriteVector2(_position);
@@ -110,13 +110,13 @@ namespace GameClient
             packet.WriteInt(_animationNum);
             packet.WriteInt(_gunNum);
             _gun.UpdatePacketShort(packet);
-            if(writeName)
+            if (writeName)
             {
                 packet.WriteString(_nameDisplay._text);
             }
         }
 
-        public void ReadPacketShort(Packet packet,bool readName = false,bool playSound = true)
+        public void ReadPacketShort(Packet packet, bool readName = false, bool playSound = true)
         {
             _position = packet.ReadVector2();
             _movingDirection = packet.ReadInt();
@@ -144,17 +144,17 @@ namespace GameClient
                 {
                     Console.WriteLine("Animation Num not valid:" + _animationNum);
                 }
-                
+
             }
             int gunNum = packet.ReadInt();
             if (gunNum != _gunNum)
             {
                 _gunNum = gunNum;
-                _gun = CollectionManager.GetGunCopy(gunNum, false,false,null);
+                _gun = CollectionManager.GetGunCopy(gunNum, false, false, null);
                 _gun._holderScale = _scale;
             }
-            _gun.ReadPacketShort(packet,playSound);
-            if(readName)
+            _gun.ReadPacketShort(packet, playSound);
+            if (readName)
             {
                 _nameDisplay._text = packet.ReadString();
             }

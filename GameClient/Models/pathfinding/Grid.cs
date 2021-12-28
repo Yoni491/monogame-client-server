@@ -50,7 +50,7 @@
                 Weight = GetCell(x, y)?.Weight ?? 0
             };
         }
-        public void SetCell(int x, int y, CellType type,int weight)
+        public void SetCell(int x, int y, CellType type, int weight)
         {
             _grid[x, y] = new Cell
             {
@@ -81,7 +81,7 @@
             return GetCountOfType(CellType.Open) + GetCountOfType(CellType.A) + GetCountOfType(CellType.B);
         }
 
-        public void SetStartAndEnd(Coord start,Coord end)
+        public void SetStartAndEnd(Coord start, Coord end)
         {
             _grid[start.X, start.Y] = new Cell
             {

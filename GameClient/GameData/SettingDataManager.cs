@@ -10,12 +10,12 @@ namespace GameClient
         string _fileName = "SettingsData.json";
         static public bool _saveFileAvailable;
         CharacterSelectScreen _characterSelectMenu;
-        MultiplayerScreen _multiplayerMenu; 
+        ConnectionScreen _multiplayerMenu;
         SettingsScreen _settingsScreen;
         public SettingsDataManager()
         {
         }
-        public void Initialize(CharacterSelectScreen characterSelectMenu, MultiplayerScreen multiplayerMenu,SettingsScreen settingsScreen)
+        public void Initialize(CharacterSelectScreen characterSelectMenu, ConnectionScreen multiplayerMenu, SettingsScreen settingsScreen)
         {
             _characterSelectMenu = characterSelectMenu;
             _multiplayerMenu = multiplayerMenu;
@@ -34,13 +34,13 @@ namespace GameClient
         }
         public void CreateSettingsData()
         {
-            _latestSettingsData = new SettingsData(_multiplayerMenu._IPtextBox._text,_characterSelectMenu._NameInputTextBox._text,_settingsScreen._soundOFF,_settingsScreen._musicOFF,_settingsScreen._fullScreenOFF);
+            _latestSettingsData = new SettingsData(_multiplayerMenu._IPtextBox._text, _characterSelectMenu._NameInputTextBox._text, _settingsScreen._soundOFF, _settingsScreen._musicOFF, _settingsScreen._fullScreenOFF);
             _settingsDataJson = JsonSerializer.Serialize(_latestSettingsData);
             File.WriteAllText(_fileName, _settingsDataJson);
         }
         public void LoadData()
         {
-            if(_settingsDataJson!=null)
+            if (_settingsDataJson != null)
             {
                 _latestSettingsData = JsonSerializer.Deserialize<SettingsData>(_settingsDataJson);
 

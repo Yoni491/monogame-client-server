@@ -7,7 +7,7 @@ namespace GameClient
     {
         readonly Stack<Node> _stack = new Stack<Node>();
 
-        public DepthFirst() : base ()
+        public DepthFirst() : base()
         {
             _AlgorithmName = "Depth-First Search";
 

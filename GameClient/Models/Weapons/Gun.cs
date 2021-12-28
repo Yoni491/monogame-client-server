@@ -39,7 +39,7 @@ namespace GameClient
         private float _swing_frame_window = 0.01f;
         private float _swing_frame_timer = 0;
         private float swingSpeed = 14;
-        private bool _isColided = false,_isColidedBox;
+        private bool _isColided = false, _isColidedBox;
         public bool _swing_weapon;
         private bool _swingWeapon_send;
         private Chest _colidedChest;
@@ -50,7 +50,7 @@ namespace GameClient
         {
             get
             {
-                return new Rectangle((int)_position.X, (int)_position.Y-4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
+                return new Rectangle((int)_position.X, (int)_position.Y - 4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
 
@@ -66,9 +66,9 @@ namespace GameClient
             _hitPlayers = hitPlayers;
             _dealDmg = dealDmg;
         }
-        public void Update(GameTime gameTime, Vector2 direction,int moving_direction, bool isGamePad,bool showLine, Vector2 position)
+        public void Update(GameTime gameTime, Vector2 direction, int moving_direction, bool isGamePad, bool showLine, Vector2 position)
         {
-            if(!_swing_weapon)
+            if (!_swing_weapon)
                 _moving_direction_int = moving_direction;
 
             MelleAttackUpdate(gameTime, position);
@@ -80,17 +80,17 @@ namespace GameClient
             }
             if (Game_Client._isServer)
             {
-                _bullets.RemoveAll(bullet => bullet._destroy&& bullet._bulletSent);
+                _bullets.RemoveAll(bullet => bullet._destroy && bullet._bulletSent);
             }
             else
             {
                 _bullets.RemoveAll(bullet => bullet._destroy);
             }
-            
+
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _showLine = showLine;
-            _tipOfTheGun =_position + Vector2.Normalize(_direction) * _texture.Width / 2 +new Vector2(0, 5);
+            _tipOfTheGun = _position + Vector2.Normalize(_direction) * _texture.Width / 2 + new Vector2(0, 5);
         }
         private void MelleAttackCollision(GameTime gameTime, Vector2 position)
         {
@@ -170,9 +170,9 @@ namespace GameClient
                 _position = position + new Vector2(23, 40) * _holderScale;
                 _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            
+
         }
-        
+
         public void DrawSwing(SpriteBatch spriteBatch, float layer)
         {
             if (_moving_direction_int == (int)Direction.Up)
@@ -192,7 +192,7 @@ namespace GameClient
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
         }
-        public void Draw(SpriteBatch spriteBatch,  float layer)
+        public void Draw(SpriteBatch spriteBatch, float layer)
         {
             if (layer > 1)
                 layer = 1;
@@ -216,7 +216,7 @@ namespace GameClient
                 }
                 if (_isSniper && _showLine)
                 {
-                    if(!_hitPlayers)
+                    if (!_hitPlayers)
                         BulletReach();
                     if (_isGamePad)
                     {
@@ -230,9 +230,9 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy(bool hitPlayers,bool dealDmg,InventoryManager inventoryManager)
+        public Gun Copy(bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
         {
-            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers,dealDmg);
+            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers, dealDmg);
             return gun;
         }
         public void Shot()
@@ -258,7 +258,7 @@ namespace GameClient
                     {
                         bullet._dmg = 0;
                     }
-                    if(_bullet._shootingTimer < 0.1f)
+                    if (_bullet._shootingTimer < 0.1f)
                         AudioManager.PlaySound("Rifle", 0.2f);
                     else
                         AudioManager.PlaySound("Rifle");
@@ -359,13 +359,13 @@ namespace GameClient
             }
 
         }
-        public void ReadPacketShort(Packet packet,bool playSound)
+        public void ReadPacketShort(Packet packet, bool playSound)
         {
             _swing_weapon = packet.ReadBool();
             _swingWeapon_send = _swing_weapon;
             if (!Game_Client._isServer && _swing_weapon)
             {
-                if(playSound)
+                if (playSound)
                     AudioManager.PlaySound("SwingWeapon");
             }
             int bulletAmount = packet.ReadInt();
@@ -376,10 +376,10 @@ namespace GameClient
                 Bullet bullet = _bullet.Copy(direction, position, _hitPlayers);
                 if (!_dealDmg)
                     bullet._dmg = 0;
-                if(!Game_Client._isServer)
+                if (!Game_Client._isServer)
                     bullet._bulletSent = true;
                 _bullets.Add(bullet);
-                if(playSound)
+                if (playSound)
                 {
                     if (_bullet._shootingTimer < 0.1f)
                         AudioManager.PlaySound("Rifle", 0.2f);

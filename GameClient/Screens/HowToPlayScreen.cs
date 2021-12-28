@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameClient.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
@@ -7,7 +8,7 @@ namespace GameClient
     class HowToPlayScreen
     {
         Button _keyBoardControllerKeys, _returnToMain;
-        Vector2 _buttonPosition;
+        ScreenPoint _buttonPosition;
         private GraphicsDevice _graphicsDevice;
         private MainMenuScreen _menuManager;
         int _buttonHeight = 60;
@@ -23,9 +24,9 @@ namespace GameClient
             _gameClient = gameClient;
             _graphicsDevice = graphicsDevice;
             _progressManager = progressManager;
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
-            _keyBoardControllerKeys = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition, Color.Green, Color.Gray, "Show controller keys");
-            _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Return to main menu");
+            _buttonPosition = new ScreenPoint(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
+            _keyBoardControllerKeys = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), Vector2.Zero, _buttonPosition, Color.Green, Color.Gray, "Show controller keys");
+            _returnToMain = new Button(GraphicManager.getRectangleTexture(_buttonWeight, _buttonHeight, Color.White), new Vector2(0, _buttonHeight + 2), _buttonPosition, Color.Green, Color.Gray, "Return to main menu");
             _menuManager = menuManager;
             _keyboardMouse = GraphicManager.getImage("‏‏‫KeyboardMouseKeys");
             _gamePad = GraphicManager.getImage("GamePadKeys");
@@ -64,9 +65,10 @@ namespace GameClient
         public void ResetGraphics()
         {
             _keysRectangle = new Rectangle(50, (int)(_graphicsDevice.Viewport.Bounds.Height / 4f), 800, 500);
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 1.4f, _graphicsDevice.Viewport.Bounds.Height / 2f);
-            _keyBoardControllerKeys.ResetGraphics(_buttonPosition);
-            _returnToMain.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
+            _buttonPosition.vector2.X = (int)(_graphicsDevice.Viewport.Bounds.Width / 1.4f);
+            _buttonPosition.vector2.Y = (int)(_graphicsDevice.Viewport.Bounds.Height / 2f);
+            _keyBoardControllerKeys.ResetGraphics();
+            _returnToMain.ResetGraphics();
         }
     }
 }

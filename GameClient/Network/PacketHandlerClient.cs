@@ -14,7 +14,7 @@ namespace GameClient
         private EnemyManager _enemyManager;
         private InventoryManager _inventoryManager;
         private LevelManager _levelManager;
-        private  List<SimpleEnemy> _enemies;
+        private List<SimpleEnemy> _enemies;
         Packet _packet;
         ushort packetLength;
         ushort packetType;
@@ -66,7 +66,7 @@ namespace GameClient
                             ReadPacket(true);
                             break;
                     }
-                    
+
                 }
                 catch
                 {
@@ -102,7 +102,7 @@ namespace GameClient
                 }
                 networkPlayer._serverUpdated = true;
 
-                networkPlayer.ReadPacketShort(_packet,readNames,playerNum != _player._playerNum);
+                networkPlayer.ReadPacketShort(_packet, readNames, playerNum != _player._playerNum);
             }
             _players.RemoveAll(x => x._serverUpdated == false);
             _players.ForEach(x => x._serverUpdated = false);
@@ -180,7 +180,7 @@ namespace GameClient
             {
                 int itemNum = _packet.ReadInt();
                 int itemId = _packet.ReadInt();
-                Vector2 position = _packet.ReadVector2(); 
+                Vector2 position = _packet.ReadVector2();
                 if (!ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
                     ItemManager.DropItemFromServer(itemNum, itemId, position);
@@ -198,7 +198,7 @@ namespace GameClient
                     ItemManager._waitingForServerApprovalForItemPicked = false;
                 if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
-                    if(playerNum == _player._playerNum)
+                    if (playerNum == _player._playerNum)
                     {
                         _inventoryManager.AddItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
                     }

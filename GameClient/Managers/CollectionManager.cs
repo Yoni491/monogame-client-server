@@ -268,7 +268,7 @@ namespace GameClient
                 return null;
             }
         }
-        public Item GetItem(int id,bool alwaysDrop = true)
+        public Item GetItem(int id, bool alwaysDrop = true)
         {
             try
             {

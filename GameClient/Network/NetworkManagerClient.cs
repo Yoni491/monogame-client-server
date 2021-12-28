@@ -18,23 +18,23 @@ namespace GameClient
         Packet _packet;
         List<SimpleEnemy> _enemies;
         int _sendPacketNames = 0;
-        MultiplayerScreen _multiplayerMenu;
+        ConnectionScreen _multiplayerMenu;
         public NetworkManagerClient()
         {
-            
+
         }
         public void Initialize(List<NetworkPlayer> network_players, Player player,
             PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,
-            InventoryManager inventoryManager,LevelManager levelManager,MultiplayerScreen multiplayerMenu)
+            InventoryManager inventoryManager, LevelManager levelManager, ConnectionScreen multiplayerMenu)
         {
             _multiplayerMenu = multiplayerMenu;
             _network_players = network_players;
             _enemies = enemies;
             _playerManager = playerManager;
             _player = player;
-            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager,inventoryManager, levelManager);
+            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager, inventoryManager, levelManager);
             _packet = new Packet();
-            
+
         }
         public void Update(GameTime gameTime)
         {
@@ -44,9 +44,9 @@ namespace GameClient
                 _timer_short += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_timer_short >= 0.1f)//doesnt work if it is too fastss
                 {
-                    if(_sendPacketNames >= 100)
+                    if (_sendPacketNames >= 100)
                     {
-                        SendPacket(gameTime,2);
+                        SendPacket(gameTime, 2);
                         _sendPacketNames = 0;
                     }
                     else
@@ -100,7 +100,7 @@ namespace GameClient
             _packet.WriteInt(MapManager._chestsToSend.Count);
             foreach (var item in MapManager._chestsToSend)
             {
-                if(MapManager._chests.ContainsKey(item))
+                if (MapManager._chests.ContainsKey(item))
                     MapManager._chests[item].UpdatePacket(_packet);
                 MapManager._chests.Remove(item);
             }
@@ -146,7 +146,7 @@ namespace GameClient
                 ItemManager._itemsToSendDropped.Clear();
 
             }
-            else if( packetType == 2)
+            else if (packetType == 2)
             {
                 _packet.UpdateType(2);//packet type
                 _packet.WriteString(_player._nameDisplay._text);
@@ -162,14 +162,14 @@ namespace GameClient
                 iPAddress = null;
                 return;
             }
-            IPAddress.TryParse(ip,out iPAddress);
+            IPAddress.TryParse(ip, out iPAddress);
         }
         public void Initialize_connection(string ip)
         {
             IPAddress iPAddress;
             IPEndPoint endPoint;
             CheckIfIpValid(ip, out iPAddress);
-            if (iPAddress!=null)
+            if (iPAddress != null)
             {
                 endPoint = new IPEndPoint(iPAddress, 1994);
             }
@@ -204,7 +204,7 @@ namespace GameClient
             {
                 int buffer_size = _socket.EndReceive(result);
             }
-            catch 
+            catch
             {
                 return;
             }
@@ -213,7 +213,7 @@ namespace GameClient
         }
         public void CloseConnection()
         {
-            if (_socket!=null && _socket.Connected)
+            if (_socket != null && _socket.Connected)
             {
                 _socket.Close();
             }

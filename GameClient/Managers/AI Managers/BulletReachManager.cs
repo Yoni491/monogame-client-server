@@ -36,7 +36,7 @@ namespace GameClient
         {
             if (!_continueSearch)
             {
-                if(_reset)
+                if (_reset)
                 {
                     _bulletReaches.Clear();
                     _reset = false;
@@ -48,7 +48,7 @@ namespace GameClient
         }
         static public BulletReach GetBulletReach(Gun gun)
         {
-            BulletReach bulletReach = new BulletReach(id++,_player,_networkPlayers,gun);
+            BulletReach bulletReach = new BulletReach(id++, _player, _networkPlayers, gun);
             _bulletReachesToAdd.Add(bulletReach);
             return bulletReach;
         }

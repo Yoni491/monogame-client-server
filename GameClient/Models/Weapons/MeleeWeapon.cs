@@ -51,7 +51,7 @@ namespace GameClient
             _dealDmg = dealDmg;
             _inventoryManager = inventoryManager;
         }
-        public void Update(int direction,GameTime gameTime,Vector2 position)
+        public void Update(int direction, GameTime gameTime, Vector2 position)
         {
             _moving_direction_int = direction;
             MelleAttackUpdate(gameTime, position);
@@ -72,7 +72,7 @@ namespace GameClient
                     if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
-                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple,0.5f);
+                        DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple, 0.5f);
                     }
                 }
                 else
@@ -146,7 +146,7 @@ namespace GameClient
         }
         public MeleeWeapon Copy(bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
         {
-            return new MeleeWeapon(_id, _texture, _position, _swing_range, _dmg,hitPlayers,dealDmg,inventoryManager);
+            return new MeleeWeapon(_id, _texture, _position, _swing_range, _dmg, hitPlayers, dealDmg, inventoryManager);
         }
         public void SwingWeapon()
         {
@@ -176,7 +176,7 @@ namespace GameClient
                 }
                 else if (_moving_direction_int == (int)Direction.Left)
                 {
-                    _position +=  new Vector2(-swingSpeed, 0);
+                    _position += new Vector2(-swingSpeed, 0);
                 }
             }
         }

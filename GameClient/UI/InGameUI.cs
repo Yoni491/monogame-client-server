@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameClient.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -19,7 +20,7 @@ namespace GameClient
         InventoryManager _inventoryManager;
         private ScreenMessage _loadLevelMessage;
         public static TextInputBox _levelTextBox;
-        private Vector2 _buttonPosition;
+        private ScreenPoint _buttonPosition;
         KeyboardState _prevState;
         bool _showLevelBox;
         LevelManager _levelManager;
@@ -28,7 +29,7 @@ namespace GameClient
         {
 
         }
-        public void Initialize(GraphicsDevice graphicsDevice, InventoryManager inventoryManager,LevelManager levelManager)
+        public void Initialize(GraphicsDevice graphicsDevice, InventoryManager inventoryManager, LevelManager levelManager)
         {
             _levelManager = levelManager;
             _graphicsDevice = graphicsDevice;
@@ -38,9 +39,9 @@ namespace GameClient
             _background = new Color(Color.Black, 0.1f);
             _inventoryManager = inventoryManager;
 
-            _buttonPosition = new Vector2(500, 100);
-            _levelTextBox = new TextInputBox(_buttonPosition, true, 50);
-            _loadLevelMessage = new ScreenMessage(graphicsDevice, "Load level:", _buttonPosition + new Vector2(-160, -10));
+            _buttonPosition = new ScreenPoint(500, 100);
+            _levelTextBox = new TextInputBox(Vector2.Zero, _buttonPosition, true, 50);
+            _loadLevelMessage = new ScreenMessage(graphicsDevice, "Load level:", _buttonPosition, new Vector2(-160, -10));
         }
         public void Update()
         {
@@ -48,9 +49,9 @@ namespace GameClient
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Enter) && _prevState.IsKeyUp(Keys.Enter))
                 {
-                    if(_showLevelBox)
+                    if (_showLevelBox)
                     {
-                        if(!string.IsNullOrEmpty(_levelTextBox._text))
+                        if (!string.IsNullOrEmpty(_levelTextBox._text))
                             _levelManager.LoadNewLevel(Int32.Parse(_levelTextBox._text));
                     }
                     _showLevelBox = !_showLevelBox;

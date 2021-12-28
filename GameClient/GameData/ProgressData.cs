@@ -23,7 +23,7 @@ namespace GameClient
 
         }
         public ProgressData(int playerID, int level, int animationNum, HealthManager health,
-            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles,string playerName,int gold)
+            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles, string playerName, int gold)
         {
             _playerID = playerID;
             _level = level;
@@ -35,7 +35,7 @@ namespace GameClient
             _gold = gold;
             foreach (var item in _inventory_rectangles)
             {
-                if(item.Item2!=null)
+                if (item.Item2 != null)
                     _item_list.Add(new ProgressDataItem(item.Item2._item._itemId, item.Item2._amount));
             }
         }
@@ -49,7 +49,7 @@ namespace GameClient
         {
 
         }
-        public ProgressDataItem(int itemID,int amount)
+        public ProgressDataItem(int itemID, int amount)
         {
             _itemID = itemID;
             _amount = amount;

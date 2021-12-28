@@ -32,7 +32,7 @@ namespace GameServer
         public Game_Server()
         {
             _graphics = new GraphicsDeviceManager(this);
-            
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             //Window.AllowUserResizing = true;
@@ -75,7 +75,7 @@ namespace GameServer
             _levelManager.Initialize(_networkPlayers, _progressManager);
             _mapManager.Initialize(_networkPlayers);
             _networkManager.Initialize_connection();
-            
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -87,7 +87,7 @@ namespace GameServer
             _networkManager.Update(gameTime);
             _playerManager.Update(gameTime);
             _mapManager.Update();
-            if(_levelManager.Update())
+            if (_levelManager.Update())
             {
                 NetworkManagerServer._sendNames = true;
                 ResetGame(false);

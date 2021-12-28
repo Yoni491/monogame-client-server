@@ -54,9 +54,9 @@ namespace GameClient
             }
             foreach (var grave in _graves)
             {
-                if(_player!=null)
+                if (_player != null)
                     grave.Update(_player.RectangleMovement);
-                else if(_networkPlayers!=null)
+                else if (_networkPlayers != null)
                 {
                     foreach (var player in _networkPlayers)
                     {
@@ -89,7 +89,7 @@ namespace GameClient
         {
             foreach (var item in _messageBoards)
             {
-                item.Draw(spriteBatch,_player._input._isGamePad);
+                item.Draw(spriteBatch, _player._input._isGamePad);
             }
         }
         public static void ResetMap()

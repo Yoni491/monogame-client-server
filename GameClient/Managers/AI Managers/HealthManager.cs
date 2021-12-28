@@ -25,7 +25,7 @@ namespace GameClient
         }
         public HealthManager(int total_health, Vector2 position, float scale)
         {
-            healthbar_width =(int) (30 * scale / 1);
+            healthbar_width = (int)(30 * scale / 1);
             _total_health = total_health;
             _health_left = total_health;
             _position = position + new Vector2(20, 10) * scale;
@@ -41,7 +41,7 @@ namespace GameClient
         }
         public void Update(Vector2 position)
         {
-            _position = position + new Vector2(8,12)*_Scale;
+            _position = position + new Vector2(8, 12) * _Scale;
         }
         public void Draw(SpriteBatch spriteBatch, float layer)
         {
@@ -50,8 +50,8 @@ namespace GameClient
             for (int i = 0; i < data.Length; ++i) data[i] = (i < life_precentage ? Color.Green : Color.Red);
             _healthbar.SetData(data);
 
-            spriteBatch.Draw(_healthbar_background, new Rectangle((int)_position.X-1, (int)_position.Y-1, healthbar_width+2, 5), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer - 0.03f);
-            spriteBatch.Draw(_healthbar, new Rectangle((int)_position.X,(int)_position.Y, healthbar_width,2), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer-0.02f);
+            spriteBatch.Draw(_healthbar_background, new Rectangle((int)_position.X - 1, (int)_position.Y - 1, healthbar_width + 2, 5), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer - 0.03f);
+            spriteBatch.Draw(_healthbar, new Rectangle((int)_position.X, (int)_position.Y, healthbar_width, 2), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer - 0.02f);
         }
 
     }

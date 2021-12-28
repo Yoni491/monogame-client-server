@@ -28,7 +28,7 @@ namespace GameClient
             }
         }
 
-        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, float shootingTimer, int dmg, int travelDistance,bool hitPlayers)
+        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, float shootingTimer, int dmg, int travelDistance, bool hitPlayers)
         {
             _collection_id = id;
             _texture = texture;
@@ -42,7 +42,7 @@ namespace GameClient
             _dmg = dmg;
             _dmgShown = dmg;
         }
-        public Bullet(int id, Texture2D texture, float speed, float shootingTimer,int dmg, int travelDistance)
+        public Bullet(int id, Texture2D texture, float speed, float shootingTimer, int dmg, int travelDistance)
         {
             _collection_id = id;
             _texture = texture;
@@ -62,7 +62,7 @@ namespace GameClient
                     if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position + _velocity,Color.Purple,_shootingTimer);
+                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position + _velocity, Color.Purple, _shootingTimer);
                     }
                 }
                 else
@@ -70,9 +70,9 @@ namespace GameClient
                     if (CollisionManager.isColidedWithEnemies(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
-                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position +_velocity, Color.Orange, _shootingTimer);
+                        DmgMassageManager.CreateDmgMessage(_dmgShown, _position + _velocity, Color.Orange, _shootingTimer);
                     }
-                    else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity,_dmg))
+                    else if (CollisionManager.isCollidingBoxes(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
                     }
@@ -92,7 +92,7 @@ namespace GameClient
                     _destroy = true;
             }
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(Vector2.Distance(_startPosition,_position)>= _maxTravelDistance)
+            if (Vector2.Distance(_startPosition, _position) >= _maxTravelDistance)
             {
                 _destroy = true;
             }
@@ -104,11 +104,11 @@ namespace GameClient
         }
         public Bullet Copy(Vector2 direction, Vector2 position, bool hitPlayers)
         {
-            return new Bullet(_collection_id,  _texture, position, direction, _speed, _shootingTimer, _dmg, _maxTravelDistance, hitPlayers);
+            return new Bullet(_collection_id, _texture, position, direction, _speed, _shootingTimer, _dmg, _maxTravelDistance, hitPlayers);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if(_destroyIn3 == -1)
+            if (_destroyIn3 == -1)
                 spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1.7f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void UpdatePacketShort(Packet packet)

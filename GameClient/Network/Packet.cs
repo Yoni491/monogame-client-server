@@ -44,7 +44,7 @@ namespace GameClient
         }
         public void WriteString(string text)
         {
-            if(string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text))
             {
                 WriteInt(0);
                 return;

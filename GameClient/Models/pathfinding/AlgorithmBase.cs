@@ -19,7 +19,7 @@
 
         protected AlgorithmBase()
         {
-            
+
         }
 
         public abstract SearchDetails GetPathTick();

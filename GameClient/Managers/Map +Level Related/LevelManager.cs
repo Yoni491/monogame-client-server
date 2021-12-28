@@ -14,7 +14,7 @@ namespace GameClient
         Coord _coord_Player;
         static public Vector2 _spawnPoint;
         List<NetworkPlayer> _networkPlayers;
-        static public int startingLevel= 1;
+        static public int startingLevel = 1;
         static public int startingLevelServer = 23;
         static public int _currentLevel = -1;
         static public bool _sendNewLevel;
@@ -25,7 +25,7 @@ namespace GameClient
             _game_client = game_client;
             _tileManager = tileManager;
         }
-        public void LoadNewLevel(int num=0)
+        public void LoadNewLevel(int num = 0)
         {
             if (num > _maxLevel)
                 num = 1;
@@ -51,7 +51,7 @@ namespace GameClient
             if (!Game_Client._isServer)
             {
                 AudioManager.PlaySong(_currentLevel);
-                if(!Game_Client._isMultiplayer)
+                if (!Game_Client._isMultiplayer)
                     _progressManager.CreateProgressData();
             }
             _sendNewLevel = true;
@@ -73,7 +73,7 @@ namespace GameClient
                 if (_player != null)
                 {
                     _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
-                    if (_coord_Player.X + 1>= TileManager._map.Width)
+                    if (_coord_Player.X + 1 >= TileManager._map.Width)
                     {
                         LoadNewLevel();
                         return true; // return true if load next level
@@ -86,7 +86,7 @@ namespace GameClient
                         foreach (var player in _networkPlayers)
                         {
                             _coord_Player = TileManager.GetCoordTile(player.Position_Feet);
-                            if (_coord_Player.X + 1>= TileManager._map.Width)
+                            if (_coord_Player.X + 1 >= TileManager._map.Width)
                             {
                                 return true;// return true if load next level
                             }

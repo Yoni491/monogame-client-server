@@ -9,11 +9,11 @@ namespace GameClient
     public class BulletReach
     {
         public int _id;
-        private Player _player; 
+        private Player _player;
         private List<NetworkPlayer> _networkPlayers;
         private Gun _gun;
         private Bullet _bullet;
-        public Vector2 _reachablePlayerPos=Vector2.Zero;
+        public Vector2 _reachablePlayerPos = Vector2.Zero;
         public BulletReach(int id, Player player, List<NetworkPlayer> networkPlayers, Gun gun)
         {
             _id = id;
@@ -50,7 +50,7 @@ namespace GameClient
                     return;
                 }
             }
-            if(_player!=null)
+            if (_player != null)
             {
                 if (CheckIfReachable(_player.Position_Head))
                 {
@@ -69,8 +69,8 @@ namespace GameClient
         public bool CheckIfReachable(Vector2 _direction)
         {
             Vector2 tempPos;
-            tempPos =  _gun.GetTipOfTheGun(_direction);
-            Vector2 direction = Vector2.Normalize(_direction- tempPos);
+            tempPos = _gun.GetTipOfTheGun(_direction);
+            Vector2 direction = Vector2.Normalize(_direction - tempPos);
             Rectangle tempRec;
             while (true)
             {

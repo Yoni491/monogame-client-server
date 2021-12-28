@@ -8,12 +8,12 @@ namespace GameClient
     {
         public int _amount { get; set; }
         public Item _item { get; set; }
-        
-        public ItemStock(int amount,Item item)
+
+        public ItemStock(int amount, Item item)
         {
             _amount = amount;
             _item = item;
         }
-        
+
     }
 }

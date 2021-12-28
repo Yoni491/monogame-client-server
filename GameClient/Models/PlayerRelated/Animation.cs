@@ -13,7 +13,7 @@ namespace GameClient
 
         public Texture2D[] _textures;
 
-        public Animation(Texture2D []textures)
+        public Animation(Texture2D[] textures)
         {
             _textures = textures;
             _isLooping = true;

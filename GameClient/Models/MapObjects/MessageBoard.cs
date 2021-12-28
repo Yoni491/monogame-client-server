@@ -12,18 +12,18 @@ namespace GameClient
         private readonly Rectangle _rectangle;
         private int _showMessageDistance = 50;
         public bool _destroy, _displayMessage, _displayMessageGamePad;
-        ScreenMessage _screenMessage,_screenMessageGamePad;
+        ScreenMessage _screenMessage, _screenMessageGamePad;
         GraphicsDevice _graphicsDevice;
 
-        public MessageBoard(GraphicsDevice graphicDevice, Rectangle rectangle, string text,string textGamePad = null, bool triggerByHitting = false)
+        public MessageBoard(GraphicsDevice graphicDevice, Rectangle rectangle, string text, string textGamePad = null, bool triggerByHitting = false)
         {
             _graphicsDevice = graphicDevice;
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
             _rectangle = rectangle;
-            _screenMessage = new ScreenMessage(_graphicsDevice,text);
-            if(textGamePad!=null)
+            _screenMessage = new ScreenMessage(_graphicsDevice, text);
+            if (textGamePad != null)
             {
-                _screenMessageGamePad = new ScreenMessage(_graphicsDevice,textGamePad);
+                _screenMessageGamePad = new ScreenMessage(_graphicsDevice, textGamePad);
             }
         }
         public void Update(Rectangle player_position_rectangle)
@@ -32,7 +32,7 @@ namespace GameClient
             if (Vector2.Distance(player_position, _position) <= _showMessageDistance)
             {
                 _displayMessage = true;
-                if(_screenMessageGamePad!= null)
+                if (_screenMessageGamePad != null)
                     _displayMessageGamePad = true;
             }
             else

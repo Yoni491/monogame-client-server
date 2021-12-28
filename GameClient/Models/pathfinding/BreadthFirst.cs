@@ -8,12 +8,12 @@ namespace GameClient
         private readonly Queue<Node> _q = new Queue<Node>();
         private bool _destinationFound;
 
-        public BreadthFirst() : base ()
+        public BreadthFirst() : base()
         {
             _AlgorithmName = "Breadth-First Search";
 
             // Add the first node to the queue
-            
+
         }
         public void Initialize(Coord start, Coord end, Grid Grid)
         {

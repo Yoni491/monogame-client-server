@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameClient.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -8,66 +9,66 @@ namespace GameClient
 {
     public class MainMenuScreen
     {
-        Button _singlePlayer, _multiPlayerButton, _exitGame, _howToPlay;
+        Button _localGame, _onlineButton, _exitGame, _howToPlay;
         int _buttonHeight = 60;
         int _buttonWidth = 250;
-        Vector2 _buttonPosition;
+        ScreenPoint _buttonPosition;
         Game_Client _game_client;
         Texture2D _menuBackgroundImage;
         GraphicsDevice _graphicsDevice;
-        public CharacterSelectScreen _characterSelectMenu;
-        public MultiplayerScreen _multiplayerMenu;
+        public CharacterSelectScreen _characterSelectScreen;
+        public ConnectionScreen _connectionScreen;
         SelectSaveFileScreen _SelectSaveFileScreen;
         HowToPlayScreen _howToPlayScreen;
-        public bool _showChooseCharacterMenu, _showMultiplayerMenu,_showSelectSaveFileMenu,_showHowToPlay;
+        public bool _showChooseCharacterScreen, _showConnectionScreen, _showSelectSaveFileScreen, _showHowToPlay;
         public static bool _connected;
         public MainMenuScreen()
         {
-            
+
         }
         public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager, SettingsDataManager settingsDataManager)
         {
-            _multiplayerMenu = new MultiplayerScreen(graphicsDevice, game_client, this, settingsDataManager);
-            _characterSelectMenu = new CharacterSelectScreen(graphicsDevice, game_client, this, settingsDataManager);
-            _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager,game_client);
+            _connectionScreen = new ConnectionScreen(graphicsDevice, game_client, this, settingsDataManager);
+            _characterSelectScreen = new CharacterSelectScreen(graphicsDevice, game_client, this, settingsDataManager);
+            _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager, game_client);
             _howToPlayScreen = new HowToPlayScreen(graphicsDevice, this, progressManager, game_client);
             _graphicsDevice = graphicsDevice;
             _game_client = game_client;
             _menuBackgroundImage = GraphicManager.getImage("backgroundUnboxingrave");
-            _buttonPosition = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
-            _singlePlayer = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), _buttonPosition, Color.Green, Color.Gray, "Single player");
-            _multiPlayerButton = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight + 2), Color.Green, Color.Gray, "Multiplayer");
-            _howToPlay = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight * 2 + 4), Color.Green, Color.Gray, "How to play");
-            _exitGame = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White),  _buttonPosition + new Vector2(0, _buttonHeight * 3 + 6), Color.Green, Color.Gray, "Exit game");
+            _buttonPosition = new ScreenPoint(_graphicsDevice.Viewport.Bounds.Width / 2 - 120, _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
+            _localGame = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), Vector2.Zero, _buttonPosition, Color.Green, Color.Gray, "play local");
+            _onlineButton = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), new Vector2(0, _buttonHeight + 2), _buttonPosition, Color.Green, Color.Gray, "play online");
+            _howToPlay = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), new Vector2(0, _buttonHeight * 2 + 4), _buttonPosition, Color.Green, Color.Gray, "How to play");
+            _exitGame = new Button(GraphicManager.getRectangleTexture(_buttonWidth, _buttonHeight, Color.White), new Vector2(0, _buttonHeight * 3 + 6), _buttonPosition, Color.Green, Color.Gray, "Exit game");
         }
         public void Update(GameTime gameTime)
         {
-            
-            if(_showChooseCharacterMenu)
+
+            if (_showChooseCharacterScreen)
             {
-                _characterSelectMenu.Update(gameTime);
+                _characterSelectScreen.Update(gameTime);
             }
-            else if(_showMultiplayerMenu)
+            else if (_showConnectionScreen)
             {
-                _multiplayerMenu.Update(gameTime);
+                _connectionScreen.Update(gameTime);
             }
-            else if(_showSelectSaveFileMenu)
+            else if (_showSelectSaveFileScreen)
             {
                 _SelectSaveFileScreen.Update(gameTime);
             }
-            else if(_showHowToPlay)
+            else if (_showHowToPlay)
             {
                 _howToPlayScreen.Update(gameTime);
             }
             else
             {
-                if (_singlePlayer.Update(gameTime))
+                if (_localGame.Update(gameTime))
                 {
-                    _showSelectSaveFileMenu = true;
+                    _showSelectSaveFileScreen = true;
                 }
-                if (_multiPlayerButton.Update(gameTime))
+                if (_onlineButton.Update(gameTime))
                 {
-                    _showMultiplayerMenu = true;
+                    _showConnectionScreen = true;
                 }
                 if (_howToPlay.Update(gameTime))
                 {
@@ -84,15 +85,15 @@ namespace GameClient
         {
             spriteBatch.Draw(_menuBackgroundImage, new Rectangle(0, 0, GraphicManager.screenWidth, GraphicManager.screenHeight), Color.White);
 
-            if (_showChooseCharacterMenu)
+            if (_showChooseCharacterScreen)
             {
-                _characterSelectMenu.Draw(spriteBatch);
+                _characterSelectScreen.Draw(spriteBatch);
             }
-            else if (_showMultiplayerMenu)
+            else if (_showConnectionScreen)
             {
-                _multiplayerMenu.Draw(spriteBatch);
+                _connectionScreen.Draw(spriteBatch);
             }
-            else if (_showSelectSaveFileMenu)
+            else if (_showSelectSaveFileScreen)
             {
                 _SelectSaveFileScreen.Draw(spriteBatch);
             }
@@ -102,23 +103,25 @@ namespace GameClient
             }
             else
             {
-                _singlePlayer.Draw(spriteBatch);
-                _multiPlayerButton.Draw(spriteBatch);
+                _localGame.Draw(spriteBatch);
+                _onlineButton.Draw(spriteBatch);
                 _howToPlay.Draw(spriteBatch);
                 _exitGame.Draw(spriteBatch);
             }
         }
         public void ResetGraphics()
         {
-            _characterSelectMenu.ResetGraphics();
-            _multiplayerMenu.ResetGraphics();
+            _characterSelectScreen.ResetGraphics();
+            _connectionScreen.ResetGraphics();
             _SelectSaveFileScreen.ResetGraphics();
             _howToPlayScreen.ResetGraphics();
-            _buttonPosition = new Vector2((_graphicsDevice.Viewport.Bounds.Width / 2 - 120), _graphicsDevice.Viewport.Bounds.Height / 2 - 30);
-            _singlePlayer.ResetGraphics(_buttonPosition);
-            _multiPlayerButton.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight + 2));
-            _howToPlay.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 2 + 4));
-            _exitGame.ResetGraphics(_buttonPosition + new Vector2(0, _buttonHeight * 3 + 6));
+            _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
+            _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 30;
+
+            _localGame.ResetGraphics();
+            _onlineButton.ResetGraphics();
+            _howToPlay.ResetGraphics();
+            _exitGame.ResetGraphics();
         }
     }
 }

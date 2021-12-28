@@ -15,7 +15,6 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\projects\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.deps.json
 C:\projects\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.dll
 C:\projects\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.pdb
-C:\projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.AssemblyReference.cache
 C:\projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.CoreCompileInputs.cache
 C:\projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.dll
 C:\projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.pdb
@@ -26,3 +25,13 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.CoreCompileInputs.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.pdb
+C:\Projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.AssemblyReference.cache
+C:\Projects\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\old\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.deps.json
+C:\Projects\old\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.dll
+C:\Projects\old\monogame-client-server\TiledSharp\bin\Release\netstandard2.0\TiledSharp.pdb
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.AssemblyReference.cache
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.csproj.CoreCompileInputs.cache
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.dll
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\netstandard2.0\TiledSharp.pdb

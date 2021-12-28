@@ -12,9 +12,9 @@ namespace GameServer
                     game.Run();
 
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
-                if(e!=null)
+                if (e != null)
                 {
                     System.Console.WriteLine(e.Message);
                 }

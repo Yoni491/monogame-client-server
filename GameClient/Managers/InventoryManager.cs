@@ -126,14 +126,14 @@ namespace GameClient
                     if (itemStock._item._itemId == itemID)
                     {
                         foundItem = true;
-                        break;                            
+                        break;
                     }
                 }
                 index++;
             }
-            if(foundItem)
+            if (foundItem)
             {
-                if(--_inventory_rectangles[index].Item2._amount == 0)
+                if (--_inventory_rectangles[index].Item2._amount == 0)
                 {
                     _inventory_rectangles[index].Item2 = null;
                 }
@@ -141,11 +141,11 @@ namespace GameClient
             }
             return false;
         }
-        public void AddItemToInventory(Item itemToAdd,bool sound = true,int amount = 1)
+        public void AddItemToInventory(Item itemToAdd, bool sound = true, int amount = 1)
         {
-            if(itemToAdd._itemId == 10)
+            if (itemToAdd._itemId == 10)
             {
-                _gold+=amount;
+                _gold += amount;
                 DmgMassageManager.CreateDmgMessage(amount, itemToAdd._position, Color.Gold);
                 _itemManager.RemoveItemFromFloor(itemToAdd);
                 if (sound)
@@ -155,26 +155,26 @@ namespace GameClient
                 return;
             }
             int index = 0;
-                foreach (var tuple in _inventory_rectangles)
+            foreach (var tuple in _inventory_rectangles)
+            {
+                ItemStock itemStock = tuple.Item2;
+                if (itemStock != null)
                 {
-                    ItemStock itemStock = tuple.Item2;
-                    if (itemStock != null)
+                    if (itemStock._item._itemId == itemToAdd._itemId)
                     {
-                        if (itemStock._item._itemId == itemToAdd._itemId)
+                        if (itemStock._amount < tuple.Item2._item._invenotryAmountAllowed)
                         {
-                            if (itemStock._amount < tuple.Item2._item._invenotryAmountAllowed)
+                            itemStock._amount += amount;
+                            _itemManager.RemoveItemFromFloor(itemToAdd);
+                            if (sound)
                             {
-                                itemStock._amount += amount;
-                                _itemManager.RemoveItemFromFloor(itemToAdd);
-                                if (sound)
-                                {
-                                    AudioManager.PlaySound("PickingItem");
-                                }
-                                return;
+                                AudioManager.PlaySound("PickingItem");
                             }
+                            return;
                         }
                     }
                 }
+            }
             foreach (var tuple in _inventory_rectangles)
             {
                 if (tuple.Item2 == null)
@@ -227,7 +227,7 @@ namespace GameClient
                                 Item EquippedGunTemp = _inventory_rectangles[i].Item2._item;
                                 _inventory_rectangles[i].Item2 = null;
                                 if (EquippedGun != null)
-                                    AddItemToInventory(EquippedGun,false);
+                                    AddItemToInventory(EquippedGun, false);
                                 AudioManager.PlaySound("SwitchingWeapon");
                                 EquippedGun = EquippedGunTemp;
                             }
@@ -235,7 +235,7 @@ namespace GameClient
                             {
                                 AudioManager.PlaySound("UsingPotion");
                                 int heal = _inventory_rectangles[i].Item2._item._itemHealing;
-                                DmgMassageManager.CreateDmgMessage(heal,_player.Position_Head + new Vector2(5,0),Color.LightGreen);
+                                DmgMassageManager.CreateDmgMessage(heal, _player.Position_Head + new Vector2(5, 0), Color.LightGreen);
                                 _player._health._health_left += heal;
                                 if (--_inventory_rectangles[i].Item2._amount == 0)
                                 {
@@ -261,7 +261,7 @@ namespace GameClient
                     {
                         if (_inventory_rectangles[i].Item2 != null)
                         {
-                            
+
                             if (_inventory_rectangles[i].Item2._amount > 0)
                             {
                                 AudioManager.PlaySound("DroppingItem");
@@ -282,7 +282,7 @@ namespace GameClient
         public void MoveInventoryPointerRight()
         {
             _gamePadPointer++;
-            if(_gamePadPointer>=_itemBlockAmount)
+            if (_gamePadPointer >= _itemBlockAmount)
             {
                 _gamePadPointer = 0;
             }

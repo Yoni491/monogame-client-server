@@ -16,14 +16,14 @@ namespace GameClient
         public Vector2 _right_joystick_direction;
         public float _right_trigger;
         public float _left_trigger;
-        private bool _buttonA, _buttonB,_buttonX,_buttonY, _buttonRightShoulder, _buttonLeftShoulder;
+        private bool _buttonA, _buttonB, _buttonX, _buttonY, _buttonRightShoulder, _buttonLeftShoulder;
         private bool _buttonSpace;
 
         public bool _isGamePad;
 
         GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
-        public Input(Keys up, Keys down,Keys left, Keys right, Keys pick)
+        public Input(Keys up, Keys down, Keys left, Keys right, Keys pick)
         {
             _down = down;
             _left = left;
@@ -88,13 +88,13 @@ namespace GameClient
             KeyboardState stateKeyboard = Keyboard.GetState();
             if (_prevKeyboardState.IsKeyUp(Keys.Space) && stateKeyboard.IsKeyDown(Keys.Space))
                 _buttonSpace = true;
-            if(!Game_Client._isMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
                 _buttonSpace = stateKeyboard.IsKeyDown(Keys.Space);
             }
             _prevKeyboardState = stateKeyboard;
         }
-        public void GetVelocity(ref Vector2 _velocity,float _speed)
+        public void GetVelocity(ref Vector2 _velocity, float _speed)
         {
             if (Keyboard.GetState().IsKeyDown(_up))
             {
@@ -127,7 +127,7 @@ namespace GameClient
                 _velocity = Vector2.Normalize(_velocity) * _speed;
             }
         }
-        public void GetLookingDirection(ref Vector2 _looking_direction, Gun _gun,MeleeWeapon _meleeWeapon)
+        public void GetLookingDirection(ref Vector2 _looking_direction, Gun _gun, MeleeWeapon _meleeWeapon)
         {
             if (_right_joystick_direction != Vector2.Zero)
             {
@@ -164,7 +164,7 @@ namespace GameClient
                 _isGamePad = false;
                 return true;
             }
-            else if(_right_trigger > 0)
+            else if (_right_trigger > 0)
             {
                 _isGamePad = true;
                 return true;

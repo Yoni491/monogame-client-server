@@ -9,7 +9,7 @@ namespace GameClient
     public class SimpleEnemy
     {
         int _enemyId;
-        static int _s_enemyNum=0;
+        static int _s_enemyNum = 0;
         public int _enemyNum;
         private MeleeWeapon _meleeWeapon;
         public Gun _gun;
@@ -37,16 +37,16 @@ namespace GameClient
         private float _movingToPlayerMaxDistance = 1;
         private int _ShootingMinimumDistance = 1;
         private float _summonTimer = 0;
-        public int _dmgDoneForServer=0;
+        public int _dmgDoneForServer = 0;
         private int _summonEnemyID;
         private List<SimpleEnemy> _summonedEnemies;
         public bool _serverUpdated;
-        
+
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
         public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
-        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), 7,7); }
+        public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.5f), (int)(_position.Y + (_height * _scale) * 0.9f), 7, 7); }
         public SimpleEnemy(AnimationManager animationManager, int enemyId, Vector2 position, float speed, PlayerManager playerManager, ItemManager itemManager,
             int health, int[] items_drop_list, MeleeWeapon meleeWeapon, Gun gun = null, PathFinder pathFinder = null, BulletReach bulletReach = null, int enemyNum = -1, int summonEnemyID = -1)
         {
@@ -68,7 +68,7 @@ namespace GameClient
             _gun = gun;
             if (gun != null)
             {
-                if(_gun._bullet._maxTravelDistance < 1000)
+                if (_gun._bullet._maxTravelDistance < 1000)
                 {
                     _movingToPlayerMaxDistance = 300;
                     _ShootingMinimumDistance = _gun._bullet._maxTravelDistance - 40;
@@ -80,7 +80,7 @@ namespace GameClient
                 }
                 _gun._holderScale = _scale;
             }
-            if(_meleeWeapon!=null)
+            if (_meleeWeapon != null)
             {
                 _movingToPlayerMaxDistance = _meleeWeapon._maxAttackingDistance;
             }
@@ -97,7 +97,7 @@ namespace GameClient
         {
             Move(gameTime);
 
-            if(!Game_Client._isServer && Game_Client._isMultiplayer)
+            if (!Game_Client._isServer && Game_Client._isMultiplayer)
                 UpdateFromServer();
 
             _animationManager.Update(gameTime, _position);
@@ -112,11 +112,11 @@ namespace GameClient
         }
         private void UpdateFromServer()
         {
-            _animationManager.SetAnimationsFromServer(_velocity,ref _hide_weapon,ref _moving_direction);
+            _animationManager.SetAnimationsFromServer(_velocity, ref _hide_weapon, ref _moving_direction);
         }
         private void SummonEnemies(GameTime gameTime)
         {
-            if(_summonEnemyID!=-1)
+            if (_summonEnemyID != -1)
             {
                 _summonedEnemies.RemoveAll(enemy => enemy._destroy);
                 _summonTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
@@ -201,7 +201,7 @@ namespace GameClient
                     {
                         target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
                     }
-                }                    
+                }
                 else
                 {
                     target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
@@ -228,7 +228,7 @@ namespace GameClient
                         _isStopingToShotOrMeleeAttack = true;
                         _velocity = Vector2.Zero;
                     }
-                    if(_gun!=null)
+                    if (_gun != null)
                     {
                         if (_bulletReach._reachablePlayerPos != Vector2.Zero)
                         {
@@ -243,7 +243,7 @@ namespace GameClient
                 }
                 _velocity = _velocity * _speed;
             }
-            
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -263,8 +263,8 @@ namespace GameClient
                 if (_gun != null)
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
-        }        
-        
+        }
+
         public void PositionFeetAt(Vector2 position)
         {
             _position = position;
@@ -309,11 +309,11 @@ namespace GameClient
                 meleeWeapon = _meleeWeapon.Copy(true, true, null);
             return new SimpleEnemy(_animationManager.Copy(), _enemyId, _position, _speed,
                 _playerManager, _itemManager, _health._total_health, _items_drop_list, meleeWeapon, gun, PathFindingManager.GetPathFinder(useAstar, waitForDestroyedWall, _speed),
-                bulletReach, enemyNum,_summonEnemyID);
+                bulletReach, enemyNum, _summonEnemyID);
         }
         public void UpdatePacketDmg(Packet packet)
         {
-            if(_dmgDoneForServer>0)
+            if (_dmgDoneForServer > 0)
             {
                 packet.WriteInt(_enemyNum);
                 packet.WriteInt(_dmgDoneForServer);
@@ -353,7 +353,7 @@ namespace GameClient
             int gunOrMeele = packet.ReadInt();//gun is 0
             if (gunOrMeele == 0)
             {
-                _gun.ReadPacketShort(packet,true);
+                _gun.ReadPacketShort(packet, true);
             }
         }
     }

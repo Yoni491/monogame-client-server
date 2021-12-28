@@ -44,7 +44,7 @@ namespace GameClient
         public void Update(GameTime gameTime)
         {
             _timer_update_grpahics += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(_timer_update_grpahics >=1)
+            if (_timer_update_grpahics >= 1)
             {
                 _timer_update_grpahics = 0;
                 Game_Client.ResetGraphics();
@@ -74,10 +74,10 @@ namespace GameClient
                 _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
                 _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
                 _graphics.ApplyChanges();
-                
+
             }
         }
-        static public void ChangeScreenSize(int width,int height)
+        static public void ChangeScreenSize(int width, int height)
         {
             screenHeight = height;
             screenWidth = width;
@@ -110,7 +110,7 @@ namespace GameClient
             croppedTexture.SetData(data);
             return croppedTexture;
         }
-        static public Animation MakeAnimationFromRow(Texture2D row,int width)
+        static public Animation MakeAnimationFromRow(Texture2D row, int width)
         {
             Texture2D[] _textures;
             _textures = new Texture2D[width];
@@ -130,7 +130,7 @@ namespace GameClient
             { (int)Direction.Up, MakeAnimationFromRow(GetRowFrom4x4Sprite(i_texture,3),4) },
             };
         }
-        static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum,float scale)
+        static public AnimationManager GetAnimationManager_spriteMovement(int spriteNum, float scale)
         {
             return new AnimationManager(GetAnimation4x4Dictionary_spritesMovement(_contentManager.Load<Texture2D>("Patreon sprites 1/" + spriteNum)), 4, scale, spriteNum);
         }
@@ -142,28 +142,28 @@ namespace GameClient
             spriteBatch.Draw(_line_texture, new Rectangle((int)end.X, (int)end.Y, (int)distance, 2), null, Color.White, angle, Vector2.Zero, SpriteEffects.None, 0.5f);
 
         }
-        static public Texture2D getRectangleTexture(int width,int height, Color color)
+        static public Texture2D getRectangleTexture(int width, int height, Color color)
         {
             Texture2D _healthbar = new Texture2D(_graphicsDevice, width, height);
-            Color[] data = new Color[width* height];
+            Color[] data = new Color[width * height];
             for (int i = 0; i < data.Length; ++i) data[i] = color;
             _healthbar.SetData(data);
             return _healthbar;
         }
         static public Texture2D getImage(string image)
         {
-            return _contentManager.Load<Texture2D>("Images/"+ image);
+            return _contentManager.Load<Texture2D>("Images/" + image);
         }
-        static public void DrawRectangle(SpriteBatch spriteBatch,Rectangle rectangle,float layer)
+        static public void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, float layer)
         {
             Texture2D texture = new Texture2D(GraphicManager._graphicsDevice, rectangle.Width, rectangle.Height);
-            Color[] data = new Color[rectangle.Width*rectangle.Height];
+            Color[] data = new Color[rectangle.Width * rectangle.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Green;
             texture.SetData(data);
-            spriteBatch.Draw(texture, rectangle, null ,Color.Black,0,Vector2.Zero,SpriteEffects.None,layer);
+            spriteBatch.Draw(texture, rectangle, null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, layer);
 
         }
-        static public void DrawSmallSquareAtPosition(SpriteBatch spriteBatch,Vector2 position, float layer)
+        static public void DrawSmallSquareAtPosition(SpriteBatch spriteBatch, Vector2 position, float layer)
         {
             DrawRectangle(spriteBatch, new Rectangle((int)position.X, (int)position.Y, 5, 5), layer);
         }

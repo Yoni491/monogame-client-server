@@ -19,9 +19,9 @@ namespace GameServer
         private List<byte> _bufferList;
         List<PacketHandlerServer> _packetHandlers, _packetHandlersToRemove;
         int numOfPlayer = 0;
-        static int _playerIDNumber=0;
+        static int _playerIDNumber = 0;
         int addPlayers = 0, removePlayers = 0;
-        List<Socket> _socketToAdd,_socketToRemove;
+        List<Socket> _socketToAdd, _socketToRemove;
         Packet _packet;
         static bool _everyClientGotCurrentLevel;
         LevelManager _levelManager;
@@ -44,7 +44,7 @@ namespace GameServer
             _socketToRemove = new List<Socket>();
             _bufferList = new List<Byte>();
             _packet = new Packet();
-            
+
         }
         public void Initialize_connection()
         {
@@ -63,7 +63,7 @@ namespace GameServer
         {
             RemovePlayerSocket();
             AddPlayerSocket();
-            if(numOfPlayer==0 && !justResetted)
+            if (numOfPlayer == 0 && !justResetted)
             {
                 _gameServer.ResetGame(true);
                 justResetted = true;
@@ -72,14 +72,14 @@ namespace GameServer
             if (_timer_short >= 0.1f)
             {
                 _timer_short = 0;
-                if(_sendNames)
+                if (_sendNames)
                 {
                     SendPacket(3, true);
                     _sendNames = false;
                 }
                 else
                 {
-                    SendPacket(1,false);
+                    SendPacket(1, false);
                 }
             }
             _everyClientGotCurrentLevel = true;
@@ -125,19 +125,19 @@ namespace GameServer
                 _socket_list.Add(socket);
                 _socketToAdd.RemoveAt(0);
                 byte[] buffer = new byte[10000];
-                NetworkPlayer player = new NetworkPlayer(Vector2.Zero,CollectionManager._playerAnimationManager[1],
-                    100, _playerIDNumber++, null, new NameDisplay(null,""));
+                NetworkPlayer player = new NetworkPlayer(Vector2.Zero, CollectionManager._playerAnimationManager[1],
+                    100, _playerIDNumber++, null, new NameDisplay(null, ""));
                 _players.Add(player);
                 PacketHandlerServer packetHandler = new PacketHandlerServer(_players, player, _enemies);
                 _packetHandlers.Add(packetHandler);
                 if (numOfPlayer == 0)
                 {
-                    if(string.IsNullOrEmpty( ServerScreen._startingLevelTextBox._text))
+                    if (string.IsNullOrEmpty(ServerScreen._startingLevelTextBox._text))
                         _levelManager.LoadNewLevel(LevelManager.startingLevelServer);
                     else
                         _levelManager.LoadNewLevel(Int32.Parse(ServerScreen._startingLevelTextBox._text));
                 }
-                SendPacket(2, true, player._playerNum,socket);
+                SendPacket(2, true, player._playerNum, socket);
                 WriteItems(true);
                 socket.Send(_packet.Data());
                 Receive(socket, packetHandler, buffer);
@@ -152,7 +152,7 @@ namespace GameServer
             _packet.WriteInt(_players.Count);
             foreach (var player in _players)
             {
-                player.UpdatePacketShort(_packet,writeNames);
+                player.UpdatePacketShort(_packet, writeNames);
                 if (player._gun != null)
                     player._gun._bullets.Clear();
             }
@@ -169,7 +169,7 @@ namespace GameServer
         }
         public void WriteBoxes(bool sendAll)
         {
-            if(sendAll)
+            if (sendAll)
             {
                 _packet.WriteInt(MapManager._boxesDestroyed.Count);
                 foreach (var box in MapManager._boxesDestroyed)
@@ -212,7 +212,7 @@ namespace GameServer
         }
         public void WriteChests(bool sendAll)
         {
-            if(sendAll)
+            if (sendAll)
             {
                 _packet.WriteInt(MapManager._chestsDestroyed.Count);
                 foreach (var chest in MapManager._chestsDestroyed)
@@ -246,7 +246,7 @@ namespace GameServer
                 _packet.WriteInt(ItemManager._itemsToSendPicked.Count);
                 foreach (var item in ItemManager._itemsToSendPicked)
                 {
-                    if(ItemManager._itemsOnTheGround.ContainsKey(item))
+                    if (ItemManager._itemsOnTheGround.ContainsKey(item))
                         ItemManager._itemsOnTheGround[item].UpdatePacket(_packet);
                 }
             }
@@ -266,7 +266,7 @@ namespace GameServer
             _packet.WriteInt(LevelManager._currentLevel);
             _packet.WriteVector2(LevelManager._spawnPoint);
         }
-        public void SendPacket(int type, bool sendEverything, int playerNum = 0,Socket clientSocket = null)
+        public void SendPacket(int type, bool sendEverything, int playerNum = 0, Socket clientSocket = null)
         {
             _packet.UpdateType((ushort)type);
             if (type == 2)
@@ -341,7 +341,7 @@ namespace GameServer
                 RemoveSocket(client_socket, packetHandlerServer);
                 return;
             }
-            if(!client_socket.Connected)
+            if (!client_socket.Connected)
             {
                 RemoveSocket(client_socket, packetHandlerServer);
             }

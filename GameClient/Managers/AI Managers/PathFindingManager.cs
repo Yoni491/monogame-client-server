@@ -7,8 +7,8 @@ namespace GameClient
 {
     public class PathFindingManager
     {
-        static Thread AstarThread,BFSThread;
-        static private List<PathFinder> _pathFinderList,_pathsToAdd;
+        static Thread AstarThread, BFSThread;
+        static private List<PathFinder> _pathFinderList, _pathsToAdd;
         static public PathFinder _currentPathFinder;
         static List<int> _indecesToRemove;
         static private bool _continueSearch, _continueSearchBFS;
@@ -17,9 +17,9 @@ namespace GameClient
         static public bool _reset;
         public PathFindingManager()
         {
-            AstarThread = new Thread(new ThreadStart(()=>FindPaths(true,ref _continueSearch)));
+            AstarThread = new Thread(new ThreadStart(() => FindPaths(true, ref _continueSearch)));
             AstarThread.Start();
-            BFSThread = new Thread(new ThreadStart(() => FindPaths(false,ref _continueSearchBFS)));
+            BFSThread = new Thread(new ThreadStart(() => FindPaths(false, ref _continueSearchBFS)));
             BFSThread.Start();
             _pathFinderList = new List<PathFinder>();
             _pathsToAdd = new List<PathFinder>();
@@ -31,7 +31,7 @@ namespace GameClient
             {
                 if (!_continueSearch)
                 {
-                    if(_reset)
+                    if (_reset)
                     {
                         _pathFinderList.Clear();
                         _reset = false;
@@ -46,11 +46,11 @@ namespace GameClient
             {
                 _continueSearch = true;
             }
-            
+
         }
-        static public PathFinder GetPathFinder(bool useAstar,bool waitForDestroyedWall,float speed)
+        static public PathFinder GetPathFinder(bool useAstar, bool waitForDestroyedWall, float speed)
         {
-            PathFinder pathFinder = new PathFinder(id++,useAstar,waitForDestroyedWall,speed);
+            PathFinder pathFinder = new PathFinder(id++, useAstar, waitForDestroyedWall, speed);
             _pathsToAdd.Add(pathFinder);
             return pathFinder;
         }
@@ -69,7 +69,7 @@ namespace GameClient
             for (int i = 0; i < _indecesToRemove.Count; i++)
             {
 
-                _pathFinderList.RemoveAll(x=>x._id == _indecesToRemove[i]);
+                _pathFinderList.RemoveAll(x => x._id == _indecesToRemove[i]);
             }
             _indecesToRemove.Clear();
         }
@@ -77,7 +77,7 @@ namespace GameClient
         {
             for (int i = 0; i < _pathsToAdd.Count; i++)
             {
-                
+
                 _pathFinderList.Add(_pathsToAdd[0]);
                 _pathsToAdd.RemoveAt(0);
             }

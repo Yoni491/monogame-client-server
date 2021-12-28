@@ -46,7 +46,7 @@ namespace GameClient
             {
                 SwingUpdate(gameTime);
                 _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle,Vector2.Zero, _dmg))
+                if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle, Vector2.Zero, _dmg))
                 {
                     _isColided = true;
                 }

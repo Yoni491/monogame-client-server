@@ -10,21 +10,21 @@ namespace GameClient
 {
     public class PathFinder
     {
-        static public Grid Astar_Grid,Bfs_Grid;
+        static public Grid Astar_Grid, Bfs_Grid;
         private AStar _AStar;
         private BreadthFirst _BreadthFirst;
         private SearchDetails _searchDetails;
         private Vector2 _position;
         public List<Coord> _path;
         private Coord lastCoord;
-        private Vector2 _start, _end,_first_position = Vector2.Zero;
-        private bool _newSearchReady = true,_startNewSearch = true;
+        private Vector2 _start, _end, _first_position = Vector2.Zero;
+        private bool _newSearchReady = true, _startNewSearch = true;
         public int _id;
-        public bool _useAstar =true;
+        public bool _useAstar = true;
         public bool _waitForDestroyedWall;
         public bool _waitForEndPath;
         private float _enemySpeed;
-        public PathFinder(int id,bool useAstar,bool waitForDestroyedWall,float enemySpeed)
+        public PathFinder(int id, bool useAstar, bool waitForDestroyedWall, float enemySpeed)
         {
             _path = new List<Coord>();
             _id = id;
@@ -39,29 +39,29 @@ namespace GameClient
         }
         public void FindPaths()
         {
-            if (_startNewSearch && _first_position!=Vector2.Zero)
+            if (_startNewSearch && _first_position != Vector2.Zero)
             {
                 try
                 {
-                if (_path.Count > 10 && _enemySpeed<2)
-                {
-                    lastCoord = _path[5];
-                    _start = TileManager.GetPositionFromCoord(_path[5]);
-                }
-                else if (_path.Count > 20)
-                {
-                    lastCoord = _path[20];
-                    _start = TileManager.GetPositionFromCoord(_path[20]);
-                }
-                else if (_path.Count > 0)
-                {
-                    lastCoord = _path[_path.Count - 1];
-                    _start = TileManager.GetPositionFromCoord(_path[_path.Count - 1]);
-                }
-                else
-                {
-                    _start = _position;
-                }
+                    if (_path.Count > 10 && _enemySpeed < 2)
+                    {
+                        lastCoord = _path[5];
+                        _start = TileManager.GetPositionFromCoord(_path[5]);
+                    }
+                    else if (_path.Count > 20)
+                    {
+                        lastCoord = _path[20];
+                        _start = TileManager.GetPositionFromCoord(_path[20]);
+                    }
+                    else if (_path.Count > 0)
+                    {
+                        lastCoord = _path[_path.Count - 1];
+                        _start = TileManager.GetPositionFromCoord(_path[_path.Count - 1]);
+                    }
+                    else
+                    {
+                        _start = _position;
+                    }
                 }
                 catch
                 {
@@ -95,10 +95,10 @@ namespace GameClient
                     if (searchStatus.PathFound)
                     {
                         _searchDetails = searchStatus;
-                        _newSearchReady=true;
+                        _newSearchReady = true;
                         return;
                     }
-                    if(!searchStatus.PathPossible)
+                    if (!searchStatus.PathPossible)
                     {
                         pathNotPossible++;
                     }
@@ -106,7 +106,7 @@ namespace GameClient
                     {
                         pathNotPossible = 0;
                     }
-                    if(pathNotPossible>1)
+                    if (pathNotPossible > 1)
                     {
                         _newSearchReady = true;
                         _waitForDestroyedWall = true;
@@ -135,18 +135,18 @@ namespace GameClient
         }
         private void CopyPathArrToList()
         {
-            if(lastCoord != null)
+            if (lastCoord != null)
             {
                 int index = _path.FindIndex(x => x == lastCoord);
                 if (index > -1)
                 {
-                    _path.RemoveRange(index+1, _path.Count - index-1);
+                    _path.RemoveRange(index + 1, _path.Count - index - 1);
                 }
                 else
                 {
                     _path.Clear();
                 }
-                
+
             }
             else
             {
@@ -157,28 +157,28 @@ namespace GameClient
                 _path.Add(_searchDetails.Path[i]);
             }
         }
-        public void Update(GameTime gameTime,Vector2 start,Vector2 end)
+        public void Update(GameTime gameTime, Vector2 start, Vector2 end)
         {
             if (_first_position == Vector2.Zero)
                 _first_position = start;
             _position = start;
             _end = end;
-            
+
         }
         public Vector2 GetNextCoordPosition()
         {
-            if( _newSearchReady)
+            if (_newSearchReady)
             {
-                if(_searchDetails != null)
+                if (_searchDetails != null)
                     CopyPathArrToList();
                 _searchDetails = null;
                 _startNewSearch = true;
-            }    
-            if (_path.Count>0)
+            }
+            if (_path.Count > 0)
             {
                 if (_path.Count < 10)
                     _useAstar = true;
-                while (_path.Count > 0 && Vector2.Distance(_position, TileManager.GetPositionFromCoord(_path[0])) <16f)
+                while (_path.Count > 0 && Vector2.Distance(_position, TileManager.GetPositionFromCoord(_path[0])) < 16f)
                 {
                     _path.RemoveAt(0);
                 }

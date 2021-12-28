@@ -37,8 +37,8 @@ namespace GameClient
         }
         public void CreateProgressData()
         {
-            _latestProgressData = new ProgressData(_player._playerNum,LevelManager._currentLevel,_player._animationNum,_player._health,
-                _player._gun._id,_inventoryManager._inventory_rectangles,_player._nameDisplay._text,_inventoryManager._gold);
+            _latestProgressData = new ProgressData(_player._playerNum, LevelManager._currentLevel, _player._animationNum, _player._health,
+                _player._gun._id, _inventoryManager._inventory_rectangles, _player._nameDisplay._text, _inventoryManager._gold);
             _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
             File.WriteAllText(_fileName, _progressDataJson);
         }

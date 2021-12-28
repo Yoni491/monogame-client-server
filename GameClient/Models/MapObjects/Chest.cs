@@ -18,7 +18,7 @@ namespace GameClient
 
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
-        public Chest(Rectangle rectangle, int numberInTileset, int tilesetIndex,int item = -1, bool smallChest = false)
+        public Chest(Rectangle rectangle, int numberInTileset, int tilesetIndex, int item = -1, bool smallChest = false)
         {
             _numberInTileset = numberInTileset;
             this.tilesetIndex = tilesetIndex;

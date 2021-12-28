@@ -32,7 +32,7 @@ namespace GameServer
         {
             //if (packetType != 0)
             //    Console.WriteLine("Recevied packet! Length: {0} | type: {1}", packetLength, packetType);
-            while(true)
+            while (true)
                 if (0 == Interlocked.Exchange(ref usingResource, 1))
                 {
                     _packet.UpdateBuffer(buffer);
@@ -119,7 +119,7 @@ namespace GameServer
                 if (MapManager._boxes.ContainsKey(boxNum))
                 {
                     Box box = MapManager._boxes[boxNum];
-                    if(!box._destroy)
+                    if (!box._destroy)
                         box.Destroy();
                     MapManager._boxesDestroyed.Add(boxNum);
                 }
@@ -164,7 +164,7 @@ namespace GameServer
                 int itemNum = _packet.ReadInt();
                 if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
-                    ItemManager._itemsPickedUpToSend_Server.Add((_player._playerNum,itemNum));
+                    ItemManager._itemsPickedUpToSend_Server.Add((_player._playerNum, itemNum));
                     ItemManager._itemsOnTheGround.Remove(itemNum);
                 }
             }

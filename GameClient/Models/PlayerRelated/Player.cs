@@ -36,9 +36,9 @@ namespace GameClient
 
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
-        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6));}
+        public Rectangle Rectangle { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f), (int)(_width * _scale * 0.3), (int)(_height * _scale * 0.6)); }
         public Rectangle RectangleMovement { get => new Rectangle((int)(_position.X + (_width * _scale) * 0.4f), (int)(_position.Y + (_height * _scale) * 0.8f), 7, 7); }
-        public Player(AnimationManager animationManager,int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager,InventoryManager inventoryManager,SettingsScreen uIManager,NameDisplay nameDisplay)
+        public Player(AnimationManager animationManager, int animationNum, Vector2 position, Input input, int health, PlayerManager playerManager, ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager, NameDisplay nameDisplay)
         {
             _animationManager = animationManager;
             _animationNum = animationNum;
@@ -50,7 +50,7 @@ namespace GameClient
             _uIManager = uIManager;
             _inventoryManager = inventoryManager;
             _scale = _animationManager._scale;
-            _health = new HealthManager(health, position,_scale);
+            _health = new HealthManager(health, position, _scale);
             _width = _animationManager.Animation._frameWidth;
             _height = _animationManager.Animation._frameHeight;
             _nameDisplay = nameDisplay;
@@ -59,17 +59,17 @@ namespace GameClient
         {
             InputReader(gameTime);
 
-            _nameDisplay.Update(Position_Feet + new Vector2(5,20));
+            _nameDisplay.Update(Position_Feet + new Vector2(5, 20));
 
             _animationManager.Update(gameTime, _position);
 
-            _animationManager.SetAnimations(_velocity,ref _hide_weapon,ref _moving_direction);
+            _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
             if (CollisionManager.IsCollidingLeftWalls(RectangleMovement, _velocity) && _velocity.X < 0)
-                _velocity -= new Vector2(_velocity.X,0);
+                _velocity -= new Vector2(_velocity.X, 0);
             if (CollisionManager.IsCollidingRightWalls(RectangleMovement, _velocity) && _velocity.X > 0)
                 _velocity -= new Vector2(_velocity.X, 0);
             if (CollisionManager.IsCollidingTopWalls(RectangleMovement, _velocity) && _velocity.Y < 0)
-                _velocity -= new Vector2(0,_velocity.Y);
+                _velocity -= new Vector2(0, _velocity.Y);
             if (CollisionManager.IsCollidingBottomWalls(RectangleMovement, _velocity) && _velocity.Y > 0)
                 _velocity -= new Vector2(0, _velocity.Y);
             _position += _velocity;
@@ -78,11 +78,11 @@ namespace GameClient
 
             if (_gun != null)
             {
-                _gun.Update(gameTime, _looking_direction, _moving_direction, _input._isGamePad,_gun._isSniper,_position);
+                _gun.Update(gameTime, _looking_direction, _moving_direction, _input._isGamePad, _gun._isSniper, _position);
             }
             if (_meleeWeapon != null)
             {
-                _meleeWeapon.Update(_moving_direction,gameTime,_position);
+                _meleeWeapon.Update(_moving_direction, gameTime, _position);
             }
 
             _health.Update(_position);
@@ -115,8 +115,8 @@ namespace GameClient
                 _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             }
             _nameDisplay.Draw(spriteBatch);
-            
-            
+
+
         }
 
         public void InputReader(GameTime gameTime)
@@ -124,7 +124,7 @@ namespace GameClient
             _velocity = Vector2.Zero;
             _input.GetVelocity(ref _velocity, _speed);
             _input.GetLookingDirection(ref _looking_direction, _gun, _meleeWeapon);
-            if(_input.Shot())
+            if (_input.Shot())
             {
                 if (!_mouseIntersectsUI)
                 {
@@ -132,7 +132,7 @@ namespace GameClient
                         _gun.Shot();
                 }
             }
-            if(_input.MeleeAttack())
+            if (_input.MeleeAttack())
             {
                 if (!_mouseIntersectsUI && !_input._isGamePad)
                 {
@@ -141,7 +141,7 @@ namespace GameClient
                     else
                         _meleeWeapon.SwingWeapon();
                 }
-                else if(_input._isGamePad)
+                else if (_input._isGamePad)
                 {
                     if (_gun != null)
                         _gun.SwingWeapon();
@@ -171,7 +171,7 @@ namespace GameClient
                     }
                 }
             }
-            if(_input.MoveInventoryPointerRight())
+            if (_input.MoveInventoryPointerRight())
             {
                 _inventoryManager.MoveInventoryPointerRight();
             }
@@ -190,7 +190,7 @@ namespace GameClient
             _mouseIntersectsUI = false;
 
         }
-        
+
 
         public void EquipGun(Gun gun)
         {
@@ -220,7 +220,7 @@ namespace GameClient
             packet.WriteVector2(_looking_direction);
             packet.WriteInt(_animationNum);
             packet.WriteInt(_gun._id);
-            
+
             _gun.UpdatePacketShort(packet);
         }
 

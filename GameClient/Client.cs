@@ -25,7 +25,7 @@ namespace GameClient
             {
                 System.Console.WriteLine("Client crushed");
             }
-            
+
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameClient.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,18 +14,21 @@ namespace GameClient
         SpriteFont _font;
         Color _background;
         Rectangle _rectangle;
-        KeyboardState keyboard;
+        KeyboardState _keyboard;
         KeyboardState oldKeyboard;
         char key;
-        Vector2 _position;
+        ScreenPoint _refPoint;
+        Vector2 _refPosition, _position;
         public string _text;
         bool _numbersOnly;
-        public TextInputBox(Vector2 position, bool numbersOnly, int width = 250)
+        public TextInputBox(Vector2 refPosition, ScreenPoint refPoint, bool numbersOnly, int width = 250)
         {
             _numbersOnly = numbersOnly;
-            keyboard = Keyboard.GetState();
-            _position = position;
+            _keyboard = Keyboard.GetState();
+            _refPosition = refPosition;
+            _refPoint = refPoint;
             _texture = GraphicManager.getRectangleTexture(450, 50, Color.White);
+            ResetPositionToRefrence();
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y - 5, width, 40);
             _background = new Color(Color.White, 1f);
             _font = GraphicManager.GetBasicFont("basic_22");
@@ -32,13 +36,13 @@ namespace GameClient
         }
         public void Update()
         {
-            keyboard = Keyboard.GetState();
+            _keyboard = Keyboard.GetState();
             bool back;
             if (_numbersOnly)
-                ConvertKeyboardInputNumbers(keyboard, oldKeyboard, out key, out back);
+                ConvertKeyboardInputNumbers(_keyboard, oldKeyboard, out key, out back);
             else
-                ConvertKeyboardInput(keyboard, oldKeyboard, out key, out back);
-            oldKeyboard = keyboard;
+                ConvertKeyboardInput(_keyboard, oldKeyboard, out key, out back);
+            oldKeyboard = _keyboard;
             if (key != (char)0 && !back)
             {
                 _text = _text + key;
@@ -179,11 +183,19 @@ namespace GameClient
             }
             return false;
         }
-        public void ResetGraphics(Vector2 position)
+        public void ResetGraphicsOld(Vector2 position)
         {
             _position = position;
             _rectangle = new Rectangle((int)_position.X - 4, (int)_position.Y - 5, 250, 40);
         }
-
+        public void ResetGraphics()
+        {
+            ResetPositionToRefrence();
+            _rectangle = new Rectangle((int)_position.X - 4, (int)_position.Y - 5, 250, 40);
+        }
+        public void ResetPositionToRefrence()
+        {
+            _position = _refPosition + _refPoint.vector2;
+        }
     }
 }

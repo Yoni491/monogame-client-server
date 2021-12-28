@@ -15,12 +15,12 @@ namespace GameClient
         private static SoundEffect _soundEffect;
         private static Song _song;
         private static string _currentSong = "";
-        static bool _muteSound,_muteMusic;
+        static bool _muteSound, _muteMusic;
         public AudioManager(ContentManager contentManager)
         {
             _contentManager = contentManager;
         }
-        static public void PlaySound(string text,float volume = 1)
+        static public void PlaySound(string text, float volume = 1)
         {
             if (!Game_Client._isServer)
             {
@@ -56,7 +56,7 @@ namespace GameClient
                 if (_currentSong != songName)
                 {
                     _song = _contentManager.Load<Song>("Sound/Songs/" + songName);
-                    if(!_muteMusic)
+                    if (!_muteMusic)
                         MediaPlayer.Play(_song);
                     MediaPlayer.IsRepeating = true;
                     _currentSong = songName;

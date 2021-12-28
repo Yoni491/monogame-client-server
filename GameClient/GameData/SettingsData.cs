@@ -18,7 +18,7 @@ namespace GameClient
         {
 
         }
-        public SettingsData(string IP, string nameInGame,bool sound,bool music,bool fullscreen)
+        public SettingsData(string IP, string nameInGame, bool sound, bool music, bool fullscreen)
         {
             _IP = IP;
             _nameInGame = nameInGame;

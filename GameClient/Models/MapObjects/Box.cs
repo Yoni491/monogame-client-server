@@ -16,7 +16,7 @@ namespace GameClient
 
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
-        public Box(Rectangle rectangle, int numberInTileset,int tilesetIndex)
+        public Box(Rectangle rectangle, int numberInTileset, int tilesetIndex)
         {
             _tilesetIndex = tilesetIndex;
             _numberInTileset = numberInTileset;

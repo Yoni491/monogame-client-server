@@ -22,28 +22,28 @@ namespace GameClient
             _graphicsDevice = graphicsDevice;
             _players = players;
             _collectionManager = collectionManager;
-            
+
         }
         public NetworkPlayer AddnetworkPlayer(int playerNum)
         {
-            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero,CollectionManager.GetAnimationManagerCopy(2,1.5f), 
-                _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3,false,false, null),new NameDisplay(_graphicsDevice, ""));
+            NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, CollectionManager.GetAnimationManagerCopy(2, 1.5f),
+                _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3, false, false, null), new NameDisplay(_graphicsDevice, ""));
             _players.Add(networkPlayer);
             return networkPlayer;
         }
-        public Player AddPlayer( ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
+        public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
         {
             _UImanager = uIManager;
             _itemManager = itemManager;
             _inventoryManager = inventoryManager;
-            
+
             Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
             NameDisplay nameDisplay = new NameDisplay(_graphicsDevice, "");
             _player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f),
-                animationNum, position, input, _playerStartingHealth, this,_itemManager,_inventoryManager,_UImanager,nameDisplay);
-            _inventoryManager.EquippedGun =  _collectionManager.GetItem(7).DropAndCopy(true);
+                animationNum, position, input, _playerStartingHealth, this, _itemManager, _inventoryManager, _UImanager, nameDisplay);
+            _inventoryManager.EquippedGun = _collectionManager.GetItem(7).DropAndCopy(true);
             _player.EquipGun(_inventoryManager.EquippedGun._gun);
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));
             return _player;
@@ -51,10 +51,10 @@ namespace GameClient
         public void Reset(bool resetPlayer)
         {
             _players.Clear();
-            if(_player!=null && resetPlayer)
-                ResetPlayer(3,"");
+            if (_player != null && resetPlayer)
+                ResetPlayer(3, "");
         }
-        public void ResetPlayer(int animationNum,string playerName)
+        public void ResetPlayer(int animationNum, string playerName)
         {
             _player._animationManager = CollectionManager.GetAnimationManagerCopy(animationNum, 1.5f);
             _player._animationNum = animationNum;
@@ -79,16 +79,16 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-            if(_player!=null)
+            if (_player != null)
             {
-                if(_player._dead)
+                if (_player._dead)
                 {
                     GameOverScreen._showScreen = true;
                 }
                 _player.Update(gameTime);
             }
             foreach (var player in _players)
-                    player.Update(gameTime);
+                player.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -139,6 +139,6 @@ namespace GameClient
             }
             return player_position;
         }
-        
+
     }
 }

@@ -12,7 +12,6 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\mono
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\Game1\monogame1\TiledSharp\obj\Release\net35\TiledSharp.csprojAssemblyReference.cache
 C:\projects\monogame-client-server\TiledSharp\bin\Release\net35\TiledSharp.dll
 C:\projects\monogame-client-server\TiledSharp\bin\Release\net35\TiledSharp.pdb
-C:\projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.AssemblyReference.cache
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.CoreCompileInputs.cache
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.dll
 C:\projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.pdb
@@ -22,3 +21,12 @@ C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.CoreCompileInputs.cache
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.dll
 C:\Users\yoni2\source\repos\monogame -survival\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.pdb
+C:\Projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.AssemblyReference.cache
+C:\Projects\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\old\monogame-client-server\TiledSharp\bin\Release\net35\TiledSharp.dll
+C:\Projects\old\monogame-client-server\TiledSharp\bin\Release\net35\TiledSharp.pdb
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.AssemblyReference.cache
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.csproj.CoreCompileInputs.cache
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.dll
+C:\Projects\old\monogame-client-server\TiledSharp\obj\Release\net35\TiledSharp.pdb

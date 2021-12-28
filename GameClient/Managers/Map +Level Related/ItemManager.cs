@@ -9,11 +9,11 @@ namespace GameClient
     public class ItemManager
     {
         static CollectionManager _collectionManager;
-        static public Dictionary<int,Item> _itemsOnTheGround;
+        static public Dictionary<int, Item> _itemsOnTheGround;
         static public int itemNumber = 0;
         static public List<int> _itemsToSendPicked;
-        static public List<(int,Vector2)> _itemsToSendDropped;
-        static public List<(int,int)> _itemsPickedUpToSend_Server;
+        static public List<(int, Vector2)> _itemsToSendDropped;
+        static public List<(int, int)> _itemsPickedUpToSend_Server;
         static public bool _waitingForServerApprovalForItemPicked;
         static public int _itemNumWaitingForServerApproval;
         public ItemManager(CollectionManager collectionManager)
@@ -31,23 +31,23 @@ namespace GameClient
                 item.Value.DrawOnGround(spriteBatch);
             }
         }
-        static public void DropItemFromList(int []items, Vector2 position)
+        static public void DropItemFromList(int[] items, Vector2 position)
         {
             foreach (var item_id in items)
             {
-                Item item = _collectionManager.GetItem(item_id,false);
-                if(item!=null)
+                Item item = _collectionManager.GetItem(item_id, false);
+                if (item != null)
                 {
                     item._position = position;
                     _itemsToSendPicked.Add(item._itemNum);
-                    _itemsOnTheGround.Add(item._itemNum,item);
+                    _itemsOnTheGround.Add(item._itemNum, item);
                     return;
                 }
             }
         }
         static public void DropItemSmallChest(Vector2 position)
         {
-            int[] items = { 2, 2, 2, 4, 10};
+            int[] items = { 2, 2, 2, 4, 10 };
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]);
@@ -57,7 +57,7 @@ namespace GameClient
         }
         static public void DropItemNormalChest(Vector2 position)
         {
-            int[] items = { 4, 5, 6, 7, 8, 9, 10};
+            int[] items = { 4, 5, 6, 7, 8, 9, 10 };
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]);
@@ -71,9 +71,9 @@ namespace GameClient
             {
                 _itemsToSendDropped.Add((itemId, position));
             }
-            if(!Game_Client._isMultiplayer)
+            if (!Game_Client._isMultiplayer)
             {
-                Item item = _collectionManager.GetItem(itemId,alwaysDrop);
+                Item item = _collectionManager.GetItem(itemId, alwaysDrop);
                 if (item != null)
                 {
                     item._position = position;
@@ -99,15 +99,15 @@ namespace GameClient
         {
             for (int i = 0; i < amount; i++)
             {
-                Item item = _collectionManager.GetItem(10,false);
+                Item item = _collectionManager.GetItem(10, false);
                 if (item != null)
                 {
                     item._position = position;
                     _itemsToSendPicked.Add(item._itemNum);
-                    _itemsOnTheGround.Add(item._itemNum,item);
+                    _itemsOnTheGround.Add(item._itemNum, item);
                 }
             }
-            
+
         }
         public Item findClosestItem(Vector2 position)
         {

@@ -9,7 +9,7 @@ namespace GameClient
 {
     public class PlayerManager
     {
-        private List<NetworkPlayer> _players;
+        private List<NetworkPlayer> _networkPlayers;
         public Player _player;
         ItemManager _itemManager;
         CollectionManager _collectionManager;
@@ -20,7 +20,7 @@ namespace GameClient
         public PlayerManager(GraphicsDevice graphicsDevice, List<NetworkPlayer> players, CollectionManager collectionManager)
         {
             _graphicsDevice = graphicsDevice;
-            _players = players;
+            _networkPlayers = players;
             _collectionManager = collectionManager;
 
         }
@@ -28,7 +28,7 @@ namespace GameClient
         {
             NetworkPlayer networkPlayer = new NetworkPlayer(Vector2.Zero, CollectionManager.GetAnimationManagerCopy(2, 1.5f),
                 _playerStartingHealth, playerNum, CollectionManager.GetGunCopy(3, false, false, null), new NameDisplay(_graphicsDevice, ""));
-            _players.Add(networkPlayer);
+            _networkPlayers.Add(networkPlayer);
             return networkPlayer;
         }
         public Player AddPlayer(ItemManager itemManager, InventoryManager inventoryManager, SettingsScreen uIManager)
@@ -50,7 +50,7 @@ namespace GameClient
         }
         public void Reset(bool resetPlayer)
         {
-            _players.Clear();
+            _networkPlayers.Clear();
             if (_player != null && resetPlayer)
                 ResetPlayer(3, "");
         }
@@ -87,14 +87,14 @@ namespace GameClient
                 }
                 _player.Update(gameTime);
             }
-            foreach (var player in _players)
+            foreach (var player in _networkPlayers)
                 player.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _player.Draw(spriteBatch);
-            foreach (var player in _players)
+            foreach (var player in _networkPlayers)
             {
                 if (player._playerNum != _player._playerNum)
                     player.Draw(spriteBatch);
@@ -104,9 +104,9 @@ namespace GameClient
         {
             float closest_object_distance = float.MaxValue;
             Vector2 player_position = position;
-            if (_players != null && Game_Client._isServer)
+            if (_networkPlayers != null && Game_Client._isServer)
             {
-                foreach (var player in _players)
+                foreach (var player in _networkPlayers)
                 {
                     if (player._health._health_left > 0)
                     {

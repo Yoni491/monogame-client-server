@@ -19,19 +19,18 @@ namespace GameClient
         private bool _buttonSpace;
         public bool _isGamePad;
         GamePadCapabilities _capabilities;
-        public Input(Keys up, Keys down, Keys left, Keys right, Keys pick)
-        {
-            _down = down;
-            _left = left;
-            _right = right;
-            _up = up;
-            _pick = pick;
-        }
+        int _capabilityIndex;
         public Input(int capabilityIndex)
         {
-            if (capabilityIndex == 0)
+            _capabilityIndex = capabilityIndex;
+            if (capabilityIndex == 4)
             {
                 _isGamePad = false;
+                _down = Keys.S;
+                _left = Keys.A;
+                _right = Keys.D;
+                _up = Keys.W;
+                _pick = Keys.Space;
             }
             else
             {
@@ -43,7 +42,7 @@ namespace GameClient
         {
             if (_isGamePad && _capabilities.IsConnected)
             {
-                GamePadState statePad = GamePad.GetState(PlayerIndex.One);
+                GamePadState statePad = GamePad.GetState(_capabilityIndex);
                 if (_capabilities.HasLeftXThumbStick)
                 {
                     _left_joystick_direction = new Vector2(statePad.ThumbSticks.Left.X, -statePad.ThumbSticks.Left.Y);
@@ -157,16 +156,16 @@ namespace GameClient
         {
             if (_isGamePad)
             {
-                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                if (_buttonX)
                 {
+                    _buttonX = false;
                     return true;
                 }
             }
             else
             {
-                if (_buttonX)
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    _buttonX = false;
                     return true;
                 }
             }

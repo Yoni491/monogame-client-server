@@ -7,50 +7,52 @@ namespace GameClient
 {
     public class InputManager
     {
-        List<Input> _inputs;
-        List<GamePadCapabilities> _capabilities;
-        Dictionary<GamePadCapabilities, Player> _playerCapabilities;
-        Player _mousePlayer;
+        //List<Input> _inputs;
+        Dictionary<int, Player> _playerCapabilities;
+        Player _mousePlayer;//index = 4
+
         public InputManager()
         {
-            _inputs = new List<Input>();
-            _playerCapabilities.Add(GamePad.GetCapabilities(PlayerIndex.One), null);
-            _playerCapabilities.Add(GamePad.GetCapabilities(PlayerIndex.Two), null);
-            _playerCapabilities.Add(GamePad.GetCapabilities(PlayerIndex.Three), null);
-            _playerCapabilities.Add(GamePad.GetCapabilities(PlayerIndex.Four), null);
+            //_inputs = new List<Input>();
+            _playerCapabilities = new Dictionary<int, Player>()
+            {
+                { 0, null},
+                { 1, null},
+                { 2, null},
+                { 3, null}
+            };
         }
         //public Input GetMouseInput(GamePadCapabilities capabilities)
         //{
         //}
         public void AssignCapabiltyToPlayer(int capabilityIndex, Player player)
         {
-            if (capabilityIndex == 0)
+            if (capabilityIndex == 4)
             {
                 _mousePlayer = player;
                 player._input = new Input(capabilityIndex);
             }
-            else if (1 <= capabilityIndex && capabilityIndex <= 4)
+            else if (0 <= capabilityIndex && capabilityIndex <= 3)
             {
-                _playerCapabilities[GamePad.GetCapabilities(capabilityIndex)] = player;
+                _playerCapabilities[capabilityIndex] = player;
                 player._input = new Input(capabilityIndex);
             }
         }
         public int GetCapabilities()
         {
-            int index = 1;
-            foreach (KeyValuePair<GamePadCapabilities, Player> playerCapability in _playerCapabilities)
+            foreach (KeyValuePair<int, Player> playerCapability in _playerCapabilities)
             {
-                if (playerCapability.Key.IsConnected && playerCapability.Value == null)
+                if (GamePad.GetCapabilities(playerCapability.Key).IsConnected && playerCapability.Value == null)
                 {
-                    GamePadState statePad = GamePad.GetState(index++);
+                    GamePadState statePad = GamePad.GetState(playerCapability.Key);
                     if (statePad.IsButtonDown(Buttons.A) || statePad.IsButtonDown(Buttons.Start))
                     {
-                        return index;
+                        return playerCapability.Key;
                     }
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) && _mousePlayer == null)
-                return 0;
+                return 4;
             return -1;
         }
     }

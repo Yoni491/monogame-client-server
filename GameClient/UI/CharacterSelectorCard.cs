@@ -19,12 +19,13 @@ namespace GameClient
         bool _playerConnected;
         InputManager _inputManager;
         PlayerManager _playerManager;
+        Player _player;
         public CharacterSelectorCard(GraphicsDevice graphicsDevice, ScreenPoint refPoint, Vector2 refPosition, InputManager inputManager, PlayerManager playerManager)
         {
             _playerManager = playerManager;
             _inputManager = inputManager;
             _selectedCardBackground = GraphicManager.getImage("matrix");
-            _unselectedCardBackground = GraphicManager.getImage("settingBackround");
+            _unselectedCardBackground = GraphicManager.getImage("settingBackground");
             _refPoint = refPoint;
             _refPosition = refPosition;
             ResetPositionToRefrence();
@@ -60,8 +61,9 @@ namespace GameClient
                 int capability = _inputManager.GetCapabilities();
                 if (capability != -1)
                 {
-                    Player player = _playerManager.AddPlayer();
-                    _inputManager.AssignCapabiltyToPlayer(capability, player);
+                    _player = _playerManager.AddPlayer();
+                    _inputManager.AssignCapabiltyToPlayer(capability, _player);
+                    _playerConnected = true;
                 }
             }
         }
@@ -81,6 +83,11 @@ namespace GameClient
             {
                 spriteBatch.Draw(_unselectedCardBackground, new Rectangle((int)_localPoint.vector2.X, (int)_localPoint.vector2.Y, 300, 350), Color.White);
             }
+        }
+        public void SetPlayerFromCard()
+        {
+            if (_player != null)
+                _playerManager.ResetAndSetPlayer(characterNumbers[index], _NameInputTextBox._text, _player);
         }
         public void ResetGraphics()
         {

@@ -34,6 +34,7 @@ namespace GameClient
         private BulletReachManager _bulletReachManager;
         private DmgMassageManager _dmgMassageManager;
         private NameGenerator _nameGenerator;
+        private InputManager _inputManager;
         static public bool _inMenu = true;
         static public bool _isMultiplayer = false;
         static public bool _isServer = true;
@@ -80,6 +81,7 @@ namespace GameClient
             _settingsDataManager = new SettingsDataManager();
             _progressManager = new ProgressManager();
             //players and enemies
+            _inputManager = new InputManager();
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
             _players = new List<Player>();
@@ -102,12 +104,11 @@ namespace GameClient
             _mapManager.Initialize(_players);
             _progressManager.Initialize(_players, _inventoryManager, _playerManager, _levelManager, _collectionManager);
             _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _players);
-            _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
+            _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager, _playerManager, _inputManager);
             _networkManager.Initialize(_networkPlayers, _players, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._connectionScreen);
             _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _settingsDataManager);
             _settingsDataManager.Initialize(_menuManager._characterSelectScreen, _menuManager._connectionScreen, _settingsScreen);
             _inGameUI.Initialize(GraphicsDevice, _inventoryManager, _levelManager);
-            _players.Add(_playerManager.AddPlayer());
         }
         protected override void Update(GameTime gameTime)
         {

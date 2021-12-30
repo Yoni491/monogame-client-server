@@ -19,9 +19,12 @@ namespace GameClient
         int _cardsAmount = 4, _cardWidth = 300, _cardHeight = 350;
         PlayerManager _playerManager;
         InputManager _inputManager;
+        public List<TextInputBox> _nameInputTextBoxList;
+
         public CharacterSelectScreen(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuScreen menuManager,
             SettingsDataManager settingsDataManager, PlayerManager playerManager, InputManager inputManager)
         {
+            _nameInputTextBoxList = new List<TextInputBox>();
             _playerManager = playerManager;
             _inputManager = inputManager;
             _graphicsDevice = graphicsDevice;
@@ -33,7 +36,9 @@ namespace GameClient
             int firstCardPosition = GetFirstCardsPosition();
             for (int i = 0; i < _cardsAmount; i++)
             {
-                _cards.Add(new CharacterSelectorCard(_graphicsDevice, _cardsPoint, new Vector2((int)firstCardPosition + _cardWidth * i + i * 10, 0), _inputManager, _playerManager));
+                CharacterSelectorCard card = new CharacterSelectorCard(_graphicsDevice, _cardsPoint, new Vector2((int)firstCardPosition + _cardWidth * i + i * 10, 0), _inputManager, _playerManager);
+                _cards.Add(card);
+                _nameInputTextBoxList.Add(card._NameInputTextBox);
             }
             _startGame = new Button(GraphicManager.getRectangleTexture(300, 80, Color.White), new Vector2(-150, 360), _cardsPoint, Color.Green, Color.Gray, "StartGame");
             _returnToMain = new Button(GraphicManager.getRectangleTexture(300, 80, Color.White), new Vector2(-150, 450), _cardsPoint, Color.Green, Color.Gray, "Return to main menu");
@@ -46,7 +51,10 @@ namespace GameClient
                 _settingsDataManager.CreateSettingsData();
                 Game_Client._inMenu = false;
                 _menuManager._showChooseCharacterScreen = false;
-                //_game_Client._playerManager.ResetPlayer(characterNumbers[index], _NameInputTextBox._text);
+                _cards.ForEach(card =>
+                {
+                    card.SetPlayerFromCard();
+                });
                 if (Game_Client._isMultiplayer)
                 {
                     _game_Client._networkManager.SendPacket(gameTime, 2);

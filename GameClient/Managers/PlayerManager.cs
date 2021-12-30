@@ -37,7 +37,6 @@ namespace GameClient
         }
         public Player AddPlayer()
         {
-            //Input input = new Input(Keys.W, Keys.S, Keys.A, Keys.D, Keys.Space);
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
             NameDisplay nameDisplay = new NameDisplay(_graphicsDevice, "");
@@ -53,9 +52,9 @@ namespace GameClient
         {
             _networkPlayers.Clear();
             if (_players.Count > 0 && resetPlayer)
-                _players.ForEach(player => ResetPlayer(3, "", player));
+                _players.ForEach(player => ResetAndSetPlayer(3, "", player));
         }
-        public void ResetPlayer(int animationNum, string playerName, Player player)
+        public void ResetAndSetPlayer(int animationNum, string playerName, Player player)
         {
             player._animationManager = CollectionManager.GetAnimationManagerCopy(animationNum, 1.5f);
             player._animationNum = animationNum;

@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace GameServer
 {
     public class NetworkManagerServer
@@ -44,7 +43,6 @@ namespace GameServer
             _socketToRemove = new List<Socket>();
             _bufferList = new List<Byte>();
             _packet = new Packet();
-
         }
         public void Initialize_connection()
         {
@@ -58,7 +56,6 @@ namespace GameServer
             _packetHandlers.Clear();
             _socket_list.Clear();
         }
-
         public void Update(GameTime gameTime)
         {
             RemovePlayerSocket();
@@ -206,7 +203,6 @@ namespace GameServer
                     if (MapManager._doors.ContainsKey(door))
                         MapManager._doors[door].UpdatePacket(_packet);
                     MapManager._doors.Remove(door);
-
                 }
             }
         }
@@ -307,7 +303,6 @@ namespace GameServer
                 return;
             }
         }
-
         #region socketMethods
         private void Accept()
         {
@@ -319,7 +314,6 @@ namespace GameServer
             _socketToAdd.Add(client_socket);
             addPlayers++;
             Accept();
-
         }
         private void Receive(Socket client_socket, PacketHandlerServer packetHandlerServer, byte[] buffer)
         {
@@ -349,7 +343,6 @@ namespace GameServer
             try
             {
                 Receive(client_socket, packetHandlerServer, buffer);
-
             }
             catch
             {

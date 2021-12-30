@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using System.IO;
-
 namespace GameClient
 {
     public class SettingsDataManager
@@ -43,21 +42,18 @@ namespace GameClient
             if (_settingsDataJson != null)
             {
                 _latestSettingsData = JsonSerializer.Deserialize<SettingsData>(_settingsDataJson);
-
                 if (_latestSettingsData._musicOFF)
                 {
                     _settingsScreen._musicOFF = _latestSettingsData._musicOFF;
                     _settingsScreen._muteMusicButton.ChangeText("Unmute music");
                     AudioManager.MuteMusic(_latestSettingsData._musicOFF);
                 }
-
                 if (_latestSettingsData._soundOFF)
                 {
                     _settingsScreen._soundOFF = _latestSettingsData._soundOFF;
                     _settingsScreen._muteSoundButton.ChangeText("Unmute sound");
                     AudioManager.MuteSound(_latestSettingsData._soundOFF);
                 }
-
                 if (_latestSettingsData._fullScreenOFF)
                 {
                     _settingsScreen._fullScreenOFF = _latestSettingsData._fullScreenOFF;
@@ -65,7 +61,6 @@ namespace GameClient
                     GraphicManager.ChangeToFullScreen(_latestSettingsData._fullScreenOFF);
                     Game_Client.ResetGraphics();
                 }
-
                 //_characterSelectMenu._NameInputTextBox._text = _latestSettingsData._nameInGame;
                 _multiplayerMenu._IPtextBox._text = _latestSettingsData._IP;
             }

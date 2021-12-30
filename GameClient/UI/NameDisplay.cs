@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class NameDisplay
@@ -12,7 +11,6 @@ namespace GameClient
         public string _text { get; set; }
         Color _background;
         GraphicsDevice _graphicsDevice;
-
         public NameDisplay(GraphicsDevice graphicDevice, string text, Vector2? positon = null, int positionOffsetY = 0)
         {
             _graphicsDevice = graphicDevice;
@@ -23,7 +21,6 @@ namespace GameClient
             }
             _text = text;
             _background = new Color(Color.Black, 0.1f);
-
         }
         public void Update(Vector2 position)
         {

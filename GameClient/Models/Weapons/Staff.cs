@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class Staff
@@ -46,7 +45,7 @@ namespace GameClient
             {
                 SwingUpdate(gameTime);
                 _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (!_isColided && CollisionManager.isColidedWithPlayer(Rectangle, Vector2.Zero, _dmg))
+                if (!_isColided && CollisionManager.isColidedWithPlayers(Rectangle, Vector2.Zero, _dmg))
                 {
                     _isColided = true;
                 }
@@ -66,11 +65,9 @@ namespace GameClient
                 _isColided = false;
                 _between_attacks_timer = 0;
             }
-
         }
         public void Draw(SpriteBatch spriteBatch, float layer)
         {
-
             if (_direction == (int)Direction.Up)
             {
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
@@ -123,15 +120,12 @@ namespace GameClient
                 }
             }
         }
-
-
         //public void UpdatePacketShort(PacketStructure packet)
         //{
         //    foreach (var bullet in _bullets)
         //    {
         //        bullet.UpdatePacketShort(packet);
         //    }
-
         //}
         //public void ReadPacketShort(PacketStructure packet)
         //{
@@ -155,6 +149,5 @@ namespace GameClient
         //    Bullet bullet = new Bullet(_bullet._collection_id, this, _bullet._texture, _position + Vector2.Normalize(_direction) * 20f, _direction, _enemies, _bullet._speed, -1, _bullet._shootingTimer, _bullet._dmg);
         //    _bullets.Add(bullet);
         //}
-
     }
 }

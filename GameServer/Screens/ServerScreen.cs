@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using System.Net;
 using Microsoft.Xna.Framework.Input;
 using GameClient.UI;
-
 namespace GameServer
 {
     public class ServerScreen
@@ -17,10 +16,8 @@ namespace GameServer
         private ScreenMessage _startingLevelMessage;
         public static TextInputBox _startingLevelTextBox;
         private ScreenPoint _buttonPosition;
-
         private ScreenMessage _loadLevelMessage;
         public static TextInputBox _loadLevelTextBox;
-
         KeyboardState _prevState;
         bool _showLevelBox;
         LevelManager _levelManager;
@@ -30,7 +27,6 @@ namespace GameServer
             _game_Server = game_Server;
             _levelManager = levelManager;
             _buttonPosition = new ScreenPoint(graphicsDevice.Viewport.Width / 4, graphicsDevice.Viewport.Height / 5);
-
             _headLine = new ScreenMessage(graphicsDevice, "GAME SERVER", _buttonPosition, Vector2.Zero);
             _waitingMessage = new ScreenMessage(graphicsDevice, "Waiting for connection...", _buttonPosition, new Vector2(0, 50));
             _background = GraphicManager._contentManager.Load<Texture2D>("Images/matrix");
@@ -64,7 +60,6 @@ namespace GameServer
                 _startingLevelTextBox.Update();
             }
             _prevState = Keyboard.GetState();
-
         }
         public void UpdateMessage(string text)
         {
@@ -75,7 +70,6 @@ namespace GameServer
             int height = GraphicManager.screenHeight;
             int width = GraphicManager.screenWidth;
             spriteBatch.Draw(_background, new Rectangle(0, 0, width, height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
-
             _headLine.Draw(spriteBatch);
             _waitingMessage.Draw(spriteBatch);
             _ip.Draw(spriteBatch);

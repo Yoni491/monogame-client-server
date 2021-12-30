@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class Grave
@@ -12,7 +11,6 @@ namespace GameClient
         private readonly bool _spawnAtTheStart;
         private int spawnDistance = 150;
         public bool _destroy;
-
         public Grave(Rectangle rectangle, bool spawnAtTheStart)
         {
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);

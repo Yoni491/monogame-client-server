@@ -10,7 +10,6 @@ namespace GameServer
             {
                 using (game = new Game_Server())
                     game.Run();
-
             }
             catch (System.Exception e)
             {
@@ -21,10 +20,8 @@ namespace GameServer
                 else
                 {
                     System.Console.WriteLine("Server crushed? ");
-
                 }
             }
-
         }
     }
 }

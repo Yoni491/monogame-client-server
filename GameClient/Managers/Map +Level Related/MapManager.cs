@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class MapManager
     {
         static public List<Grave> _graves;
         static public List<MessageBoard> _messageBoards;
-        Player _player;
+        List<Player> _players;
         static public Dictionary<int, Chest> _chests;
         List<NetworkPlayer> _networkPlayers;
         static public Dictionary<int, Box> _boxes;
@@ -34,9 +33,9 @@ namespace GameClient
             _doorsDestroyed = new List<int>();
             _chestsDestroyed = new List<int>();
         }
-        public void Initialize(Player player)
+        public void Initialize(List<Player> players)
         {
-            _player = player;
+            _players = players;
         }
         public void Initialize(List<NetworkPlayer> networkPlayers)
         {
@@ -48,15 +47,16 @@ namespace GameClient
             {
                 foreach (var item in _messageBoards)
                 {
-                    if (_player != null)
-                        item.Update(_player.RectangleMovement);
+                    _players.ForEach(player => { item.Update(player.RectangleMovement); });
                 }
             }
             foreach (var grave in _graves)
             {
-                if (_player != null)
-                    grave.Update(_player.RectangleMovement);
-                else if (_networkPlayers != null)
+                _players.ForEach(player =>
+                {
+                    grave.Update(player.RectangleMovement);
+                });
+                if (_networkPlayers != null)
                 {
                     foreach (var player in _networkPlayers)
                     {
@@ -87,9 +87,12 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var item in _messageBoards)
+            foreach (var messageBoard in _messageBoards)
             {
-                item.Draw(spriteBatch, _player._input._isGamePad);
+                _players.ForEach(player =>
+                {
+                    messageBoard.Draw(spriteBatch, player._input._isGamePad);
+                });
             }
         }
         public static void ResetMap()

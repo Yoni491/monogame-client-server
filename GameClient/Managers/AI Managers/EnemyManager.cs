@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class EnemyManager
@@ -11,13 +10,11 @@ namespace GameClient
         private GraphicsDevice _graphicsDevice;
         static private CollectionManager _collectionManager;
         static private List<SimpleEnemy> _enemies;
-
         public EnemyManager(GraphicsDevice graphicsDevice, List<SimpleEnemy> enemies, CollectionManager collectionManager)
         {
             _enemies = enemies;
             _graphicsDevice = graphicsDevice;
             _collectionManager = collectionManager;
-
         }
         public void Update(GameTime gameTime)
         {
@@ -39,7 +36,6 @@ namespace GameClient
             {
                 enemy.Draw(spriteBatch);
             }
-
         }
         public static SimpleEnemy AddEnemyAtPosition(int EnemyID, Vector2 position, bool useAstar, bool waitForDestroyedWall)
         {
@@ -57,7 +53,6 @@ namespace GameClient
         }
         //public void AddEnemiesRandomCircle()
         //{
-
         //    Vector2 center = new Vector2(_graphicsDevice.Viewport.Bounds.Width / 2, _graphicsDevice.Viewport.Bounds.Height / 2);
         //    Random x = new Random();
         //    Vector2 random_direction = Vector2.Normalize(new Vector2(x.Next(-10, 10), x.Next(-10, 10))) * 400;

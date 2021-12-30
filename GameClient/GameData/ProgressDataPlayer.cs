@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
-    public class ProgressData
+    public class ProgressDataPlayer
     {
         public int _playerID { get; set; }
         public int _level { get; set; }
@@ -14,15 +13,11 @@ namespace GameClient
         public int _gunNum { get; set; }
         public List<ProgressDataItem> _item_list { get; set; }
         public int _gold { get; set; }
-
         public String _playerName { get; set; }
-
-
-        private ProgressData()
+        private ProgressDataPlayer()
         {
-
         }
-        public ProgressData(int playerID, int level, int animationNum, HealthManager health,
+        public ProgressDataPlayer(int playerID, int level, int animationNum, HealthManager health,
             int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles, string playerName, int gold)
         {
             _playerID = playerID;
@@ -39,7 +34,6 @@ namespace GameClient
                     _item_list.Add(new ProgressDataItem(item.Item2._item._itemId, item.Item2._amount));
             }
         }
-
     }
     public class ProgressDataItem
     {
@@ -47,7 +41,6 @@ namespace GameClient
         public int _amount { get; set; }
         private ProgressDataItem()
         {
-
         }
         public ProgressDataItem(int itemID, int amount)
         {

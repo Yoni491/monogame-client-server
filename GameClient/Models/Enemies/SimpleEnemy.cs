@@ -41,7 +41,6 @@ namespace GameClient
         private int _summonEnemyID;
         private List<SimpleEnemy> _summonedEnemies;
         public bool _serverUpdated;
-
         //public Vector2 Position_Feet { get => _position + new Vector2(_width / 2, _height * 2 / 3); }
         public Vector2 Position_Feet { get => new Vector2((int)(_position.X + (_width * _scale) * 0.3f), (int)(_position.Y + (_height * _scale) * 0.8f)); }
         public Vector2 Position_Head { get => new Vector2((int)(_position.X + (_width * _scale) * 0.35f), (int)(_position.Y + (_height * _scale) * 0.3f)); }
@@ -96,18 +95,12 @@ namespace GameClient
         public void Update(GameTime gameTime)
         {
             Move(gameTime);
-
             if (!Game_Client._isServer && Game_Client._isMultiplayer)
                 UpdateFromServer();
-
             _animationManager.Update(gameTime, _position);
-
             _health.Update(_position);
-
             MeleeCombatAlgorithm(gameTime);
-
             ShootingAlgorithm(gameTime);
-
             SummonEnemies(gameTime);
         }
         private void UpdateFromServer()
@@ -184,7 +177,6 @@ namespace GameClient
                 }
             }
         }
-
         private void Move(GameTime gameTime)
         {
             Vector2 target_player;
@@ -207,7 +199,6 @@ namespace GameClient
                     target_player = _playerManager.getClosestPlayerToPosition(Position_Feet);
                 }
                 _pathFinder.Update(gameTime, Position_Feet, target_player);
-
                 Vector2 coordPosition = _pathFinder.GetNextCoordPosition();
                 if (coordPosition == Vector2.Zero)
                 {
@@ -220,7 +211,6 @@ namespace GameClient
                     _velocity = Vector2.Normalize(coordPosition - Position_Feet);
                     _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
                 }
-
                 if (Vector2.Distance(target_player, Position_Feet) < _movingToPlayerMaxDistance)
                 {
                     if (_meleeWeapon != null)
@@ -243,7 +233,6 @@ namespace GameClient
                 }
                 _velocity = _velocity * _speed;
             }
-
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -264,7 +253,6 @@ namespace GameClient
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
             }
         }
-
         public void PositionFeetAt(Vector2 position)
         {
             _position = position;
@@ -277,7 +265,6 @@ namespace GameClient
             if (!Game_Client._isMultiplayer)
             {
                 _health._health_left -= dmg;
-
                 if (_health._health_left <= 0 && _destroy == false)
                 {
                     _destroy = true;

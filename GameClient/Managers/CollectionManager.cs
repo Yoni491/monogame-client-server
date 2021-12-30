@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
-
 namespace GameClient
 {
     public class CollectionManager
@@ -22,7 +20,6 @@ namespace GameClient
         public static List<AnimationManager> _playerAnimationManager;
         PlayerManager _playerManager;
         ItemManager _itemManager;
-
         //public static int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public static int[] allWeapons = new int[] { 5, 6, 7, 8, 9 };
         public static int[] allConsumables = new int[] { 2, 4 };
@@ -30,7 +27,6 @@ namespace GameClient
         public static int[] keyDrop = new int[] { 11 };
         public CollectionManager()
         {
-
         }
         public void Initialize(List<SimpleEnemy> enemies, ContentManager contentManager, PlayerManager playerManager, ItemManager itemManager)
         {
@@ -63,7 +59,6 @@ namespace GameClient
         {
             int id = 0;
             _simple_enemies = new List<SimpleEnemy>();
-
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(1, 1.7f), id++, Vector2.Zero, 1f, _playerManager,
                 _itemManager, 30, basicDrops, null, _guns[0]));//M16 GID=137
             _simple_enemies.Add(new SimpleEnemy(GraphicManager.GetAnimationManager_spriteMovement(8, 1.2f), id++, Vector2.Zero, 8, _playerManager,
@@ -112,7 +107,6 @@ namespace GameClient
                 id++, 1.5f, "Gold", 0.02f, 1, false, false, false, null, 1000));
             _items.Add(new Item(GraphicManager.GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 9), null,
                 id++, 2f, "Key", 1, 1, false, false, false, null, 1000));
-
         }
         private void InitializeBullets()
         {
@@ -124,7 +118,6 @@ namespace GameClient
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 5, 600));//Rifle
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 4, 400));//MachineGun
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.015f, 1, 300));//Uzi
-
         }
         private void InitializeGuns()
         {
@@ -149,57 +142,42 @@ namespace GameClient
             _messagesArray[1, 3] = "Press spacebar to pick items near you";
             _messagesArray[1, 4] = "Your inventory is at the bottom of the screen,\nclick on inventory items to use them";
             _messagesArray[1, 5] = "Move to the right side of the map to progress";
-
             _messagesArrayGamePad[1, 0] = "Welcome to UNBOXINGRAVE\nUse the left joystick to move around";
             _messagesArrayGamePad[1, 1] = "Press R2 to shot, Use the right jotstick to aim";
             _messagesArrayGamePad[1, 2] = "Press square to use melee attack";
             _messagesArrayGamePad[1, 3] = "Press O to pick items near you";
             _messagesArrayGamePad[1, 4] = "Your inventory is at the bottom of the screen,\npress R1 / L1 to choose an item and press X to use it";
-
             _messagesArray[2, 0] = "Use melee attack or shooting to destroy the boxes";
             _messagesArray[2, 1] = "Boxes may drop items for you to use";
             _messagesArray[2, 2] = "Pick up the key using spacebar";
             _messagesArray[2, 3] = "Open the door with melee attack";
             _messagesArray[2, 4] = "Good job";
-
             _messagesArray[3, 0] = "WARNING!!\nEnemies attack when they can reach you";
             _messagesArray[3, 1] = "Once your destroy the boxes prepare to fight!";
             _messagesArray[3, 2] = "Well done";
-
             _messagesArray[4, 0] = "Warning! graves spawn enemies when\nyou are getting closer to them!";
             _messagesArray[4, 1] = "Use melee attack to destroy the boxes faster";
             _messagesArray[4, 2] = "Click on an item from the inventory to use";
             _messagesArray[4, 3] = "Watch out from those boxes.. something could be behind them";
-
             _messagesArrayGamePad[4, 2] = "To use an item\npress R1 and L1 to select it,\npress X to use it";
-
             _messagesArray[5, 0] = "You need a key to open the door..\nI wonder where you could find one";
             _messagesArray[5, 1] = "Hit the chest with melee attack to open it";
-
             _messagesArray[6, 0] = "Beware of the sniper";
-
             _messagesArray[7, 0] = "This guys looks scary.. watch out";
-
             _messagesArray[8, 0] = "It's christmas! your present is in the chest!";
             _messagesArray[8, 1] = "To equip a weapon click on it on the inventory";
             _messagesArray[8, 2] = "This weapon is basically cheating, use it wisely";
-
             _messagesArrayGamePad[8, 1] = "To equip a weapon press R1 and L1 to select it,\npress X to equip it";
-
             _messagesArray[9, 0] = "Those enemies are coming fast, be ready.";
-
             _messagesArray[10, 0] = "It's better to avoid some fights";
             _messagesArray[10, 1] = "RUN!!";
             _messagesArray[10, 2] = "Slow down";
             _messagesArray[10, 3] = "Just kidding, run faster";
             _messagesArray[10, 4] = "WHO IS SPEED?";
             _messagesArray[10, 5] = "YOU ARE SPEED!!!";
-
             _messagesArray[11, 0] = "It's christmas again?\nyour present is in the chest!";
             _messagesArray[11, 1] = "Spread the love";
-
             _messagesArray[12, 0] = "I shot a man with a paintball gun...\njust to watch him dye.";
-
             _messagesArray[16, 0] = "You were made for this!";
         }
         private void InitializeChestArray()
@@ -215,7 +193,6 @@ namespace GameClient
                     _chestsArray[23, x++] = 5 + j;
                 }
             }
-
         }
         private void InitializePlayerTextures()
         {
@@ -225,7 +202,7 @@ namespace GameClient
                 _playerAnimationManager.Add(GraphicManager.GetAnimationManager_spriteMovement(i, 1.5f));
             }
         }
-        static public Gun GetGunCopy(int id, bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
+        static public Gun GetGunCopy(int id, bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
             if (id == -1)
             {
@@ -241,7 +218,7 @@ namespace GameClient
                 return null;
             }
         }
-        static public MeleeWeapon GetMeleeWeaponCopy(int id, bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
+        static public MeleeWeapon GetMeleeWeaponCopy(int id, bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
             if (id == -1)
             {

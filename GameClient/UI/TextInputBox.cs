@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class TextInputBox
@@ -68,7 +67,6 @@ namespace GameClient
                     _text = NameGenerator.GenerateRandomName();
                 }
             }
-
         }
         public void ReadText()
         {
@@ -97,10 +95,8 @@ namespace GameClient
             if (_randomNameButton != null)
             {
                 _randomNameButton.Draw(spriteBatch);
-
             }
             spriteBatch.Draw(_texture, _rectangle, null, _background, 0, Vector2.Zero, SpriteEffects.None, 0.51f);
-
             if (!string.IsNullOrEmpty(_text))
             {
                 spriteBatch.DrawString(_font, _text, _position + new Vector2(5, 5), Color.Black, 0, Vector2.Zero, 1, SpriteEffects.None, 0.6f);
@@ -142,7 +138,6 @@ namespace GameClient
                     case Keys.X: if (shift) { key = 'X'; } else { key = 'x'; } return true;
                     case Keys.Y: if (shift) { key = 'Y'; } else { key = 'y'; } return true;
                     case Keys.Z: if (shift) { key = 'Z'; } else { key = 'z'; } return true;
-
                     //Decimal keys
                     case Keys.D0: if (shift) { key = ')'; } else { key = '0'; } return true;
                     case Keys.D1: if (shift) { key = '!'; } else { key = '1'; } return true;
@@ -154,7 +149,6 @@ namespace GameClient
                     case Keys.D7: if (shift) { key = '&'; } else { key = '7'; } return true;
                     case Keys.D8: if (shift) { key = '*'; } else { key = '8'; } return true;
                     case Keys.D9: if (shift) { key = '('; } else { key = '9'; } return true;
-
                     //Decimal numpad keys
                     case Keys.NumPad0: key = '0'; return true;
                     case Keys.NumPad1: key = '1'; return true;
@@ -166,7 +160,6 @@ namespace GameClient
                     case Keys.NumPad7: key = '7'; return true;
                     case Keys.NumPad8: key = '8'; return true;
                     case Keys.NumPad9: key = '9'; return true;
-
                     //Special keys
                     case Keys.OemTilde: if (shift) { key = '~'; } else { key = '`'; } return true;
                     case Keys.OemSemicolon: if (shift) { key = ':'; } else { key = ';'; } return true;
@@ -183,7 +176,6 @@ namespace GameClient
                     case Keys.Back: back = true; return true;
                 }
             }
-
             return false;
         }
         public static bool ConvertKeyboardInputNumbers(KeyboardState keyboard, KeyboardState oldKeyboard, out char key, out bool back)
@@ -207,7 +199,6 @@ namespace GameClient
                     case Keys.D7: if (shift) { key = '7'; } else { key = '7'; } return true;
                     case Keys.D8: if (shift) { key = '8'; } else { key = '8'; } return true;
                     case Keys.D9: if (shift) { key = '9'; } else { key = '9'; } return true;
-
                     //Decimal numpad keys
                     case Keys.NumPad0: key = '0'; return true;
                     case Keys.NumPad1: key = '1'; return true;
@@ -219,7 +210,6 @@ namespace GameClient
                     case Keys.NumPad7: key = '7'; return true;
                     case Keys.NumPad8: key = '8'; return true;
                     case Keys.NumPad9: key = '9'; return true;
-
                     //Special keys
                     case Keys.Decimal: if (shift) { key = '.'; } else { key = '.'; } return true;
                     case Keys.OemPeriod: if (shift) { key = '.'; } else { key = '.'; } return true;
@@ -228,7 +218,6 @@ namespace GameClient
             }
             return false;
         }
-
         public void ResetGraphics()
         {
             ResetPositionToRefrence();
@@ -240,7 +229,6 @@ namespace GameClient
             if (_randomNameButton != null)
             {
                 _randomNameButton.ResetGraphics();
-
             }
         }
         public void ResetPositionToRefrence()

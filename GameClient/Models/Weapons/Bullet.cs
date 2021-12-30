@@ -27,7 +27,6 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width / 2, _texture.Height / 2);
             }
         }
-
         public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, float speed, float shootingTimer, int dmg, int travelDistance, bool hitPlayers)
         {
             _collection_id = id;
@@ -51,7 +50,6 @@ namespace GameClient
             _dmg = dmg;
             _maxTravelDistance = travelDistance;
         }
-
         public void Update(GameTime gameTime)
         {
             if (_destroyIn3 < 0)
@@ -59,7 +57,7 @@ namespace GameClient
                 _velocity = _direction * _speed;
                 if (_hitPlayers)
                 {
-                    if (CollisionManager.isColidedWithPlayer(Rectangle, _velocity, _dmg))
+                    if (CollisionManager.isColidedWithPlayers(Rectangle, _velocity, _dmg))
                     {
                         _destroy = true;
                         DmgMassageManager.CreateDmgMessage(_dmgShown, _position + _velocity, Color.Purple, _shootingTimer);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-
 namespace GameClient
 {
     public class PathFindingManager
@@ -46,7 +45,6 @@ namespace GameClient
             {
                 _continueSearch = true;
             }
-
         }
         static public PathFinder GetPathFinder(bool useAstar, bool waitForDestroyedWall, float speed)
         {
@@ -68,7 +66,6 @@ namespace GameClient
         {
             for (int i = 0; i < _indecesToRemove.Count; i++)
             {
-
                 _pathFinderList.RemoveAll(x => x._id == _indecesToRemove[i]);
             }
             _indecesToRemove.Clear();
@@ -77,7 +74,6 @@ namespace GameClient
         {
             for (int i = 0; i < _pathsToAdd.Count; i++)
             {
-
                 _pathFinderList.Add(_pathsToAdd[0]);
                 _pathsToAdd.RemoveAt(0);
             }

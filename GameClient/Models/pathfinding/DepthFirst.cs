@@ -2,15 +2,12 @@
 using System.Linq;
 namespace GameClient
 {
-
     public class DepthFirst : AlgorithmBase
     {
         readonly Stack<Node> _stack = new Stack<Node>();
-
         public DepthFirst() : base()
         {
             _AlgorithmName = "Depth-First Search";
-
             // Add the first node to the stack
         }
         public void Initialize(Coord start, Coord end, Grid Grid)
@@ -24,7 +21,6 @@ namespace GameClient
             _Destination = end;
             _stack.Push(new Node(_Id++, null, _Origin, 0, 0));
         }
-
         public override SearchDetails GetPathTick()
         {
             // Check the next node on the stack to see if it is the _Destination
@@ -35,19 +31,15 @@ namespace GameClient
                 _Path = new List<Coord>();
                 foreach (var item in _stack)
                     _Path.Add(item.Coord);
-
                 _Path.Reverse();
-
                 return GetSearchDetails();
             }
-
             // Get all the neighbours that haven't been visited
             var neighbours = GetNeighbours(_CurrentNode).Where(x => !AlreadyVisited(new Coord(x.X, x.Y))).ToArray();
             if (neighbours.Any())
             {
                 foreach (var neighbour in neighbours)
                     _Grid.SetCell(neighbour.X, neighbour.Y, Enums.CellType.Open);
-
                 // Take this neighbour and add it the stack
                 var next = neighbours.First();
                 var newNode = new Node(_Id++, null, next.X, next.Y, 0, 0);
@@ -61,15 +53,12 @@ namespace GameClient
                 _Grid.SetCell(abandonedCell.Coord.X, abandonedCell.Coord.Y, Enums.CellType.Closed);
                 _Closed.Add(abandonedCell);
             }
-
             return GetSearchDetails();
         }
-
         private bool AlreadyVisited(Coord coord)
         {
             return _stack.Any(x => CoordsMatch(x.Coord, coord)) || _Closed.Any(x => CoordsMatch(x.Coord, coord));
         }
-
         protected override SearchDetails GetSearchDetails()
         {
             return new SearchDetails

@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-
 namespace GameClient
 {
     class GameOverScreen
@@ -19,15 +17,13 @@ namespace GameClient
         static public bool _showScreen;
         ProgressManager _progressManager;
         Game_Client _game_Client;
-        Player _player;
-
+        List<Player> _players;
         public GameOverScreen()
         {
-
         }
-        public void Initialize(Game_Client game_Client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager, Player player)
+        public void Initialize(Game_Client game_Client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager, List<Player> players)
         {
-            _player = player;
+            _players = players;
             _game_Client = game_Client;
             _progressManager = progressManager;
             _graphicsDevice = graphics;
@@ -55,8 +51,11 @@ namespace GameClient
                 if (_restartLevel.Update(gameTime))
                 {
                     _showScreen = false;
-                    _player._health._health_left = 200;
-                    _player._dead = false;
+                    _players.ForEach(player =>
+                    {
+                        player._health._health_left = 200;
+                        player._dead = false;
+                    });
                 }
             }
             if (_exitToMain.Update(gameTime))
@@ -80,7 +79,6 @@ namespace GameClient
         {
             _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
             _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 150;
-
             _restartLevel.ResetGraphics();
             _exitToMain.ResetGraphics();
         }

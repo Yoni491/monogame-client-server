@@ -15,7 +15,6 @@ namespace GameClient
         public float _scale;
         public int _animationID;
         public Animation Animation { get => _animation; set => _animation = value; }
-
         public AnimationManager(Dictionary<int, Animation> animations, int frameCount, float scale, int animationID)
         {
             _animations = animations;
@@ -82,7 +81,6 @@ namespace GameClient
                 if (velocity.X >= Math.Abs(velocity.Y))
                 {
                     moving_direction = (int)Direction.Right;
-
                 }
                 else if (-velocity.X >= Math.Abs(velocity.Y))
                 {
@@ -120,7 +118,6 @@ namespace GameClient
                 if (velocity.X >= Math.Abs(velocity.Y))
                 {
                     moving_direction = (int)Direction.Right;
-
                 }
                 else if (-velocity.X >= Math.Abs(velocity.Y))
                 {

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-
 namespace GameClient
 {
     public class NetworkManagerClient
@@ -13,7 +12,7 @@ namespace GameClient
         PacketHandlerClient _packetHandler;
         float _timer_short = 0;
         PlayerManager _playerManager;
-        Player _player;
+        List<Player> _players;
         List<NetworkPlayer> _network_players;
         Packet _packet;
         List<SimpleEnemy> _enemies;
@@ -21,9 +20,8 @@ namespace GameClient
         ConnectionScreen _multiplayerMenu;
         public NetworkManagerClient()
         {
-
         }
-        public void Initialize(List<NetworkPlayer> network_players, Player player,
+        public void Initialize(List<NetworkPlayer> network_players, List<Player> players,
             PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager,
             InventoryManager inventoryManager, LevelManager levelManager, ConnectionScreen multiplayerMenu)
         {
@@ -31,10 +29,9 @@ namespace GameClient
             _network_players = network_players;
             _enemies = enemies;
             _playerManager = playerManager;
-            _player = player;
-            _packetHandler = new PacketHandlerClient(_network_players, player, playerManager, enemies, enemyManager, inventoryManager, levelManager);
+            _players = players;
+            _packetHandler = new PacketHandlerClient(_network_players, players, playerManager, enemies, enemyManager, inventoryManager, levelManager);
             _packet = new Packet();
-
         }
         public void Update(GameTime gameTime)
         {
@@ -64,8 +61,8 @@ namespace GameClient
         }
         public void WritePlayers()
         {
-            _packet.WriteInt(1);//number of players to send.
-            _player.UpdatePacketShort(_packet);//player data
+            _packet.WriteInt(_players.Count);//number of players to send.
+            _players.ForEach(player => player.UpdatePacketShort(_packet));//player data
         }
         public void WriteEnemies()
         {
@@ -128,31 +125,30 @@ namespace GameClient
         }
         public void SendPacket(GameTime gameTime, int packetType = 1)
         {
-            if (packetType == 1)
-            {
-                _packet.UpdateType(1);//packet type
-                WriteLevel();
-                WritePlayers();
-                WriteEnemies();
-                WriteBoxes();
-                MapManager._boxesToSend.Clear();
-                WriteDoors();
-                MapManager._doorsToSend.Clear();
-                WriteChests();
-                MapManager._chestsToSend.Clear();
-                WriteItemsPickedFromGround();
-                ItemManager._itemsToSendPicked.Clear();
-                WriteItemDroppedToGround();
-                ItemManager._itemsToSendDropped.Clear();
-
-            }
-            else if (packetType == 2)
-            {
-                _packet.UpdateType(2);//packet type
-                _packet.WriteString(_player._nameDisplay._text);
-            }
-            byte[] buffer = _packet.Data();
-            _socket.Send(buffer);
+            //if (packetType == 1)
+            //{
+            //    _packet.UpdateType(1);//packet type
+            //    WriteLevel();
+            //    WritePlayers();
+            //    WriteEnemies();
+            //    WriteBoxes();
+            //    MapManager._boxesToSend.Clear();
+            //    WriteDoors();
+            //    MapManager._doorsToSend.Clear();
+            //    WriteChests();
+            //    MapManager._chestsToSend.Clear();
+            //    WriteItemsPickedFromGround();
+            //    ItemManager._itemsToSendPicked.Clear();
+            //    WriteItemDroppedToGround();
+            //    ItemManager._itemsToSendDropped.Clear();
+            //}
+            //else if (packetType == 2)
+            //{
+            //    _packet.UpdateType(2);//packet type
+            //    _packet.WriteString(_player._nameDisplay._text);
+            //}
+            //byte[] buffer = _packet.Data();
+            //_socket.Send(buffer);
         }
         #region NetworkMethods
         public void CheckIfIpValid(string ip, out IPAddress iPAddress)
@@ -179,7 +175,6 @@ namespace GameClient
             }
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _socket.BeginConnect(endPoint, ConnectCallBack, _socket);
-
         }
         private void ConnectCallBack(IAsyncResult result)
         {

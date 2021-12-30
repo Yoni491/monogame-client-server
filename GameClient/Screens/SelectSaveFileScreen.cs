@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class SelectSaveFileScreen
@@ -17,7 +16,6 @@ namespace GameClient
         int _buttonWeight = 250;
         Game_Client _gameClient;
         ProgressManager _progressManager;
-
         public SelectSaveFileScreen(GraphicsDevice graphicsDevice, MainMenuScreen menuManager, ProgressManager progressManager, Game_Client gameClient)
         {
             _gameClient = gameClient;
@@ -64,7 +62,6 @@ namespace GameClient
         {
             _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
             _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 30;
-
             _continueGame.ResetGraphics();
             _newGame.ResetGraphics();
             _returnToMain.ResetGraphics();

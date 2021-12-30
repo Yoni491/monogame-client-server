@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class ConnectionScreen
@@ -19,7 +18,6 @@ namespace GameClient
         public bool _connecting;
         int _buttonHeight = 60;
         int _buttonWeight = 250;
-
         public ConnectionScreen(GraphicsDevice graphicsDevice, Game_Client game_Client, MainMenuScreen menuManager, SettingsDataManager settingsDataManager)
         {
             _settingsDataManager = settingsDataManager;

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class Item
@@ -46,7 +45,6 @@ namespace GameClient
         }
         public void DrawInventory(SpriteBatch spriteBatch, Vector2 position)
         {
-
             spriteBatch.Draw(_inventoryTexture, position, null, Color.White, 0, new Vector2(0, 0), _drawScale, SpriteEffects.None, 0.99f);
         }
         public void DrawOnGround(SpriteBatch spriteBatch)
@@ -68,7 +66,6 @@ namespace GameClient
                 return Copy();
             }
             return null;
-
         }
         public void MakeInventoryItem(Vector2 position)
         {
@@ -85,5 +82,4 @@ namespace GameClient
             packet.WriteInt(_itemNum);
         }
     }
-
 }

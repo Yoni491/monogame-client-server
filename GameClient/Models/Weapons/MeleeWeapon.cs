@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-
-
 namespace GameClient
 {
     public class MeleeWeapon
@@ -27,11 +25,9 @@ namespace GameClient
         private bool _isColided = false;
         public bool _hitPlayers;
         private bool _dealDmg;
-        private InventoryManager _inventoryManager;
+        private Inventory _inventoryManager;
         private bool _isColidedBox;
         private Chest _colidedChest;
-
-
         public Rectangle Rectangle
         {
             get
@@ -40,7 +36,7 @@ namespace GameClient
             }
         }
         public Vector2 Position { get => _position; set => _position = value; }
-        public MeleeWeapon(int id, Texture2D texture, Vector2 position, float swing_range, int dmg, bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
+        public MeleeWeapon(int id, Texture2D texture, Vector2 position, float swing_range, int dmg, bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
             _id = id;
             _texture = texture;
@@ -69,7 +65,7 @@ namespace GameClient
                 _swing_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (_hitPlayers)
                 {
-                    if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, 5))
+                    if (!_isColided && CollisionManager.isColidedWithPlayers(swingRectangle, Vector2.Zero, 5))
                     {
                         _isColided = true;
                         DmgMassageManager.CreateDmgMessage(_dmg, _position, Color.Purple, 0.5f);
@@ -87,7 +83,6 @@ namespace GameClient
                         _isColidedBox = true;
                         while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, 5))
                         {
-
                         }
                     }
                     else if (!_isColidedBox && !_isColided)
@@ -144,7 +139,7 @@ namespace GameClient
                 spriteBatch.Draw(_texture, _position, null, Color.White, 0, new Vector2(24, 12), _holderScale * 0.5f, SpriteEffects.None, layer);
             }
         }
-        public MeleeWeapon Copy(bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
+        public MeleeWeapon Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
             return new MeleeWeapon(_id, _texture, _position, _swing_range, _dmg, hitPlayers, dealDmg, inventoryManager);
         }
@@ -180,6 +175,5 @@ namespace GameClient
                 }
             }
         }
-
     }
 }

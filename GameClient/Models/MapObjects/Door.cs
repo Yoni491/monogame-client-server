@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class Door
@@ -13,20 +12,16 @@ namespace GameClient
         public int _tilesetIndex;
         public bool _sendDoor;
         public bool _destroy;
-
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
-
         public Door(Rectangle rectangle, int numberInTileset, int tilesetIndex)
         {
             _tilesetIndex = tilesetIndex;
             _numberInTileset = numberInTileset;
             Rectangle = rectangle;
             _position = new Vector2(rectangle.X, rectangle.Y + TileManager._map.TileHeight);
-
         }
         public void Update()
         {
-
         }
         public void Destroy()
         {
@@ -44,7 +39,6 @@ namespace GameClient
                 PathFindingManager._continueSearchingBlockedPaths = true;
                 _destroy = true;
             }
-
         }
         public void UpdatePacket(Packet packet)
         {

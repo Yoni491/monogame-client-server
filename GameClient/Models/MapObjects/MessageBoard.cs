@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class MessageBoard
@@ -14,7 +13,6 @@ namespace GameClient
         public bool _destroy, _displayMessage, _displayMessageGamePad;
         ScreenMessage _screenMessage, _screenMessageGamePad;
         GraphicsDevice _graphicsDevice;
-
         public MessageBoard(GraphicsDevice graphicDevice, Rectangle rectangle, string text, string textGamePad = null, bool triggerByHitting = false)
         {
             _graphicsDevice = graphicDevice;
@@ -44,7 +42,6 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch, bool UsingGamePad)
         {
-
             if (UsingGamePad && _screenMessageGamePad != null)
             {
                 if (_displayMessageGamePad)

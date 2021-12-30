@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     class InGameUI
@@ -24,10 +23,8 @@ namespace GameClient
         KeyboardState _prevState;
         bool _showLevelBox;
         LevelManager _levelManager;
-
         public InGameUI()
         {
-
         }
         public void Initialize(GraphicsDevice graphicsDevice, InventoryManager inventoryManager, LevelManager levelManager)
         {
@@ -38,7 +35,6 @@ namespace GameClient
             _positionGold = new Vector2(200, 0);
             _background = new Color(Color.Black, 0.1f);
             _inventoryManager = inventoryManager;
-
             _buttonPosition = new ScreenPoint(500, 100);
             _levelTextBox = new TextInputBox(Vector2.Zero, _buttonPosition, true, 50);
             _loadLevelMessage = new ScreenMessage(graphicsDevice, "Load level:", _buttonPosition, new Vector2(-160, -10));
@@ -61,17 +57,16 @@ namespace GameClient
                 if (_showLevelBox)
                     _levelTextBox.Update(gameTime);
             }
-
             if (_levelShowing != LevelManager._currentLevel)
             {
                 _levelShowing = LevelManager._currentLevel;
                 _textLevel = "Level: " + _levelShowing.ToString();
             }
-            if (_goldShowing != _inventoryManager._gold)
-            {
-                _goldShowing = _inventoryManager._gold;
-                _textGold = "Gold: " + _goldShowing.ToString();
-            }
+            //if (_goldShowing != _inventoryManager._gold)
+            //{
+            //    _goldShowing = _inventoryManager._gold;
+            //    _textGold = "Gold: " + _goldShowing.ToString();
+            //}
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -91,11 +86,9 @@ namespace GameClient
         }
         public void ResetGraphics()
         {
-
         }
         public void Initialize()
         {
-
         }
     }
 }

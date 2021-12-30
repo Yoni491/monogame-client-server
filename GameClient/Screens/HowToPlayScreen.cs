@@ -1,8 +1,6 @@
 ﻿using GameClient.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-
 namespace GameClient
 {
     class HowToPlayScreen
@@ -18,7 +16,6 @@ namespace GameClient
         Texture2D _keyboardMouse, _gamePad;
         bool _showKeyBoardKeys = true;
         Rectangle _keysRectangle;
-
         public HowToPlayScreen(GraphicsDevice graphicsDevice, MainMenuScreen menuManager, ProgressManager progressManager, Game_Client gameClient)
         {
             _gameClient = gameClient;
@@ -53,12 +50,10 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
             if (_showKeyBoardKeys)
                 spriteBatch.Draw(_keyboardMouse, _keysRectangle, Color.White);
             else
                 spriteBatch.Draw(_gamePad, _keysRectangle, Color.White);
-
             _keyBoardControllerKeys.Draw(spriteBatch);
             _returnToMain.Draw(spriteBatch);
         }

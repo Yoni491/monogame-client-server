@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-
 namespace GameClient
 {
     public class Packet
     {
         private byte[] _buffer = new byte[10000];
         public ushort _offset = 0;
-
         public Packet()
         {
-
         }
-
         public void UpdateBuffer(byte[] buffer)
         {
             buffer.CopyTo(_buffer, 0);

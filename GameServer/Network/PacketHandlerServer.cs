@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using System.Threading;
 using GameClient;
 using Microsoft.Xna.Framework;
-
 namespace GameServer
 {
     public class PacketHandlerServer
@@ -20,7 +19,6 @@ namespace GameServer
         public NetworkPlayer _player;
         private readonly List<SimpleEnemy> _enemies;
         public int _playerCurrentLevel;
-
         public PacketHandlerServer(List<NetworkPlayer> players, NetworkPlayer player, List<SimpleEnemy> enemies)
         {
             _players = players;
@@ -53,7 +51,6 @@ namespace GameServer
                         case 0:
                             break;
                         case 1:
-
                             //short packet from client to server
                             ReadLevel();
                             ReadPlayer();
@@ -69,7 +66,6 @@ namespace GameServer
                             _player._nameDisplay._text = _packet.ReadString();
                             NetworkManagerServer._sendNames = true;
                             break;
-
                     }
                 }
                 catch
@@ -137,7 +133,6 @@ namespace GameServer
                     if (!door._destroy)
                         door.Destroy();
                     MapManager._doorsDestroyed.Add(doorNum);
-
                 }
             }
         }
@@ -152,7 +147,6 @@ namespace GameServer
                     if (!MapManager._chests[chestNum]._destroy)
                         MapManager._chests[chestNum].Open();
                     MapManager._chestsDestroyed.Add(chestNum);
-
                 }
             }
         }

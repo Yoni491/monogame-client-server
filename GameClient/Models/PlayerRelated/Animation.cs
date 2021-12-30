@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-
 namespace GameClient
 {
     public class Animation
@@ -10,9 +9,7 @@ namespace GameClient
         public int _frameWidth;
         public bool _isLooping;
         public int _frameCount;
-
         public Texture2D[] _textures;
-
         public Animation(Texture2D[] textures)
         {
             _textures = textures;

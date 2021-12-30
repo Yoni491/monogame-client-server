@@ -2,22 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
-
     public class BulletReach
     {
         public int _id;
-        private Player _player;
+        private List<Player> _players;
         private List<NetworkPlayer> _networkPlayers;
         private Gun _gun;
         private Bullet _bullet;
         public Vector2 _reachablePlayerPos = Vector2.Zero;
-        public BulletReach(int id, Player player, List<NetworkPlayer> networkPlayers, Gun gun)
+        public BulletReach(int id, List<Player> players, List<NetworkPlayer> networkPlayers, Gun gun)
         {
             _id = id;
-            _player = player;
+            _players = players;
             _networkPlayers = networkPlayers;
             _gun = gun;
             _bullet = _gun._bullet;
@@ -50,21 +48,20 @@ namespace GameClient
                     return;
                 }
             }
-            if (_player != null)
+            _players.ForEach(player =>
             {
-                if (CheckIfReachable(_player.Position_Head))
+                if (CheckIfReachable(player.Position_Head))
                 {
-                    _reachablePlayerPos = _player.Position_Head;
+                    _reachablePlayerPos = player.Position_Head;
                     return;
                 }
-                if (CheckIfReachable(_player.Position_Feet))
+                if (CheckIfReachable(player.Position_Feet))
                 {
-                    _reachablePlayerPos = _player.Position_Feet;
+                    _reachablePlayerPos = player.Position_Feet;
                     return;
                 }
-            }
+            });
             _reachablePlayerPos = Vector2.Zero;
-
         }
         public bool CheckIfReachable(Vector2 _direction)
         {
@@ -77,7 +74,7 @@ namespace GameClient
                 if (tempPos.X < 2000 && tempPos.X > 0 && tempPos.Y < 2000 && tempPos.Y > 0)
                 {
                     tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
-                    if (CollisionManager.isColidedWithPlayer(tempRec, Vector2.Zero, 0))
+                    if (CollisionManager.isColidedWithPlayers(tempRec, Vector2.Zero, 0))
                     {
                         _gun._MaxPointBulletReach = tempPos;
                         return true;
@@ -89,7 +86,6 @@ namespace GameClient
                     }
                     if (CollisionManager.isCollidingWalls(tempRec, direction * _bullet._speed))
                     {
-
                         //_gun._MaxPointBulletReach = tempPos;
                         return false;
                     }
@@ -100,7 +96,6 @@ namespace GameClient
                     _gun._MaxPointBulletReach = tempPos;
                     return false;
                 }
-
             }
         }
     }

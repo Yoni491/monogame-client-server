@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Threading;
-
 namespace GameClient
 {
     public class PathFinder
@@ -146,7 +145,6 @@ namespace GameClient
                 {
                     _path.Clear();
                 }
-
             }
             else
             {
@@ -163,7 +161,6 @@ namespace GameClient
                 _first_position = start;
             _position = start;
             _end = end;
-
         }
         public Vector2 GetNextCoordPosition()
         {

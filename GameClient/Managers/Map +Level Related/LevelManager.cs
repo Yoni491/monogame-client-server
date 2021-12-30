@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class LevelManager
     {
-        private Player _player;
+        private List<Player> _players;
         ProgressManager _progressManager;
         private readonly TileManager _tileManager;
         Coord _coord_Player;
@@ -37,16 +36,14 @@ namespace GameClient
             {
                 _currentLevel = num;
                 _spawnPoint = _tileManager.LoadMap(_currentLevel);
-                if (_player != null)
-                    _player.PositionPlayerFeetAt(_spawnPoint);
+                _players.ForEach(player => player.PositionPlayerFeetAt(_spawnPoint));
             }
             else
             {
                 if (_currentLevel == _maxLevel)
                     _currentLevel = 0;
                 _spawnPoint = _tileManager.LoadMap(++_currentLevel);
-                if (_player != null)
-                    _player.PositionPlayerFeetAt(_spawnPoint);
+                _players.ForEach(player => player.PositionPlayerFeetAt(_spawnPoint));
             }
             if (!Game_Client._isServer)
             {
@@ -56,9 +53,9 @@ namespace GameClient
             }
             _sendNewLevel = true;
         }
-        public void Initialize(Player player, ProgressManager progressManager)
+        public void Initialize(List<Player> players, ProgressManager progressManager)
         {
-            _player = player;
+            _players = players;
             _progressManager = progressManager;
         }
         public void Initialize(List<NetworkPlayer> networkPlayers, ProgressManager progressManager)
@@ -70,9 +67,9 @@ namespace GameClient
         {
             if (!Game_Client._isMultiplayer)
             {
-                if (_player != null)
+                foreach (Player player in _players)
                 {
-                    _coord_Player = TileManager.GetCoordTile(_player.Position_Feet);
+                    _coord_Player = TileManager.GetCoordTile(player.Position_Feet);
                     if (_coord_Player.X + 1 >= TileManager._map.Width)
                     {
                         LoadNewLevel();
@@ -96,6 +93,5 @@ namespace GameClient
             }
             return false;
         }
-
     }
 }

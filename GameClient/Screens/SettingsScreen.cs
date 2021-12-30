@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace GameClient
 {
     public class SettingsScreen
@@ -18,10 +17,8 @@ namespace GameClient
         private Texture2D _settingsBackground;
         int _buttonHeight = 50, _buttonWeight = 200;
         ScreenPoint _buttonPosition;
-
         public SettingsScreen()
         {
-
         }
         public void Initialize(Game_Client game_client, ContentManager content, GraphicsDevice graphics, ProgressManager progressManager, SettingsDataManager settingsDataManager)
         {
@@ -149,7 +146,6 @@ namespace GameClient
         {
             _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
             _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 150;
-
             _returnToGame.ResetGraphics();
             _restartLevel.ResetGraphics();
             _fullScreenButton.ResetGraphics();

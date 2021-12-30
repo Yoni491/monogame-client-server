@@ -12,7 +12,7 @@ namespace GameClient
         private SpriteBatch _settingsBatch;
         private List<NetworkPlayer> _networkPlayers;
         static private GameOverScreen _gameOverScreen;
-        private Player _player;
+        private List<Player> _players;
         private List<SimpleEnemy> _enemies;
         private EnemyManager _enemyManager;
         private TileManager _tileManager;
@@ -34,16 +34,13 @@ namespace GameClient
         private BulletReachManager _bulletReachManager;
         private DmgMassageManager _dmgMassageManager;
         private NameGenerator _nameGenerator;
-
         static public bool _inMenu = true;
         static public bool _isMultiplayer = false;
         static public bool _isServer = true;
-
         #region Important Functions
         public Game_Client()
         {
             _graphics = new GraphicsDeviceManager(this);
-
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             //Window.AllowUserResizing = true;
@@ -51,7 +48,6 @@ namespace GameClient
             PlayerIndex.One.GetType();
             _isServer = false;
         }
-
         protected override void Initialize()
         {
             _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
@@ -69,7 +65,7 @@ namespace GameClient
             //menu and ui
             _menuManager = new MainMenuScreen();
             _settingsScreen = new SettingsScreen();
-            _inventoryManager = new InventoryManager(GraphicsDevice);
+            _inventoryManager = new InventoryManager();
             _gameOverScreen = new GameOverScreen();
             _inGameUI = new InGameUI();
             _dmgMassageManager = new DmgMassageManager(GraphicsDevice);
@@ -86,7 +82,8 @@ namespace GameClient
             //players and enemies
             _networkPlayers = new List<NetworkPlayer>();
             _enemies = new List<SimpleEnemy>();
-            _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager);
+            _players = new List<Player>();
+            _playerManager = new PlayerManager(GraphicsDevice, _networkPlayers, _collectionManager, _players);
             _enemyManager = new EnemyManager(GraphicsDevice, _enemies, _collectionManager);
             _nameGenerator = new NameGenerator();
             //calculations
@@ -97,21 +94,21 @@ namespace GameClient
             _networkManager = new NetworkManagerClient();
             //initializers
             _collectionManager.Initialize(_enemies, Content, _playerManager, _itemManager);
-            _player = _playerManager.AddPlayer(_itemManager, _inventoryManager, _settingsScreen);
-            _bulletReachManager.Initialize(_player, _networkPlayers);
-            _collisionManager.Initialize(_networkPlayers, _player, _enemies);
-            _levelManager.Initialize(_player, _progressManager);
-            _inventoryManager.Initialize(_player, _itemManager);
-            _mapManager.Initialize(_player);
-            _progressManager.Initialize(_player, _inventoryManager, _playerManager, _levelManager, _collectionManager);
-            _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _player);
+            _playerManager.Initialize(_itemManager, _inventoryManager, _settingsScreen);
+            _bulletReachManager.Initialize(_players, _networkPlayers);
+            _collisionManager.Initialize(_networkPlayers, _players, _enemies);
+            _levelManager.Initialize(_players, _progressManager);
+            _inventoryManager.Initialize(GraphicsDevice, _itemManager);
+            _mapManager.Initialize(_players);
+            _progressManager.Initialize(_players, _inventoryManager, _playerManager, _levelManager, _collectionManager);
+            _gameOverScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _players);
             _menuManager.Initialize(this, GraphicsDevice, _progressManager, _settingsDataManager);
-            _networkManager.Initialize(_networkPlayers, _player, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._connectionScreen);
+            _networkManager.Initialize(_networkPlayers, _players, _playerManager, _enemies, _enemyManager, _inventoryManager, _levelManager, _menuManager._connectionScreen);
             _settingsScreen.Initialize(this, Content, GraphicsDevice, _progressManager, _settingsDataManager);
             _settingsDataManager.Initialize(_menuManager._characterSelectScreen, _menuManager._connectionScreen, _settingsScreen);
             _inGameUI.Initialize(GraphicsDevice, _inventoryManager, _levelManager);
+            _players.Add(_playerManager.AddPlayer());
         }
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -128,7 +125,6 @@ namespace GameClient
                 if (GameOverScreen._showScreen)
                 {
                     _gameOverScreen.Update(gameTime);
-
                     //Player player = null;
                     //_player = player;
                 }
@@ -149,11 +145,9 @@ namespace GameClient
                 }
             }
             base.Update(gameTime);
-
         }
         protected override void Draw(GameTime gameTime)
         {
-
             _UIbatch.Begin(SpriteSortMode.FrontToBack);
             _spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: GraphicManager.GetSpriteBatchMatrix());
             _settingsBatch.Begin(SpriteSortMode.FrontToBack);
@@ -212,7 +206,6 @@ namespace GameClient
             MapManager.ResetMap();
             DmgMassageManager.Reset();
         }
-
         static public void ResetGraphics()
         {
             _inventoryManager.ResetGraphics();

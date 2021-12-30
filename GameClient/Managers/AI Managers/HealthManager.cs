@@ -1,27 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace GameClient
 {
     public class HealthManager
     {
         public int _total_health { get; set; }
-
         public int _health_left { get; set; }
-
         private Vector2 _position;
-
         private Texture2D _healthbar;
-
         private Texture2D _healthbar_background;
-
         private int healthbar_width = 30;
-
         private float _Scale;
-
         private HealthManager()//for deserealizion
         {
-
         }
         public HealthManager(int total_health, Vector2 position, float scale)
         {
@@ -49,10 +40,8 @@ namespace GameClient
             Color[] data = new Color[healthbar_width];
             for (int i = 0; i < data.Length; ++i) data[i] = (i < life_precentage ? Color.Green : Color.Red);
             _healthbar.SetData(data);
-
             spriteBatch.Draw(_healthbar_background, new Rectangle((int)_position.X - 1, (int)_position.Y - 1, healthbar_width + 2, 5), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer - 0.03f);
             spriteBatch.Draw(_healthbar, new Rectangle((int)_position.X, (int)_position.Y, healthbar_width, 2), null, Color.White, 0, new Vector2(0, 0), SpriteEffects.None, layer - 0.02f);
         }
-
     }
 }

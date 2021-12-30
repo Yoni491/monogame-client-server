@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace GameClient
 {
     public class DmgMessage
@@ -12,7 +11,6 @@ namespace GameClient
         GraphicsDevice _graphicsDevice;
         float _timeDisplayed, _timer = 0, _scale;
         public bool _destroy;
-
         public DmgMessage(GraphicsDevice graphicDevice, int dmg, Vector2 positon, float timeDisplayed, Color color, float scale)
         {
             _graphicsDevice = graphicDevice;

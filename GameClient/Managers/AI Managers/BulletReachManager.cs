@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-
 namespace GameClient
 {
     public class BulletReachManager
@@ -14,10 +13,9 @@ namespace GameClient
         static List<int> _indecesToRemove;
         static private bool _continueSearch = false;
         static int id = 0;
-        static private Player _player;
+        static private List<Player> _players;
         static private List<NetworkPlayer> _networkPlayers;
         static bool _reset;
-
         public BulletReachManager()
         {
             t = new Thread(new ThreadStart(FindPaths));
@@ -25,11 +23,10 @@ namespace GameClient
             _bulletReaches = new List<BulletReach>();
             _bulletReachesToAdd = new List<BulletReach>();
             _indecesToRemove = new List<int>();
-
         }
-        public void Initialize(Player player, List<NetworkPlayer> networkPlayers)
+        public void Initialize(List<Player> players, List<NetworkPlayer> networkPlayers)
         {
-            _player = player;
+            _players = players;
             _networkPlayers = networkPlayers;
         }
         public void Update()
@@ -48,7 +45,7 @@ namespace GameClient
         }
         static public BulletReach GetBulletReach(Gun gun)
         {
-            BulletReach bulletReach = new BulletReach(id++, _player, _networkPlayers, gun);
+            BulletReach bulletReach = new BulletReach(id++, _players, _networkPlayers, gun);
             _bulletReachesToAdd.Add(bulletReach);
             return bulletReach;
         }
@@ -64,7 +61,6 @@ namespace GameClient
         {
             for (int i = 0; i < _indecesToRemove.Count; i++)
             {
-
                 _bulletReaches.RemoveAll(x => x._id == _indecesToRemove[i]);
             }
             _indecesToRemove.Clear();
@@ -86,7 +82,6 @@ namespace GameClient
                 {
                     if (index > _bulletReaches.Count - 1)
                         index = 0;
-
                     if (_bulletReaches.Count > 0)
                         _bulletReaches[index].FindReachablePlayer();
                     index++;

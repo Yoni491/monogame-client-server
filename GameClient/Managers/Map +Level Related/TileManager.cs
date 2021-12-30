@@ -37,37 +37,30 @@ namespace GameClient
             string mapName = Directory.GetCurrentDirectory() + "/Content/maps/" + "map" + mapNum.ToString() + ".tmx"; // BUG mac: GetCurrentDirectory not working well?
             Console.WriteLine(mapName);
             _map = new TmxMap(mapName);
-
             Vector2 spawnPoint = Vector2.Zero;
-
             for (int i = 0; i < _map.Tilesets.Count; i++)
             {
                 _tileSets.Add(new TileSet(_contentManager.Load<Texture2D>("maps/" + _map.Tilesets[i].Name.ToString()),
                 _map.Tilesets[i].TileWidth, _map.Tilesets[i].TileHeight));
             }
             _grid = new Grid(_map.Width, _map.Height);
-
             for (int i = 0; i < _map.TileLayers[1].Tiles.Count; i++)
             {
                 InitializeGid(i, 1, ref spawnPoint);
-
             }
             for (int i = 0; i < _map.TileLayers[2].Tiles.Count; i++)
             {
                 InitializeGid(i, 2, ref spawnPoint);
-
             }
             PathFinder.UpdateGrid(_grid);
             _levelLoaded = true;
             _messageNum = 0;
             _chestNum = 0;
             return spawnPoint;
-
         }
         public void InitializeGid(int i, int tilesetIndex, ref Vector2 spawnPoint)
         {
             int gid = _map.TileLayers[tilesetIndex].Tiles[i].Gid;
-
             if (gid != 0)
             {
                 if (gid == 325)//grave normal
@@ -217,7 +210,6 @@ namespace GameClient
                     TileSet tileset = null;
                     if (ManageGid(spriteBatch, i, gid, tileLayer))
                     {
-
                     }
                     else
                     {
@@ -246,10 +238,8 @@ namespace GameClient
             int tileFrame = gid - 1;
             int column = tileFrame % tileset._tilesetTilesWide;
             int row = (int)Math.Floor((double)tileFrame / (double)tileset._tilesetTilesWide);
-
             float x = (i % _map.Width) * _map.TileWidth;
             float y = (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight;
-
             Rectangle tilesetRec = new Rectangle(tileset._tileWidth * column, tileset._tileHeight * row, (int)(tileset._tileWidth), (int)(tileset._tileHeight));
             spriteBatch.Draw(tileset._texture, new Rectangle((int)x, (int)y, (int)(tileset._tileWidth * scale), (int)(tileset._tileHeight * scale)), tilesetRec, Color.White, rotation, Vector2.Zero, SpriteEffects.None, layer);
         }
@@ -267,7 +257,6 @@ namespace GameClient
                 RemoveWall(tileNumber - _map.Width + i);
                 RemoveWall(tileNumber - _map.Width - i);
             }
-
         }
         static public void RemoveWall(int tileNumber)
         {

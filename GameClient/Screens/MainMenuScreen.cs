@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-
 namespace GameClient
 {
     public class MainMenuScreen
@@ -22,14 +21,18 @@ namespace GameClient
         HowToPlayScreen _howToPlayScreen;
         public bool _showChooseCharacterScreen, _showConnectionScreen, _showSelectSaveFileScreen, _showHowToPlay;
         public static bool _connected;
+        PlayerManager _playerManager;
+        InputManager _inputManager;
         public MainMenuScreen()
         {
-
         }
-        public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager, SettingsDataManager settingsDataManager)
+        public void Initialize(Game_Client game_client, GraphicsDevice graphicsDevice, ProgressManager progressManager,
+            SettingsDataManager settingsDataManager, PlayerManager playerManager, InputManager inputManager)
         {
+            _playerManager = playerManager;
+            _inputManager = inputManager;
             _connectionScreen = new ConnectionScreen(graphicsDevice, game_client, this, settingsDataManager);
-            _characterSelectScreen = new CharacterSelectScreen(graphicsDevice, game_client, this, settingsDataManager);
+            _characterSelectScreen = new CharacterSelectScreen(graphicsDevice, game_client, this, settingsDataManager, _playerManager, _inputManager);
             _SelectSaveFileScreen = new SelectSaveFileScreen(graphicsDevice, this, progressManager, game_client);
             _howToPlayScreen = new HowToPlayScreen(graphicsDevice, this, progressManager, game_client);
             _graphicsDevice = graphicsDevice;
@@ -43,7 +46,6 @@ namespace GameClient
         }
         public void Update(GameTime gameTime)
         {
-
             if (_showChooseCharacterScreen)
             {
                 _characterSelectScreen.Update(gameTime);
@@ -84,7 +86,6 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_menuBackgroundImage, new Rectangle(0, 0, GraphicManager.screenWidth, GraphicManager.screenHeight), Color.White);
-
             if (_showChooseCharacterScreen)
             {
                 _characterSelectScreen.Draw(spriteBatch);
@@ -117,7 +118,6 @@ namespace GameClient
             _howToPlayScreen.ResetGraphics();
             _buttonPosition.vector2.X = _graphicsDevice.Viewport.Bounds.Width / 2 - 120;
             _buttonPosition.vector2.Y = _graphicsDevice.Viewport.Bounds.Height / 2 - 30;
-
             _localGame.ResetGraphics();
             _onlineButton.ResetGraphics();
             _howToPlay.ResetGraphics();

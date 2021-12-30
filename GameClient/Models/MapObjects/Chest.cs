@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace GameClient
 {
     public class Chest
@@ -15,9 +14,7 @@ namespace GameClient
         public bool _sendChest;
         private int _itemToDrop;
         private bool _smallChest;
-
         public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
-
         public Chest(Rectangle rectangle, int numberInTileset, int tilesetIndex, int item = -1, bool smallChest = false)
         {
             _numberInTileset = numberInTileset;
@@ -29,7 +26,6 @@ namespace GameClient
         }
         public void Update(Rectangle player_position_rectangle)
         {
-
         }
         public void Open()
         {

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace GameClient
 {
     public class ItemManager
@@ -107,7 +106,6 @@ namespace GameClient
                     _itemsOnTheGround.Add(item._itemNum, item);
                 }
             }
-
         }
         public Item findClosestItem(Vector2 position)
         {

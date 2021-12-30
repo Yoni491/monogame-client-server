@@ -1,6 +1,5 @@
 ﻿namespace GameClient
 {
-
     public class SearchDetails
     {
         public bool PathPossible => PathFound || OpenListSize > 0;

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace GameClient
 {
     public class Gun
@@ -27,9 +26,7 @@ namespace GameClient
         public Vector2 _MaxPointBulletReach;
         public Vector2 _tipOfTheGun;
         private bool _dealDmg;
-        public InventoryManager _inventoryManager;
-
-
+        public Inventory _inventoryManager;
         #region meleeAttackVariables
         private int _moving_direction_int;
         private int _swingWeaponDmg = 5;
@@ -44,8 +41,6 @@ namespace GameClient
         private bool _swingWeapon_send;
         private Chest _colidedChest;
         #endregion
-
-
         public Rectangle Rectangle
         {
             get
@@ -53,7 +48,6 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y - 4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
-
         public Gun(int id, Texture2D texture, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
         {
             _id = id;
@@ -70,9 +64,7 @@ namespace GameClient
         {
             if (!_swing_weapon)
                 _moving_direction_int = moving_direction;
-
             MelleAttackUpdate(gameTime, position);
-
             _direction = Vector2.Normalize(direction);
             foreach (var bullet in _bullets)
             {
@@ -86,7 +78,6 @@ namespace GameClient
             {
                 _bullets.RemoveAll(bullet => bullet._destroy);
             }
-
             _isGamePad = isGamePad;
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _showLine = showLine;
@@ -101,14 +92,12 @@ namespace GameClient
                     swingRectangle = new Rectangle((int)_position.X, (int)_position.Y - 16, 16, 48);
                 else
                     swingRectangle = new Rectangle((int)_position.X - 16, (int)_position.Y + 16, 48, 16);
-
                 if (_hitPlayers)
                 {
-                    if (!_isColided && CollisionManager.isColidedWithPlayer(swingRectangle, Vector2.Zero, _swingWeaponDmg))
+                    if (!_isColided && CollisionManager.isColidedWithPlayers(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                     {
                         _isColided = true;
                         DmgMassageManager.CreateDmgMessage(_swingWeaponDmg, _position, Color.Purple, _shooting_timer);
-
                     }
                 }
                 else
@@ -123,7 +112,6 @@ namespace GameClient
                         _isColidedBox = true;
                         while (CollisionManager.isCollidingBoxes(swingRectangle, Vector2.Zero, _swingWeaponDmg))
                         {
-
                         }
                     }
                     else if (!_isColidedBox && !_isColided)
@@ -170,9 +158,7 @@ namespace GameClient
                 _position = position + new Vector2(23, 40) * _holderScale;
                 _between_attacks_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-
         }
-
         public void DrawSwing(SpriteBatch spriteBatch, float layer)
         {
             if (_moving_direction_int == (int)Direction.Up)
@@ -230,7 +216,7 @@ namespace GameClient
                 }
             }
         }
-        public Gun Copy(bool hitPlayers, bool dealDmg, InventoryManager inventoryManager)
+        public Gun Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
             Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers, dealDmg);
             return gun;
@@ -252,7 +238,6 @@ namespace GameClient
                     {
                         _directionSpread = _direction;
                     }
-
                     Bullet bullet = _bullet.Copy(_directionSpread, _tipOfTheGun, _hitPlayers);
                     if (!_dealDmg)
                     {
@@ -266,7 +251,6 @@ namespace GameClient
                 }
             }
         }
-
         private void SwingPositionUpdate(GameTime gameTime)
         {
             _swing_frame_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -310,7 +294,7 @@ namespace GameClient
                 if (tempPos.X < 2000 && tempPos.X > 0 && tempPos.Y < 2000 && tempPos.Y > 0)
                 {
                     tempRec = new Rectangle((int)tempPos.X, (int)tempPos.Y, _bullet.Rectangle.Width, _bullet.Rectangle.Height);
-                    if (_hitPlayers && CollisionManager.isColidedWithPlayer(tempRec, Vector2.Zero, 0))
+                    if (_hitPlayers && CollisionManager.isColidedWithPlayers(tempRec, Vector2.Zero, 0))
                     {
                         _MaxPointBulletReach = tempPos;
                         return true;
@@ -327,7 +311,6 @@ namespace GameClient
                     }
                     if (CollisionManager.isCollidingWalls(tempRec, _direction * _bullet._speed))
                     {
-
                         _MaxPointBulletReach = tempPos;
                         return false;
                     }
@@ -338,7 +321,6 @@ namespace GameClient
                     _MaxPointBulletReach = tempPos;
                     return false;
                 }
-
             }
         }
         public Vector2 GetTipOfTheGun(Vector2 target)
@@ -357,7 +339,6 @@ namespace GameClient
                 if (!bullet._bulletSent)
                     bullet.UpdatePacketShort(packet);
             }
-
         }
         public void ReadPacketShort(Packet packet, bool playSound)
         {
@@ -388,6 +369,5 @@ namespace GameClient
                 }
             }
         }
-
     }
 }

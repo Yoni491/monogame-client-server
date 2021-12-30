@@ -1,6 +1,5 @@
 ﻿namespace GameClient
 {
-
     public class Node
     {
         public Node(int id, int? parentId, int x, int y, int g, int h)
@@ -12,7 +11,6 @@
             H = h;
             F = G + H;
         }
-
         public Node(int id, int? parentId, Coord coord, int g, int h)
         {
             Id = id;
@@ -22,7 +20,6 @@
             H = h;
             F = G + H;
         }
-
         public int Id { get; set; }
         public int? ParentId { get; set; }
         public Coord Coord { get; set; }

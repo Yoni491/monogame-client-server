@@ -3,10 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-
 namespace GameClient
 {
-
     public class GraphicManager
     {
         public static GraphicsDevice _graphicsDevice;
@@ -22,7 +20,6 @@ namespace GameClient
         public static Texture2D _deadPlayerTexture;
         public static int _maxScreenHeight;
         public static int _maxScreenWidth;
-
         public GraphicManager(GraphicsDevice graphicsDevice, ContentManager contentManager, GraphicsDeviceManager graphics)
         {
             _graphicsDevice = graphicsDevice;
@@ -30,7 +27,6 @@ namespace GameClient
             _graphics = graphics;
             _maxScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             _maxScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-
             ScreenScale = new Vector2((float)1280 / 1920, (float)720 / 1080);
             screenHeight = 720;
             screenWidth = 1280;
@@ -39,7 +35,7 @@ namespace GameClient
             _ScreenMiddle = new Vector2(screenWidthScaled, screenHeightScaled);
             _deadPlayerTexture = GetTextureSqaure(_contentManager.Load<Texture2D>("resources/Dungeon_Tileset"), 10, 10, 9, 3);
             Button._font = GetBasicFont("basic_16");
-            InventoryManager._font = GetBasicFont("basic_12");
+            Inventory._font = GetBasicFont("basic_12");
         }
         public void Update(GameTime gameTime)
         {
@@ -74,7 +70,6 @@ namespace GameClient
                 _graphics.PreferredBackBufferWidth = 1280;  // set this value to the desired width of your window
                 _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
                 _graphics.ApplyChanges();
-
             }
         }
         static public void ChangeScreenSize(int width, int height)
@@ -140,7 +135,6 @@ namespace GameClient
             float distance = Vector2.Distance(start, end);
             Texture2D _line_texture = _contentManager.Load<Texture2D>("etc/lineSprite");
             spriteBatch.Draw(_line_texture, new Rectangle((int)end.X, (int)end.Y, (int)distance, 2), null, Color.White, angle, Vector2.Zero, SpriteEffects.None, 0.5f);
-
         }
         static public Texture2D getRectangleTexture(int width, int height, Color color)
         {
@@ -161,7 +155,6 @@ namespace GameClient
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Green;
             texture.SetData(data);
             spriteBatch.Draw(texture, rectangle, null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, layer);
-
         }
         static public void DrawSmallSquareAtPosition(SpriteBatch spriteBatch, Vector2 position, float layer)
         {

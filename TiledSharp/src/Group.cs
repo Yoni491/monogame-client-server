@@ -4,26 +4,21 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
-
 namespace TiledSharp
 {
     public class TmxGroup : ITmxLayer
     {
         public string Name { get; private set; }
-
         public double Opacity { get; private set; }
         public bool Visible { get; private set; }
         public double? OffsetX { get; private set; }
         public double? OffsetY { get; private set; }
-
         public TmxList<ITmxLayer> Layers { get; private set; }
-
         public TmxList<TmxLayer> TileLayers { get; private set; }
         public TmxList<TmxObjectGroup> ObjectGroups { get; private set; }
         public TmxList<TmxImageLayer> ImageLayers { get; private set; }
         public TmxList<TmxGroup> Groups { get; private set; }
         public PropertyDict Properties { get; private set; }
-
         public TmxGroup(XElement xGroup, int width, int height, string tmxDirectory)
         {
             Name = (string)xGroup.Attribute("name") ?? String.Empty;
@@ -31,9 +26,7 @@ namespace TiledSharp
             Visible = (bool?)xGroup.Attribute("visible") ?? true;
             OffsetX = (double?)xGroup.Attribute("offsetx") ?? 0.0;
             OffsetY = (double?)xGroup.Attribute("offsety") ?? 0.0;
-
             Properties = new PropertyDict(xGroup.Element("properties"));
-
             Layers = new TmxList<ITmxLayer>();
             TileLayers = new TmxList<TmxLayer>();
             ObjectGroups = new TmxList<TmxObjectGroup>();

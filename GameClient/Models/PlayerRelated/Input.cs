@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
 namespace GameClient
 {
     public class Input
@@ -18,11 +17,8 @@ namespace GameClient
         public float _left_trigger;
         private bool _buttonA, _buttonB, _buttonX, _buttonY, _buttonRightShoulder, _buttonLeftShoulder;
         private bool _buttonSpace;
-
         public bool _isGamePad;
-
-        GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
-
+        GamePadCapabilities _capabilities;
         public Input(Keys up, Keys down, Keys left, Keys right, Keys pick)
         {
             _down = down;
@@ -31,68 +27,81 @@ namespace GameClient
             _up = up;
             _pick = pick;
         }
+        public Input(int capabilityIndex)
+        {
+            if (capabilityIndex == 0)
+            {
+                _isGamePad = false;
+            }
+            else
+            {
+                _isGamePad = true;
+                _capabilities = GamePad.GetCapabilities(capabilityIndex);
+            }
+        }
         public void Update()
         {
-
-            if (capabilities.IsConnected)
+            if (_isGamePad && _capabilities.IsConnected)
             {
                 GamePadState statePad = GamePad.GetState(PlayerIndex.One);
-                if (capabilities.HasLeftXThumbStick)
+                if (_capabilities.HasLeftXThumbStick)
                 {
                     _left_joystick_direction = new Vector2(statePad.ThumbSticks.Left.X, -statePad.ThumbSticks.Left.Y);
                 }
-                if (capabilities.HasRightXThumbStick)
+                if (_capabilities.HasRightXThumbStick)
                 {
                     _right_joystick_direction = new Vector2(statePad.ThumbSticks.Right.X, -statePad.ThumbSticks.Right.Y);
                 }
-                if (capabilities.HasRightTrigger)
+                if (_capabilities.HasRightTrigger)
                 {
                     _right_trigger = statePad.Triggers.Right;
                 }
-                if (capabilities.HasLeftTrigger)
+                if (_capabilities.HasLeftTrigger)
                 {
                     _left_trigger = statePad.Triggers.Left;
                 }
-                if (capabilities.HasAButton)
+                if (_capabilities.HasAButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.A))
                         _buttonA = statePad.IsButtonDown(Buttons.A);
                 }
-                if (capabilities.HasBButton)
+                if (_capabilities.HasBButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.B))
                         _buttonB = statePad.IsButtonDown(Buttons.B);
                 }
-                if (capabilities.HasXButton)
+                if (_capabilities.HasXButton)
                 {
                     _buttonX = statePad.IsButtonDown(Buttons.X);
                 }
-                if (capabilities.HasYButton)
+                if (_capabilities.HasYButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.Y))
                         _buttonY = statePad.IsButtonDown(Buttons.Y);
                 }
-                if (capabilities.HasRightShoulderButton)
+                if (_capabilities.HasRightShoulderButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.RightShoulder))
                         _buttonRightShoulder = statePad.IsButtonDown(Buttons.RightShoulder);
                 }
-                if (capabilities.HasLeftShoulderButton)
+                if (_capabilities.HasLeftShoulderButton)
                 {
                     if (!_prevGamePadState.IsButtonDown(Buttons.LeftShoulder))
                         _buttonLeftShoulder = statePad.IsButtonDown(Buttons.LeftShoulder);
                 }
                 _prevGamePadState = statePad;
             }
-
-            KeyboardState stateKeyboard = Keyboard.GetState();
-            if (_prevKeyboardState.IsKeyUp(Keys.Space) && stateKeyboard.IsKeyDown(Keys.Space))
-                _buttonSpace = true;
-            if (!Game_Client._isMultiplayer)
+            else
             {
-                _buttonSpace = stateKeyboard.IsKeyDown(Keys.Space);
+                KeyboardState stateKeyboard = Keyboard.GetState();
+                if (_prevKeyboardState.IsKeyUp(Keys.Space) && stateKeyboard.IsKeyDown(Keys.Space))
+                    _buttonSpace = true;
+                if (!Game_Client._isMultiplayer)
+                {
+                    _buttonSpace = stateKeyboard.IsKeyDown(Keys.Space);
+                }
+                _prevKeyboardState = stateKeyboard;
             }
-            _prevKeyboardState = stateKeyboard;
         }
         public void GetVelocity(ref Vector2 _velocity, float _speed)
         {
@@ -100,7 +109,6 @@ namespace GameClient
             {
                 _isGamePad = false;
                 _velocity.Y = -1;
-
             }
             else if (Keyboard.GetState().IsKeyDown(_down))
             {
@@ -129,12 +137,15 @@ namespace GameClient
         }
         public void GetLookingDirection(ref Vector2 _looking_direction, Gun _gun, MeleeWeapon _meleeWeapon)
         {
-            if (_right_joystick_direction != Vector2.Zero)
+            if (_isGamePad)
             {
-                _isGamePad = true;
-                _looking_direction = _right_joystick_direction;
+                if (_right_joystick_direction != Vector2.Zero)
+                {
+                    _isGamePad = true;
+                    _looking_direction = _right_joystick_direction;
+                }
             }
-            if (!_isGamePad)
+            else
             {
                 if (_gun != null)
                     _looking_direction = new Vector2(Mouse.GetState().X, Mouse.GetState().Y) - _gun.Position * GraphicManager.ScreenScale;
@@ -144,85 +155,105 @@ namespace GameClient
         }
         public bool MeleeAttack()
         {
-            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            if (_isGamePad)
             {
-                _isGamePad = false;
-                return true;
+                if (Mouse.GetState().RightButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
             }
-            else if (_buttonX)
+            else
             {
-                _isGamePad = true;
-                _buttonX = false;
-                return true;
+                if (_buttonX)
+                {
+                    _buttonX = false;
+                    return true;
+                }
             }
             return false;
         }
         public bool Shot()
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (_isGamePad)
             {
-                _isGamePad = false;
-                return true;
+                if (_right_trigger > 0)
+                {
+                    return true;
+                }
             }
-            else if (_right_trigger > 0)
+            else
             {
-                _isGamePad = true;
-                return true;
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
             }
             return false;
         }
         public bool Pick()
         {
-            if (_buttonSpace)
+            if (_isGamePad)
             {
-                _buttonSpace = false;
-                _isGamePad = false;
-                return true;
+                if (_buttonB)
+                {
+                    return true;
+                }
             }
-            else if (_buttonB)
+            else
             {
-                _isGamePad = true;
-                return true;
+                if (_buttonSpace)
+                {
+                    _buttonSpace = false;
+                    return true;
+                }
             }
             return false;
         }
         public bool MoveInventoryPointerRight()
         {
-            if (_buttonRightShoulder)
+            if (_isGamePad)
             {
-                _isGamePad = true;
-                _buttonRightShoulder = false;
-                return true;
+                if (_buttonRightShoulder)
+                {
+                    _buttonRightShoulder = false;
+                    return true;
+                }
             }
             return false;
         }
         public bool MoveInventoryPointerLeft()
         {
-            if (_buttonLeftShoulder)
+            if (_isGamePad)
             {
-                _isGamePad = true;
-                _buttonLeftShoulder = false;
-                return true;
+                if (_buttonLeftShoulder)
+                {
+                    _buttonLeftShoulder = false;
+                    return true;
+                }
             }
             return false;
         }
         public bool ClickInventoryItemGamePad()
         {
-            if (_buttonA)
+            if (_isGamePad)
             {
-                _isGamePad = true;
-                _buttonA = false;
-                return true;
+                if (_buttonA)
+                {
+                    _buttonA = false;
+                    return true;
+                }
             }
             return false;
         }
         public bool DropInventoryItemGamePad()
         {
-            if (_buttonY)
+            if (_isGamePad)
             {
-                _isGamePad = true;
-                _buttonY = false;
-                return true;
+                if (_buttonY)
+                {
+                    _buttonY = false;
+                    return true;
+                }
             }
             return false;
         }

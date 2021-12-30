@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-
 namespace GameClient
 {
     public class PacketHandlerClient
     {
         public bool handle = false;
-        List<NetworkPlayer> _players;
-        Player _player;
+        List<NetworkPlayer> _networkPlayers;
+        List<Player> _players;
         PlayerManager _playerManager;
         private EnemyManager _enemyManager;
         private InventoryManager _inventoryManager;
@@ -18,12 +17,11 @@ namespace GameClient
         Packet _packet;
         ushort packetLength;
         ushort packetType;
-
         int usingResource = 0;
-        public PacketHandlerClient(List<NetworkPlayer> players, Player player, PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager, InventoryManager inventoryManager, LevelManager levelManager)
+        public PacketHandlerClient(List<NetworkPlayer> networkPlayers, List<Player> players, PlayerManager playerManager, List<SimpleEnemy> enemies, EnemyManager enemyManager, InventoryManager inventoryManager, LevelManager levelManager)
         {
+            _networkPlayers = networkPlayers;
             _players = players;
-            _player = player;
             _playerManager = playerManager;
             _enemyManager = enemyManager;
             _inventoryManager = inventoryManager;
@@ -59,14 +57,13 @@ namespace GameClient
                             ReadPacket();
                             break;
                         case 2:
-                            _player._playerNum = _packet.ReadInt();
+                            //_player._playerNum = _packet.ReadInt();
                             ReadPacket(true);
                             break;
                         case 3:
                             ReadPacket(true);
                             break;
                     }
-
                 }
                 catch
                 {
@@ -95,17 +92,16 @@ namespace GameClient
             for (int i = 0; i < numOfPlayers; i++)
             {
                 playerNum = _packet.ReadInt();
-                NetworkPlayer networkPlayer = _players.Find(x => x._playerNum == playerNum);
+                NetworkPlayer networkPlayer = _networkPlayers.Find(x => x._playerNum == playerNum);
                 if (networkPlayer == null)
                 {
                     networkPlayer = _playerManager.AddnetworkPlayer(playerNum);
                 }
                 networkPlayer._serverUpdated = true;
-
-                networkPlayer.ReadPacketShort(_packet, readNames, playerNum != _player._playerNum);
+                //networkPlayer.ReadPacketShort(_packet, readNames, playerNum != _player._playerNum);
             }
-            _players.RemoveAll(x => x._serverUpdated == false);
-            _players.ForEach(x => x._serverUpdated = false);
+            _networkPlayers.RemoveAll(x => x._serverUpdated == false);
+            _networkPlayers.ForEach(x => x._serverUpdated = false);
         }
         public void ReadEnemies()
         {
@@ -198,14 +194,14 @@ namespace GameClient
                     ItemManager._waitingForServerApprovalForItemPicked = false;
                 if (ItemManager._itemsOnTheGround.ContainsKey(itemNum))
                 {
-                    if (playerNum == _player._playerNum)
-                    {
-                        _inventoryManager.AddItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
-                    }
-                    else
-                    {
-                        ItemManager._itemsOnTheGround.Remove(itemNum);
-                    }
+                    //if (playerNum == _player._playerNum)
+                    //{
+                    //    _inventoryManager.AddItemToInventory(ItemManager._itemsOnTheGround[itemNum]);
+                    //}
+                    //else
+                    //{
+                    //    ItemManager._itemsOnTheGround.Remove(itemNum);
+                    //}
                 }
             }
         }
@@ -217,7 +213,7 @@ namespace GameClient
             {
                 Console.WriteLine(levelNum);
                 _levelManager.LoadNewLevel(levelNum);
-                _player.PositionPlayerFeetAt(position);
+                //_player.PositionPlayerFeetAt(position);
             }
         }
     }

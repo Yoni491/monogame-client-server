@@ -11,11 +11,13 @@ namespace GameClient
         public Keys _right;
         public Keys _up;
         public Keys _pick;
+        public Keys _dash;
         public Vector2 _left_joystick_direction;
         public Vector2 _right_joystick_direction;
         public float _right_trigger;
         public float _left_trigger;
         private bool _buttonA, _buttonB, _buttonX, _buttonY, _buttonRightShoulder, _buttonLeftShoulder;
+        public bool _buttonDPadRight, _buttonDPadLeft, _buttonDPadUp, _buttonDPadDown;
         private bool _buttonSpace;
         public bool _isGamePad;
         GamePadCapabilities _capabilities;
@@ -31,6 +33,7 @@ namespace GameClient
                 _right = Keys.D;
                 _up = Keys.W;
                 _pick = Keys.Space;
+                _dash = Keys.LeftShift;
             }
             else
             {
@@ -88,6 +91,26 @@ namespace GameClient
                     if (!_prevGamePadState.IsButtonDown(Buttons.LeftShoulder))
                         _buttonLeftShoulder = statePad.IsButtonDown(Buttons.LeftShoulder);
                 }
+                if (_capabilities.HasDPadRightButton)
+                {
+                    if (!_prevGamePadState.IsButtonDown(Buttons.DPadRight))
+                        _buttonDPadRight = statePad.IsButtonDown(Buttons.DPadRight);
+                }
+                if (_capabilities.HasDPadLeftButton)
+                {
+                    if (!_prevGamePadState.IsButtonDown(Buttons.DPadLeft))
+                        _buttonDPadLeft = statePad.IsButtonDown(Buttons.DPadLeft);
+                }
+                if (_capabilities.HasDPadRightButton)
+                {
+                    if (!_prevGamePadState.IsButtonDown(Buttons.DPadUp))
+                        _buttonDPadUp = statePad.IsButtonDown(Buttons.DPadUp);
+                }
+                if (_capabilities.HasDPadRightButton)
+                {
+                    if (!_prevGamePadState.IsButtonDown(Buttons.DPadDown))
+                        _buttonDPadDown = statePad.IsButtonDown(Buttons.DPadDown);
+                }
                 _prevGamePadState = statePad;
             }
             else
@@ -128,7 +151,7 @@ namespace GameClient
             {
                 _isGamePad = true;
                 _velocity = _left_joystick_direction;
-            }
+        }
             if (_velocity != Vector2.Zero)
             {
                 _velocity = Vector2.Normalize(_velocity) * _speed;
@@ -208,11 +231,30 @@ namespace GameClient
             }
             return false;
         }
+        public bool Dash()
+        {
+            if (_isGamePad)
+            {
+                if (_buttonLeftShoulder)
+                {
+                    _buttonLeftShoulder = false;
+                    return true;
+                }
+            }
+            else
+            {
+                if (Keyboard.GetState().IsKeyDown(_dash))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public bool MoveInventoryPointerRight()
         {
             if (_isGamePad)
             {
-                if (_buttonRightShoulder)
+                if (_buttonDPadRight)
                 {
                     _buttonRightShoulder = false;
                     return true;
@@ -224,9 +266,9 @@ namespace GameClient
         {
             if (_isGamePad)
             {
-                if (_buttonLeftShoulder)
+                if (_buttonDPadLeft)
                 {
-                    _buttonLeftShoulder = false;
+                    _buttonDPadLeft = false;
                     return true;
                 }
             }
@@ -256,5 +298,6 @@ namespace GameClient
             }
             return false;
         }
+
     }
 }

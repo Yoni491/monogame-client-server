@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{E9B5C9D4-ECBB-4A9F-BF65-879CE7A8EC97}|Default">
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GameSolution" expanded="True">
+            <Node name="GameClient" expanded="True">
+              <Node name="Managers" expanded="True">
+                <Node name="AI Managers" expanded="True" />
+                <Node name="Map +Level Related" expanded="True">
+                  <Node name="LevelManager.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Models" expanded="True">
+                <Node name="PlayerRelated" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.GameClient PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

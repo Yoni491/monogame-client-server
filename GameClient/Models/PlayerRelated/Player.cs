@@ -17,9 +17,12 @@ namespace GameClient
         public Vector2 _position;
         private Vector2 _looking_direction;
         private bool _hide_weapon = false;
+        private bool _dashing;
         static public bool _mouseIntersectsUI;
         private float _speed = 6f;
         private float _scale;
+        private float _dashTimer=0,_dashTimeLength=50,_dashingSpeed=36,_dashCooldown = 500;
+        private Vector2 _dashingDirection;
         public int _playerNum;
         private int _width;
         private int _height;
@@ -109,7 +112,28 @@ namespace GameClient
         public void InputReader(GameTime gameTime)
         {
             _velocity = Vector2.Zero;
-            _input.GetVelocity(ref _velocity, _speed);
+            if(!_dashing)
+            {
+                _dashTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
+                _input.GetVelocity(ref _velocity, _speed);
+                if(_input.Dash() && _dashTimer >= _dashCooldown)
+                {
+                    _dashTimer = 0;
+                    _dashingDirection = Vector2.Normalize(_velocity) * _dashingSpeed;
+
+                    _dashing = true;
+                }
+            }
+            if(_dashing)
+            {
+                _velocity = _dashingDirection;
+                _dashTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
+                if(_dashTimer >= _dashTimeLength)
+                {
+                    _dashing = false;
+                    _dashTimer = 0;
+                }
+            }
             _input.GetLookingDirection(ref _looking_direction, _gun, _meleeWeapon);
             if (_input.Shot())
             {

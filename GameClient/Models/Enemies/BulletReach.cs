@@ -48,7 +48,7 @@ namespace GameClient
                     return;
                 }
             }
-            _players.ForEach(player =>
+            foreach (var player in _players)
             {
                 if (CheckIfReachable(player.Position_Head))
                 {
@@ -60,7 +60,7 @@ namespace GameClient
                     _reachablePlayerPos = player.Position_Feet;
                     return;
                 }
-            });
+            }
             _reachablePlayerPos = Vector2.Zero;
         }
         public bool CheckIfReachable(Vector2 _direction)

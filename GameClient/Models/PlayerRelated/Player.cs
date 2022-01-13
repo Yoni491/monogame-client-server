@@ -46,6 +46,7 @@ namespace GameClient
             _itemManager = itemManager;
             _uIManager = uIManager;
             _inventory = inventory;
+            _inventory.Initialize(this);
             _scale = _animationManager._scale;
             _health = new HealthManager(health, position, _scale);
             _width = _animationManager.Animation._frameWidth;
@@ -77,7 +78,6 @@ namespace GameClient
             }
             _health.Update(_position);
             _input.Update();
-            _inventory.Update();
         }
         public void Draw(SpriteBatch spriteBatch)
         {

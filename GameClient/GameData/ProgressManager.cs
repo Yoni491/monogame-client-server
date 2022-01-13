@@ -5,7 +5,7 @@ namespace GameClient
 {
     public class ProgressManager
     {
-        ProgressDataPlayer _latestProgressData;
+        List<ProgressDataPlayer> _latestProgressData;
         List<Player> _players;
         InventoryManager _inventoryManager;
         PlayerManager _playerManager;
@@ -24,23 +24,26 @@ namespace GameClient
             _playerManager = playerManager;
             _levelManager = levelManager;
             _collectionManager = collectionManager;
-            if (File.Exists(_fileName))
-            {
-                string jsonString = File.ReadAllText(_fileName);
-                if (!string.IsNullOrEmpty(jsonString))
-                {
-                    _latestProgressData = JsonSerializer.Deserialize<ProgressDataPlayer>(jsonString);
-                    _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
-                    _saveFileAvailable = true;
-                }
-            }
+            //if (File.Exists(_fileName))
+            //{
+            //    string jsonString = File.ReadAllText(_fileName);
+            //    if (!string.IsNullOrEmpty(jsonString))
+            //    {
+            //        _latestProgressData = JsonSerializer.Deserialize<List<ProgressDataPlayer>>(jsonString);
+            //        _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
+            //        _saveFileAvailable = true;
+            //    }
+            //}
         }
         public void CreateProgressData()
         {
-            //_latestProgressData = new ProgressData(_player._playerNum, LevelManager._currentLevel, _player._animationNum, _player._health,
-            //    _player._gun._id, _inventoryManager._inventory_rectangles, _player._nameDisplay._text, _inventoryManager._gold);
-            _progressDataJson = JsonSerializer.Serialize(_latestProgressData);
-            File.WriteAllText(_fileName, _progressDataJson);
+            //foreach (var player in _players)
+            //{
+            //    _latestProgressData.Add(new ProgressDataPlayer(player._playerNum, LevelManager._currentLevel, player._animationNum, player._health,
+            //    player._gun._id, player._inventory._inventory_rectangles, player._nameDisplay._text, player._inventory._gold, player._));
+            //}
+            //_progressDataJson = JsonSerializer.Serialize(_latestProgressData);
+            //File.WriteAllText(_fileName, _progressDataJson);
         }
         public void UpdateProgressData()
         {
@@ -49,15 +52,20 @@ namespace GameClient
         {
             //if (_progressDataJson != null)
             //{
-            //    _latestProgressData = JsonSerializer.Deserialize<ProgressDataPlayer>(_progressDataJson);
-            //    _playerManager.AddPlayerFromData(_latestProgressData);
-            //    _inventoryManager.ResetInventory();
-            //    foreach (var item in _latestProgressData._item_list)
+            //    int lastLevel;
+            //    _latestProgressData = JsonSerializer.Deserialize<List<ProgressDataPlayer>>(_progressDataJson);
+            //    foreach (var playerData in _latestProgressData)
             //    {
-            //        _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).DropAndCopy(true), false, item._amount);
+            //        _playerManager.AddPlayerFromData(playerData);
+            //        _inventoryManager.ResetInventory();
+            //        foreach (var item in playerData._item_list)
+            //        {
+            //            _inventoryManager.AddItemToInventory(_collectionManager.GetItem(item._itemID).DropAndCopy(true), false, item._amount);
+            //        }
+            //        _inventoryManager._gold = _latestProgressData._gold;
             //    }
-            //    _inventoryManager._gold = _latestProgressData._gold;
-            //    _levelManager.LoadNewLevel(_latestProgressData._level); // has to be in the end of the funcion, because calling CreateProgressData
+
+            //    _levelManager.LoadNewLevel(lastLevel); // has to be in the end of the funcion, because calling CreateProgressData
             //}
         }
     }

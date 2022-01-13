@@ -22,6 +22,7 @@ namespace GameClient
         public Item EquippedGun = null;
         int _gamePadPointer = 0;
         public int _gold = 0;
+        bool _usingGamePad;
         public Inventory(GraphicsDevice graphicsDevice, ItemManager itemManager)
         {
             _graphicsDevice = graphicsDevice;

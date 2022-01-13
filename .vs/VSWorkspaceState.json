@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\GameClient",
+    "\\GameClient\\Models",
+    "\\GameClient\\Models\\Enemies",
+    "\\GameClient\\Models\\PlayerRelated"
+  ],
+  "SelectedNode": "\\GameClient\\Models\\PlayerRelated\\Player.cs",
+  "PreviewInSolutionExplorer": false
+}

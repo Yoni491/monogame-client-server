@@ -40,8 +40,9 @@ namespace GameClient
             Vector2 position = Vector2.Zero;
             int animationNum = 3;
             NameDisplay nameDisplay = new NameDisplay(_graphicsDevice, "");
+            Inventory inventory = _inventoryManager.AddInventory();
             Player player = new Player(GraphicManager.GetAnimationManager_spriteMovement(animationNum, 1.5f),
-                animationNum, position, _playerStartingHealth, this, _itemManager, _inventoryManager.AddInventory(), _UImanager, nameDisplay);
+                animationNum, position, _playerStartingHealth, this, _itemManager, inventory, _UImanager, nameDisplay);
             player._inventory.EquippedGun = _collectionManager.GetItem(7).DropAndCopy(true);
             player.EquipGun(player._inventory.EquippedGun._gun);
             //_player.EquipMeleeWeapon(CollectionManager.GetMeleeWeaponCopy(1,false,true,_inventoryManager));

@@ -14,11 +14,12 @@ namespace GameClient
         public List<ProgressDataItem> _item_list { get; set; }
         public int _gold { get; set; }
         public String _playerName { get; set; }
+        public bool _usingGamePad { get; set; }
         private ProgressDataPlayer()
         {
         }
         public ProgressDataPlayer(int playerID, int level, int animationNum, HealthManager health,
-            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles, string playerName, int gold)
+            int gunNum, (Rectangle, ItemStock)[] _inventory_rectangles, string playerName, int gold, bool usingGamePad)
         {
             _playerID = playerID;
             _level = level;
@@ -33,6 +34,7 @@ namespace GameClient
                 if (item.Item2 != null)
                     _item_list.Add(new ProgressDataItem(item.Item2._item._itemId, item.Item2._amount));
             }
+            _usingGamePad = usingGamePad;
         }
     }
     public class ProgressDataItem

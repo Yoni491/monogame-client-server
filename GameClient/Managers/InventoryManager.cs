@@ -26,12 +26,27 @@ namespace GameClient
         }
         public void Update()
         {
+            foreach (var inventory in _inventories)
+            {
+                inventory.Update();
+
+            }
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            foreach (var inventory in _inventories)
+            {
+                inventory.Draw(spriteBatch);
+            }
         }
         public void ResetGraphics()
         {
+            foreach (var inventory in _inventories)
+            {
+                inventory.ResetGraphics();
+
+            }
         }
     }
 }

@@ -113,21 +113,25 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 5, 600));//Desert-eagle
             _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.08f, 2, 500));//M16
             _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 5, 600));//Rifle
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 4, 400));//MachineGun
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.015f, 1, 300));//Uzi
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 4, 400));//Famas
+            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.015f, 1, 300));//P90
         }
         private void InitializeGuns()
         {
             int id = 0;
             _guns = new List<Gun>();
-            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/1"), new Vector2(0, 0), _enemies, _bullets[0], false, 0.1f, true, true);
-            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/2"), new Vector2(0, 0), _enemies, _bullets[1], true, 0, true, true);
-            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/3"), new Vector2(0, 0), _enemies, _bullets[2], false, 0, true, true);
-            Gun MachineGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/4"), new Vector2(0, 0), _enemies, _bullets[3], false, 0.4f, true, true);
-            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/5"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
+            Gun Rifle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/3"), new Vector2(0, 0), _enemies, _bullets[0], false, 0, true, true);
+            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/1"), new Vector2(0, 0), _enemies, _bullets[1], false, 0.1f, true, true);
+            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/2"), new Vector2(0, 0), _enemies, _bullets[2], true, 0, true, true);
+            Gun Famas = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/4"), new Vector2(0, 0), _enemies, _bullets[3], false, 0.4f, true, true);
+            Gun P90 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/5"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
+            Gun Uzi1 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/6"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
+            Gun Uzi2 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/7"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
+            Gun Uzi3 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/8"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
+            Gun Uzi4 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/9"), new Vector2(0, 0), _enemies, _bullets[4], false, 0.55f, true, true);
             _guns.Add(M16);
             _guns.Add(Sniper);
             _guns.Add(Rifle);

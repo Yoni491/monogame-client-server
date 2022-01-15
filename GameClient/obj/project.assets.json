@@ -429,6 +429,7 @@
         "netcoreapp3.1"
       ],
       "sources": {
+        "http://teamcity.monogame.net/guestAuth/app/nuget/v1/FeedService.svc/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -116,7 +116,7 @@ namespace GameClient
             {
                 _dashTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
                 _input.GetVelocity(ref _velocity, _speed);
-                if(_input.Dash() && _dashTimer >= _dashCooldown)
+                if(_input.Dash() && _dashTimer >= _dashCooldown && _velocity!=Vector2.Zero)
                 {
                     _dashTimer = 0;
                     _dashingDirection = Vector2.Normalize(_velocity) * _dashingSpeed;

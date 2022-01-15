@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/Sound/SwitchingWeapon.wav</SourceFile>
+  <SourceTime>2022-01-12T20:45:47.8087568+02:00</SourceTime>
+  <DestFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/bin/Sound/SwitchingWeapon.xnb</DestFile>
+  <DestTime>2022-01-15T12:53:49.2399066+02:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2020-08-10T19:17:54+03:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

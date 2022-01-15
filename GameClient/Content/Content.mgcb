@@ -1,14 +1,18 @@
+
 #----------------------------- Global Properties ----------------------------#
-/outputDir:bin/$(Platform)
-/intermediateDir:obj/$(Platform)
+
+/outputDir:bin
+/intermediateDir:obj
 /platform:DesktopGL
 /config:
 /profile:HiDef
 /compress:False
+
 #-------------------------------- References --------------------------------#
-/reference:..\..\..\..\..\..\..\..\Desktop\TiledSharp-master\TiledSharp\bin\Debug\net35\TiledSharp.dll
-/reference:..\..\..\..\..\..\..\..\Desktop\TiledSharp-master\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.dll
+
+
 #---------------------------------- Content ---------------------------------#
+
 #begin etc/bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -20,6 +24,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:etc/bullet.png
+
 #begin etc/lineSprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -31,8 +36,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:etc/lineSprite.png
+
 #begin etc/names.txt
 /copy:etc/names.txt
+
 #begin etc/settings.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -44,36 +51,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:etc/settings.png
+
 #begin Fonts/basic_12.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic_12.spritefont
+
 #begin Fonts/basic_16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic_16.spritefont
+
 #begin Fonts/basic_22.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/basic_22.spritefont
+
 #begin Fonts/comic_16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/comic_16.spritefont
+
 #begin Fonts/comic_22.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/comic_22.spritefont
+
 #begin Images/backgroundUnboxingrave.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,6 +98,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/backgroundUnboxingrave.png
+
 #begin Images/GamePadKeys.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,6 +110,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/GamePadKeys.jpg
+
 #begin Images/‏‏‫KeyboardMouseKeys.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -107,6 +122,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/‏‏‫KeyboardMouseKeys.jpg
+
 #begin Images/matrix.jpeg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -118,6 +134,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/matrix.jpeg
+
 #begin Images/settingBackground.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -129,6 +146,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/settingBackground.jpg
+
 #begin maps/Dungeon_Tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -140,54 +158,79 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:maps/Dungeon_Tileset.png
+
 #begin maps/Dungeon_Tileset.tsx
 /copy:maps/Dungeon_Tileset.tsx
+
 #begin maps/map1.tmx
 /copy:maps/map1.tmx
+
 #begin maps/map10.tmx
 /copy:maps/map10.tmx
+
 #begin maps/map11.tmx
 /copy:maps/map11.tmx
+
 #begin maps/map12.tmx
 /copy:maps/map12.tmx
+
 #begin maps/map13.tmx
 /copy:maps/map13.tmx
+
 #begin maps/map14.tmx
 /copy:maps/map14.tmx
+
 #begin maps/map15.tmx
 /copy:maps/map15.tmx
+
 #begin maps/map16.tmx
 /copy:maps/map16.tmx
+
 #begin maps/map17.tmx
 /copy:maps/map17.tmx
+
 #begin maps/map18.tmx
 /copy:maps/map18.tmx
+
 #begin maps/map19.tmx
 /copy:maps/map19.tmx
+
 #begin maps/map2.tmx
 /copy:maps/map2.tmx
+
 #begin maps/map20.tmx
 /copy:maps/map20.tmx
+
 #begin maps/map21.tmx
 /copy:maps/map21.tmx
+
 #begin maps/map22.tmx
 /copy:maps/map22.tmx
+
 #begin maps/map23.tmx
 /copy:maps/map23.tmx
+
 #begin maps/map3.tmx
 /copy:maps/map3.tmx
+
 #begin maps/map4.tmx
 /copy:maps/map4.tmx
+
 #begin maps/map5.tmx
 /copy:maps/map5.tmx
+
 #begin maps/map6.tmx
 /copy:maps/map6.tmx
+
 #begin maps/map7.tmx
 /copy:maps/map7.tmx
+
 #begin maps/map8.tmx
 /copy:maps/map8.tmx
+
 #begin maps/map9.tmx
 /copy:maps/map9.tmx
+
 #begin maps/tf_A5_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -199,8 +242,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:maps/tf_A5_ashlands_1.png
+
 #begin maps/tf_A5_ashlands_1.tsx
 /copy:maps/tf_A5_ashlands_1.tsx
+
 #begin maps/tf_B_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -212,8 +257,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:maps/tf_B_ashlands_1.png
+
 #begin maps/tf_B_ashlands_1.tsx
 /copy:maps/tf_B_ashlands_1.tsx
+
 #begin Patreon sprites 1/1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -225,6 +272,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/1.png
+
 #begin Patreon sprites 1/10.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -236,6 +284,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/10.png
+
 #begin Patreon sprites 1/11.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -247,6 +296,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/11.png
+
 #begin Patreon sprites 1/12.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -258,6 +308,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/12.png
+
 #begin Patreon sprites 1/13.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -269,6 +320,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/13.png
+
 #begin Patreon sprites 1/14.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -280,6 +332,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/14.png
+
 #begin Patreon sprites 1/15.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -291,6 +344,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/15.png
+
 #begin Patreon sprites 1/16.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -302,6 +356,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/16.png
+
 #begin Patreon sprites 1/17.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -313,6 +368,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/17.png
+
 #begin Patreon sprites 1/18.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -324,6 +380,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/18.png
+
 #begin Patreon sprites 1/19.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -335,6 +392,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/19.png
+
 #begin Patreon sprites 1/2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -346,6 +404,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/2.png
+
 #begin Patreon sprites 1/20.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -357,6 +416,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/20.png
+
 #begin Patreon sprites 1/21.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -368,6 +428,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/21.png
+
 #begin Patreon sprites 1/22.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -379,6 +440,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/22.png
+
 #begin Patreon sprites 1/23.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -390,6 +452,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/23.png
+
 #begin Patreon sprites 1/24.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -401,6 +464,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/24.png
+
 #begin Patreon sprites 1/25.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -412,6 +476,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/25.png
+
 #begin Patreon sprites 1/3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -423,6 +488,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/3.png
+
 #begin Patreon sprites 1/4.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -434,6 +500,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/4.png
+
 #begin Patreon sprites 1/5.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -445,6 +512,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/5.png
+
 #begin Patreon sprites 1/6.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -456,6 +524,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/6.png
+
 #begin Patreon sprites 1/7.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -467,6 +536,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/7.png
+
 #begin Patreon sprites 1/8.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -478,6 +548,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/8.png
+
 #begin Patreon sprites 1/9.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -489,6 +560,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Patreon sprites 1/9.png
+
 #begin resources/Dungeon_Tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -500,6 +572,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:resources/Dungeon_Tileset.png
+
 #begin resources/resources_basic.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -511,6 +584,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:resources/resources_basic.png
+
 #begin resources/resources_outlined.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -522,66 +596,79 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:resources/resources_outlined.png
+
 #begin Sound/DestroyBox.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/DestroyBox.wav
+
 #begin Sound/DroppingItem.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/DroppingItem.wav
+
 #begin Sound/GettingHit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/GettingHit.wav
+
 #begin Sound/PickingItem.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/PickingItem.wav
+
 #begin Sound/Rifle.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/Rifle.wav
+
 #begin Sound/Sniper.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/Sniper.wav
+
 #begin Sound/Songs/1.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/Songs/1.mp3
+
 #begin Sound/Songs/2.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/Songs/2.mp3
+
 #begin Sound/Songs/3.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/Songs/3.mp3
+
 #begin Sound/SwingWeapon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/SwingWeapon.wav
+
 #begin Sound/SwitchingWeapon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/SwitchingWeapon.wav
+
 #begin Sound/UsingPotion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/UsingPotion.wav
+
 #begin tiles/tf_A2_ashlands_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -593,6 +680,7 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles/tf_A2_ashlands_1.png
+
 #begin Towers/AttackTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -604,7 +692,8 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Towers/AttackTower.png
-#begin Weapons/1.png
+
+#begin Weapons/Animations/1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -614,8 +703,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Weapons/1.png
-#begin Weapons/2.png
+/build:Weapons/Animations/1.png
+
+#begin Weapons/Animations/10.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -625,8 +715,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Weapons/2.png
-#begin Weapons/3.png
+/build:Weapons/Animations/10.png
+
+#begin Weapons/Animations/2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -636,8 +727,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Weapons/3.png
-#begin Weapons/4.png
+/build:Weapons/Animations/2.png
+
+#begin Weapons/Animations/3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -647,8 +739,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Weapons/4.png
-#begin Weapons/5.png
+/build:Weapons/Animations/3.png
+
+#begin Weapons/Animations/4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -658,7 +751,188 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Weapons/5.png
+/build:Weapons/Animations/4.png
+
+#begin Weapons/Animations/5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Animations/5.png
+
+#begin Weapons/Animations/6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Animations/6.png
+
+#begin Weapons/Animations/7.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Animations/7.png
+
+#begin Weapons/Animations/8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Animations/8.png
+
+#begin Weapons/Animations/9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Animations/9.png
+
+#begin Weapons/sprites/1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/1.png
+
+#begin Weapons/sprites/10.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/10.png
+
+#begin Weapons/sprites/2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/2.png
+
+#begin Weapons/sprites/3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/3.png
+
+#begin Weapons/sprites/4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/4.png
+
+#begin Weapons/sprites/5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/5.png
+
+#begin Weapons/sprites/6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/6.png
+
+#begin Weapons/sprites/7.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/7.png
+
+#begin Weapons/sprites/8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/8.png
+
+#begin Weapons/sprites/9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/sprites/9.png
+
 #begin Weapons/swords-sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -670,3 +944,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Weapons/swords-sheet.png
+

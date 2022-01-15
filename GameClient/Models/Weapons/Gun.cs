@@ -40,6 +40,7 @@ namespace GameClient
         public bool _swing_weapon;
         private bool _swingWeapon_send;
         private Chest _colidedChest;
+        AnimationManager _animationManager;
         #endregion
         public Rectangle Rectangle
         {
@@ -48,8 +49,9 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y - 4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
-        public Gun(int id, Texture2D texture, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
+        public Gun(int id, Texture2D texture,AnimationManager animationManager, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
         {
+            _animationManager = animationManager;
             _id = id;
             _texture = texture;
             _enemies = enemies;
@@ -124,7 +126,7 @@ namespace GameClient
                         Door _colidedDoor = CollisionManager.IsCollidingDoors(swingRectangle, Vector2.Zero);
                         if (_colidedDoor != null)
                         {
-                            if (_inventoryManager.RemoveItemFromInventory(11))
+                            if (_inventoryManager.RemoveItemFromInventory(6))
                             {
                                 _colidedDoor.Destroy();
                             }
@@ -218,7 +220,7 @@ namespace GameClient
         }
         public Gun Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
-            Gun gun = new Gun(_id, _texture, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers, dealDmg);
+            Gun gun = new Gun(_id, _texture,_animationManager, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers, dealDmg);
             return gun;
         }
         public void Shot()

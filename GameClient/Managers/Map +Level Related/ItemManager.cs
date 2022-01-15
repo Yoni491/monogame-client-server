@@ -46,7 +46,7 @@ namespace GameClient
         }
         static public void DropItemSmallChest(Vector2 position)
         {
-            int[] items = { 2, 2, 2, 4, 10 };
+            int[] items = { 2, 2, 2, 4, 5 };
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]);
@@ -56,7 +56,7 @@ namespace GameClient
         }
         static public void DropItemNormalChest(Vector2 position)
         {
-            int[] items = { 4, 5, 6, 7, 8, 9, 10 };
+            int[] items = { 4, 5, 6, 7, 8, 9, 5 };
             Random x = new Random();
             int y = (int)(x.NextDouble() * items.Length);
             Item item = _collectionManager.GetItem(items[y]);
@@ -98,7 +98,7 @@ namespace GameClient
         {
             for (int i = 0; i < amount; i++)
             {
-                Item item = _collectionManager.GetItem(10, false);
+                Item item = _collectionManager.GetItem(5, false);
                 if (item != null)
                 {
                     item._position = position;

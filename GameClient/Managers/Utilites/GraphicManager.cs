@@ -115,6 +115,36 @@ namespace GameClient
             }
             return new Animation(_textures);
         }
+        static public Animation MakeAnimationFromImage(Texture2D img, int width, int height, int startingIndex=0,int lastIndex = 0)
+        {
+            Texture2D[] _textures;
+            _textures = new Texture2D[width];
+            int index = 0;
+            for (int j = 0; j < height; j++)
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    if (startingIndex <= index++)
+                    {
+                        if(lastIndex!=0 || index <= lastIndex)
+                        {
+                            _textures[i] = (GetTextureSqaure(img, height, width, j, i));
+                        }
+                    }
+
+                }
+
+            }
+            return new Animation(_textures);
+        }
+        static public AnimationManager GetAnimationManager_Gun(int spriteNum, int width, int height, int startingIndex = 0, int lastIndex = -1, float scale=1f)
+        {
+            Texture2D texture = _contentManager.Load<Texture2D>("Weapons/Animations/"+spriteNum);
+            return new AnimationManager(new Dictionary<int, Animation>()
+            {
+                { 0,MakeAnimationFromImage(texture,width,height,startingIndex,lastIndex) },//shot animation
+            },10,scale, spriteNum);
+        }
         static private Dictionary<int, Animation> GetAnimation4x4Dictionary_spritesMovement(Texture2D i_texture)
         {
             return new Dictionary<int, Animation>()

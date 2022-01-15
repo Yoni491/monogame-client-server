@@ -104,7 +104,7 @@ namespace GameClient
                 else if (gid == 484)//key
                 {
                     if (!Game_Client._isMultiplayer)
-                        ItemManager.DropItem(11, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), true);
+                        ItemManager.DropItem(6, new Vector2((i % _map.Width) * _map.TileWidth, (float)Math.Floor(i / (double)_map.Width) * _map.TileHeight), true);
                     _map.TileLayers[tilesetIndex].Tiles[i].Gid = 0;
                 }
                 else if (gid >= 137 && gid <= 159)

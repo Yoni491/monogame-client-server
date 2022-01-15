@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/Weapons/sprites/2.png</SourceFile>
-  <SourceTime>2020-12-01T02:59:40+02:00</SourceTime>
+  <SourceTime>2020-11-29T23:15:24+02:00</SourceTime>
   <DestFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Content/Weapons/sprites/2.xnb</DestFile>
-  <DestTime>2022-01-14T19:26:14.2033874+02:00</DestTime>
+  <DestTime>2022-01-15T19:22:05.7541527+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

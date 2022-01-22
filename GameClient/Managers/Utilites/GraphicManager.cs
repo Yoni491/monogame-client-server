@@ -143,7 +143,7 @@ namespace GameClient
             return new AnimationManager(new Dictionary<int, Animation>()
             {
                 { 0,MakeAnimationFromImage(texture,width,height,startingIndex,lastIndex) },//shot animation
-            },10,scale, spriteNum);
+            },2,scale, spriteNum);
         }
         static private Dictionary<int, Animation> GetAnimation4x4Dictionary_spritesMovement(Texture2D i_texture)
         {

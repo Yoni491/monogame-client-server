@@ -52,7 +52,7 @@ namespace GameClient
             {
                 _nameDisplay.Update(Position_Feet + new Vector2(5, 20));
                 _animationManager.Update(gameTime, _position);
-                _animationManager.SetAnimationsFromServer(_velocity, ref _hide_gun, ref _movingDirection);
+                _animationManager.SetAnimationsFromServerCharacter(_velocity, ref _hide_gun, ref _movingDirection);
                 _position += _velocity;
                 if (_gun != null)
                 {
@@ -72,7 +72,7 @@ namespace GameClient
                 if (_hide_gun && _gun != null)
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
                 if (_animationManager != null)
-                    _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                    _animationManager.DrawCharacter(spriteBatch, TileManager.GetLayerDepth(_position.Y));
                 if (_gun != null && !_hide_gun)
                     _gun.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) + 0.01f);
                 _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));

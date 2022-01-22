@@ -1,17 +1,12 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{E9B5C9D4-ECBB-4A9F-BF65-879CE7A8EC97}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GameServer/Network/PacketHandlerServer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameClient/Managers/Utilites/AnimationManager.cs">
     <Files>
-      <File FileName="GameClient/UI/CharacterSelectorCard.cs" Line="90" Column="38" />
-      <File FileName="GameClient/Screens/CharacterSelectScreen.cs" Line="57" Column="20" />
-      <File FileName="GameClient/Managers/PlayerManager.cs" Line="54" Column="37" />
-      <File FileName="GameClient/Managers/CollectionManager.cs" Line="120" Column="82" />
-      <File FileName="GameClient/Models/PlayerRelated/Player.cs" Line="206" Column="1" />
-      <File FileName="GameClient/Managers/Map +Level Related/TileManager.cs" Line="60" Column="10" />
-      <File FileName="GameClient/Models/MapObjects/Door.cs" Line="26" Column="21" />
-      <File FileName="GameClient/Models/Weapons/Gun.cs" Line="129" Column="76" />
-      <File FileName="GameClient/Models/Weapons/MeleeWeapon.cs" Line="100" Column="46" />
-      <File FileName="GameClient/Network/PacketHandlerClient.cs" Line="151" Column="26" />
-      <File FileName="GameServer/Network/PacketHandlerServer.cs" Line="134" Column="30" />
+      <File FileName="GameClient/Managers/CollectionManager.cs" Line="180" Column="30" />
+      <File FileName="GameClient/Managers/Utilites/GraphicManager.cs" Line="142" Column="98" />
+      <File FileName="GameClient/Models/Weapons/Gun.cs" Line="195" Column="75" />
+      <File FileName="GameClient/Models/Weapons/Bullet.cs" Line="114" Column="10" />
+      <File FileName="GameClient/Models/PlayerRelated/Player.cs" Line="100" Column="37" />
+      <File FileName="GameClient/Managers/Utilites/AnimationManager.cs" Line="47" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,10 +14,12 @@
           <Node name="GameSolution" expanded="True">
             <Node name="GameClient" expanded="True">
               <Node name="Managers" expanded="True">
-                <Node name="Map +Level Related" expanded="True" />
+                <Node name="Utilites" expanded="True">
+                  <Node name="AnimationManager.cs" selected="True" />
+                </Node>
               </Node>
               <Node name="Models" expanded="True">
-                <Node name="MapObjects" expanded="True" />
+                <Node name="PlayerRelated" expanded="True" />
                 <Node name="Weapons" expanded="True" />
               </Node>
               <Node name="Network" expanded="True" />
@@ -30,9 +27,7 @@
               <Node name="UI" expanded="True" />
             </Node>
             <Node name="GameServer" expanded="True">
-              <Node name="Network" expanded="True">
-                <Node name="PacketHandlerServer.cs" selected="True" />
-              </Node>
+              <Node name="Network" expanded="True" />
             </Node>
           </Node>
         </State>

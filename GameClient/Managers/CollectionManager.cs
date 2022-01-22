@@ -19,6 +19,7 @@ namespace GameClient
         static List<SimpleEnemy> _simple_enemies;
         public static List<AnimationManager> _playerAnimationManager;
         static List<AnimationManager> _gunAnimations;
+        static List<Texture2D> _gunSprites;
         PlayerManager _playerManager;
         ItemManager _itemManager;
         //public static int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -125,16 +126,16 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            _bullets.Add(new Bullet(id++, _bullet_texture, speed:20, shootingTimer:0.4f, dmg:5, travelDistance:700));//Desert-eagle
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.08f, 2, 700));//M16
-            _bullets.Add(new Bullet(id++, _bullet_texture, 25, 0.45f, 40, 2000));//Sniper
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.13f, 4, 700));//Famas
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.2f, 3, 700));//P90
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.15f, 1, 700));//gun417
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.02f, 1, 700));//Uzi
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.4f, 10, 700));//P12
-            _bullets.Add(new Bullet(id++, _bullet_texture, 10, 2, 100, 1000));//FlareGun
-            _bullets.Add(new Bullet(id++, _bullet_texture, 20, 0.075f, 3, 700));//AK47
+            _bullets.Add(new Bullet(id++, _bullet_texture,isSniper:false, speed:20, shootingTimer:0.4f, dmg:5, travelDistance:700,spread:0));//Desert-eagle
+            _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.08f, 2, 700,0.2f));//M16
+            _bullets.Add(new Bullet(id++, _bullet_texture,true, 25, 0.45f, 40, 2000,0));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.13f, 4, 700,0.3f));//Famas
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.2f, 3, 700,0.2f));//P90
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.15f, 1, 700,0.2f));//gun417
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.02f, 1, 700,0.55f));//Uzi
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.4f, 10, 700,0.2f));//P12
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 10, 2, 100, 1000,0));//FlareGun
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.075f, 3, 700,0.3f));//AK47
         }
         private void InitializeGuns()
         {
@@ -152,28 +153,36 @@ namespace GameClient
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(9, 1, 20));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(10, 1, 20));
 
+            _gunSprites = new List<Texture2D>();
+            for (int i = 1; i < 11; i++)
+            {
+                _gunSprites.Add(_contentManager.Load<Texture2D>("Weapons/sprites/"+i));
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                _guns.Add(new Gun(id++, _gunSprites[i], _gunAnimations[i], new Vector2(0, 0), _enemies, _bullets[i], true, true));
+            }
+            //Gun DesertEagle = new Gun(id++, _gunSprites[0], _gunAnimations[0], new Vector2(0, 0), _enemies, _bullets[0], true, true);
+            //Gun M16 = new Gun(id++, _gunSprites[1], _gunAnimations[1], new Vector2(0, 0), _enemies, _bullets[1], true, true);
+            //Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/3"), _gunAnimations[2], new Vector2(0, 0), _enemies, _bullets[2], true, true);
+            //Gun Famas = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/4"), _gunAnimations[3], new Vector2(0, 0), _enemies, _bullets[3], true, true);
+            //Gun P90 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/5"), _gunAnimations[4], new Vector2(0, 0), _enemies, _bullets[4], true, true);
+            //Gun gun417 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/6"), _gunAnimations[5], new Vector2(0, 0), _enemies, _bullets[5], true, true);
+            //Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/7"), _gunAnimations[6], new Vector2(0, 0), _enemies, _bullets[6], true, true);
+            //Gun P12 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/8"), _gunAnimations[7], new Vector2(0, 0), _enemies, _bullets[7], true, true);
+            //Gun FlareGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/9"), _gunAnimations[8], new Vector2(0, 0), _enemies, _bullets[8], true, true);
+            //Gun AK47 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/10"), _gunAnimations[9], new Vector2(0, 0), _enemies, _bullets[9], true, true);
 
-            Gun DesertEagle = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/1"), _gunAnimations[0], new Vector2(0, 0), _enemies, _bullets[0], false, 0, true, true);
-            Gun M16 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/2"), _gunAnimations[1], new Vector2(0, 0), _enemies, _bullets[1], false, 0.2f, true, true);
-            Gun Sniper = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/3"), _gunAnimations[2], new Vector2(0, 0), _enemies, _bullets[2], true, 0, true, true);
-            Gun Famas = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/4"), _gunAnimations[3], new Vector2(0, 0), _enemies, _bullets[3], false, 0.3f, true, true);
-            Gun P90 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/5"), _gunAnimations[4], new Vector2(0, 0), _enemies, _bullets[4], false, 0.2f, true, true);
-            Gun gun417 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/6"), _gunAnimations[5], new Vector2(0, 0), _enemies, _bullets[5], false, 0.2f, true, true);
-            Gun Uzi = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/7"), _gunAnimations[6], new Vector2(0, 0), _enemies, _bullets[6], false, 0.55f, true, true);
-            Gun P12 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/8"), _gunAnimations[7], new Vector2(0, 0), _enemies, _bullets[7], false, 0.2f, true, true);
-            Gun FlareGun = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/9"), _gunAnimations[8], new Vector2(0, 0), _enemies, _bullets[8], false, 0, true, true);
-            Gun AK47 = new Gun(id++, _contentManager.Load<Texture2D>("Weapons/sprites/10"), _gunAnimations[9], new Vector2(0, 0), _enemies, _bullets[9], false, 0.35f, true, true);
-
-            _guns.Add(DesertEagle);
-            _guns.Add(M16);
-            _guns.Add(Sniper);
-            _guns.Add(Famas);
-            _guns.Add(P90);
-            _guns.Add(gun417);
-            _guns.Add(Uzi);
-            _guns.Add(P12);
-            _guns.Add(FlareGun);
-            _guns.Add(AK47);
+            //_guns.Add(DesertEagle);
+            //_guns.Add(M16);
+            //_guns.Add(Sniper);
+            //_guns.Add(Famas);
+            //_guns.Add(P90);
+            //_guns.Add(gun417);
+            //_guns.Add(Uzi);
+            //_guns.Add(P12);
+            //_guns.Add(FlareGun);
+            //_guns.Add(AK47);
 
         }
         private void InitializeMessagesArray()

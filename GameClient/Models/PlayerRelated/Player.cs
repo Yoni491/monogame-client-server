@@ -61,7 +61,7 @@ namespace GameClient
             InputReader(gameTime);
             _nameDisplay.Update(Position_Feet + new Vector2(5, 20));
             _animationManager.Update(gameTime, _position);
-            _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
+            _animationManager.SetAnimationsCharacter(_velocity, ref _hide_weapon, ref _moving_direction);
             if (CollisionManager.IsCollidingLeftWalls(RectangleMovement, _velocity) && _velocity.X < 0)
                 _velocity -= new Vector2(_velocity.X, 0);
             if (CollisionManager.IsCollidingRightWalls(RectangleMovement, _velocity) && _velocity.X > 0)
@@ -97,7 +97,7 @@ namespace GameClient
                     if (_meleeWeapon != null)
                         _meleeWeapon.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y) - 0.01f);
                 }
-                _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+                _animationManager.DrawCharacter(spriteBatch, TileManager.GetLayerDepth(_position.Y));
                 if (!_hide_weapon)
                 {
                     if (_gun != null)
@@ -162,7 +162,7 @@ namespace GameClient
             }
             if (_input.Pick())
             {
-                Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPosition()));
+                Item item = _itemManager.findClosestItem(_position + (_animationManager.getAnimationPickPositionForCharacter()));
                 if (item != null)
                 {
                     if (!Game_Client._isMultiplayer)

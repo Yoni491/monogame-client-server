@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/Sound/SwingWeapon.wav</SourceFile>
+  <SourceFile>/Users/yoniender/Documents/monogame-client-server/GameClient/Content/Sound/SwingWeapon.wav</SourceFile>
   <SourceTime>2022-01-12T20:45:47.8082956+02:00</SourceTime>
-  <DestFile>/Users/yoniender/Documents/projects/monogame-client-server/GameClient/Content/bin/DesktopGL/Content/Sound/SwingWeapon.xnb</DestFile>
-  <DestTime>2022-01-12T20:47:45.7179337+02:00</DestTime>
+  <DestFile>/Users/yoniender/Documents/monogame-client-server/GameClient/Content/bin/DesktopGL/Content/Sound/SwingWeapon.xnb</DestFile>
+  <DestTime>2022-01-22T12:14:32.8774903+02:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

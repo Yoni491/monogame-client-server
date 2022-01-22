@@ -855,3 +855,141 @@ C:/projects/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/ma
 /Users/yoniender/Documents/projects/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.dll
 /Users/yoniender/Documents/projects/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.pdb
 /Users/yoniender/Documents/projects/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.genruntimeconfig.cache
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/etc/names.txt
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/Dungeon_Tileset.tsx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map1.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map10.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map11.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map12.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map13.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map14.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map15.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map16.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map17.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map18.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map19.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map2.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map20.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map21.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map22.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map23.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map3.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map4.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map5.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map6.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map7.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map8.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/map9.tmx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/tf_A5_ashlands_1.tsx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/tf_B_ashlands_1.tsx
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/etc/bullet.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/etc/lineSprite.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/etc/settings.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Fonts/basic_12.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Fonts/basic_16.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Fonts/basic_22.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Fonts/comic_16.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Fonts/comic_22.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Images/backgroundUnboxingrave.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Images/GamePadKeys.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Images/matrix.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Images/settingBackground.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Images/‏‏‫KeyboardMouseKeys.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/Dungeon_Tileset.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/tf_A5_ashlands_1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/maps/tf_B_ashlands_1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/10.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/11.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/12.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/13.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/14.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/15.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/16.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/17.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/18.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/19.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/2.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/20.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/21.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/22.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/23.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/24.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/25.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/3.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/4.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/5.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/6.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/7.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/8.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Patreon sprites 1/9.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/resources/Dungeon_Tileset.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/resources/resources_basic.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/resources/resources_outlined.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/DestroyBox.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/DroppingItem.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/GettingHit.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/PickingItem.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Rifle.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Sniper.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/1.ogg
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/2.ogg
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/2.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/3.ogg
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/Songs/3.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/SwingWeapon.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/SwitchingWeapon.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Sound/UsingPotion.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/tiles/tf_A2_ashlands_1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Towers/AttackTower.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/10.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/2.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/3.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/4.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/5.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/6.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/7.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/8.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/Animations/9.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/1.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/10.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/2.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/3.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/4.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/5.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/6.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/7.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/8.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/sprites/9.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/Weapons/swords-sheet.xnb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/GameClient.deps.json
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/GameClient.runtimeconfig.json
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/GameClient.runtimeconfig.dev.json
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/GameClient.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/GameClient.pdb
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/MonoGame.Extended.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/MonoGame.Extended.Graphics.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/MonoGame.Extended.Tiled.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/MonoGame.Framework.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/linux-x64/native/libSDL2-2.0.so.0
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/linux-x64/native/libopenal.so.1
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/osx/native/libSDL2-2.0.0.dylib
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/osx/native/libopenal.1.dylib
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/SDL2.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/win-x64/native/soft_oal.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/SDL2.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/runtimes/win-x86/native/soft_oal.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/TiledSharp.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/TiledSharp.pdb
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.csproj.AssemblyReference.cache
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.AssemblyInfoInputs.cache
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.AssemblyInfo.cs
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.csproj.CoreCompileInputs.cache
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.csproj.CopyComplete
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.dll
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.pdb
+/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.genruntimeconfig.cache

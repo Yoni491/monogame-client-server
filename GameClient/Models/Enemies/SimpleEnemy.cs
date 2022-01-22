@@ -105,7 +105,7 @@ namespace GameClient
         }
         private void UpdateFromServer()
         {
-            _animationManager.SetAnimationsFromServer(_velocity, ref _hide_weapon, ref _moving_direction);
+            _animationManager.SetAnimationsFromServerCharacter(_velocity, ref _hide_weapon, ref _moving_direction);
         }
         private void SummonEnemies(GameTime gameTime)
         {
@@ -204,12 +204,12 @@ namespace GameClient
                 {
                     _velocity = Vector2.Zero;
                     Vector2 direction = target_player - Position_Feet;
-                    _animationManager.SetAnimations(direction, ref _hide_weapon, ref _moving_direction);
+                    _animationManager.SetAnimationsCharacter(direction, ref _hide_weapon, ref _moving_direction);
                 }
                 else
                 {
                     _velocity = Vector2.Normalize(coordPosition - Position_Feet);
-                    _animationManager.SetAnimations(_velocity, ref _hide_weapon, ref _moving_direction);
+                    _animationManager.SetAnimationsCharacter(_velocity, ref _hide_weapon, ref _moving_direction);
                 }
                 if (Vector2.Distance(target_player, Position_Feet) < _movingToPlayerMaxDistance)
                 {
@@ -236,7 +236,7 @@ namespace GameClient
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _animationManager.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
+            _animationManager.DrawCharacter(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             _health.Draw(spriteBatch, TileManager.GetLayerDepth(_position.Y));
             if (_hide_weapon)
             {

@@ -13,6 +13,9 @@ namespace GameClient
         private int _frameCount;
         public Vector2 _position;
         public float _scale;
+        private float _rotation,_holderScale;
+        private SpriteEffects _flipEffect;
+
         public int _animationID;
         public Animation Animation { get => _animation; set => _animation = value; }
         public AnimationManager(Dictionary<int, Animation> animations, int frameCount, float scale, int animationID)
@@ -41,7 +44,14 @@ namespace GameClient
                 }
             }
         }
-        public void Draw(SpriteBatch spriteBatch, float layer)
+        public void DrawCharacter(SpriteBatch spriteBatch, float layer)
+        {
+            spriteBatch.Draw(_animation._textures[_animation._currentFrame], _position,
+                null,
+                Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None,
+                layer);
+        }
+        public void DrawGun(SpriteBatch spriteBatch, float layer)
         {
             spriteBatch.Draw(_animation._textures[_animation._currentFrame], _position,
                 null,
@@ -66,11 +76,11 @@ namespace GameClient
             _timer = 0;
             _animation._currentFrame = 0;
         }
-        public Vector2 getAnimationPickPosition()
+        public Vector2 getAnimationPickPositionForCharacter()
         {
             return new Vector2(_animation._frameWidth / 2, _animation._frameHeight);
         }
-        public void SetAnimations(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
+        public void SetAnimationsCharacter(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
         {
             if (velocity == Vector2.Zero)
                 Stop();
@@ -100,7 +110,19 @@ namespace GameClient
                     Play(moving_direction);
             }
         }
-        public void SetAnimationsFromServer(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
+        public void SetAnimationsGun(bool currentlyShooting,float rotation,float holderScale,SpriteEffects flipEffect)
+        {
+            if (!currentlyShooting)
+                Stop();
+            else
+            {
+                _rotation = rotation;
+                _holderScale = holderScale;
+                _flipEffect = flipEffect;
+                Play(0);
+            }
+        }
+        public void SetAnimationsFromServerCharacter(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)
         {
             if (velocity == Vector2.Zero)
             {

@@ -40,6 +40,7 @@ namespace GameClient
         public bool _swing_weapon;
         private bool _swingWeapon_send;
         private Chest _colidedChest;
+        private bool _currentlyShooting;
         AnimationManager _animationManager;
         #endregion
         public Rectangle Rectangle
@@ -49,7 +50,7 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y - 4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
-        public Gun(int id, Texture2D texture,AnimationManager animationManager, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool isSniper, float spread, bool hitPlayers, bool dealDmg)
+        public Gun(int id, Texture2D texture,AnimationManager animationManager, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool hitPlayers, bool dealDmg)
         {
             _animationManager = animationManager;
             _id = id;
@@ -57,13 +58,14 @@ namespace GameClient
             _enemies = enemies;
             _bullet = bullet;
             _position = position;
-            _isSniper = isSniper;
-            _spread = spread;
+            _isSniper = bullet._isSniper;
+            _spread = bullet._spread;
             _hitPlayers = hitPlayers;
             _dealDmg = dealDmg;
         }
         public void Update(GameTime gameTime, Vector2 direction, int moving_direction, bool isGamePad, bool showLine, Vector2 position)
         {
+            _animationManager.Update(gameTime, _position);
             if (!_swing_weapon)
                 _moving_direction_int = moving_direction;
             MelleAttackUpdate(gameTime, position);
@@ -189,38 +191,45 @@ namespace GameClient
                 DrawSwing(spriteBatch, layer);
             else
             {
-                float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
-                if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
+                DrawGunSprite(spriteBatch, layer,_texture);
+            }
+            _animationManager.DrawGun(spriteBatch, layer);
+        }
+        public void DrawGunSprite(SpriteBatch spriteBatch, float layer,Texture2D texture) 
+        {
+            float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
+            if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
+            {
+                //spriteBatch.Draw(texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
+                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, _holderScale, SpriteEffects.FlipHorizontally);
+            }
+            else
+            {
+                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, _holderScale, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
+                //spriteBatch.Draw(texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
+            }
+            foreach (var bullet in _bullets)
+            {
+                bullet.Draw(spriteBatch);
+            }
+            if (_isSniper && _showLine)
+            {
+                if (!_hitPlayers)
+                    BulletReach();
+                if (_isGamePad)
                 {
-                    spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
+                    GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);
                 }
                 else
                 {
-                    spriteBatch.Draw(_texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
-                }
-                foreach (var bullet in _bullets)
-                {
-                    bullet.Draw(spriteBatch);
-                }
-                if (_isSniper && _showLine)
-                {
-                    if (!_hitPlayers)
-                        BulletReach();
-                    if (_isGamePad)
-                    {
+                    if (Vector2.Distance(_tipOfTheGun, _MaxPointBulletReach) > 30)
                         GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);
-                    }
-                    else
-                    {
-                        if (Vector2.Distance(_tipOfTheGun, _MaxPointBulletReach) > 30)
-                            GraphicManager.DrawLine(_tipOfTheGun, _MaxPointBulletReach, spriteBatch);
-                    }
                 }
             }
         }
         public Gun Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
-            Gun gun = new Gun(_id, _texture,_animationManager, _position, _enemies, _bullet, _isSniper, _spread, hitPlayers, dealDmg);
+            Gun gun = new Gun(_id, _texture,_animationManager, _position, _enemies, _bullet, hitPlayers, dealDmg);
             return gun;
         }
         public void Shot()
@@ -230,6 +239,7 @@ namespace GameClient
                 if (_shooting_timer >= _bullet._shootingTimer)
                 {
                     _shooting_timer = 0;
+                    _currentlyShooting = true;
                     Vector2 _directionSpread;
                     if (_spread != 0)
                     {

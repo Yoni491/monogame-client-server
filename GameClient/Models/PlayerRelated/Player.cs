@@ -21,7 +21,7 @@ namespace GameClient
         static public bool _mouseIntersectsUI;
         private float _speed = 6f;
         private float _scale;
-        private float _dashTimer=0,_dashTimeLength=50,_dashingSpeed=36,_dashCooldown = 500;
+        private float _dashTimer = 0, _dashTimeLength = 50, _dashingSpeed = 36, _dashCooldown = 500;
         private Vector2 _dashingDirection;
         public int _playerNum;
         private int _width;
@@ -112,11 +112,11 @@ namespace GameClient
         public void InputReader(GameTime gameTime)
         {
             _velocity = Vector2.Zero;
-            if(!_dashing)
+            if (!_dashing)
             {
                 _dashTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
                 _input.GetVelocity(ref _velocity, _speed);
-                if(_input.Dash() && _dashTimer >= _dashCooldown && _velocity!=Vector2.Zero)
+                if (_input.Dash() && _dashTimer >= _dashCooldown && _velocity != Vector2.Zero)
                 {
                     _dashTimer = 0;
                     _dashingDirection = Vector2.Normalize(_velocity) * _dashingSpeed;
@@ -124,11 +124,11 @@ namespace GameClient
                     _dashing = true;
                 }
             }
-            if(_dashing)
+            if (_dashing)
             {
                 _velocity = _dashingDirection;
                 _dashTimer += (float)gameTime.ElapsedGameTime.Milliseconds;
-                if(_dashTimer >= _dashTimeLength)
+                if (_dashTimer >= _dashTimeLength)
                 {
                     _dashing = false;
                     _dashTimer = 0;

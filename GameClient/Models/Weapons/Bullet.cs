@@ -31,7 +31,7 @@ namespace GameClient
         }
         public Vector2 Position_Center { get => new Vector2((int)(_position.X - _texture.Width / 2), (int)(_position.Y - _texture.Height / 2)); }
 
-        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction,bool isSniper, float speed,float spread, float shootingTimer, int dmg, int travelDistance, bool hitPlayers)
+        public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction, bool isSniper, float speed, float spread, float shootingTimer, int dmg, int travelDistance, bool hitPlayers)
         {
             _collection_id = id;
             _texture = texture;
@@ -47,7 +47,7 @@ namespace GameClient
             _dmgShown = dmg;
             _isSniper = isSniper;
         }
-        public Bullet(int id, Texture2D texture , bool isSniper,float speed, float shootingTimer, int dmg, int travelDistance,float spread)
+        public Bullet(int id, Texture2D texture, bool isSniper, float speed, float shootingTimer, int dmg, int travelDistance, float spread)
         {
             _collection_id = id;
             _texture = texture;
@@ -110,7 +110,7 @@ namespace GameClient
         }
         public Bullet Copy(Vector2 direction, Vector2 position, bool hitPlayers)
         {
-            return new Bullet(_collection_id, _texture, position, direction, _isSniper, _speed,_spread, _shootingTimer, _dmg, _maxTravelDistance, hitPlayers);
+            return new Bullet(_collection_id, _texture, position, direction, _isSniper, _speed, _spread, _shootingTimer, _dmg, _maxTravelDistance, hitPlayers);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

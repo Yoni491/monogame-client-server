@@ -53,7 +53,7 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y - 4, (int)(_texture.Width * _holderScale * 0.4f), (int)(_texture.Height * _holderScale * 0.4f));
             }
         }
-        public Gun(int id, Texture2D texture,AnimationManager animationManager, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool hitPlayers, bool dealDmg)
+        public Gun(int id, Texture2D texture, AnimationManager animationManager, Vector2 position, List<SimpleEnemy> enemies, Bullet bullet, bool hitPlayers, bool dealDmg)
         {
             _animationManager = animationManager;
             _id = id;
@@ -195,11 +195,11 @@ namespace GameClient
                 DrawSwing(spriteBatch, layer);
             else
             {
-                DrawGunSprite(spriteBatch, layer,_texture);
+                DrawGunSprite(spriteBatch, layer, _texture);
             }
             _animationManager.DrawGun(spriteBatch, layer);
         }
-        public void DrawGunSprite(SpriteBatch spriteBatch, float layer,Texture2D texture) 
+        public void DrawGunSprite(SpriteBatch spriteBatch, float layer, Texture2D texture)
         {
             float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
             if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
@@ -232,7 +232,7 @@ namespace GameClient
         }
         public Gun Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
-            Gun gun = new Gun(_id, _texture,_animationManager.Copy(), _position, _enemies, _bullet, hitPlayers, dealDmg);
+            Gun gun = new Gun(_id, _texture, _animationManager.Copy(), _position, _enemies, _bullet, hitPlayers, dealDmg);
             return gun;
         }
         public void Shot()

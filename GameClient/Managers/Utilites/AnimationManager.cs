@@ -13,7 +13,7 @@ namespace GameClient
         private int _frameCount;
         public Vector2 _position, _origin;
         public float _scale;
-        private float _rotation,_holderScale;
+        private float _rotation, _holderScale;
         private SpriteEffects _flipEffect;
         private bool _letAnimationFinish;
         public int _animationID;
@@ -61,10 +61,11 @@ namespace GameClient
         {
             Dictionary<int, Animation> _animationsCopy;
             _animationsCopy = new Dictionary<int, Animation>();
-            foreach (var item in _animations) {
+            foreach (var item in _animations)
+            {
                 _animationsCopy.Add(item.Key, item.Value.Copy());
             }
-            return new AnimationManager(_animationsCopy, _frameCount,_scale,_animationID);
+            return new AnimationManager(_animationsCopy, _frameCount, _scale, _animationID);
         }
         public void Play(int animation_number)
         {
@@ -112,7 +113,7 @@ namespace GameClient
                     Play(moving_direction);
             }
         }
-        public void SetAnimationsGun(bool currentlyShooting,float rotation, Vector2 origin, float holderScale,SpriteEffects flipEffect)
+        public void SetAnimationsGun(bool currentlyShooting, float rotation, Vector2 origin, float holderScale, SpriteEffects flipEffect)
         {
             _rotation = rotation;
             _holderScale = holderScale;
@@ -123,7 +124,7 @@ namespace GameClient
                 Play(0);
                 _letAnimationFinish = true;
             }
-            else if(_letAnimationFinish)
+            else if (_letAnimationFinish)
             {
                 Play(0);
             }

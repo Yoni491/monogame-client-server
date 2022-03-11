@@ -23,7 +23,7 @@ namespace GameClient
         PlayerManager _playerManager;
         ItemManager _itemManager;
         //public static int[] allItems = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        public static int[] allWeapons = new int[] { 7, 8, 9,10,11,12,13,14,15,16 };
+        public static int[] allWeapons = new int[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
         public static int[] allConsumables = new int[] { 2, 4 };
         public static int[] basicDrops = new int[] { 2, 5 };
         public static int[] keyDrop = new int[] { 6 };
@@ -126,16 +126,16 @@ namespace GameClient
             int id = 0;
             _bullets = new List<Bullet>();
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
-            _bullets.Add(new Bullet(id++, _bullet_texture,isSniper:false, speed:20, shootingTimer:0.4f, dmg:5, travelDistance:700,spread:0));//Desert-eagle
-            _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.08f, 2, 700,0.2f));//M16
-            _bullets.Add(new Bullet(id++, _bullet_texture,true, 25, 0.7f, 40, 2000,0));//Sniper
-            _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.13f, 4, 700,0.3f));//Famas
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.2f, 3, 700,0.2f));//P90
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.15f, 1, 700,0.2f));//gun417
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.02f, 1, 700,0.55f));//Uzi
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.4f, 10, 700,0.2f));//P12
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 10, 2, 100, 1000,0));//FlareGun
-            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.075f, 3, 700,0.3f));//AK47
+            _bullets.Add(new Bullet(id++, _bullet_texture, isSniper: false, speed: 20, shootingTimer: 0.4f, dmg: 5, travelDistance: 700, spread: 0));//Desert-eagle
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.08f, 2, 700, 0.2f));//M16
+            _bullets.Add(new Bullet(id++, _bullet_texture, true, 25, 0.7f, 40, 2000, 0));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.13f, 4, 700, 0.3f));//Famas
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.2f, 3, 700, 0.2f));//P90
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.15f, 1, 700, 0.2f));//gun417
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.02f, 1, 700, 0.55f));//Uzi
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.4f, 10, 700, 0.2f));//P12
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 10, 2, 100, 1000, 0));//FlareGun
+            _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.075f, 3, 700, 0.3f));//AK47
         }
         private void InitializeGuns()
         {
@@ -143,9 +143,9 @@ namespace GameClient
             _guns = new List<Gun>();
             _gunAnimations = new List<AnimationManager>();
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(1, 1, 2, 0.2f));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(2, 2, 7, 0.05f, 8, lastIndex:9));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(3, 3, 10,0.1f,24,29));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(4, 2, 5));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(2, 2, 7, 0.05f, 8, lastIndex: 9));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(3, 3, 10, 0.1f, 24, 29));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(4, 2, 5, 0.5f, 3, 5));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(5, 2, 6));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(6, 1, 4));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(7, 1, 12));
@@ -156,7 +156,7 @@ namespace GameClient
             _gunSprites = new List<Texture2D>();
             for (int i = 1; i < 11; i++)
             {
-                _gunSprites.Add(_contentManager.Load<Texture2D>("Weapons/sprites/"+i));
+                _gunSprites.Add(_contentManager.Load<Texture2D>("Weapons/sprites/" + i));
             }
             for (int i = 0; i < 10; i++)
             {

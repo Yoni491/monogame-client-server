@@ -1,15 +1,16 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{E9B5C9D4-ECBB-4A9F-BF65-879CE7A8EC97}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GameClient/Models/Weapons/Bullet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameClient/Models/Enemies/SimpleEnemy.cs">
     <Files>
       <File FileName="GameClient/Models/pathfinding/AStar.cs" Line="30" Column="65" />
       <File FileName="GameClient/Models/pathfinding/PathFinder.cs" Line="1" Column="1" />
-      <File FileName="GameClient/Models/Weapons/Gun.cs" Line="198" Column="31" />
-      <File FileName="GameClient/Managers/Utilites/AnimationManager.cs" Line="108" Column="37" />
-      <File FileName="GameClient/Managers/CollectionManager.cs" Line="146" Column="95" />
-      <File FileName="GameClient/Managers/Utilites/GraphicManager.cs" Line="156" Column="95" />
-      <File FileName="GameClient/Models/PlayerRelated/Animation.cs" Line="13" Column="69" />
-      <File FileName="GameClient/Models/Weapons/Bullet.cs" Line="32" Column="25" />
+      <File FileName="GameClient/Models/Weapons/Gun.cs" Line="235" Column="62" />
+      <File FileName="GameClient/Managers/Utilites/AnimationManager.cs" Line="41" Column="49" />
+      <File FileName="GameClient/Managers/CollectionManager.cs" Line="265" Column="78" />
+      <File FileName="GameClient/Managers/Utilites/GraphicManager.cs" Line="121" Column="62" />
+      <File FileName="GameClient/Models/PlayerRelated/Animation.cs" Line="18" Column="35" />
+      <File FileName="GameClient/Models/Weapons/Bullet.cs" Line="49" Column="10" />
       <File FileName="GameClient/Models/PlayerRelated/Player.cs" Line="38" Column="1" />
+      <File FileName="GameClient/Models/Enemies/SimpleEnemy.cs" Line="299" Column="56" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,11 +22,12 @@
                 <Node name="Utilites" expanded="True" />
               </Node>
               <Node name="Models" expanded="True">
+                <Node name="Enemies" expanded="True">
+                  <Node name="SimpleEnemy.cs" selected="True" />
+                </Node>
                 <Node name="pathfinding" expanded="True" />
                 <Node name="PlayerRelated" expanded="True" />
-                <Node name="Weapons" expanded="True">
-                  <Node name="Bullet.cs" selected="True" />
-                </Node>
+                <Node name="Weapons" expanded="True" />
               </Node>
             </Node>
           </Node>

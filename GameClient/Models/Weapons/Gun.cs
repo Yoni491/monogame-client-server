@@ -42,7 +42,7 @@ namespace GameClient
         private Chest _colidedChest;
         private bool _currentlyShooting;
         AnimationManager _animationManager;
-        private float _animationStopAfterBulletFiredTime = 0.3f;
+        private float _animationStopAfterBulletFiredTime = 0.1f;
         private float _animationStopAfterBulletFiredTimer = 0;
 
         #endregion
@@ -68,7 +68,6 @@ namespace GameClient
         }
         public void Update(GameTime gameTime, Vector2 direction, int moving_direction, bool isGamePad, bool showLine, Vector2 position)
         {
-            _animationManager.Update(gameTime, _position);
             if (!_swing_weapon)
                 _moving_direction_int = moving_direction;
             MelleAttackUpdate(gameTime, position);
@@ -90,10 +89,7 @@ namespace GameClient
             _showLine = showLine;
             _tipOfTheGun = _position + Vector2.Normalize(_direction) * _texture.Width / 2 + new Vector2(0, 5);
             _animationStopAfterBulletFiredTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_currentlyShooting && (_animationStopAfterBulletFiredTimer > _animationStopAfterBulletFiredTime))
-            {
-                _currentlyShooting = false;
-            }
+            _animationManager.Update(gameTime, _position);
         }
         private void MelleAttackCollision(GameTime gameTime, Vector2 position)
         {
@@ -214,6 +210,7 @@ namespace GameClient
             {
                 _animationManager.SetAnimationsGun(_currentlyShooting, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
             }
+            _currentlyShooting = false;
             foreach (var bullet in _bullets)
             {
                 bullet.Draw(spriteBatch);
@@ -235,7 +232,7 @@ namespace GameClient
         }
         public Gun Copy(bool hitPlayers, bool dealDmg, Inventory inventoryManager)
         {
-            Gun gun = new Gun(_id, _texture,_animationManager, _position, _enemies, _bullet, hitPlayers, dealDmg);
+            Gun gun = new Gun(_id, _texture,_animationManager.Copy(), _position, _enemies, _bullet, hitPlayers, dealDmg);
             return gun;
         }
         public void Shot()

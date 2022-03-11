@@ -19,5 +19,9 @@ namespace GameClient
             _frameHeight = textures[0].Height;
             _frameCount = textures.Length;
         }
+        public Animation Copy()
+        {
+            return new Animation(_textures, _frameSpeed);
+        }
     }
 }

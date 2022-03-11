@@ -128,7 +128,7 @@ namespace GameClient
             Texture2D _bullet_texture = _contentManager.Load<Texture2D>("etc/bullet");
             _bullets.Add(new Bullet(id++, _bullet_texture,isSniper:false, speed:20, shootingTimer:0.4f, dmg:5, travelDistance:700,spread:0));//Desert-eagle
             _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.08f, 2, 700,0.2f));//M16
-            _bullets.Add(new Bullet(id++, _bullet_texture,true, 25, 0.45f, 40, 2000,0));//Sniper
+            _bullets.Add(new Bullet(id++, _bullet_texture,true, 25, 0.7f, 40, 2000,0));//Sniper
             _bullets.Add(new Bullet(id++, _bullet_texture,false, 20, 0.13f, 4, 700,0.3f));//Famas
             _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.2f, 3, 700,0.2f));//P90
             _bullets.Add(new Bullet(id++, _bullet_texture, false, 20, 0.15f, 1, 700,0.2f));//gun417

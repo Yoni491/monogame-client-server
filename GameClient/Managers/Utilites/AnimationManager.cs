@@ -15,9 +15,11 @@ namespace GameClient
         public float _scale;
         private float _rotation,_holderScale;
         private SpriteEffects _flipEffect;
-
+        private bool _letAnimationFinish;
         public int _animationID;
+
         public Animation Animation { get => _animation; set => _animation = value; }
+
         public AnimationManager(Dictionary<int, Animation> animations, int frameCount, float scale, int animationID)
         {
             _animations = animations;
@@ -37,6 +39,7 @@ namespace GameClient
                 if (_animation._currentFrame >= _frameCount)
                 {
                     _animation._currentFrame = 0;
+                    _letAnimationFinish = false;
                 }
             }
         }
@@ -56,8 +59,12 @@ namespace GameClient
         }
         public AnimationManager Copy()
         {
-            AnimationManager animationManager = GraphicManager.GetAnimationManager_spriteMovement(_animationID, _scale);
-            return animationManager;
+            Dictionary<int, Animation> _animationsCopy;
+            _animationsCopy = new Dictionary<int, Animation>();
+            foreach (var item in _animations) {
+                _animationsCopy.Add(item.Key, item.Value.Copy());
+            }
+            return new AnimationManager(_animationsCopy, _frameCount,_scale,_animationID);
         }
         public void Play(int animation_number)
         {
@@ -111,11 +118,18 @@ namespace GameClient
             _holderScale = holderScale;
             _flipEffect = flipEffect;
             _origin = origin;
-            if (!currentlyShooting)
-                Stop();
-            else
+            if (currentlyShooting)
             {
                 Play(0);
+                _letAnimationFinish = true;
+            }
+            else if(_letAnimationFinish)
+            {
+                Play(0);
+            }
+            else
+            {
+                Stop();
             }
         }
         public void SetAnimationsFromServerCharacter(Vector2 velocity, ref bool hide_weapon, ref int moving_direction)

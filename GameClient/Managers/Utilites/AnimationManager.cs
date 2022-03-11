@@ -37,10 +37,6 @@ namespace GameClient
                 if (_animation._currentFrame >= _frameCount)
                 {
                     _animation._currentFrame = 0;
-                    if (_animation._textures != null)
-                    {
-                        Stop();
-                    }
                 }
             }
         }

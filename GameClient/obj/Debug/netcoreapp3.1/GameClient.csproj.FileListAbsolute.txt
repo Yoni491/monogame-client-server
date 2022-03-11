@@ -985,7 +985,6 @@ C:/projects/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/Content/ma
 /Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/TiledSharp.dll
 /Users/yoniender/Documents/monogame-client-server/GameClient/bin/Debug/netcoreapp3.1/TiledSharp.pdb
 /Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.csproj.AssemblyReference.cache
-/Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.GeneratedMSBuildEditorConfig.editorconfig
 /Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.AssemblyInfoInputs.cache
 /Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.AssemblyInfo.cs
 /Users/yoniender/Documents/monogame-client-server/GameClient/obj/Debug/netcoreapp3.1/GameClient.csproj.CoreCompileInputs.cache

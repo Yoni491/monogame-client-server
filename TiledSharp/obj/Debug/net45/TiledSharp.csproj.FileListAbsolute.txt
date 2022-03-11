@@ -44,7 +44,6 @@ C:/Users/yoni2/source/repos/monogame -survival/monogame-client-server/TiledSharp
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/bin/Debug/net45/TiledSharp.dll
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/bin/Debug/net45/TiledSharp.pdb
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/obj/Debug/net45/TiledSharp.csproj.AssemblyReference.cache
-/Users/yoniender/Documents/monogame-client-server/TiledSharp/obj/Debug/net45/TiledSharp.GeneratedMSBuildEditorConfig.editorconfig
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/obj/Debug/net45/TiledSharp.csproj.CoreCompileInputs.cache
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/obj/Debug/net45/TiledSharp.dll
 /Users/yoniender/Documents/monogame-client-server/TiledSharp/obj/Debug/net45/TiledSharp.pdb

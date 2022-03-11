@@ -42,6 +42,9 @@ namespace GameClient
         private Chest _colidedChest;
         private bool _currentlyShooting;
         AnimationManager _animationManager;
+        private float _animationStopAfterBulletFiredTime = 0.3f;
+        private float _animationStopAfterBulletFiredTimer = 0;
+
         #endregion
         public Rectangle Rectangle
         {
@@ -86,6 +89,11 @@ namespace GameClient
             _shooting_timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             _showLine = showLine;
             _tipOfTheGun = _position + Vector2.Normalize(_direction) * _texture.Width / 2 + new Vector2(0, 5);
+            _animationStopAfterBulletFiredTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_currentlyShooting && (_animationStopAfterBulletFiredTimer > _animationStopAfterBulletFiredTime))
+            {
+                _currentlyShooting = false;
+            }
         }
         private void MelleAttackCollision(GameTime gameTime, Vector2 position)
         {
@@ -200,13 +208,11 @@ namespace GameClient
             float rotation = (float)Math.Atan2(_direction.Y, _direction.X);
             if (rotation > -Math.PI / 2 && rotation < Math.PI / 2)
             {
-                //spriteBatch.Draw(texture, _position, null, Color.White, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally, layer);
-                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, _holderScale, SpriteEffects.FlipHorizontally);
+                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, new Vector2(4, 12), _holderScale * 0.5f, SpriteEffects.FlipHorizontally);
             }
             else
             {
-                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, _holderScale, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
-                //spriteBatch.Draw(texture, _position, null, Color.White, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically, layer);
+                _animationManager.SetAnimationsGun(_currentlyShooting, rotation, new Vector2(4, 20), _holderScale * 0.5f, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
             }
             foreach (var bullet in _bullets)
             {
@@ -238,6 +244,7 @@ namespace GameClient
             {
                 if (_shooting_timer >= _bullet._shootingTimer)
                 {
+                    _animationStopAfterBulletFiredTimer = 0;
                     _shooting_timer = 0;
                     _currentlyShooting = true;
                     Vector2 _directionSpread;

@@ -29,6 +29,8 @@ namespace GameClient
                 return new Rectangle((int)_position.X, (int)_position.Y, _texture.Width / 2, _texture.Height / 2);
             }
         }
+        public Vector2 Position_Center { get => new Vector2((int)(_position.X - _texture.Width / 2), (int)(_position.Y - _texture.Height / 2)); }
+
         public Bullet(int id, Texture2D texture, Vector2 position, Vector2 direction,bool isSniper, float speed,float spread, float shootingTimer, int dmg, int travelDistance, bool hitPlayers)
         {
             _collection_id = id;
@@ -113,7 +115,7 @@ namespace GameClient
         public void Draw(SpriteBatch spriteBatch)
         {
             if (_destroyIn3 == -1)
-                spriteBatch.Draw(_texture, _position, null, Color.White, 1, Vector2.Zero, 1.7f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
+                spriteBatch.Draw(_texture, Position_Center, null, Color.White, 1, Vector2.Zero, 1.7f, SpriteEffects.None, TileManager.GetLayerDepth(_position.Y - 60));
         }
         public void UpdatePacketShort(Packet packet)
         {

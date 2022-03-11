@@ -11,7 +11,7 @@ namespace GameClient
         private Animation _animation;
         private float _timer;
         private int _frameCount;
-        public Vector2 _position;
+        public Vector2 _position, _origin;
         public float _scale;
         private float _rotation,_holderScale;
         private SpriteEffects _flipEffect;
@@ -51,7 +51,7 @@ namespace GameClient
         {
             spriteBatch.Draw(_animation._textures[_animation._currentFrame], _position,
                 null,
-                Color.White, 0, Vector2.Zero, _scale, SpriteEffects.None,
+                Color.White, _rotation, _origin, _holderScale, _flipEffect,
                 layer);
         }
         public AnimationManager Copy()
@@ -65,7 +65,6 @@ namespace GameClient
                 return;
             _animation = _animations[animation_number];
             _animation._currentFrame = 0;
-            _animation._frameSpeed = 0.25f;
         }
         public void Stop()
         {
@@ -106,15 +105,16 @@ namespace GameClient
                     Play(moving_direction);
             }
         }
-        public void SetAnimationsGun(bool currentlyShooting,float rotation,float holderScale,SpriteEffects flipEffect)
+        public void SetAnimationsGun(bool currentlyShooting,float rotation, Vector2 origin, float holderScale,SpriteEffects flipEffect)
         {
+            _rotation = rotation;
+            _holderScale = holderScale;
+            _flipEffect = flipEffect;
+            _origin = origin;
             if (!currentlyShooting)
                 Stop();
             else
             {
-                _rotation = rotation;
-                _holderScale = holderScale;
-                _flipEffect = flipEffect;
                 Play(0);
             }
         }

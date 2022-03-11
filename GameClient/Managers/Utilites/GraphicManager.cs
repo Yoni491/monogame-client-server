@@ -115,35 +115,33 @@ namespace GameClient
             }
             return new Animation(_textures);
         }
-        static public Animation MakeAnimationFromImage(Texture2D img, int width, int height, int startingIndex=0,int lastIndex = 0)
+        static public Animation MakeAnimationFromImage(Texture2D img, int width, int height, float speed = 0.25f, int startingIndex=0,int lastIndex = 0)
         {
             Texture2D[] _textures;
             int textureSize = width * height - startingIndex;
             if (lastIndex != 0)
-                textureSize = lastIndex - startingIndex;
+                textureSize = lastIndex - startingIndex + 1;
             _textures = new Texture2D[textureSize];
             int index = 0;
+            int indexTexture = 0;
             for (int j = 0; j < height; j++)
             {
                 for (int i = 0; i < width; i++)
                 {
-                    if (startingIndex <= index)
+                    if ((startingIndex <= indexTexture && indexTexture <= lastIndex)|| lastIndex == 0)
                     {
-                        if(lastIndex==0 || index+startingIndex < lastIndex)
-                        {
-                            _textures[index++] = (GetTextureSqaure(img, height, width, j, i));
-                        }
+                         _textures[index++] = (GetTextureSqaure(img, height, width, j, i));
                     }
-
+                    indexTexture++;
                 }
 
             }
-            return new Animation(_textures,1/_textures.Length);
+            return new Animation(_textures, speed);
         }
-        static public AnimationManager GetAnimationManager_Gun(int spriteNum, int width, int height, int startingIndex = 0, int lastIndex = 0, float scale=1f)
+        static public AnimationManager GetAnimationManager_Gun(int spriteNum, int width, int height, float speed = 0.001f, int startingIndex = 0, int lastIndex = 0, float scale=1f)
         {
             Texture2D texture = _contentManager.Load<Texture2D>("Weapons/Animations/"+spriteNum);
-            Animation animation = MakeAnimationFromImage(texture, width, height, startingIndex, lastIndex);
+            Animation animation = MakeAnimationFromImage(texture, width, height, speed, startingIndex, lastIndex);
             return new AnimationManager(new Dictionary<int, Animation>()
             {
                 { 0,animation },//shot animation

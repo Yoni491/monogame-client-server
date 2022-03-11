@@ -10,7 +10,7 @@ namespace GameClient
         public bool _isLooping;
         public int _frameCount;
         public Texture2D[] _textures;
-        public Animation(Texture2D[] textures,float frameSpeed = 0.2f)
+        public Animation(Texture2D[] textures,float frameSpeed = 0.1f)
         {
             _textures = textures;
             _isLooping = true;

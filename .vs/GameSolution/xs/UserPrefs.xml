@@ -1,18 +1,30 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{E9B5C9D4-ECBB-4A9F-BF65-879CE7A8EC97}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GameClient/Models/pathfinding/AStar.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameClient/Models/Weapons/Bullet.cs">
     <Files>
-      <File FileName="GameClient/Models/pathfinding/AStar.cs" Line="8" Column="50" />
-      <File FileName="GameClient/Models/pathfinding/PathFinder.cs" />
-      <File FileName="GameClient/Managers/AI Managers/PathFindingManager.cs" />
+      <File FileName="GameClient/Models/pathfinding/AStar.cs" Line="30" Column="65" />
+      <File FileName="GameClient/Models/pathfinding/PathFinder.cs" Line="1" Column="1" />
+      <File FileName="GameClient/Models/Weapons/Gun.cs" Line="198" Column="31" />
+      <File FileName="GameClient/Managers/Utilites/AnimationManager.cs" Line="108" Column="37" />
+      <File FileName="GameClient/Managers/CollectionManager.cs" Line="146" Column="95" />
+      <File FileName="GameClient/Managers/Utilites/GraphicManager.cs" Line="156" Column="95" />
+      <File FileName="GameClient/Models/PlayerRelated/Animation.cs" Line="13" Column="69" />
+      <File FileName="GameClient/Models/Weapons/Bullet.cs" Line="32" Column="25" />
+      <File FileName="GameClient/Models/PlayerRelated/Player.cs" Line="38" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="GameSolution" expanded="True">
             <Node name="GameClient" expanded="True">
+              <Node name="Managers" expanded="True">
+                <Node name="AI Managers" expanded="True" />
+                <Node name="Utilites" expanded="True" />
+              </Node>
               <Node name="Models" expanded="True">
-                <Node name="pathfinding" expanded="True">
-                  <Node name="AStar.cs" selected="True" />
+                <Node name="pathfinding" expanded="True" />
+                <Node name="PlayerRelated" expanded="True" />
+                <Node name="Weapons" expanded="True">
+                  <Node name="Bullet.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

@@ -142,11 +142,11 @@ namespace GameClient
             int id = 0;
             _guns = new List<Gun>();
             _gunAnimations = new List<AnimationManager>();
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(1, 1, 2));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(2, 2, 7,lastIndex:12));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(3, 3, 10));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(1, 1, 2, 0.2f));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(2, 2, 7, 0.05f, 8, lastIndex:9));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(3, 3, 10,0.1f,24,29));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(4, 2, 5));
-            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(5, 2, 6,lastIndex:10));
+            _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(5, 2, 6));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(6, 1, 4));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(7, 1, 12));
             _gunAnimations.Add(GraphicManager.GetAnimationManager_Gun(8, 1, 8));
